@@ -3,107 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketim3000 | Dijital PDF & E-Kitap Mağazası</title>
+    <title>Marketim3000 | Profesyonel Dijital PDF Mağazası</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { background-color: #0b0f19; }
-        .glass { background: rgba(30, 41, 59, 0.65); backdrop-filter: blur(12px); }
+        body { background-color: #030712; }
+        .glass { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(16px); }
+        .hero-glow { background: radial-gradient(circle at center, rgba(79, 70, 229, 0.15) 0%, transparent 70%); }
     </style>
 </head>
-<body class="text-slate-100 font-sans min-h-screen flex flex-col">
+<body class="text-slate-100 font-sans min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
 
     <!-- Üst Menü -->
-    <header class="border-b border-slate-800/80 glass sticky top-0 z-40">
-        <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-2.5">
+    <header class="border-b border-slate-800/80 glass sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-                    <i class="fa-solid fa-file-pdf text-white text-lg"></i>
+                    <i class="fa-solid fa-store text-white text-lg"></i>
                 </div>
-                <h1 class="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-white via-slate-200 to-cyan-400 bg-clip-text text-transparent">
-                    Marketim3000
-                </h1>
+                <div>
+                    <h1 class="text-xl font-black tracking-wide bg-gradient-to-r from-white via-slate-200 to-cyan-400 bg-clip-text text-transparent">
+                        Marketim3000
+                    </h1>
+                    <span class="text-[10px] text-cyan-400 font-semibold tracking-wider uppercase block">Dijital Çözüm Merkezi</span>
+                </div>
             </div>
-            <a href="https://wa.me/905542026620?text=Merhaba,%20destek%20almak%20istiyorum." target="_blank" class="text-slate-400 hover:text-white text-sm font-semibold flex items-center gap-1.5 transition">
-                <i class="fa-brands fa-whatsapp text-emerald-400 text-lg"></i> İletişim
+            <a href="https://wa.me/905542026620?text=Merhaba,%20destek%20almak%20istiyorum." target="_blank" class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-sm">
+                <i class="fa-brands fa-whatsapp text-base"></i> Canlı Destek
             </a>
         </div>
     </header>
 
-    <!-- Karşılama Alanı (Hero & Görsel) -->
-    <section class="max-w-5xl mx-auto px-4 pt-10 pb-8">
-        <div class="relative rounded-3xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900 group">
-            <!-- Arka Plan Görseli ve Karartma Efekti -->
-            <div class="absolute inset-0 z-0">
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop" alt="Dijital Arşiv" class="w-full h-full object-cover opacity-25 group-hover:scale-105 transition duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-[#0b0f19]/80 to-transparent"></div>
-            </div>
+    <!-- Profesyonel Hero (Kapak Görseli Alanı) -->
+    <section class="relative overflow-hidden border-b border-slate-800/80">
+        <!-- Arka Plan Efekti ve Şık Kapak Görseli -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1600&auto=format&fit=crop" alt="Dijital Arşiv Kapak" class="w-full h-full object-cover opacity-20 filter saturate-150">
+            <div class="absolute inset-0 bg-gradient-to-b from-[#030712]/60 via-[#030712]/90 to-[#030712]"></div>
+            <div class="absolute inset-0 hero-glow"></div>
+        </div>
 
-            <!-- İçerik -->
-            <div class="relative z-10 p-8 md:p-14 text-center max-w-3xl mx-auto">
-                <div class="inline-flex items-center gap-2 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-4 py-1.5 rounded-full text-xs font-bold mb-5">
-                    <i class="fa-solid fa-bolt"></i> ANINDA PDF İNDİRME TESLİMATI
+        <div class="relative z-10 max-w-5xl mx-auto px-4 py-16 md:py-24 text-center">
+            <div class="inline-flex items-center gap-2 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-4 py-1.5 rounded-full text-xs font-bold mb-6 shadow-inner">
+                <i class="fa-solid fa-shield-check text-cyan-400"></i> %100 Güvenli Alışveriş & Anında Teslimat
+            </div>
+            <h2 class="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight">
+                Geleceğin Eğitim Araçları ve <br class="hidden md:block">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-teal-400">Özel PDF Arşivi</span>
+            </h2>
+            <p class="text-slate-300 max-w-2xl mx-auto text-base md:text-lg mb-10 leading-relaxed font-normal">
+                Kariyerinizi ve ders süreçlerinizi dönüştürecek, profesyonelce hazırlanmış güncel dijital rehberler. Satın aldığınız an doğrudan cihazınıza indirin.
+            </p>
+
+            <!-- Güven Rozetleri -->
+            <div class="grid grid-cols-3 gap-3 max-w-xl mx-auto text-center border border-slate-800/80 glass rounded-2xl p-4">
+                <div class="flex flex-col items-center gap-1">
+                    <i class="fa-solid fa-bolt text-cyan-400 text-lg"></i>
+                    <span class="text-xs font-bold text-slate-200">Anında Teslim</span>
                 </div>
-                <h2 class="text-3xl md:text-5xl font-black mb-4 leading-tight">
-                    Dijital Rehberler ve <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">E-Kitap Arşivi</span>
-                </h2>
-                <p class="text-slate-300 max-w-xl mx-auto text-base md:text-lg">
-                    Özel hazırlanmış PDF eğitim setleri, rehberler ve ders notları. Satın aldığınız an cihazınıza indirin.
-                </p>
+                <div class="flex flex-col items-center gap-1 border-x border-slate-800">
+                    <i class="fa-solid fa-file-pdf text-indigo-400 text-lg"></i>
+                    <span class="text-xs font-bold text-slate-200">PDF Formatı</span>
+                </div>
+                <div class="flex flex-col items-center gap-1">
+                    <i class="fa-solid fa-headset text-emerald-400 text-lg"></i>
+                    <span class="text-xs font-bold text-slate-200">7/24 Destek</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Ürün Listesi -->
-    <main class="max-w-5xl mx-auto px-4 py-6 flex-grow w-full">
-        <div class="flex items-center justify-between mb-8">
-            <h3 class="text-xl font-bold flex items-center gap-2">
-                <span class="w-2 h-6 bg-indigo-500 rounded-full"></span> Satıştaki PDF Ürünleri
-            </h3>
-            <span class="text-xs font-semibold bg-slate-800 text-slate-400 px-3 py-1 rounded-full">1 Ürün Aktif</span>
+    <!-- Ürünler Alanı -->
+    <main class="max-w-6xl mx-auto px-4 py-12 flex-grow w-full">
+        <div class="flex items-center justify-between mb-8 border-b border-slate-800/80 pb-4">
+            <div>
+                <h3 class="text-2xl font-black flex items-center gap-3">
+                    <span class="w-2.5 h-7 bg-gradient-to-b from-indigo-500 to-cyan-500 rounded-full"></span> 
+                    Aktif Dijital Ürünler
+                </h3>
+                <p class="text-slate-400 text-xs mt-1">Özenle hazırlanan seçkin e-kitap ve rehber koleksiyonumuz</p>
+            </div>
+            <span class="text-xs font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-3.5 py-1.5 rounded-full">
+                1 Özel Ürün
+            </span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             
             <!-- Ürün 1: Eğitimde Yapay Zeka Kullanımı -->
-            <div class="glass border border-slate-800 hover:border-indigo-500/60 rounded-2xl p-6 flex flex-col justify-between transition duration-300 shadow-xl">
+            <div class="glass border border-slate-800 hover:border-indigo-500/60 rounded-3xl p-7 flex flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition"></div>
+                
                 <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-2xl">
+                    <div class="flex items-center justify-between mb-5">
+                        <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-2xl shadow-inner">
                             <i class="fa-solid fa-brain"></i>
                         </div>
-                        <span class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3 py-1 rounded-full text-xs font-bold">
-                            PDF E-Kitap & Rehber
+                        <span class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3.5 py-1.5 rounded-full text-xs font-extrabold tracking-wide uppercase">
+                            Çok Satan PDF
                         </span>
                     </div>
-                    <h4 class="text-xl font-bold text-white mb-2">Eğitimde Yapay Zeka Kullanımı (Özel Rehber)</h4>
+                    
+                    <h4 class="text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition">
+                        Eğitimde Yapay Zeka Kullanımı <span class="text-sm font-normal text-slate-400 block">(Özel Rehber & Kılavuz)</span>
+                    </h4>
+                    
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                        Öğretmenler, öğrenciler ve eğitimciler için yapay zeka araçlarını ders süreçlerinde etkili kullanma kılavuzu, prompt örnekleri ve pratik stratejiler.
+                        Öğretmenler, öğrenciler ve eğitimciler için yapay zeka araçlarını ders süreçlerinde etkili kullanma kılavuzu, hazır prompt örnekleri ve pratik stratejiler.
                     </p>
                 </div>
-                <div class="flex items-center justify-between border-t border-slate-800/80 pt-4 mt-auto">
+
+                <div class="border-t border-slate-800/80 pt-5 mt-auto flex items-center justify-between">
                     <div>
-                        <span class="text-xs text-slate-400 block">Fiyat</span>
-                        <span class="text-2xl font-black text-white">300 <span class="text-cyan-400">₺</span></span>
+                        <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold block">Satış Fiyatı</span>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-3xl font-black text-white">300</span>
+                            <span class="text-cyan-400 font-extrabold text-lg">₺</span>
+                        </div>
                     </div>
-                    <a href="https://wa.me/905542026620?text=Merhaba,%20Eğitimde%20Yapay%20Zeka%20Kullanımı%20PDF%20ürününü%20satın%20almak%20istiyorum." target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-lg shadow-indigo-600/30 transition">
-                        <i class="fa-solid fa-cart-shopping"></i> Satın Al
+                    
+                    <a href="https://wa.me/905542026620?text=Merhaba,%20Eğitimde%20Yapay%20Zeka%20Kullanımı%20PDF%20ürününü%20satın%20almak%20istiyorum." target="_blank" class="bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white px-6 py-3 rounded-2xl text-sm font-extrabold flex items-center gap-2.5 shadow-lg shadow-indigo-600/30 hover:scale-105 transition duration-300">
+                        <i class="fa-solid fa-cart-shopping"><span>Hemen Satın Al</span></i>
                     </a>
                 </div>
             </div>
 
-            <!-- İkinci ürününüz -->
-            <div class="glass border border-dashed border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center text-center text-slate-500 min-h-[250px]">
-                <i class="fa-solid fa-circle-plus text-3xl mb-2 text-slate-600"></i>
-                <p class="text-sm font-medium">2. PDF Ürününüz Yakında Eklenecek</p>
+            <!-- İkinci Ürün Slotu (Gelecek Ürün) -->
+            <div class="glass border border-dashed border-slate-800/80 rounded-3xl p-8 flex flex-col items-center justify-center text-center text-slate-500 min-h-[320px] relative overflow-hidden">
+                <div class="w-14 h-14 rounded-2xl bg-slate-800/50 border border-slate-700/50 flex items-center justify-center text-slate-400 text-2xl mb-4">
+                    <i class="fa-solid fa-sparkles"></i>
+                </div>
+                <h4 class="text-lg font-bold text-slate-300 mb-2">Yeni PDF Serisi Yoldadır</h4>
+                <p class="text-xs text-slate-500 max-w-xs leading-relaxed">
+                    İkinci dijital ürünümüz çok yakında bu alanda yerini alacaktır. Takipte kalın!
+                </p>
             </div>
 
         </div>
     </main>
 
-    <!-- Alt Bilgi -->
-    <footer class="border-t border-slate-800/80 py-8 text-center text-slate-500 text-sm mt-12">
-        <p>© 2026 www.marketim3000.online — Dijital Ürün Mağazası</p>
+    <!-- Profesyonel Alt Bilgi (Footer) -->
+    <footer class="border-t border-slate-800/80 bg-slate-950/60 py-10 mt-16">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+            <div>
+                <span class="text-lg font-black text-white tracking-wide">Marketim3000</span>
+                <p class="text-xs text-slate-500 mt-1">© 2026 www.marketim3000.online — Tüm hakları saklıdır.</p>
+            </div>
+            <div class="flex items-center gap-6 text-xs text-slate-400">
+                <a href="https://wa.me/905542026620" target="_blank" class="hover:text-cyan-400 transition">İletişim & Destek</a>
+                <span>•</span>
+                <span class="text-slate-500">Güvenli Dijital Ticaret</span>
+            </div>
+        </div>
     </footer>
 
 </body>
