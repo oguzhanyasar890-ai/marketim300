@@ -8,8 +8,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         body { background-color: #030712; }
-        .glass { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(16px); }
-        .hero-glow { background: radial-gradient(circle at center, rgba(79, 70, 229, 0.15) 0%, transparent 70%); }
+        .glass { background: rgba(17, 24, 39, 0.75); backdrop-filter: blur(16px); }
+        .hero-banner {
+            background: linear-gradient(to bottom, rgba(3, 7, 18, 0.5), rgba(3, 7, 18, 0.95)), 
+                        url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+        }
     </style>
 </head>
 <body class="text-slate-100 font-sans min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
@@ -34,34 +37,27 @@
         </div>
     </header>
 
-    <!-- Profesyonel Hero (Kapak Görseli Alanı) -->
-    <section class="relative overflow-hidden border-b border-slate-800/80">
-        <!-- Arka Plan Efekti ve Şık Kapak Görseli -->
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1600&auto=format&fit=crop" alt="Dijital Arşiv Kapak" class="w-full h-full object-cover opacity-20 filter saturate-150">
-            <div class="absolute inset-0 bg-gradient-to-b from-[#030712]/60 via-[#030712]/90 to-[#030712]"></div>
-            <div class="absolute inset-0 hero-glow"></div>
-        </div>
-
-        <div class="relative z-10 max-w-5xl mx-auto px-4 py-16 md:py-24 text-center">
-            <div class="inline-flex items-center gap-2 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-4 py-1.5 rounded-full text-xs font-bold mb-6 shadow-inner">
+    <!-- Profesyonel Hero ve Göz Alıcı Kapak Fotoğrafı -->
+    <section class="relative overflow-hidden border-b border-slate-800/80 hero-banner py-20 md:py-28">
+        <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center gap-2 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-4 py-1.5 rounded-full text-xs font-bold mb-6 shadow-lg backdrop-blur-md">
                 <i class="fa-solid fa-shield-check text-cyan-400"></i> Kredi Kartı ile %100 Güvenli Alışveriş & Anında Teslimat
             </div>
-            <h2 class="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight">
+            <h2 class="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight drop-shadow-md">
                 Dijital E-Kitaplar, Rehberler ve <br class="hidden md:block">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-teal-400">Özel Hikaye Arşivi</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-teal-300">Özel Hikaye Arşivi</span>
             </h2>
-            <p class="text-slate-300 max-w-2xl mx-auto text-base md:text-lg mb-10 leading-relaxed font-normal">
-                Kariyerinizi, finansal geleceğinizi ve okuma deneyiminizi dönüştürecek seçkin dijital eserler. Satın aldığınız an cihazınıza indirin.
+            <p class="text-slate-200 max-w-2xl mx-auto text-base md:text-lg mb-10 leading-relaxed font-normal drop-shadow">
+                Kariyerinizi, finansal geleceğinizi ve okuma deneyiminizi dönüştürecek seçkin dijital eserler. Satın aldığınız an doğrudan cihazınıza indirin.
             </p>
 
             <!-- Güven Rozetleri -->
-            <div class="grid grid-cols-3 gap-3 max-w-xl mx-auto text-center border border-slate-800/80 glass rounded-2xl p-4">
+            <div class="grid grid-cols-3 gap-3 max-w-xl mx-auto text-center border border-slate-700/60 glass rounded-2xl p-4 shadow-xl">
                 <div class="flex flex-col items-center gap-1">
                     <i class="fa-solid fa-credit-card text-cyan-400 text-lg"></i>
                     <span class="text-xs font-bold text-slate-200">Kredi Kartı</span>
                 </div>
-                <div class="flex flex-col items-center gap-1 border-x border-slate-800">
+                <div class="flex flex-col items-center gap-1 border-x border-slate-700/60">
                     <i class="fa-solid fa-book-open text-indigo-400 text-lg"></i>
                     <span class="text-xs font-bold text-slate-200">PDF & EPUB</span>
                 </div>
