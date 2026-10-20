@@ -13,15 +13,17 @@
             background: linear-gradient(to bottom, rgba(3, 7, 18, 0.5), rgba(3, 7, 18, 0.95)), 
                         url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
         }
+        /* Chatbot Animasyonları */
+        .chat-open { animation: slideUp 0.3s ease-out forwards; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="text-slate-100 font-sans min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
 
     <!-- Üst Menü & Logo -->
-    <header class="border-b border-slate-800/80 glass sticky top-0 z-50">
+    <header class="border-b border-slate-800/80 glass sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <!-- Yapay Zeka Logosu -->
                 <div class="w-11 h-11 rounded-xl overflow-hidden bg-slate-900 border border-slate-700 flex items-center justify-center shadow-lg">
                     <img src="file_0000000036c881f49f3e7a7e40617b59.png" alt="Marketim3000 Logo" class="w-full h-full object-cover">
                 </div>
@@ -38,8 +40,8 @@
         </div>
     </header>
 
-    <!-- Profesyonel Hero ve Göz Alıcı Kapak Fotoğrafı -->
-    <section class="relative overflow-hidden border-b border-slate-800/80 hero-banner py-16 md:py-24">
+    <!-- Profesyonel Hero ve Kapak -->
+    <section class="relative overflow-hidden border-b border-slate-800/80 hero-banner py-16 md:py-24 z-10">
         <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
             <div class="inline-flex items-center gap-2 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-4 py-1.5 rounded-full text-xs font-bold mb-6 shadow-lg backdrop-blur-md">
                 <i class="fa-solid fa-shield-check text-cyan-400"></i> Kredi Kartı ile %100 Güvenli Alışveriş & Anında Teslimat
@@ -49,24 +51,8 @@
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-teal-300">Özel Hikaye Arşivi</span>
             </h2>
             <p class="text-slate-200 max-w-2xl mx-auto text-base md:text-lg mb-8 leading-relaxed font-normal drop-shadow">
-                Kariyerinizi, finansal geleceğinizi ve okuma deneyiminizi dönüştürecek seçkin dijital eserler. Satın aldığınız an doğrudan cihazınıza indirin.
+                Kariyerinizi, finansal geleceğinizi ve kişisel gelişim yolculuğunuzu dönüştürecek seçkin dijital eserler. Satın aldığınız an doğrudan cihazınıza indirin.
             </p>
-
-            <!-- Güven Rozetleri -->
-            <div class="grid grid-cols-3 gap-3 max-w-xl mx-auto text-center border border-slate-700/60 glass rounded-2xl p-4 shadow-xl">
-                <div class="flex flex-col items-center gap-1">
-                    <i class="fa-solid fa-credit-card text-cyan-400 text-lg"></i>
-                    <span class="text-xs font-bold text-slate-200">Kredi Kartı</span>
-                </div>
-                <div class="flex flex-col items-center gap-1 border-x border-slate-700/60">
-                    <i class="fa-solid fa-book-open text-indigo-400 text-lg"></i>
-                    <span class="text-xs font-bold text-slate-200">PDF & EPUB</span>
-                </div>
-                <div class="flex flex-col items-center gap-1">
-                    <i class="fa-solid fa-headset text-emerald-400 text-lg"></i>
-                    <span class="text-xs font-bold text-slate-200">7/24 Destek</span>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -79,7 +65,6 @@
                 </h3>
                 <p class="text-xs text-slate-400">Dijital kütüphanemizi ve kolay kullanımını keşfedin</p>
             </div>
-            <!-- YouTube Video Oynatıcı -->
             <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-inner bg-black">
                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/5IBCUDVQmh8" title="Marketim3000 Tanıtım" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
@@ -87,7 +72,7 @@
     </section>
 
     <!-- Ürünler Alanı -->
-    <main class="max-w-6xl mx-auto px-4 py-6 flex-grow w-full">
+    <main class="max-w-6xl mx-auto px-4 py-6 flex-grow w-full z-10 relative">
         <div class="flex items-center justify-between mb-8 border-b border-slate-800/80 pb-4">
             <div>
                 <h3 class="text-2xl font-black flex items-center gap-3">
@@ -96,138 +81,197 @@
                 </h3>
                 <p class="text-slate-400 text-xs mt-1">Özenle hazırlanan seçkin e-kitap, rehber ve hikaye koleksiyonumuz</p>
             </div>
-            <span class="text-xs font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-3.5 py-1.5 rounded-full">
-                4 Özel Ürün
-            </span>
+            <span class="text-xs font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-3.5 py-1.5 rounded-full">4 Özel Ürün</span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            <!-- Ürün 1: Zihin Haritası Psikolojik Rehber (E-PUB) -->
+            <!-- Ürün 1 -->
             <div class="glass border border-slate-800 hover:border-purple-500/60 rounded-3xl p-6 flex flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl group-hover:bg-purple-500/10 transition"></div>
                 <div>
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl shadow-inner">
-                            <i class="fa-solid fa-brain"></i>
-                        </div>
-                        <span class="bg-purple-500/10 text-purple-300 border border-purple-500/20 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase">
-                            Yeni E-PUB
-                        </span>
+                        <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-xl shadow-inner"><i class="fa-solid fa-brain"></i></div>
+                        <span class="bg-purple-500/10 text-purple-300 border border-purple-500/20 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase">Yeni E-PUB</span>
                     </div>
-                    <h4 class="text-lg font-bold text-white mb-2 group-hover:text-purple-300 transition">
-                        Zihin Haritası Psikolojik Rehber <span class="text-xs font-normal text-slate-400 block">(E-PUB Kitap)</span>
-                    </h4>
-                    <p class="text-slate-400 text-xs leading-relaxed mb-6">
-                        Zihinsel potansiyelinizi açığa çıkarın, psikolojik farkındalık kazanın ve düşünce kalıplarınızı dönüştürün.
-                    </p>
+                    <h4 class="text-lg font-bold text-white mb-2 group-hover:text-purple-300 transition">Zihin Haritası Psikolojik Rehber</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Zihinsel potansiyelinizi açığa çıkarın, psikolojik farkındalık kazanın ve düşünce kalıplarınızı dönüştürün.</p>
                 </div>
                 <div class="border-t border-slate-800/80 pt-4 mt-auto flex items-center justify-between">
                     <div>
                         <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Fiyat</span>
                         <span class="text-2xl font-black text-white">100 <span class="text-purple-400 text-sm">₺</span></span>
                     </div>
-                    <a href="https://www.shopier.com/NetHost/52048048" target="_blank" class="bg-purple-600 hover:bg-purple-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg transition">
-                        <i class="fa-solid fa-credit-card"></i> Satın Al
-                    </a>
+                    <a href="https://www.shopier.com/NetHost/52048048" target="_blank" class="bg-purple-600 hover:bg-purple-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg transition"><i class="fa-solid fa-credit-card"></i> Satın Al</a>
                 </div>
             </div>
 
-            <!-- Ürün 2: Eğitimde Yapay Zeka Kullanımı -->
+            <!-- Ürün 2 -->
             <div class="glass border border-slate-800 hover:border-indigo-500/60 rounded-3xl p-6 flex flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition"></div>
                 <div>
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-xl shadow-inner">
-                            <i class="fa-solid fa-robot"></i>
-                        </div>
-                        <span class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase">
-                            Popüler PDF
-                        </span>
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-xl shadow-inner"><i class="fa-solid fa-robot"></i></div>
+                        <span class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase">Popüler PDF</span>
                     </div>
-                    <h4 class="text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition">
-                        Eğitimde Yapay Zeka Kullanımı <span class="text-xs font-normal text-slate-400 block">(Rehber & Kılavuz)</span>
-                    </h4>
-                    <p class="text-slate-400 text-xs leading-relaxed mb-6">
-                        Öğretmen ve eğitimciler için yapay zeka araçlarını ders süreçlerinde etkili kullanma kılavuzu ve prompt örnekleri.
-                    </p>
+                    <h4 class="text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition">Eğitimde Yapay Zeka Kullanımı</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Öğretmen ve eğitimciler için yapay zeka araçlarını ders süreçlerinde etkili kullanma kılavuzu ve prompt örnekleri.</p>
                 </div>
                 <div class="border-t border-slate-800/80 pt-4 mt-auto flex items-center justify-between">
                     <div>
                         <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Fiyat</span>
                         <span class="text-2xl font-black text-white">100 <span class="text-cyan-400 text-sm">₺</span></span>
                     </div>
-                    <a href="https://www.shopier.com/52030914" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg transition">
-                        <i class="fa-solid fa-credit-card"></i> Satın Al
-                    </a>
+                    <a href="https://www.shopier.com/52030914" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg transition"><i class="fa-solid fa-credit-card"></i> Satın Al</a>
                 </div>
             </div>
 
-            <!-- Ürün 3: Sıfırdan Bütçe Yönetimi ve Finansal Özgürlük Rehberi -->
+            <!-- Ürün 3 -->
             <div class="glass border border-slate-800 hover:border-emerald-500/60 rounded-3xl p-6 flex flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition"></div>
                 <div>
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl shadow-inner">
-                            <i class="fa-solid fa-wallet"></i>
-                        </div>
-                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase">
-                            Özel E-Kitap
-                        </span>
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl shadow-inner"><i class="fa-solid fa-wallet"></i></div>
+                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase">Özel E-Kitap</span>
                     </div>
-                    <h4 class="text-lg font-bold text-white mb-2 group-hover:text-emerald-300 transition">
-                        Sıfırdan Bütçe Yönetimi <span class="text-xs font-normal text-slate-400 block">(Finansal Özgürlük)</span>
-                    </h4>
-                    <p class="text-slate-400 text-xs leading-relaxed mb-6">
-                        Kişisel finansınızı kontrol altına alın, tasarruf alışkanlığı kazanın ve sürdürülebilir yatırım planı oluşturun.
-                    </p>
+                    <h4 class="text-lg font-bold text-white mb-2 group-hover:text-emerald-300 transition">Sıfırdan Bütçe Yönetimi</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Kişisel finansınızı kontrol altına alın, tasarruf alışkanlığı kazanın ve sürdürülebilir yatırım planı oluşturun.</p>
                 </div>
                 <div class="border-t border-slate-800/80 pt-4 mt-auto flex items-center justify-between">
                     <div>
                         <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Fiyat</span>
                         <span class="text-2xl font-black text-white">100 <span class="text-emerald-400 text-sm">₺</span></span>
                     </div>
-                    <a href="https://www.shopier.com/NetHost/52026309" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg transition">
-                        <i class="fa-solid fa-credit-card"></i> Satın Al
-                    </a>
+                    <a href="https://www.shopier.com/NetHost/52026309" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg transition"><i class="fa-solid fa-credit-card"></i> Satın Al</a>
                 </div>
             </div>
 
-            <!-- Ürün 4: Vepsteni İzinde (Aşk Hikayesi) -->
+            <!-- Ürün 4 -->
             <div class="glass border border-slate-800 hover:border-amber-500/60 rounded-3xl p-6 flex flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl group-hover:bg-amber-500/10 transition"></div>
                 <div>
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl shadow-inner">
-                            <i class="fa-solid fa-heart-pulse"></i>
-                        </div>
-                        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase">
-                            Aşk Hikayesi
-                        </span>
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl shadow-inner"><i class="fa-solid fa-heart-pulse"></i></div>
+                        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase">Aşk Hikayesi</span>
                     </div>
-                    <h4 class="text-lg font-bold text-white mb-2 group-hover:text-amber-300 transition">
-                        Vepsteni İzinde <span class="text-xs font-normal text-slate-400 block">(EPUB Aşk Hikayesi)</span>
-                    </h4>
-                    <p class="text-slate-400 text-xs leading-relaxed mb-6">
-                        Yürek burkan anlatımı, tutkulu kurgusu ve derin duygularıyla okuyucusunu etkisi altına alan unutulmaz bir aşk hikayesi.
-                    </p>
+                    <h4 class="text-lg font-bold text-white mb-2 group-hover:text-amber-300 transition">Vepsteni İzinde</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed mb-6">Yürek burkan anlatımı, tutkulu kurgusu ve derin duygularıyla okuyucusunu etkisi altına alan unutulmaz bir aşk hikayesi.</p>
                 </div>
                 <div class="border-t border-slate-800/80 pt-4 mt-auto flex items-center justify-between">
                     <div>
                         <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Fiyat</span>
                         <span class="text-2xl font-black text-white">100 <span class="text-amber-400 text-sm">₺</span></span>
                     </div>
-                    <a href="https://www.shopier.com/NetHost/52040986" target="_blank" class="bg-amber-600 hover:bg-amber-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg transition">
-                        <i class="fa-solid fa-credit-card"></i> Satın Al
-                    </a>
+                    <a href="https://www.shopier.com/NetHost/52040986" target="_blank" class="bg-amber-600 hover:bg-amber-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg transition"><i class="fa-solid fa-credit-card"></i> Satın Al</a>
                 </div>
             </div>
-
         </div>
     </main>
 
-    <!-- Profesyonel Alt Bilgi (Footer) -->
-    <footer class="border-t border-slate-800/80 bg-slate-950/60 py-10 mt-16">
+    <!-- YAPAY ZEKA SOHBET BALONU (CHATBOT) -->
+    <div id="aiChatbot" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        <!-- Sohbet Penceresi (Varsayılan olarak kapalı) -->
+        <div id="chatWindow" class="hidden w-80 sm:w-96 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl mb-4 overflow-hidden flex-col chat-open">
+            <div class="bg-gradient-to-r from-indigo-600 to-cyan-600 px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"><i class="fa-solid fa-robot text-white text-sm"></i></div>
+                    <div>
+                        <h4 class="text-white text-sm font-bold">Yapay Zeka Asistanı</h4>
+                        <span class="text-[10px] text-cyan-200 block">Çevrimiçi</span>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-white/80 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            
+            <div id="chatMessages" class="p-4 h-64 overflow-y-auto bg-slate-900/50 flex flex-col gap-3 text-sm">
+                <!-- Bot Karşılama Mesajı -->
+                <div class="flex gap-2 w-full">
+                    <div class="w-6 h-6 rounded-full bg-indigo-500 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-robot text-white text-[10px]"></i></div>
+                    <div class="bg-slate-800 text-slate-200 px-3 py-2 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm">
+                        Merhaba! Marketim3000'e hoş geldiniz. Ben yapay zeka asistanınızım. Size kitaplarımız veya fiyatlarımız hakkında nasıl yardımcı olabilirim?
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3 bg-slate-900 border-t border-slate-800 flex items-center gap-2">
+                <input type="text" id="chatInput" placeholder="Bir soru sorun..." class="flex-grow bg-slate-800 text-white text-sm px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-cyan-500 transition" onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()" class="bg-cyan-600 hover:bg-cyan-500 text-white w-10 h-10 rounded-xl flex items-center justify-center transition shadow-md"><i class="fa-solid fa-paper-plane text-sm"></i></button>
+            </div>
+        </div>
+
+        <!-- Yüzen Chat Butonu -->
+        <button onclick="toggleChat()" class="w-14 h-14 bg-gradient-to-r from-indigo-600 to-cyan-500 hover:scale-105 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/30 transition duration-300 relative">
+            <i class="fa-solid fa-comment-dots text-white text-2xl"></i>
+            <span class="absolute top-0 right-0 w-3.5 h-3.5 bg-rose-500 border-2 border-slate-900 rounded-full animate-pulse"></span>
+        </button>
+    </div>
+
+    <!-- Chatbot Akıl Mantığı (JavaScript) -->
+    <script>
+        const chatWindow = document.getElementById('chatWindow');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+
+        function toggleChat() {
+            if (chatWindow.classList.contains('hidden')) {
+                chatWindow.classList.remove('hidden');
+                chatWindow.classList.add('flex');
+            } else {
+                chatWindow.classList.add('hidden');
+                chatWindow.classList.remove('flex');
+            }
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        function sendMessage() {
+            const userText = chatInput.value.trim();
+            if (!userText) return;
+
+            // Kullanıcı mesajını ekle
+            chatMessages.innerHTML += `
+                <div class="flex gap-2 w-full justify-end">
+                    <div class="bg-cyan-600 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm max-w-[85%]">${userText}</div>
+                </div>`;
+            chatInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Yapay Zeka Düşünüyor efekti (Kısa gecikme)
+            setTimeout(() => {
+                botReply(userText.toLowerCase());
+            }, 700);
+        }
+
+        function botReply(text) {
+            let reply = "";
+
+            if (text.includes("fiyat") || text.includes("ücret") || text.includes("ne kadar") || text.includes("kaç tl")) {
+                reply = "Şu an mağazamızdaki tüm eşsiz e-kitaplar ve rehberler kampanyada olup sadece <b>100 TL</b>'dir. Satın al butonuna basarak kredi kartıyla anında alabilirsiniz!";
+            } else if (text.includes("kitap") || text.includes("neler var") || text.includes("ürün")) {
+                reply = "Şu an satışta 4 harika ürünümüz var: <br>1. Zihin Haritası Psikolojik Rehber<br>2. Eğitimde Yapay Zeka<br>3. Sıfırdan Bütçe Yönetimi<br>4. Vepsteni İzinde (Aşk Hikayesi)";
+            } else if (text.includes("nasıl") || text.includes("satın al") || text.includes("indir")) {
+                reply = "Ürünlerin altındaki 'Satın Al' butonuna tıklayarak Shopier üzerinden %100 güvenli şekilde ödeme yapabilirsiniz. Ödemeniz tamamlandığı an kitap doğrudan cihazınıza inecektir.";
+            } else if (text.includes("merhaba") || text.includes("selam")) {
+                reply = "Merhaba! Marketim3000'e hoş geldiniz. Size nasıl yardımcı olabilirim?";
+            } else {
+                reply = "Harika bir soru! Daha detaylı bilgi almak veya farklı bir konuda destek istemek için üst menüdeki <b>Canlı Destek (WhatsApp)</b> butonuna tıklayarak Oğuzhan Bey ile direkt iletişime geçebilirsiniz.";
+            }
+
+            // Bot mesajını ekle
+            chatMessages.innerHTML += `
+                <div class="flex gap-2 w-full">
+                    <div class="w-6 h-6 rounded-full bg-indigo-500 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-robot text-white text-[10px]"></i></div>
+                    <div class="bg-slate-800 text-slate-200 px-3 py-2 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm max-w-[85%]">
+                        ${reply}
+                    </div>
+                </div>`;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+
+    <!-- Alt Bilgi (Footer) -->
+    <footer class="border-t border-slate-800/80 bg-slate-950/60 py-10 mt-16 z-10 relative">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
             <div>
                 <span class="text-lg font-black text-white tracking-wide">Marketim3000</span>
@@ -235,8 +279,7 @@
             </div>
             <div class="flex items-center gap-6 text-xs text-slate-400">
                 <a href="https://wa.me/905542026620" target="_blank" class="hover:text-cyan-400 transition">İletişim & Destek</a>
-                <span>•</span>
-                <span class="text-slate-500">Güvenli Kredi Kartı Ödeme</span>
+                <span>•</span><span class="text-slate-500">Güvenli Kredi Kartı Ödeme</span>
             </div>
         </div>
     </footer>
