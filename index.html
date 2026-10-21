@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marketim3000 | Profesyonel Dijital E-Kitap Mağazası</title>
+    <!-- Sekme için küçük resim (Favicon) eklendi -->
+    <link rel="icon" href="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=100&auto=format&fit=crop" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -21,8 +23,6 @@
         .star-rating label { color: #475569; cursor: pointer; font-size: 1.5rem; transition: color 0.2s; }
         .star-rating input:checked ~ label { color: #f59e0b; }
         .star-rating label:hover, .star-rating label:hover ~ label { color: #fbbf24; }
-        
-        /* Yatay kaydırma çubuğunu gizlemek için */
         .hide-scroll-bar { -ms-overflow-style: none; scrollbar-width: none; }
         .hide-scroll-bar::-webkit-scrollbar { display: none; }
     </style>
@@ -90,7 +90,6 @@
                 </h3>
             </div>
             
-            <!-- Kategori Filtreleme Butonları -->
             <div class="flex flex-wrap items-center gap-2 justify-center">
                 <button onclick="filterProducts('all', this)" class="filter-btn bg-cyan-600 border border-cyan-500 text-white px-3.5 py-1.5 rounded-full text-[11px] font-bold shadow-lg transition">Tümü</button>
                 <button onclick="filterProducts('psikoloji', this)" class="filter-btn glass border border-slate-700 hover:border-cyan-500/50 text-slate-300 px-3.5 py-1.5 rounded-full text-[11px] font-bold transition">Psikoloji</button>
@@ -102,7 +101,7 @@
 
         <p class="text-right text-xs text-cyan-400 font-semibold mb-4 animate-pulse md:hidden"><i class="fa-solid fa-arrow-right-long mr-1"></i> Sağa doğru kaydırın</p>
 
-        <!-- YAN YANA KAYAN PENCERE BÖLÜMÜ (FLEX CAROUSEL) -->
+        <!-- YAN YANA KAYAN PENCERE BÖLÜMÜ -->
         <div class="flex overflow-x-auto gap-6 pb-8 pt-2 snap-x snap-mandatory hide-scroll-bar scroll-smooth" id="productContainer">
             
             <!-- Ürün 5: Yeni Başlayanlar -->
@@ -348,18 +347,25 @@
         </div>
     </section>
 
-    <!-- YAPAY ZEKA SOHBET BALONU (CHATBOT) -->
-    <div id="aiChatbot" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <!-- YAPAY ZEKA SOHBET BALONU (CHATBOT) - SAĞLAMLAŞTIRILDI VE AVATAR EKLENDİ -->
+    <div id="aiChatbot" class="fixed bottom-6 right-6 z-[9999] flex flex-col items-end">
         <div id="chatWindow" class="hidden w-80 sm:w-96 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl mb-4 overflow-hidden flex-col chat-open">
+            
+            <!-- AVATARLI YENİ ÜST KISIM -->
             <div class="bg-gradient-to-r from-indigo-600 to-cyan-600 px-4 py-3 flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center"><i class="fa-solid fa-robot text-white text-sm"></i></div>
+                <div class="flex items-center gap-3">
+                    <!-- ŞIK AI AVATARI (Küçük Resim) -->
+                    <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden border-2 border-white/30 shadow-md">
+                        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=150&auto=format&fit=crop" alt="AI Asistan" class="w-full h-full object-cover">
+                    </div>
                     <div>
-                        <h4 class="text-white text-sm font-bold">Yapay Zeka Asistanı</h4>
-                        <span class="text-[10px] text-cyan-200 block">Çevrimiçi</span>
+                        <h4 class="text-white text-sm font-bold tracking-wide">Yapay Zeka Asistanı</h4>
+                        <span class="text-[10px] text-cyan-200 flex items-center gap-1 font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Çevrimiçi
+                        </span>
                     </div>
                 </div>
-                <button onclick="toggleChat()" class="text-white/80 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <button onclick="toggleChat()" class="text-white/80 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             
             <div id="chatMessages" class="p-4 h-64 overflow-y-auto bg-slate-900/50 flex flex-col gap-3 text-sm">
@@ -377,9 +383,9 @@
             </div>
         </div>
 
-        <button onclick="toggleChat()" class="w-14 h-14 bg-gradient-to-r from-indigo-600 to-cyan-500 hover:scale-105 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/30 transition duration-300 relative">
+        <button onclick="toggleChat()" class="w-16 h-16 bg-gradient-to-r from-indigo-600 to-cyan-500 hover:scale-105 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(6,182,212,0.4)] transition duration-300 relative z-50">
             <i class="fa-solid fa-robot text-white text-2xl"></i>
-            <span class="absolute -top-2 -right-4 bg-rose-500 text-white text-[9px] font-black px-2 py-0.5 border border-slate-900 rounded-full tracking-widest shadow-sm whitespace-nowrap">AI CHAT</span>
+            <span class="absolute -top-1 -right-2 bg-rose-500 text-white text-[10px] font-black px-2.5 py-1 border-2 border-slate-900 rounded-full tracking-wider shadow-sm whitespace-nowrap">AI CHAT</span>
         </button>
     </div>
 
