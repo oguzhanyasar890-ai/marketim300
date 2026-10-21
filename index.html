@@ -92,13 +92,39 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="productContainer">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6" id="productContainer">
             
-            <!-- Ürün 1 -->
+            <!-- Ürün 5 (YENİ EKLENEN): Yeni Başlayanlar İçin Yapay Zeka Kılavuzu -->
+            <div class="product-card flex glass border border-slate-800 hover:border-blue-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="egitim">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl group-hover:bg-blue-500/10 transition"></div>
+                
+                <!-- Ürün Görseli -->
+                <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
+                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=600&auto=format&fit=crop" alt="Yapay Zeka Kılavuzu" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <span class="absolute top-2 right-2 z-20 bg-blue-600/90 backdrop-blur-md text-white px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase shadow-lg border border-blue-400/30">Yeni Başlayanlar</span>
+                </div>
+
+                <div>
+                    <div class="flex gap-3 mb-3 items-start">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex-shrink-0 flex items-center justify-center text-blue-400 text-lg shadow-inner"><i class="fa-solid fa-microchip"></i></div>
+                        <h4 class="text-sm md:text-base font-bold text-white group-hover:text-blue-300 transition leading-tight mt-0.5">Yeni Başlayanlar İçin Yapay Zeka Kılavuzu</h4>
+                    </div>
+                    <p class="text-slate-400 text-[11px] leading-relaxed mb-6">Yapay zeka dünyasına ilk adımınızı atın. Temel kavramlar, günlük kullanım ve hayatınızı kolaylaştıracak pratik ipuçları.</p>
+                </div>
+                <div class="border-t border-slate-800/80 pt-4 mt-auto flex items-center justify-between">
+                    <div>
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Fiyat</span>
+                        <span class="text-2xl font-black text-white">55 <span class="text-blue-400 text-sm">₺</span></span>
+                    </div>
+                    <a href="https://www.shopier.com/NetHost/52074580" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg transition"><i class="fa-solid fa-credit-card"></i> Satın Al</a>
+                </div>
+            </div>
+
+            <!-- Ürün 1: Psikoloji -->
             <div class="product-card flex glass border border-slate-800 hover:border-purple-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="psikoloji">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl group-hover:bg-purple-500/10 transition"></div>
                 
-                <!-- Ürün Görseli -->
                 <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
                     <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=600&auto=format&fit=crop" alt="Psikoloji" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
@@ -108,7 +134,7 @@
                 <div>
                     <div class="flex gap-3 mb-3 items-start">
                         <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex-shrink-0 flex items-center justify-center text-purple-400 text-lg shadow-inner"><i class="fa-solid fa-brain"></i></div>
-                        <h4 class="text-base font-bold text-white group-hover:text-purple-300 transition leading-tight mt-0.5">Zihin Haritası Psikolojik Rehber</h4>
+                        <h4 class="text-sm md:text-base font-bold text-white group-hover:text-purple-300 transition leading-tight mt-0.5">Zihin Haritası Psikolojik Rehber</h4>
                     </div>
                     <p class="text-slate-400 text-[11px] leading-relaxed mb-6">Zihinsel potansiyelinizi açığa çıkarın, psikolojik farkındalık kazanın ve düşünce kalıplarınızı dönüştürün.</p>
                 </div>
@@ -121,11 +147,10 @@
                 </div>
             </div>
 
-            <!-- Ürün 2 -->
+            <!-- Ürün 2: Eğitimde Yapay Zeka -->
             <div class="product-card flex glass border border-slate-800 hover:border-indigo-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="egitim">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition"></div>
                 
-                <!-- Ürün Görseli -->
                 <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
                     <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=600&auto=format&fit=crop" alt="Eğitim" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
@@ -135,7 +160,7 @@
                 <div>
                     <div class="flex gap-3 mb-3 items-start">
                         <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex-shrink-0 flex items-center justify-center text-indigo-400 text-lg shadow-inner"><i class="fa-solid fa-robot"></i></div>
-                        <h4 class="text-base font-bold text-white group-hover:text-cyan-300 transition leading-tight mt-0.5">Eğitimde Yapay Zeka Kullanımı</h4>
+                        <h4 class="text-sm md:text-base font-bold text-white group-hover:text-cyan-300 transition leading-tight mt-0.5">Eğitimde Yapay Zeka Kullanımı</h4>
                     </div>
                     <p class="text-slate-400 text-[11px] leading-relaxed mb-6">Öğretmen ve eğitimciler için yapay zeka araçlarını ders süreçlerinde etkili kullanma kılavuzu ve prompt örnekleri.</p>
                 </div>
@@ -148,11 +173,10 @@
                 </div>
             </div>
 
-            <!-- Ürün 3 -->
+            <!-- Ürün 3: Finans -->
             <div class="product-card flex glass border border-slate-800 hover:border-emerald-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="finans">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition"></div>
                 
-                <!-- Ürün Görseli -->
                 <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
                     <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop" alt="Finans" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
@@ -162,7 +186,7 @@
                 <div>
                     <div class="flex gap-3 mb-3 items-start">
                         <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex-shrink-0 flex items-center justify-center text-emerald-400 text-lg shadow-inner"><i class="fa-solid fa-wallet"></i></div>
-                        <h4 class="text-base font-bold text-white group-hover:text-emerald-300 transition leading-tight mt-0.5">Sıfırdan Bütçe Yönetimi</h4>
+                        <h4 class="text-sm md:text-base font-bold text-white group-hover:text-emerald-300 transition leading-tight mt-0.5">Sıfırdan Bütçe Yönetimi</h4>
                     </div>
                     <p class="text-slate-400 text-[11px] leading-relaxed mb-6">Kişisel finansınızı kontrol altına alın, tasarruf alışkanlığı kazanın ve sürdürülebilir yatırım planı oluşturun.</p>
                 </div>
@@ -175,11 +199,10 @@
                 </div>
             </div>
 
-            <!-- Ürün 4 -->
+            <!-- Ürün 4: Aşk Hikayesi -->
             <div class="product-card flex glass border border-slate-800 hover:border-amber-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="hikaye">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl group-hover:bg-amber-500/10 transition"></div>
                 
-                <!-- Ürün Görseli -->
                 <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
                     <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=600&auto=format&fit=crop" alt="Aşk Hikayesi" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
@@ -189,7 +212,7 @@
                 <div>
                     <div class="flex gap-3 mb-3 items-start">
                         <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex-shrink-0 flex items-center justify-center text-amber-400 text-lg shadow-inner"><i class="fa-solid fa-heart-pulse"></i></div>
-                        <h4 class="text-base font-bold text-white group-hover:text-amber-300 transition leading-tight mt-0.5">Harika Aşk Romanı <span class="text-[10px] font-normal text-slate-400 block mt-1">(EPUB)</span></h4>
+                        <h4 class="text-sm md:text-base font-bold text-white group-hover:text-amber-300 transition leading-tight mt-0.5">Harika Aşk Romanı <span class="text-[10px] font-normal text-slate-400 block mt-1">(EPUB)</span></h4>
                     </div>
                     <p class="text-slate-400 text-[11px] leading-relaxed mb-6">Yürek burkan anlatımı, tutkulu kurgusu ve derin duygularıyla okuyucusunu etkisi altına alan unutulmaz bir aşk hikayesi.</p>
                 </div>
@@ -201,6 +224,7 @@
                     <a href="https://www.shopier.com/NetHost/52040986" target="_blank" class="bg-amber-600 hover:bg-amber-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg transition"><i class="fa-solid fa-credit-card"></i> Satın Al</a>
                 </div>
             </div>
+
         </div>
     </main>
 
@@ -374,9 +398,9 @@
         function botReply(text) {
             let reply = "";
             if (text.includes("fiyat") || text.includes("ücret") || text.includes("kadar") || text.includes("kaç tl")) {
-                reply = "Şu an mağazamızdaki tüm eşsiz e-kitaplar ve rehberler kampanyada olup sadece <b>100 TL</b>'dir.";
+                reply = "Mağazamızdaki eşsiz e-kitaplar ve rehberler kampanyada olup fiyatları <b>55 TL</b> ile <b>100 TL</b> arasında değişmektedir.";
             } else if (text.includes("kitap") || text.includes("neler var") || text.includes("ürün")) {
-                reply = "Şu an satışta 4 harika ürünümüz var: <br>1. Psikoloji<br>2. Eğitim<br>3. Finans<br>4. Harika Aşk Romanı";
+                reply = "Şu an satışta 5 harika ürünümüz var: <br>1. Psikoloji<br>2. Eğitimde Yapay Zeka<br>3. Finans<br>4. Harika Aşk Romanı<br>5. Yeni Başlayanlar İçin YZ Kılavuzu";
             } else if (text.includes("nasıl") || text.includes("satın al") || text.includes("indir")) {
                 reply = "Ürünlerin altındaki 'Satın Al' butonuna tıklayarak Shopier üzerinden %100 güvenli ödeme yapabilirsiniz. Kitap otomatik olarak inecektir.";
             } else {
