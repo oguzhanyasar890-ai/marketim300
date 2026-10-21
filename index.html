@@ -17,6 +17,11 @@
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
+        /* Yıldız Seçimi İçin Özel CSS */
+        .star-rating input { display: none; }
+        .star-rating label { color: #475569; cursor: pointer; font-size: 1.5rem; transition: color 0.2s; }
+        .star-rating input:checked ~ label { color: #f59e0b; }
+        .star-rating label:hover, .star-rating label:hover ~ label { color: #fbbf24; }
     </style>
 </head>
 <body class="text-slate-100 font-sans min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
@@ -94,17 +99,14 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6" id="productContainer">
             
-            <!-- Ürün 5 (YENİ EKLENEN): Yeni Başlayanlar İçin Yapay Zeka Kılavuzu -->
+            <!-- Ürün 5: Yeni Başlayanlar İçin Yapay Zeka Kılavuzu -->
             <div class="product-card flex glass border border-slate-800 hover:border-blue-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="egitim">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl group-hover:bg-blue-500/10 transition"></div>
-                
-                <!-- Ürün Görseli -->
                 <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
                     <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=600&auto=format&fit=crop" alt="Yapay Zeka Kılavuzu" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                     <span class="absolute top-2 right-2 z-20 bg-blue-600/90 backdrop-blur-md text-white px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase shadow-lg border border-blue-400/30">Yeni Başlayanlar</span>
                 </div>
-
                 <div>
                     <div class="flex gap-3 mb-3 items-start">
                         <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex-shrink-0 flex items-center justify-center text-blue-400 text-lg shadow-inner"><i class="fa-solid fa-microchip"></i></div>
@@ -124,13 +126,11 @@
             <!-- Ürün 1: Psikoloji -->
             <div class="product-card flex glass border border-slate-800 hover:border-purple-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="psikoloji">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl group-hover:bg-purple-500/10 transition"></div>
-                
                 <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
                     <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=600&auto=format&fit=crop" alt="Psikoloji" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                     <span class="absolute top-2 right-2 z-20 bg-purple-600/90 backdrop-blur-md text-white px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase shadow-lg border border-purple-400/30">Yeni E-PUB</span>
                 </div>
-
                 <div>
                     <div class="flex gap-3 mb-3 items-start">
                         <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex-shrink-0 flex items-center justify-center text-purple-400 text-lg shadow-inner"><i class="fa-solid fa-brain"></i></div>
@@ -150,13 +150,11 @@
             <!-- Ürün 2: Eğitimde Yapay Zeka -->
             <div class="product-card flex glass border border-slate-800 hover:border-indigo-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="egitim">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition"></div>
-                
                 <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
                     <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=600&auto=format&fit=crop" alt="Eğitim" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                     <span class="absolute top-2 right-2 z-20 bg-cyan-600/90 backdrop-blur-md text-white px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase shadow-lg border border-cyan-400/30">Popüler PDF</span>
                 </div>
-
                 <div>
                     <div class="flex gap-3 mb-3 items-start">
                         <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex-shrink-0 flex items-center justify-center text-indigo-400 text-lg shadow-inner"><i class="fa-solid fa-robot"></i></div>
@@ -176,13 +174,11 @@
             <!-- Ürün 3: Finans -->
             <div class="product-card flex glass border border-slate-800 hover:border-emerald-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="finans">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition"></div>
-                
                 <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
                     <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop" alt="Finans" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                     <span class="absolute top-2 right-2 z-20 bg-emerald-600/90 backdrop-blur-md text-white px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase shadow-lg border border-emerald-400/30">Özel E-Kitap</span>
                 </div>
-
                 <div>
                     <div class="flex gap-3 mb-3 items-start">
                         <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex-shrink-0 flex items-center justify-center text-emerald-400 text-lg shadow-inner"><i class="fa-solid fa-wallet"></i></div>
@@ -202,13 +198,11 @@
             <!-- Ürün 4: Aşk Hikayesi -->
             <div class="product-card flex glass border border-slate-800 hover:border-amber-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="hikaye">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl group-hover:bg-amber-500/10 transition"></div>
-                
                 <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
                     <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=600&auto=format&fit=crop" alt="Aşk Hikayesi" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                     <span class="absolute top-2 right-2 z-20 bg-amber-600/90 backdrop-blur-md text-white px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase shadow-lg border border-amber-400/30">Aşk Hikayesi</span>
                 </div>
-
                 <div>
                     <div class="flex gap-3 mb-3 items-start">
                         <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex-shrink-0 flex items-center justify-center text-amber-400 text-lg shadow-inner"><i class="fa-solid fa-heart-pulse"></i></div>
@@ -244,7 +238,7 @@
         </div>
     </section>
 
-    <!-- Okur Yorumları Alanı -->
+    <!-- Okur Yorumları Alanı & Yorum Yapma Formu -->
     <section class="max-w-6xl mx-auto px-4 py-8 relative z-10">
         <div class="flex items-center justify-between mb-8 border-b border-slate-800/80 pb-4">
             <h3 class="text-2xl font-black flex items-center gap-3">
@@ -252,7 +246,9 @@
                 Sizden Gelenler
             </h3>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Statik Onaylanmış Yorumlar -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div class="glass border border-slate-800 rounded-2xl p-6 shadow-xl">
                 <div class="flex gap-1 text-amber-400 text-sm mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                 <p class="text-slate-300 text-sm italic mb-4">"Yapay zeka rehberi sayesinde ders planlarımı 10 dakikada hazırlar oldum. Ödeme yapar yapmaz PDF anında mailime geldi. Harika hizmet!"</p>
@@ -277,6 +273,41 @@
                     <span class="text-xs text-slate-400 font-semibold">Mühendis</span>
                 </div>
             </div>
+        </div>
+
+        <!-- Müşteri Yorum Yapma Formu -->
+        <div id="commentFormContainer" class="max-w-2xl mx-auto glass border border-slate-700/80 rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-500"></div>
+            <div class="text-center mb-6">
+                <h4 class="text-xl font-bold text-white mb-2"><i class="fa-regular fa-comment-dots text-emerald-400 mr-2"></i>Deneyiminizi Paylaşın</h4>
+                <p class="text-xs text-slate-400">Ürünlerimiz hakkında ne düşünüyorsunuz? Yorum bırakarak diğer okurlara yardımcı olun.</p>
+            </div>
+            
+            <form id="customerCommentForm" onsubmit="submitComment(event)" class="flex flex-col gap-4">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1">
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Adınız Soyadınız</label>
+                        <input type="text" required placeholder="Örn: Ahmet Yılmaz" class="w-full bg-slate-900/80 border border-slate-700 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition text-sm">
+                    </div>
+                    <div class="flex-1">
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Değerlendirmeniz</label>
+                        <div class="flex flex-row-reverse justify-end gap-1 star-rating bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-1.5 h-[46px] items-center">
+                            <input type="radio" id="star5" name="rating" value="5" required><label for="star5"><i class="fa-solid fa-star"></i></label>
+                            <input type="radio" id="star4" name="rating" value="4"><label for="star4"><i class="fa-solid fa-star"></i></label>
+                            <input type="radio" id="star3" name="rating" value="3"><label for="star3"><i class="fa-solid fa-star"></i></label>
+                            <input type="radio" id="star2" name="rating" value="2"><label for="star2"><i class="fa-solid fa-star"></i></label>
+                            <input type="radio" id="star1" name="rating" value="1"><label for="star1"><i class="fa-solid fa-star"></i></label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Yorumunuz</label>
+                    <textarea required rows="3" placeholder="Kitap veya satın alma deneyiminiz hakkındaki düşünceleriniz..." class="w-full bg-slate-900/80 border border-slate-700 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition text-sm resize-none"></textarea>
+                </div>
+                <button type="submit" id="commentBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-xl transition shadow-lg mt-2 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i> Yorumu Gönder
+                </button>
+            </form>
         </div>
     </section>
 
@@ -348,8 +379,9 @@
         </button>
     </div>
 
-    <!-- Scriptler (Kategori Filtresi & Chatbot) -->
+    <!-- Scriptler -->
     <script>
+        // Ürün Filtreleme
         function filterProducts(category, btnElement) {
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('bg-cyan-600', 'border-cyan-500', 'text-white');
@@ -368,6 +400,30 @@
             });
         }
 
+        // Yeni Yorum Gönderme Simülasyonu
+        function submitComment(event) {
+            event.preventDefault(); // Sayfanın yenilenmesini engeller
+            const btn = document.getElementById('commentBtn');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gönderiliyor...';
+            btn.classList.replace('bg-emerald-600', 'bg-slate-600');
+            btn.disabled = true;
+
+            // 1.5 saniye sonra başarılı mesajı gösterir
+            setTimeout(() => {
+                const formContainer = document.getElementById('commentFormContainer');
+                formContainer.innerHTML = `
+                    <div class="text-center py-6">
+                        <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-lg">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-2">Yorumunuz Alındı!</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed max-w-md mx-auto">Değerli değerlendirmeniz başarıyla alınmış olup, güvenlik ve küfür/hakaret kontrolü için yönetici onayına iletilmiştir. Onaylandıktan sonra sayfamızda yerini alacaktır. Desteğiniz için teşekkür ederiz.</p>
+                    </div>
+                `;
+            }, 1500);
+        }
+
+        // Chatbot
         const chatWindow = document.getElementById('chatWindow');
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
