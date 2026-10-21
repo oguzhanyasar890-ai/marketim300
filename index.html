@@ -17,11 +17,14 @@
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
-        /* Yıldız Seçimi İçin Özel CSS */
         .star-rating input { display: none; }
         .star-rating label { color: #475569; cursor: pointer; font-size: 1.5rem; transition: color 0.2s; }
         .star-rating input:checked ~ label { color: #f59e0b; }
         .star-rating label:hover, .star-rating label:hover ~ label { color: #fbbf24; }
+        
+        /* Yatay kaydırma çubuğunu gizlemek için */
+        .hide-scroll-bar { -ms-overflow-style: none; scrollbar-width: none; }
+        .hide-scroll-bar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="text-slate-100 font-sans min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
@@ -79,7 +82,7 @@
 
     <!-- Ürünler Alanı & Filtreleme -->
     <main class="max-w-6xl mx-auto px-4 py-6 z-10 relative">
-        <div class="flex flex-col md:flex-row items-center justify-between mb-8 border-b border-slate-800/80 pb-4 gap-4">
+        <div class="flex flex-col md:flex-row items-center justify-between mb-2 border-b border-slate-800/80 pb-4 gap-4">
             <div>
                 <h3 class="text-2xl font-black flex items-center gap-3">
                     <span class="w-2.5 h-7 bg-gradient-to-b from-indigo-500 to-cyan-500 rounded-full"></span> 
@@ -97,10 +100,13 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6" id="productContainer">
+        <p class="text-right text-xs text-cyan-400 font-semibold mb-4 animate-pulse md:hidden"><i class="fa-solid fa-arrow-right-long mr-1"></i> Sağa doğru kaydırın</p>
+
+        <!-- YAN YANA KAYAN PENCERE BÖLÜMÜ (FLEX CAROUSEL) -->
+        <div class="flex overflow-x-auto gap-6 pb-8 pt-2 snap-x snap-mandatory hide-scroll-bar scroll-smooth" id="productContainer">
             
-            <!-- Ürün 5: Yeni Başlayanlar İçin Yapay Zeka Kılavuzu -->
-            <div class="product-card flex glass border border-slate-800 hover:border-blue-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="egitim">
+            <!-- Ürün 5: Yeni Başlayanlar -->
+            <div class="product-card flex-none w-[280px] sm:w-[320px] snap-center flex glass border border-slate-800 hover:border-blue-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="egitim">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl group-hover:bg-blue-500/10 transition"></div>
                 <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
@@ -110,9 +116,9 @@
                 <div>
                     <div class="flex gap-3 mb-3 items-start">
                         <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex-shrink-0 flex items-center justify-center text-blue-400 text-lg shadow-inner"><i class="fa-solid fa-microchip"></i></div>
-                        <h4 class="text-sm md:text-base font-bold text-white group-hover:text-blue-300 transition leading-tight mt-0.5">Yeni Başlayanlar İçin Yapay Zeka Kılavuzu</h4>
+                        <h4 class="text-sm md:text-base font-bold text-white group-hover:text-blue-300 transition leading-tight mt-0.5">Yeni Başlayanlar İçin YZ Kılavuzu</h4>
                     </div>
-                    <p class="text-slate-400 text-[11px] leading-relaxed mb-6">Yapay zeka dünyasına ilk adımınızı atın. Temel kavramlar, günlük kullanım ve hayatınızı kolaylaştıracak pratik ipuçları.</p>
+                    <p class="text-slate-400 text-[11px] leading-relaxed mb-6">Yapay zeka dünyasına ilk adımınızı atın. Temel kavramlar, günlük kullanım ve pratik ipuçları.</p>
                 </div>
                 <div class="border-t border-slate-800/80 pt-4 mt-auto flex items-center justify-between">
                     <div>
@@ -124,7 +130,7 @@
             </div>
 
             <!-- Ürün 1: Psikoloji -->
-            <div class="product-card flex glass border border-slate-800 hover:border-purple-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="psikoloji">
+            <div class="product-card flex-none w-[280px] sm:w-[320px] snap-center flex glass border border-slate-800 hover:border-purple-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="psikoloji">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl group-hover:bg-purple-500/10 transition"></div>
                 <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
@@ -148,7 +154,7 @@
             </div>
 
             <!-- Ürün 2: Eğitimde Yapay Zeka -->
-            <div class="product-card flex glass border border-slate-800 hover:border-indigo-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="egitim">
+            <div class="product-card flex-none w-[280px] sm:w-[320px] snap-center flex glass border border-slate-800 hover:border-indigo-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="egitim">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition"></div>
                 <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
@@ -172,7 +178,7 @@
             </div>
 
             <!-- Ürün 3: Finans -->
-            <div class="product-card flex glass border border-slate-800 hover:border-emerald-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="finans">
+            <div class="product-card flex-none w-[280px] sm:w-[320px] snap-center flex glass border border-slate-800 hover:border-emerald-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="finans">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition"></div>
                 <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
@@ -196,7 +202,7 @@
             </div>
 
             <!-- Ürün 4: Aşk Hikayesi -->
-            <div class="product-card flex glass border border-slate-800 hover:border-amber-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="hikaye">
+            <div class="product-card flex-none w-[280px] sm:w-[320px] snap-center flex glass border border-slate-800 hover:border-amber-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="hikaye">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl group-hover:bg-amber-500/10 transition"></div>
                 <div class="w-full h-40 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
@@ -247,7 +253,6 @@
             </h3>
         </div>
         
-        <!-- Statik Onaylanmış Yorumlar -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div class="glass border border-slate-800 rounded-2xl p-6 shadow-xl">
                 <div class="flex gap-1 text-amber-400 text-sm mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
@@ -275,7 +280,6 @@
             </div>
         </div>
 
-        <!-- Müşteri Yorum Yapma Formu -->
         <div id="commentFormContainer" class="max-w-2xl mx-auto glass border border-slate-700/80 rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-500"></div>
             <div class="text-center mb-6">
@@ -325,21 +329,21 @@
                     Kredi kartı ile ödeme işlemi güvenli mi?
                     <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition duration-300"></i>
                 </summary>
-                <p class="text-slate-400 text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">Evet, tüm ödemeleriniz Türkiye'nin en büyük altyapılarından biri olan Shopier güvencesiyle 256-bit SSL sertifikası altında gerçekleşir. Kredi kartı bilgileriniz hiçbir şekilde bizimle veya üçüncü şahıslarla paylaşılmaz.</p>
+                <p class="text-slate-400 text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">Evet, tüm ödemeleriniz Türkiye'nin en büyük altyapılarından biri olan Shopier güvencesiyle 256-bit SSL sertifikası altında gerçekleşir.</p>
             </details>
             <details class="glass border border-slate-800 hover:border-slate-600 rounded-2xl p-5 cursor-pointer group transition">
                 <summary class="font-bold text-white flex justify-between items-center outline-none text-sm md:text-base">
                     Satın aldığım kitap cihazıma nasıl inecek?
                     <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition duration-300"></i>
                 </summary>
-                <p class="text-slate-400 text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">Ödeme işleminiz başarıyla tamamlandığı an, indirme linki Shopier sistemi tarafından doğrudan ekranınıza ve siparişte belirttiğiniz e-posta adresinize otomatik olarak gönderilir. Beklemenize gerek kalmaz.</p>
+                <p class="text-slate-400 text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">Ödeme işleminiz başarıyla tamamlandığı an, indirme linki Shopier sistemi tarafından doğrudan ekranınıza ve e-posta adresinize gönderilir.</p>
             </details>
             <details class="glass border border-slate-800 hover:border-slate-600 rounded-2xl p-5 cursor-pointer group transition">
                 <summary class="font-bold text-white flex justify-between items-center outline-none text-sm md:text-base">
                     Kitapları telefonumdan okuyabilir miyim?
                     <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition duration-300"></i>
                 </summary>
-                <p class="text-slate-400 text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">Kesinlikle. Satışa sunduğumuz tüm eserler evrensel dijital formatlar olan PDF ve EPUB formatındadır. Telefon, tablet veya bilgisayarınızdan herhangi bir ek uygulama indirmeden kolayca okuyabilirsiniz.</p>
+                <p class="text-slate-400 text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">Kesinlikle. Satışa sunduğumuz tüm eserler evrensel dijital formatlar olan PDF ve EPUB formatındadır. Ek uygulama gerektirmez.</p>
             </details>
         </div>
     </section>
@@ -381,7 +385,6 @@
 
     <!-- Scriptler -->
     <script>
-        // Ürün Filtreleme
         function filterProducts(category, btnElement) {
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('bg-cyan-600', 'border-cyan-500', 'text-white');
@@ -400,15 +403,13 @@
             });
         }
 
-        // Yeni Yorum Gönderme Simülasyonu
         function submitComment(event) {
-            event.preventDefault(); // Sayfanın yenilenmesini engeller
+            event.preventDefault();
             const btn = document.getElementById('commentBtn');
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gönderiliyor...';
             btn.classList.replace('bg-emerald-600', 'bg-slate-600');
             btn.disabled = true;
 
-            // 1.5 saniye sonra başarılı mesajı gösterir
             setTimeout(() => {
                 const formContainer = document.getElementById('commentFormContainer');
                 formContainer.innerHTML = `
@@ -417,13 +418,12 @@
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <h4 class="text-xl font-bold text-white mb-2">Yorumunuz Alındı!</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed max-w-md mx-auto">Değerli değerlendirmeniz başarıyla alınmış olup, güvenlik ve küfür/hakaret kontrolü için yönetici onayına iletilmiştir. Onaylandıktan sonra sayfamızda yerini alacaktır. Desteğiniz için teşekkür ederiz.</p>
+                        <p class="text-slate-400 text-sm leading-relaxed max-w-md mx-auto">Değerli değerlendirmeniz başarıyla alınmış olup, onay için yöneticiye iletilmiştir. Desteğiniz için teşekkür ederiz.</p>
                     </div>
                 `;
             }, 1500);
         }
 
-        // Chatbot
         const chatWindow = document.getElementById('chatWindow');
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
@@ -438,9 +438,7 @@
             }
         }
 
-        function handleKeyPress(e) {
-            if (e.key === 'Enter') sendMessage();
-        }
+        function handleKeyPress(e) { if (e.key === 'Enter') sendMessage(); }
 
         function sendMessage() {
             const userText = chatInput.value.trim();
@@ -454,32 +452,17 @@
         function botReply(text) {
             let reply = "";
             if (text.includes("fiyat") || text.includes("ücret") || text.includes("kadar") || text.includes("kaç tl")) {
-                reply = "Mağazamızdaki eşsiz e-kitaplar ve rehberler kampanyada olup fiyatları <b>55 TL</b> ile <b>100 TL</b> arasında değişmektedir.";
+                reply = "Mağazamızdaki eşsiz e-kitaplar kampanyada olup fiyatları <b>55 TL</b> ile <b>100 TL</b> arasında değişmektedir.";
             } else if (text.includes("kitap") || text.includes("neler var") || text.includes("ürün")) {
-                reply = "Şu an satışta 5 harika ürünümüz var: <br>1. Psikoloji<br>2. Eğitimde Yapay Zeka<br>3. Finans<br>4. Harika Aşk Romanı<br>5. Yeni Başlayanlar İçin YZ Kılavuzu";
+                reply = "Şu an satışta 5 harika ürünümüz var: <br>1. Psikoloji<br>2. Eğitimde YZ<br>3. Finans<br>4. Harika Aşk Romanı<br>5. Yeni Başlayanlar İçin YZ Kılavuzu";
             } else if (text.includes("nasıl") || text.includes("satın al") || text.includes("indir")) {
-                reply = "Ürünlerin altındaki 'Satın Al' butonuna tıklayarak Shopier üzerinden %100 güvenli ödeme yapabilirsiniz. Kitap otomatik olarak inecektir.";
+                reply = "Ürünlerin altındaki 'Satın Al' butonuna tıklayarak Shopier üzerinden ödeme yapabilirsiniz. Kitap anında inecektir.";
             } else {
-                reply = "Daha detaylı bilgi almak için üst menüdeki <b>Canlı Destek (WhatsApp)</b> butonuna tıklayarak bizimle direkt iletişime geçebilirsiniz.";
+                reply = "Detaylı bilgi için üst menüdeki <b>Canlı Destek (WhatsApp)</b> butonuna tıklayabilirsiniz.";
             }
             chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-indigo-500 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-robot text-white text-[10px]"></i></div><div class="bg-slate-800 text-slate-200 px-3 py-2 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm max-w-[85%]">${reply}</div></div>`;
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
     </script>
-
-    <!-- Alt Bilgi (Footer) -->
-    <footer class="border-t border-slate-800/80 bg-slate-950/60 py-10 mt-16 z-10 relative">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-            <div>
-                <span class="text-lg font-black text-white tracking-wide">Marketim3000</span>
-                <p class="text-xs text-slate-500 mt-1">© 2026 www.marketim3000.online — Tüm hakları saklıdır.</p>
-            </div>
-            <div class="flex items-center gap-6 text-xs text-slate-400">
-                <a href="https://wa.me/905542026620" target="_blank" class="hover:text-cyan-400 transition">İletişim & Destek</a>
-                <span>•</span><span class="text-slate-500">Güvenli Kredi Kartı Ödeme</span>
-            </div>
-        </div>
-    </footer>
-
 </body>
 </html>
