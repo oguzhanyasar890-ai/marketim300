@@ -78,7 +78,7 @@
         </div>
     </section>
 
-    <!-- Haftanın Dinletisi (Video) -->
+    <!-- Haftanın Dinletisi (Yeni Video) -->
     <section class="max-w-4xl mx-auto px-4 -mt-10 relative z-20 mb-16">
         <div class="glass border border-slate-700/80 rounded-3xl p-4 md:p-6 shadow-2xl bg-slate-900/90">
             <div class="text-center mb-4">
@@ -88,7 +88,7 @@
                 <p class="text-xs text-slate-400">Okurken dinleyebileceğiniz özel seçkimiz</p>
             </div>
             <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-inner bg-black">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/5IBCUDVQmh8" title="Edebiyat Dinletisi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/yTqspLk31-g" title="Edebiyat Dinletisi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </section>
@@ -113,10 +113,10 @@
             </div>
         </div>
 
-        <!-- YAZILAR GRID (ALT ALTA & YAN YANA) -->
+        <!-- YAZILAR GRID -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="postContainer">
             
-            <!-- Yazı 1: Öykü (Eski Aşk Romanı) -->
+            <!-- Yazı 1: Öykü -->
             <article class="post-card flex flex-col glass border border-slate-800 hover:border-amber-500/50 rounded-3xl overflow-hidden transition duration-500 shadow-xl group" data-category="oyku">
                 <div class="w-full h-48 overflow-hidden relative">
                     <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-transparent transition duration-500 z-10"></div>
@@ -137,7 +137,7 @@
                 </div>
             </article>
 
-            <!-- Yazı 2: Makale/İnceleme (Eski YZ Kılavuzu) -->
+            <!-- Yazı 2: Makale/İnceleme -->
             <article class="post-card flex flex-col glass border border-slate-800 hover:border-blue-500/50 rounded-3xl overflow-hidden transition duration-500 shadow-xl group" data-category="inceleme">
                 <div class="w-full h-48 overflow-hidden relative">
                     <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-transparent transition duration-500 z-10"></div>
@@ -158,7 +158,7 @@
                 </div>
             </article>
 
-            <!-- Yazı 3: Deneme (Eski Bütçe Yönetimi) -->
+            <!-- Yazı 3: Deneme -->
             <article class="post-card flex flex-col glass border border-slate-800 hover:border-emerald-500/50 rounded-3xl overflow-hidden transition duration-500 shadow-xl group" data-category="deneme">
                 <div class="w-full h-48 overflow-hidden relative">
                     <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-transparent transition duration-500 z-10"></div>
@@ -179,7 +179,7 @@
                 </div>
             </article>
 
-            <!-- Yazı 4: Deneme/İnceleme (Eski Psikoloji) -->
+            <!-- Yazı 4: Deneme -->
             <article class="post-card flex flex-col glass border border-slate-800 hover:border-purple-500/50 rounded-3xl overflow-hidden transition duration-500 shadow-xl group" data-category="deneme">
                 <div class="w-full h-48 overflow-hidden relative">
                     <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-transparent transition duration-500 z-10"></div>
@@ -200,7 +200,7 @@
                 </div>
             </article>
 
-            <!-- Yazı 5: Şiir (Eski Eğitimde YZ'yi estetikleştirdik) -->
+            <!-- Yazı 5: Şiir -->
             <article class="post-card flex flex-col glass border border-slate-800 hover:border-rose-500/50 rounded-3xl overflow-hidden transition duration-500 shadow-xl group" data-category="siir">
                 <div class="w-full h-48 overflow-hidden relative">
                     <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-transparent transition duration-500 z-10"></div>
@@ -471,19 +471,29 @@
         }
     </script>
 
-    <!-- Alt Bilgi (Footer) -->
+    <!-- Alt Bilgi (Footer) & ZİYARETÇİ SAYACI -->
     <footer class="border-t border-slate-800/80 bg-slate-950 py-12 mt-10 relative z-10">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div>
                 <span class="text-xl font-serif font-black text-white tracking-wide flex items-center gap-2 justify-center md:justify-start">
                     <i class="fa-solid fa-feather-pointed text-amber-500"></i> Edebiyat Metinleri
                 </span>
                 <p class="text-xs text-slate-500 mt-2">© 2026 Edebiyat Metinleri — Ticari amaç gütmeyen özgür okuma platformu.</p>
             </div>
-            <div class="flex items-center gap-6 text-sm text-slate-400">
-                <a href="#" class="hover:text-amber-500 transition">Hakkımızda</a>
-                <span>•</span>
-                <a href="#" class="hover:text-amber-500 transition">Yazı Gönder</a>
+            
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <!-- YENİ EKLENEN: ZİYARETÇİ SAYACI KUTUSU -->
+                <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-2 rounded-xl shadow-inner">
+                    <i class="fa-solid fa-eye text-amber-500 text-xs"></i>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Toplam Okur:</span>
+                    <img src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fwww.marketim3000.online&labelColor=%230f172a&countColor=%23d97706&label=+" alt="Ziyaretçi Sayısı" class="h-[18px]">
+                </div>
+
+                <div class="flex items-center gap-6 text-sm text-slate-400">
+                    <a href="#" class="hover:text-amber-500 transition">Hakkımızda</a>
+                    <span>•</span>
+                    <a href="#" class="hover:text-amber-500 transition">Yazı Gönder</a>
+                </div>
             </div>
         </div>
     </footer>
