@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edebiyat Metinleri | Ücretsiz Edebiyat ve Okuma Platformu</title>
-    <!-- Zarif Edebiyat Fontları -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -42,7 +41,6 @@
 </head>
 <body class="text-slate-300 font-sans min-h-screen flex flex-col selection:bg-amber-600 selection:text-white relative">
 
-    <!-- Üst Menü & Logo -->
     <header class="border-b border-slate-800/80 glass sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
@@ -62,7 +60,6 @@
         </div>
     </header>
 
-    <!-- Zarif Hero Bölümü -->
     <section class="relative overflow-hidden hero-banner py-20 md:py-32 z-10 border-b border-slate-800/80">
         <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
             <div class="inline-flex items-center gap-2 bg-amber-500/10 text-amber-400 border border-amber-500/20 px-4 py-1.5 rounded-full text-xs font-bold mb-6 shadow-lg backdrop-blur-md">
@@ -73,70 +70,45 @@
                 <span class="text-amber-500 italic font-normal">Kayıp Bir Yolculuğa Çıkın</span>
             </h2>
             <p class="text-slate-300 max-w-2xl mx-auto text-base md:text-lg mb-8 leading-relaxed font-light drop-shadow">
-                En güzel öyküler, ruhunuza dokunacak şiirler, derin düşüncelere daldıran denemeler ve ufkunuzu açacak makaleler. Hiçbir ücret ödemeden, özgürce okuyun.
+                Tüm dikkatinizi esere vermeniz için tasarlandı. Hiçbir ücret ödemeden, özgürce okuyun.
             </p>
         </div>
     </section>
 
-    <!-- Haftanın Dinletisi (Video) -->
-    <section class="max-w-4xl mx-auto px-4 -mt-10 relative z-20 mb-16">
-        <div class="glass border border-slate-700/80 rounded-3xl p-4 md:p-6 shadow-2xl bg-slate-900/90">
-            <div class="text-center mb-4">
-                <h3 class="text-lg font-serif font-bold text-white flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-headphones text-amber-500"></i> Haftanın Sesli Eseri
-                </h3>
-                <p class="text-xs text-slate-400">Okurken dinleyebileceğiniz özel seçkimiz</p>
-            </div>
-            <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-inner bg-black">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/yTqspLk31-g" title="Edebiyat Dinletisi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-    </section>
-
-    <!-- Eser Alanı -->
-    <main id="koleksiyon" class="max-w-6xl mx-auto px-4 py-6 z-10 relative scroll-mt-20">
-        <div class="flex flex-col md:flex-row items-center justify-between mb-10 border-b border-slate-800/80 pb-4 gap-4">
-            <div>
-                <h3 class="text-3xl font-serif font-black text-white flex items-center gap-3">
-                    Okuma Koleksiyonu
-                </h3>
-                <p class="text-slate-400 text-sm mt-1">Platformumuzun ilk ve en özel eseri yayında.</p>
-            </div>
+    <main id="koleksiyon" class="max-w-6xl mx-auto px-4 py-12 z-10 relative scroll-mt-20">
+        <div class="flex flex-col items-center justify-center mb-10 border-b border-slate-800/80 pb-6">
+            <h3 class="text-3xl font-serif font-black text-white flex items-center gap-3">
+                Okuma Koleksiyonu
+            </h3>
+            <p class="text-slate-400 text-sm mt-2 text-center">Platformumuzun ilk ve en özel eseri yayında.</p>
         </div>
 
-        <!-- YAZILAR GRID (SADECE MÜREKKEP BEKÇİSİ) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="postContainer">
-            
-            <!-- Yazı 1: Roman (Mürekkep Bekçisi) -->
-            <article class="post-card flex flex-col glass border border-amber-500/30 hover:border-amber-500/60 rounded-3xl overflow-hidden transition duration-500 shadow-[0_0_30px_rgba(245,158,11,0.1)] group">
-                <div class="w-full h-56 overflow-hidden relative">
+        <div class="flex justify-center" id="postContainer">
+            <article class="post-card w-full max-w-2xl flex flex-col glass border border-amber-500/30 hover:border-amber-500/60 rounded-3xl overflow-hidden transition duration-500 shadow-[0_0_30px_rgba(245,158,11,0.1)] group">
+                <div class="w-full h-64 overflow-hidden relative">
                     <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-500 z-10"></div>
-                    <!-- Kapağa uyumlu güzel bir görsel -->
-                    <img src="https://images.unsplash.com/photo-1474932430478-367dbb6832c1?q=80&w=600&auto=format&fit=crop" alt="Mürekkep Bekçisi" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <img src="https://images.unsplash.com/photo-1474932430478-367dbb6832c1?q=80&w=1200&auto=format&fit=crop" alt="Mürekkep Bekçisi" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
                     <span class="absolute top-4 left-4 z-20 bg-amber-600/90 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-lg">Roman</span>
                 </div>
-                <div class="p-6 flex flex-col flex-grow">
-                    <div class="flex items-center gap-2 text-xs text-amber-400/80 mb-3 font-medium">
+                <div class="p-8 flex flex-col flex-grow text-center">
+                    <div class="flex items-center justify-center gap-2 text-xs text-amber-400/80 mb-4 font-medium">
                         <span><i class="fa-regular fa-clock"></i> 55 dk okuma</span>
                         <span>•</span>
                         <span>50 Sayfa</span>
                     </div>
-                    <h4 class="text-2xl font-serif font-black text-white mb-3 group-hover:text-amber-400 transition leading-snug">Mürekkep Bekçisi</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-8 flex-grow">
+                    <h4 class="text-3xl font-serif font-black text-white mb-4 group-hover:text-amber-400 transition leading-snug">Mürekkep Bekçisi</h4>
+                    <p class="text-slate-400 text-base leading-relaxed mb-8 flex-grow">
                         Kaybolan son cümlenin hikayesi... Adana sıcağında, tozlu raflar arasında, bir kitabın kapağını ilk kez aralayan herkes için. Edebiyat bazen bir kokudur, bazen de bir koku kadar eski bir hatıradır.
                     </p>
                     
-                    <!-- DİKKAT: YÜKLEDİĞİNİZ DOSYAYA GİDEN LİNK BURADA -->
-                    <a href="murekkep_bekcisi_50_sayfal.html" class="w-full bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white border border-amber-500/50 py-3.5 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20">
+                    <a href="murekkep_x5f_bekcisi_x5f_50_x5f_sayfal.html" class="w-full bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white border border-amber-500/50 py-4 rounded-xl text-base font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20">
                         <i class="fa-solid fa-book-open-reader"></i> Ücretsiz Oku
                     </a>
                 </div>
             </article>
-
         </div>
     </main>
 
-    <!-- Biz Kimiz Alanı -->
     <section class="max-w-6xl mx-auto px-4 py-16 relative z-10">
         <div class="glass border border-slate-700/60 rounded-3xl p-8 md:p-16 text-center shadow-2xl relative overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-br from-amber-900/20 to-slate-900/80"></div>
@@ -152,7 +124,6 @@
         </div>
     </section>
 
-    <!-- Okur Yorumları Alanı & Yorum Yapma Formu -->
     <section class="max-w-6xl mx-auto px-4 py-12 relative z-10 bg-slate-900/50 rounded-t-[3rem] mt-8 pt-16">
         <div class="flex flex-col text-center mb-12">
             <h3 class="text-3xl font-serif font-black text-white mb-3">Okur Notları</h3>
@@ -193,7 +164,7 @@
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-600 to-yellow-500"></div>
             <div class="text-center mb-6">
                 <h4 class="text-xl font-serif font-bold text-white mb-2"><i class="fa-solid fa-pen-nib text-amber-500 mr-2"></i>Okuma Deneyiminizi Paylaşın</h4>
-                <p class="text-xs text-slate-400">Yazılarımızda hissettiklerinizi bizimle ve diğer okurlarla paylaşın.</p>
+                <p class="text-xs text-slate-400">Eser hakkında hissettiklerinizi bizimle ve diğer okurlarla paylaşın.</p>
             </div>
             
             <form id="customerCommentForm" onsubmit="submitComment(event)" class="flex flex-col gap-4">
@@ -224,32 +195,6 @@
         </div>
     </section>
 
-    <!-- Sıkça Sorulan Sorular (SSS) -->
-    <section class="max-w-4xl mx-auto px-4 py-12 relative z-10 mb-10">
-        <div class="flex items-center justify-between mb-8 border-b border-slate-800/80 pb-4">
-            <h3 class="text-2xl font-serif font-black text-white flex items-center gap-3">
-                Merak Edilenler
-            </h3>
-        </div>
-        <div class="flex flex-col gap-4">
-            <details class="glass border border-slate-800 hover:border-slate-600 rounded-2xl p-5 cursor-pointer group transition">
-                <summary class="font-bold text-white flex justify-between items-center outline-none text-sm md:text-base">
-                    Sitedeki tüm yazılar gerçekten ücretsiz mi?
-                    <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition duration-300"></i>
-                </summary>
-                <p class="text-slate-400 text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">Evet. Edebiyat Metinleri tamamen bağımsız ve kar amacı gütmeyen bir platformdur. Tüm öyküler, şiirler ve makaleler özgürce okunabilir. Hiçbir gizli ücret veya abonelik sistemi yoktur.</p>
-            </details>
-            <details class="glass border border-slate-800 hover:border-slate-600 rounded-2xl p-5 cursor-pointer group transition">
-                <summary class="font-bold text-white flex justify-between items-center outline-none text-sm md:text-base">
-                    Metinleri bilgisayarımdan veya telefonumdan okuyabilir miyim?
-                    <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition duration-300"></i>
-                </summary>
-                <p class="text-slate-400 text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">Kesinlikle. Sitemiz tüm cihazlar için özel olarak optimize edilmiştir. Özel okuma ekranımız sayesinde gece okumalarınızı telefon, tablet veya bilgisayarınızdan rahatlıkla yapabilirsiniz.</p>
-            </details>
-        </div>
-    </section>
-
-    <!-- EDEBİYAT ASİSTANI (CHATBOT) -->
     <div id="aiChatbot" style="z-index: 99999 !important;" class="fixed bottom-6 right-4 md:right-6 flex flex-col items-end">
         <div id="chatWindow" class="hidden w-80 sm:w-96 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl mb-4 overflow-hidden flex-col chat-open">
             
@@ -272,7 +217,7 @@
                 <div class="flex gap-2 w-full">
                     <div class="w-6 h-6 rounded-full bg-amber-600 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-feather text-white text-[10px]"></i></div>
                     <div class="bg-slate-800 text-slate-200 px-3 py-2 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm leading-relaxed">
-                        Merhaba, Edebiyat Metinleri'ne hoş geldiniz. Şu an yayında olan ilk şaheserimiz 'Mürekkep Bekçisi' hakkında bilgi almak ister misiniz?
+                        Merhaba, Edebiyat Metinleri'ne hoş geldiniz. Şu an yayında olan şaheserimiz 'Mürekkep Bekçisi' hakkında bilgi almak ister misiniz?
                     </div>
                 </div>
             </div>
@@ -289,9 +234,7 @@
         </button>
     </div>
 
-    <!-- Scriptler -->
     <script>
-        // Yorum Formu Simülasyonu
         function submitComment(event) {
             event.preventDefault();
             const btn = document.getElementById('commentBtn');
@@ -313,7 +256,6 @@
             }, 1500);
         }
 
-        // Edebiyat Asistanı (Chatbot) Mantığı
         const chatWindow = document.getElementById('chatWindow');
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
@@ -340,20 +282,17 @@
         }
 
         function botReply(text) {
-            let reply = "";
+            let reply = "Edebiyatın eşsiz dünyasına hoş geldiniz. Sitemizin ilk eseri olan Mürekkep Bekçisi'ni okuyarak bu büyülü yolculuğa bizimle başlayabilirsiniz.";
             if (text.includes("fiyat") || text.includes("ücret") || text.includes("paralı")) {
                 reply = "Edebiyat Metinleri tamamen bağımsız ve <b>ücretsiz</b> bir okuma platformudur. Sitemizdeki hiçbir içerik için ücret talep edilmez.";
-            } else if (text.includes("neler var") || text.includes("ne okuyabilirim") || text.includes("kitap") || text.includes("roman")) {
-                reply = "Şu an platformumuzda ilk şaheserimiz olan 50 sayfalık <b>Mürekkep Bekçisi</b> romanı yayındadır. İlgili kısımdaki 'Ücretsiz Oku' butonuna tıklayarak doğrudan okuma moduna geçebilirsiniz.";
-            } else {
-                reply = "Edebiyatın eşsiz dünyasına hoş geldiniz. Sitemizin ilk eseri olan Mürekkep Bekçisi'ni okuyarak bu büyülü yolculuğa bizimle başlayabilirsiniz.";
+            } else if (text.includes("kitap") || text.includes("roman") || text.includes("oku")) {
+                reply = "Şu an platformumuzda 50 sayfalık <b>Mürekkep Bekçisi</b> romanı yayındadır. Ekranda görünen 'Ücretsiz Oku' butonuna tıklayarak doğrudan okuma moduna geçebilirsiniz.";
             }
             chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-amber-600 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-feather text-white text-[10px]"></i></div><div class="bg-slate-800 text-slate-200 px-3 py-2 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
     </script>
 
-    <!-- Alt Bilgi (Footer) & Sayaç -->
     <footer class="border-t border-slate-800/80 bg-slate-950 py-12 mt-10 relative z-10">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div>
@@ -364,7 +303,6 @@
             </div>
             
             <div class="flex flex-col md:flex-row items-center gap-6">
-                <!-- ZİYARETÇİ SAYACI KUTUSU -->
                 <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-2 rounded-xl shadow-inner">
                     <i class="fa-solid fa-eye text-amber-500 text-xs"></i>
                     <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Toplam Okur:</span>
