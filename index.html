@@ -3,293 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketim3000 | Profesyonel Dijital E-Kitap Mağazası</title>
-    <link rel="icon" href="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=100&auto=format&fit=crop" type="image/x-icon">
+    <title>Edebiyat Metinleri | Ücretsiz Edebiyat ve Okuma Platformu</title>
+    <!-- Zarif Edebiyat Fontları -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://images.unsplash.com/photo-1455390582262-044cdead27d8?q=80&w=100&auto=format&fit=crop" type="image/x-icon">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        body { background-color: #030712; }
-        .glass { background: rgba(17, 24, 39, 0.75); backdrop-filter: blur(16px); }
+        body { background-color: #0f172a; }
+        .glass { background: rgba(30, 41, 59, 0.75); backdrop-filter: blur(16px); }
         .hero-banner {
-            background: linear-gradient(to bottom, rgba(3, 7, 18, 0.5), rgba(3, 7, 18, 0.95)), 
-                        url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 1)), 
+                        url('https://images.unsplash.com/photo-1474932430478-367dbb6832c1?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+            background-attachment: fixed;
         }
         .chat-open { animation: slideUp 0.3s ease-out forwards; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
-        .star-rating input { display: none; }
-        .star-rating label { color: #475569; cursor: pointer; font-size: 1.5rem; transition: color 0.2s; }
-        .star-rating input:checked ~ label { color: #f59e0b; }
-        .star-rating label:hover, .star-rating label:hover ~ label { color: #fbbf24; }
     </style>
 </head>
-<body class="text-slate-100 font-sans min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+<body class="text-slate-300 font-sans min-h-screen flex flex-col selection:bg-amber-600 selection:text-white">
 
     <!-- Üst Menü & Logo -->
     <header class="border-b border-slate-800/80 glass sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <div class="w-11 h-11 rounded-xl overflow-hidden bg-slate-900 border border-slate-700 flex items-center justify-center shadow-lg">
-                    <img src="file_0000000036c881f49f3e7a7e40617b59.png" alt="Marketim3000 Logo" class="w-full h-full object-cover">
+                    <i class="fa-solid fa-feather-pointed text-amber-500 text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-black tracking-wide bg-gradient-to-r from-white via-slate-200 to-cyan-400 bg-clip-text text-transparent">
-                        Marketim3000
+                    <h1 class="text-2xl font-serif font-black tracking-wide text-white">
+                        Edebiyat Metinleri
                     </h1>
-                    <span class="text-[10px] text-cyan-400 font-semibold tracking-wider uppercase block">Dijital Çözüm Merkezi</span>
+                    <span class="text-[10px] text-amber-500 font-semibold tracking-wider uppercase block">Özgür ve Ücretsiz Edebiyat</span>
                 </div>
             </div>
-            <a href="https://wa.me/905542026620?text=Merhaba,%20destek%20almak%20istiyorum." target="_blank" class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-sm">
-                <i class="fa-brands fa-whatsapp text-base"></i> Canlı Destek
+            <a href="#koleksiyon" class="bg-amber-600/20 hover:bg-amber-600/30 text-amber-500 border border-amber-500/30 px-5 py-2 rounded-full text-xs font-bold transition shadow-sm">
+                Okumaya Başla
             </a>
         </div>
     </header>
 
-    <!-- Profesyonel Hero ve Kapak -->
-    <section class="relative overflow-hidden border-b border-slate-800/80 hero-banner py-16 md:py-24 z-10">
-        <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
-            <div class="inline-flex items-center gap-2 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-4 py-1.5 rounded-full text-xs font-bold mb-6 shadow-lg backdrop-blur-md">
-                <i class="fa-solid fa-shield-check text-cyan-400"></i> Kredi Kartı ile %100 Güvenli Alışveriş & Anında Teslimat
+    <!-- Zarif Hero Bölümü -->
+    <section class="relative overflow-hidden hero-banner py-20 md:py-32 z-10 border-b border-slate-800/80">
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center gap-2 bg-amber-500/10 text-amber-400 border border-amber-500/20 px-4 py-1.5 rounded-full text-xs font-bold mb-6 shadow-lg backdrop-blur-md">
+                <i class="fa-solid fa-book-open-reader"></i> Tamamen Ücretsiz Edebiyat Platformu
             </div>
-            <h2 class="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight drop-shadow-md">
-                Dijital E-Kitaplar, Rehberler ve <br class="hidden md:block">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-teal-300">Özel Hikaye Arşivi</span>
+            <h2 class="text-4xl md:text-6xl font-serif font-black mb-6 text-white leading-tight drop-shadow-md">
+                Kelimelerin Büyülü Dünyasında <br class="hidden md:block">
+                <span class="text-amber-500 italic font-normal">Kayıp Bir Yolculuğa Çıkın</span>
             </h2>
-            <p class="text-slate-200 max-w-2xl mx-auto text-base md:text-lg mb-8 leading-relaxed font-normal drop-shadow">
-                Kariyerinizi, finansal geleceğinizi ve kişisel gelişim yolculuğunuzu dönüştürecek seçkin dijital eserler. Satın aldığınız an doğrudan cihazınıza indirin.
+            <p class="text-slate-300 max-w-2xl mx-auto text-base md:text-lg mb-8 leading-relaxed font-light drop-shadow">
+                En güzel öyküler, ruhunuza dokunacak şiirler, derin düşüncelere daldıran denemeler ve ufkunuzu açacak makaleler. Hiçbir ücret ödemeden, özgürce okuyun.
             </p>
         </div>
     </section>
 
-    <!-- Tanıtım Videosu Alanı -->
-    <section class="max-w-4xl mx-auto px-4 -mt-8 relative z-20 mb-12">
+    <!-- Haftanın Dinletisi (Video) -->
+    <section class="max-w-4xl mx-auto px-4 -mt-10 relative z-20 mb-16">
         <div class="glass border border-slate-700/80 rounded-3xl p-4 md:p-6 shadow-2xl bg-slate-900/90">
             <div class="text-center mb-4">
-                <h3 class="text-lg font-bold text-white flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-circle-play text-cyan-400"></i> Marketim3000 Tanıtım Videosu
+                <h3 class="text-lg font-serif font-bold text-white flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-headphones text-amber-500"></i> Haftanın Sesli Eseri
                 </h3>
-                <p class="text-xs text-slate-400">Dijital kütüphanemizi ve kolay kullanımını keşfedin</p>
+                <p class="text-xs text-slate-400">Okurken dinleyebileceğiniz özel seçkimiz</p>
             </div>
             <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-inner bg-black">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/5IBCUDVQmh8" title="Marketim3000 Tanıtım" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/5IBCUDVQmh8" title="Edebiyat Dinletisi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </section>
 
-    <!-- Ürünler Alanı & Filtreleme -->
-    <main class="max-w-6xl mx-auto px-4 py-6 z-10 relative">
-        <div class="flex flex-col md:flex-row items-center justify-between mb-8 border-b border-slate-800/80 pb-4 gap-4">
+    <!-- Yazılar Alanı & Filtreleme -->
+    <main id="koleksiyon" class="max-w-6xl mx-auto px-4 py-6 z-10 relative scroll-mt-20">
+        <div class="flex flex-col md:flex-row items-center justify-between mb-10 border-b border-slate-800/80 pb-4 gap-4">
             <div>
-                <h3 class="text-2xl font-black flex items-center gap-3">
-                    <span class="w-2.5 h-7 bg-gradient-to-b from-indigo-500 to-cyan-500 rounded-full"></span> 
-                    Aktif Dijital Ürünler
+                <h3 class="text-3xl font-serif font-black text-white flex items-center gap-3">
+                    Okuma Koleksiyonu
                 </h3>
+                <p class="text-slate-400 text-sm mt-1">İlginizi çeken kategoriyi seçin ve okumaya başlayın.</p>
             </div>
             
+            <!-- Kategori Butonları -->
             <div class="flex flex-wrap items-center gap-2 justify-center">
-                <button onclick="filterProducts('all', this)" class="filter-btn bg-cyan-600 border border-cyan-500 text-white px-3.5 py-1.5 rounded-full text-[11px] font-bold shadow-lg transition">Tümü</button>
-                <button onclick="filterProducts('psikoloji', this)" class="filter-btn glass border border-slate-700 hover:border-cyan-500/50 text-slate-300 px-3.5 py-1.5 rounded-full text-[11px] font-bold transition">Psikoloji</button>
-                <button onclick="filterProducts('egitim', this)" class="filter-btn glass border border-slate-700 hover:border-cyan-500/50 text-slate-300 px-3.5 py-1.5 rounded-full text-[11px] font-bold transition">Eğitim</button>
-                <button onclick="filterProducts('finans', this)" class="filter-btn glass border border-slate-700 hover:border-cyan-500/50 text-slate-300 px-3.5 py-1.5 rounded-full text-[11px] font-bold transition">Finans</button>
-                <button onclick="filterProducts('hikaye', this)" class="filter-btn glass border border-slate-700 hover:border-cyan-500/50 text-slate-300 px-3.5 py-1.5 rounded-full text-[11px] font-bold transition">Aşk Hikayesi</button>
+                <button onclick="filterPosts('all', this)" class="filter-btn bg-amber-600 border border-amber-500 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg transition">Tümü</button>
+                <button onclick="filterPosts('oyku', this)" class="filter-btn glass border border-slate-700 hover:border-amber-500/50 text-slate-300 px-4 py-1.5 rounded-full text-xs font-bold transition">Öykü</button>
+                <button onclick="filterPosts('siir', this)" class="filter-btn glass border border-slate-700 hover:border-amber-500/50 text-slate-300 px-4 py-1.5 rounded-full text-xs font-bold transition">Şiir</button>
+                <button onclick="filterPosts('deneme', this)" class="filter-btn glass border border-slate-700 hover:border-amber-500/50 text-slate-300 px-4 py-1.5 rounded-full text-xs font-bold transition">Deneme</button>
+                <button onclick="filterPosts('inceleme', this)" class="filter-btn glass border border-slate-700 hover:border-amber-500/50 text-slate-300 px-4 py-1.5 rounded-full text-xs font-bold transition">Makale</button>
             </div>
         </div>
 
-        <!-- İKİŞER İKİŞER ALT ALTA SIRALANAN ÜRÜN IZGARASI (GRID) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6" id="productContainer">
+        <!-- YAZILAR GRID (ALT ALTA & YAN YANA) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="postContainer">
             
-            <!-- Ürün 5: Yeni Başlayanlar -->
-            <div class="product-card flex glass border border-slate-800 hover:border-blue-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="egitim">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl group-hover:bg-blue-500/10 transition"></div>
-                <div class="w-full h-48 md:h-56 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
-                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=600&auto=format&fit=crop" alt="Yapay Zeka Kılavuzu" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                    <span class="absolute top-3 right-3 z-20 bg-blue-600/90 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[10px] font-extrabold uppercase shadow-lg border border-blue-400/30">Yeni Başlayanlar</span>
+            <!-- Yazı 1: Öykü (Eski Aşk Romanı) -->
+            <article class="post-card flex flex-col glass border border-slate-800 hover:border-amber-500/50 rounded-3xl overflow-hidden transition duration-500 shadow-xl group" data-category="oyku">
+                <div class="w-full h-48 overflow-hidden relative">
+                    <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-transparent transition duration-500 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=600&auto=format&fit=crop" alt="Vepsteni İzinde" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <span class="absolute top-4 left-4 z-20 bg-amber-600/90 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-lg">Öykü</span>
                 </div>
-                <div>
-                    <div class="flex gap-4 mb-3 items-start">
-                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex-shrink-0 flex items-center justify-center text-blue-400 text-xl shadow-inner"><i class="fa-solid fa-microchip"></i></div>
-                        <h4 class="text-base md:text-lg font-bold text-white group-hover:text-blue-300 transition leading-tight mt-1">Yeni Başlayanlar İçin Yapay Zeka Kılavuzu</h4>
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center gap-2 text-xs text-slate-400 mb-3 font-medium">
+                        <span><i class="fa-regular fa-clock"></i> 8 dk okuma</span>
+                        <span>•</span>
+                        <span>Anonim</span>
                     </div>
-                    <p class="text-slate-400 text-xs md:text-sm leading-relaxed mb-6">Yapay zeka dünyasına ilk adımınızı atın. Temel kavramlar, günlük kullanım ve hayatınızı kolaylaştıracak pratik ipuçları.</p>
+                    <h4 class="text-xl font-serif font-bold text-white mb-3 group-hover:text-amber-400 transition leading-snug">Vepsteni İzinde</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow line-clamp-3">Yürek burkan anlatımı, tutkulu kurgusu ve derin duygularıyla okuyucusunu gizemli bir serüvenin içine çeken dokunaklı bir aşk öyküsü...</p>
+                    <button class="w-full bg-slate-800 hover:bg-amber-600 text-white border border-slate-700 hover:border-amber-500 py-3 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-book-open"></i> Ücretsiz Oku
+                    </button>
                 </div>
-                <div class="border-t border-slate-800/80 pt-5 mt-auto flex items-center justify-between">
-                    <div>
-                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Fiyat</span>
-                        <span class="text-2xl font-black text-white">55 <span class="text-blue-400 text-sm">₺</span></span>
-                    </div>
-                    <a href="https://www.shopier.com/NetHost/52074580" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold flex items-center gap-2 shadow-lg transition"><i class="fa-solid fa-credit-card"></i> Satın Al</a>
-                </div>
-            </div>
+            </article>
 
-            <!-- Ürün 1: Psikoloji -->
-            <div class="product-card flex glass border border-slate-800 hover:border-purple-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="psikoloji">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl group-hover:bg-purple-500/10 transition"></div>
-                <div class="w-full h-48 md:h-56 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
-                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=600&auto=format&fit=crop" alt="Psikoloji" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                    <span class="absolute top-3 right-3 z-20 bg-purple-600/90 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[10px] font-extrabold uppercase shadow-lg border border-purple-400/30">Yeni E-PUB</span>
+            <!-- Yazı 2: Makale/İnceleme (Eski YZ Kılavuzu) -->
+            <article class="post-card flex flex-col glass border border-slate-800 hover:border-blue-500/50 rounded-3xl overflow-hidden transition duration-500 shadow-xl group" data-category="inceleme">
+                <div class="w-full h-48 overflow-hidden relative">
+                    <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-transparent transition duration-500 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=600&auto=format&fit=crop" alt="Yapay Zeka ve Edebiyat" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <span class="absolute top-4 left-4 z-20 bg-blue-600/90 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-lg">Makale</span>
                 </div>
-                <div>
-                    <div class="flex gap-4 mb-3 items-start">
-                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex-shrink-0 flex items-center justify-center text-purple-400 text-xl shadow-inner"><i class="fa-solid fa-brain"></i></div>
-                        <h4 class="text-base md:text-lg font-bold text-white group-hover:text-purple-300 transition leading-tight mt-1">Zihin Haritası Psikolojik Rehber</h4>
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center gap-2 text-xs text-slate-400 mb-3 font-medium">
+                        <span><i class="fa-regular fa-clock"></i> 5 dk okuma</span>
+                        <span>•</span>
+                        <span>Bilim & Kurgu</span>
                     </div>
-                    <p class="text-slate-400 text-xs md:text-sm leading-relaxed mb-6">Zihinsel potansiyelinizi açığa çıkarın, psikolojik farkındalık kazanın ve düşünce kalıplarınızı dönüştürün.</p>
+                    <h4 class="text-xl font-serif font-bold text-white mb-3 group-hover:text-blue-400 transition leading-snug">Yapay Zeka ve Edebiyatın Geleceği</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow line-clamp-3">Makineler bir gün bizim gibi hissedip şiir yazabilir mi? Edebiyatın geleceğinde teknolojinin rolü ve yazarın değişen konumu üzerine bir inceleme.</p>
+                    <button class="w-full bg-slate-800 hover:bg-blue-600 text-white border border-slate-700 hover:border-blue-500 py-3 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-book-open"></i> Ücretsiz Oku
+                    </button>
                 </div>
-                <div class="border-t border-slate-800/80 pt-5 mt-auto flex items-center justify-between">
-                    <div>
-                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Fiyat</span>
-                        <span class="text-2xl font-black text-white">100 <span class="text-purple-400 text-sm">₺</span></span>
-                    </div>
-                    <a href="https://www.shopier.com/NetHost/52048048" target="_blank" class="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold flex items-center gap-2 shadow-lg transition"><i class="fa-solid fa-credit-card"></i> Satın Al</a>
-                </div>
-            </div>
+            </article>
 
-            <!-- Ürün 2: Eğitimde Yapay Zeka -->
-            <div class="product-card flex glass border border-slate-800 hover:border-indigo-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="egitim">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition"></div>
-                <div class="w-full h-48 md:h-56 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
-                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=600&auto=format&fit=crop" alt="Eğitim" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                    <span class="absolute top-3 right-3 z-20 bg-cyan-600/90 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[10px] font-extrabold uppercase shadow-lg border border-cyan-400/30">Popüler PDF</span>
+            <!-- Yazı 3: Deneme (Eski Bütçe Yönetimi) -->
+            <article class="post-card flex flex-col glass border border-slate-800 hover:border-emerald-500/50 rounded-3xl overflow-hidden transition duration-500 shadow-xl group" data-category="deneme">
+                <div class="w-full h-48 overflow-hidden relative">
+                    <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-transparent transition duration-500 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop" alt="Minimalizm" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <span class="absolute top-4 left-4 z-20 bg-emerald-600/90 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-lg">Deneme</span>
                 </div>
-                <div>
-                    <div class="flex gap-4 mb-3 items-start">
-                        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex-shrink-0 flex items-center justify-center text-indigo-400 text-xl shadow-inner"><i class="fa-solid fa-robot"></i></div>
-                        <h4 class="text-base md:text-lg font-bold text-white group-hover:text-cyan-300 transition leading-tight mt-1">Eğitimde Yapay Zeka Kullanımı</h4>
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center gap-2 text-xs text-slate-400 mb-3 font-medium">
+                        <span><i class="fa-regular fa-clock"></i> 4 dk okuma</span>
+                        <span>•</span>
+                        <span>Modern Yaşam</span>
                     </div>
-                    <p class="text-slate-400 text-xs md:text-sm leading-relaxed mb-6">Öğretmen ve eğitimciler için yapay zeka araçlarını ders süreçlerinde etkili kullanma kılavuzu ve prompt örnekleri.</p>
+                    <h4 class="text-xl font-serif font-bold text-white mb-3 group-hover:text-emerald-400 transition leading-snug">Minimalizm ve Sade Yaşamak</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow line-clamp-3">Modern çağın tüketim çılgınlığına karşı ruhumuzu nasıl koruyabiliriz? İhtiyaçlarımızı sıfırlamanın ve bütçeyi yönetirken sadeleşmenin huzuru.</p>
+                    <button class="w-full bg-slate-800 hover:bg-emerald-600 text-white border border-slate-700 hover:border-emerald-500 py-3 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-book-open"></i> Ücretsiz Oku
+                    </button>
                 </div>
-                <div class="border-t border-slate-800/80 pt-5 mt-auto flex items-center justify-between">
-                    <div>
-                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Fiyat</span>
-                        <span class="text-2xl font-black text-white">100 <span class="text-cyan-400 text-sm">₺</span></span>
-                    </div>
-                    <a href="https://www.shopier.com/52030914" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold flex items-center gap-2 shadow-lg transition"><i class="fa-solid fa-credit-card"></i> Satın Al</a>
-                </div>
-            </div>
+            </article>
 
-            <!-- Ürün 3: Finans -->
-            <div class="product-card flex glass border border-slate-800 hover:border-emerald-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="finans">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition"></div>
-                <div class="w-full h-48 md:h-56 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
-                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop" alt="Finans" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                    <span class="absolute top-3 right-3 z-20 bg-emerald-600/90 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[10px] font-extrabold uppercase shadow-lg border border-emerald-400/30">Özel E-Kitap</span>
+            <!-- Yazı 4: Deneme/İnceleme (Eski Psikoloji) -->
+            <article class="post-card flex flex-col glass border border-slate-800 hover:border-purple-500/50 rounded-3xl overflow-hidden transition duration-500 shadow-xl group" data-category="deneme">
+                <div class="w-full h-48 overflow-hidden relative">
+                    <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-transparent transition duration-500 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=600&auto=format&fit=crop" alt="Zihnin Labirenti" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <span class="absolute top-4 left-4 z-20 bg-purple-600/90 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-lg">Deneme</span>
                 </div>
-                <div>
-                    <div class="flex gap-4 mb-3 items-start">
-                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex-shrink-0 flex items-center justify-center text-emerald-400 text-xl shadow-inner"><i class="fa-solid fa-wallet"></i></div>
-                        <h4 class="text-base md:text-lg font-bold text-white group-hover:text-emerald-300 transition leading-tight mt-1">Sıfırdan Bütçe Yönetimi</h4>
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center gap-2 text-xs text-slate-400 mb-3 font-medium">
+                        <span><i class="fa-regular fa-clock"></i> 6 dk okuma</span>
+                        <span>•</span>
+                        <span>Psikoloji</span>
                     </div>
-                    <p class="text-slate-400 text-xs md:text-sm leading-relaxed mb-6">Kişisel finansınızı kontrol altına alın, tasarruf alışkanlığı kazanın ve sürdürülebilir yatırım planı oluşturun.</p>
+                    <h4 class="text-xl font-serif font-bold text-white mb-3 group-hover:text-purple-400 transition leading-snug">Zihnin Labirentlerinde</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow line-clamp-3">Bilinçaltımızın derinliklerinde yatan o sessiz düşüncelerin, günlük kararlarımızı nasıl etkilediği üzerine psikolojik bir yolculuk.</p>
+                    <button class="w-full bg-slate-800 hover:bg-purple-600 text-white border border-slate-700 hover:border-purple-500 py-3 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-book-open"></i> Ücretsiz Oku
+                    </button>
                 </div>
-                <div class="border-t border-slate-800/80 pt-5 mt-auto flex items-center justify-between">
-                    <div>
-                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Fiyat</span>
-                        <span class="text-2xl font-black text-white">100 <span class="text-emerald-400 text-sm">₺</span></span>
-                    </div>
-                    <a href="https://www.shopier.com/NetHost/52026309" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold flex items-center gap-2 shadow-lg transition"><i class="fa-solid fa-credit-card"></i> Satın Al</a>
-                </div>
-            </div>
+            </article>
 
-            <!-- Ürün 4: Aşk Hikayesi -->
-            <div class="product-card flex glass border border-slate-800 hover:border-amber-500/60 rounded-3xl p-5 flex-col justify-between transition duration-500 shadow-2xl relative group overflow-hidden" data-category="hikaye">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl group-hover:bg-amber-500/10 transition"></div>
-                <div class="w-full h-48 md:h-56 mb-5 rounded-2xl overflow-hidden relative border border-slate-700/50">
-                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-300 z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=600&auto=format&fit=crop" alt="Aşk Hikayesi" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                    <span class="absolute top-3 right-3 z-20 bg-amber-600/90 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[10px] font-extrabold uppercase shadow-lg border border-amber-400/30">Aşk Hikayesi</span>
+            <!-- Yazı 5: Şiir (Eski Eğitimde YZ'yi estetikleştirdik) -->
+            <article class="post-card flex flex-col glass border border-slate-800 hover:border-rose-500/50 rounded-3xl overflow-hidden transition duration-500 shadow-xl group" data-category="siir">
+                <div class="w-full h-48 overflow-hidden relative">
+                    <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-transparent transition duration-500 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1455390582262-044cdead27d8?q=80&w=600&auto=format&fit=crop" alt="Şiir" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <span class="absolute top-4 left-4 z-20 bg-rose-600/90 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-lg">Şiir</span>
                 </div>
-                <div>
-                    <div class="flex gap-4 mb-3 items-start">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex-shrink-0 flex items-center justify-center text-amber-400 text-xl shadow-inner"><i class="fa-solid fa-heart-pulse"></i></div>
-                        <h4 class="text-base md:text-lg font-bold text-white group-hover:text-amber-300 transition leading-tight mt-1">Harika Aşk Romanı <span class="text-[11px] font-normal text-slate-400 block mt-1">(EPUB)</span></h4>
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center gap-2 text-xs text-slate-400 mb-3 font-medium">
+                        <span><i class="fa-regular fa-clock"></i> 2 dk okuma</span>
+                        <span>•</span>
+                        <span>A. Yılmaz</span>
                     </div>
-                    <p class="text-slate-400 text-xs md:text-sm leading-relaxed mb-6">Yürek burkan anlatımı, tutkulu kurgusu ve derin duygularıyla okuyucusunu etkisi altına alan unutulmaz bir aşk hikayesi.</p>
+                    <h4 class="text-xl font-serif font-bold text-white mb-3 group-hover:text-rose-400 transition leading-snug">Güz Yağmurları Altında</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow line-clamp-3">"Yapraklar düşerken o ıssız sokaklara, sessiz bir veda saklıdır her damlada..." Sonbaharın hüznünü anlatan lirik bir şiir denemesi.</p>
+                    <button class="w-full bg-slate-800 hover:bg-rose-600 text-white border border-slate-700 hover:border-rose-500 py-3 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-book-open"></i> Ücretsiz Oku
+                    </button>
                 </div>
-                <div class="border-t border-slate-800/80 pt-5 mt-auto flex items-center justify-between">
-                    <div>
-                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Fiyat</span>
-                        <span class="text-2xl font-black text-white">100 <span class="text-amber-400 text-sm">₺</span></span>
-                    </div>
-                    <a href="https://www.shopier.com/NetHost/52040986" target="_blank" class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-2.5 rounded-xl text-xs md:text-sm font-bold flex items-center gap-2 shadow-lg transition"><i class="fa-solid fa-credit-card"></i> Satın Al</a>
-                </div>
-            </div>
+            </article>
 
         </div>
     </main>
 
     <!-- Biz Kimiz / Vizyonumuz Alanı -->
-    <section class="max-w-6xl mx-auto px-4 py-12 relative z-10">
-        <div class="glass border border-slate-700/60 rounded-3xl p-8 md:p-12 text-center shadow-2xl relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-r from-indigo-900/20 to-cyan-900/20"></div>
+    <section class="max-w-6xl mx-auto px-4 py-16 relative z-10">
+        <div class="glass border border-slate-700/60 rounded-3xl p-8 md:p-16 text-center shadow-2xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-amber-900/20 to-slate-900/80"></div>
             <div class="relative z-10">
-                <div class="w-16 h-16 mx-auto bg-slate-800 border border-slate-700 rounded-full flex items-center justify-center mb-5 shadow-lg">
-                    <i class="fa-solid fa-rocket text-cyan-400 text-2xl"></i>
+                <div class="w-16 h-16 mx-auto bg-slate-800 border border-slate-700 rounded-full flex items-center justify-center mb-6 shadow-lg">
+                    <i class="fa-solid fa-book text-amber-500 text-2xl"></i>
                 </div>
-                <h3 class="text-2xl md:text-3xl font-black text-white mb-4">Dijitalde Yeni Bir Boyut: Marketim3000</h3>
-                <p class="text-slate-300 leading-relaxed max-w-3xl mx-auto text-sm md:text-base">
-                    Marketim3000, bilginin ve benzersiz hikayelerin sınır tanımadan, en erişilebilir fiyatlarla herkese ulaşması gerektiğine inanan yeni nesil bir dijital kütüphanedir. Fiziksel sınırları ve kargo bekleyişlerini tamamen ortadan kaldırıyor; kariyerinize, finansal özgürlüğünüze ve iç dünyanıza katkı sağlayacak en değerli eserleri saniyeler içinde doğrudan cihazınıza ulaştırıyoruz.
+                <h3 class="text-3xl md:text-4xl font-serif font-black text-white mb-6">Edebiyat Herkes İçindir</h3>
+                <p class="text-slate-300 leading-relaxed max-w-3xl mx-auto text-base md:text-lg font-light">
+                    Kelimelerin gücüne, hikayelerin iyileştiriciliğine ve şiirin estetiğine inanıyoruz. Edebiyat Metinleri, ticari kaygılardan uzak, okumayı seven herkesin ücretsiz ve özgürce faydalanabileceği dijital bir sığınaktır. Burada satır aralarında kaybolmak tamamen ücretsizdir.
                 </p>
             </div>
         </div>
     </section>
 
     <!-- Okur Yorumları Alanı & Yorum Yapma Formu -->
-    <section class="max-w-6xl mx-auto px-4 py-8 relative z-10">
-        <div class="flex items-center justify-between mb-8 border-b border-slate-800/80 pb-4">
-            <h3 class="text-2xl font-black flex items-center gap-3">
-                <span class="w-2.5 h-7 bg-gradient-to-b from-emerald-500 to-teal-500 rounded-full"></span> 
-                Sizden Gelenler
-            </h3>
+    <section class="max-w-6xl mx-auto px-4 py-12 relative z-10 bg-slate-900/50 rounded-t-[3rem] mt-8 pt-16">
+        <div class="flex flex-col text-center mb-12">
+            <h3 class="text-3xl font-serif font-black text-white mb-3">Okur Notları</h3>
+            <p class="text-slate-400">Yazılarımız hakkında değerli okurlarımızın bıraktığı izler.</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div class="glass border border-slate-800 rounded-2xl p-6 shadow-xl">
-                <div class="flex gap-1 text-amber-400 text-sm mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p class="text-slate-300 text-sm italic mb-4">"Yapay zeka rehberi sayesinde ders planlarımı 10 dakikada hazırlar oldum. Ödeme yapar yapmaz PDF anında mailime geldi. Harika hizmet!"</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <div class="glass border border-slate-800 rounded-2xl p-6 shadow-xl relative">
+                <i class="fa-solid fa-quote-left absolute top-4 left-4 text-3xl text-amber-500/10"></i>
+                <div class="flex gap-1 text-amber-500 text-xs mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">"Vepsteni İzinde hikayesini dün gece tek solukta okudum. Karakterin iç dünyasına yapılan yolculuk muazzamdı. Emeğinize sağlık."</p>
                 <div class="flex items-center gap-3 border-t border-slate-800 pt-4 mt-auto">
-                    <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold text-white">E.Y.</div>
-                    <span class="text-xs text-slate-400 font-semibold">Eğitimci</span>
+                    <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-bold text-slate-300">E.Y.</div>
+                    <span class="text-xs text-slate-400 font-semibold">Sadık Okur</span>
                 </div>
             </div>
-            <div class="glass border border-slate-800 rounded-2xl p-6 shadow-xl">
-                <div class="flex gap-1 text-amber-400 text-sm mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p class="text-slate-300 text-sm italic mb-4">"Harika Aşk Romanı hikayesi gerçekten sürükleyiciydi, bir solukta okudum. Telefondan okuması da çok rahattı. Fiyatı da çok çok uygun."</p>
+            <div class="glass border border-slate-800 rounded-2xl p-6 shadow-xl relative">
+                <i class="fa-solid fa-quote-left absolute top-4 left-4 text-3xl text-amber-500/10"></i>
+                <div class="flex gap-1 text-amber-500 text-xs mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">"Güz Yağmurları şiirindeki o melankolik tat harika. Tüm metinlerin ücretsiz sunulması günümüzde çok nadir görülen asil bir davranış."</p>
                 <div class="flex items-center gap-3 border-t border-slate-800 pt-4 mt-auto">
-                    <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold text-white">A.K.</div>
+                    <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-bold text-slate-300">A.K.</div>
                     <span class="text-xs text-slate-400 font-semibold">Öğrenci</span>
                 </div>
             </div>
-            <div class="glass border border-slate-800 rounded-2xl p-6 shadow-xl">
-                <div class="flex gap-1 text-amber-400 text-sm mb-3"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p class="text-slate-300 text-sm italic mb-4">"Sıfırdan Bütçe kitabıyla sonunda maaşımın nereye gittiğini anladım. Tamamen pratik ve uygulanabilir tavsiyeler var. Teşekkürler."</p>
+            <div class="glass border border-slate-800 rounded-2xl p-6 shadow-xl relative">
+                <i class="fa-solid fa-quote-left absolute top-4 left-4 text-3xl text-amber-500/10"></i>
+                <div class="flex gap-1 text-amber-500 text-xs mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">"Minimalizm denemesi ufkumu açtı. Reklamsız, sade ve sadece okumaya odaklı bu site tasarımı çok hoşuma gitti."</p>
                 <div class="flex items-center gap-3 border-t border-slate-800 pt-4 mt-auto">
-                    <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold text-white">M.S.</div>
-                    <span class="text-xs text-slate-400 font-semibold">Mühendis</span>
+                    <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-bold text-slate-300">M.S.</div>
+                    <span class="text-xs text-slate-400 font-semibold">Kitap Kurdu</span>
                 </div>
             </div>
         </div>
 
-        <div id="commentFormContainer" class="max-w-2xl mx-auto glass border border-slate-700/80 rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-500"></div>
+        <div id="commentFormContainer" class="max-w-2xl mx-auto bg-slate-900 border border-slate-700/80 rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-600 to-yellow-500"></div>
             <div class="text-center mb-6">
-                <h4 class="text-xl font-bold text-white mb-2"><i class="fa-regular fa-comment-dots text-emerald-400 mr-2"></i>Deneyiminizi Paylaşın</h4>
-                <p class="text-xs text-slate-400">Ürünlerimiz hakkında ne düşünüyorsunuz? Yorum bırakarak diğer okurlara yardımcı olun.</p>
+                <h4 class="text-xl font-serif font-bold text-white mb-2"><i class="fa-solid fa-pen-nib text-amber-500 mr-2"></i>Okuma Deneyiminizi Paylaşın</h4>
+                <p class="text-xs text-slate-400">Yazılarımızda hissettiklerinizi bizimle ve diğer okurlarla paylaşın.</p>
             </div>
             
             <form id="customerCommentForm" onsubmit="submitComment(event)" class="flex flex-col gap-4">
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex-1">
                         <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Adınız Soyadınız</label>
-                        <input type="text" required placeholder="Örn: Ahmet Yılmaz" class="w-full bg-slate-900/80 border border-slate-700 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition text-sm">
+                        <input type="text" required placeholder="Örn: Cemal Süreya" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition text-sm">
                     </div>
                     <div class="flex-1">
                         <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Değerlendirmeniz</label>
-                        <div class="flex flex-row-reverse justify-end gap-1 star-rating bg-slate-900/80 border border-slate-700 rounded-xl px-4 py-1.5 h-[46px] items-center">
+                        <div class="flex flex-row-reverse justify-end gap-1 star-rating bg-slate-950 border border-slate-800 rounded-xl px-4 py-1.5 h-[46px] items-center">
                             <input type="radio" id="star5" name="rating" value="5" required><label for="star5"><i class="fa-solid fa-star"></i></label>
                             <input type="radio" id="star4" name="rating" value="4"><label for="star4"><i class="fa-solid fa-star"></i></label>
                             <input type="radio" id="star3" name="rating" value="3"><label for="star3"><i class="fa-solid fa-star"></i></label>
@@ -299,130 +302,132 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Yorumunuz</label>
-                    <textarea required rows="3" placeholder="Kitap veya satın alma deneyiminiz hakkındaki düşünceleriniz..." class="w-full bg-slate-900/80 border border-slate-700 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 transition text-sm resize-none"></textarea>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Düşünceleriniz</label>
+                    <textarea required rows="3" placeholder="Bu metin size ne hissettirdi? Satırlar arasındaki düşünceleriniz..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition text-sm resize-none"></textarea>
                 </div>
-                <button type="submit" id="commentBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-xl transition shadow-lg mt-2 flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-paper-plane"></i> Yorumu Gönder
+                <button type="submit" id="commentBtn" class="bg-amber-600 hover:bg-amber-500 text-white font-bold py-3 px-6 rounded-xl transition shadow-lg mt-2 flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-paper-plane"></i> Gönder
                 </button>
             </form>
         </div>
     </section>
 
     <!-- Sıkça Sorulan Sorular (SSS) -->
-    <section class="max-w-4xl mx-auto px-4 py-12 relative z-10">
+    <section class="max-w-4xl mx-auto px-4 py-12 relative z-10 mb-10">
         <div class="flex items-center justify-between mb-8 border-b border-slate-800/80 pb-4">
-            <h3 class="text-2xl font-black flex items-center gap-3">
-                <span class="w-2.5 h-7 bg-gradient-to-b from-indigo-500 to-purple-500 rounded-full"></span> 
-                Sıkça Sorulan Sorular
+            <h3 class="text-2xl font-serif font-black text-white flex items-center gap-3">
+                Merak Edilenler
             </h3>
         </div>
         <div class="flex flex-col gap-4">
             <details class="glass border border-slate-800 hover:border-slate-600 rounded-2xl p-5 cursor-pointer group transition">
                 <summary class="font-bold text-white flex justify-between items-center outline-none text-sm md:text-base">
-                    Kredi kartı ile ödeme işlemi güvenli mi?
+                    Sitedeki tüm yazılar gerçekten ücretsiz mi?
                     <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition duration-300"></i>
                 </summary>
-                <p class="text-slate-400 text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">Evet, tüm ödemeleriniz Türkiye'nin en büyük altyapılarından biri olan Shopier güvencesiyle 256-bit SSL sertifikası altında gerçekleşir.</p>
+                <p class="text-slate-400 text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">Evet. Edebiyat Metinleri tamamen bağımsız ve kar amacı gütmeyen bir platformdur. Tüm öyküler, şiirler ve makaleler özgürce okunabilir. Hiçbir gizli ücret veya abonelik sistemi yoktur.</p>
             </details>
             <details class="glass border border-slate-800 hover:border-slate-600 rounded-2xl p-5 cursor-pointer group transition">
                 <summary class="font-bold text-white flex justify-between items-center outline-none text-sm md:text-base">
-                    Satın aldığım kitap cihazıma nasıl inecek?
+                    Metinleri bilgisayarımdan veya telefonumdan okuyabilir miyim?
                     <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition duration-300"></i>
                 </summary>
-                <p class="text-slate-400 text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">Ödeme işleminiz başarıyla tamamlandığı an, indirme linki Shopier sistemi tarafından doğrudan ekranınıza ve e-posta adresinize gönderilir.</p>
+                <p class="text-slate-400 text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">Kesinlikle. Sitemiz tüm cihazlar için özel olarak optimize edilmiştir. Göz yormayan karanlık temamızla gece okumalarınızı telefon, tablet veya bilgisayarınızdan rahatlıkla yapabilirsiniz.</p>
             </details>
             <details class="glass border border-slate-800 hover:border-slate-600 rounded-2xl p-5 cursor-pointer group transition">
                 <summary class="font-bold text-white flex justify-between items-center outline-none text-sm md:text-base">
-                    Kitapları telefonumdan okuyabilir miyim?
+                    Ben de yazılarımı bu platformda yayınlayabilir miyim?
                     <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition duration-300"></i>
                 </summary>
-                <p class="text-slate-400 text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">Kesinlikle. Satışa sunduğumuz tüm eserler evrensel dijital formatlar olan PDF ve EPUB formatındadır. Ek uygulama gerektirmez.</p>
+                <p class="text-slate-400 text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">Şu an için içerikler editoryal bir seçkiden geçmektedir. İlerleyen günlerde amatör ve profesyonel yazarların kendi metinlerini de bize iletebilecekleri bir gönderi sayfası aktif edilecektir.</p>
             </details>
         </div>
     </section>
 
-    <!-- YAPAY ZEKA SOHBET BALONU (CHATBOT) -->
+    <!-- EDEBİYAT ASİSTANI (CHATBOT) -->
     <div id="aiChatbot" style="z-index: 99999 !important;" class="fixed bottom-6 right-4 md:right-6 flex flex-col items-end">
         <div id="chatWindow" class="hidden w-80 sm:w-96 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl mb-4 overflow-hidden flex-col chat-open">
             
-            <div class="bg-gradient-to-r from-indigo-600 to-cyan-600 px-4 py-3 flex justify-between items-center">
+            <div class="bg-gradient-to-r from-amber-700 to-amber-500 px-4 py-3 flex justify-between items-center">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden border-2 border-white/30 shadow-md">
-                        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=150&auto=format&fit=crop" alt="AI Asistan" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1519682577862-22b62b24e493?q=80&w=150&auto=format&fit=crop" alt="Edebiyat Asistanı" class="w-full h-full object-cover">
                     </div>
                     <div>
-                        <h4 class="text-white text-sm font-bold tracking-wide">Yapay Zeka Asistanı</h4>
-                        <span class="text-[10px] text-cyan-200 flex items-center gap-1 font-semibold">
-                            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Çevrimiçi
+                        <h4 class="text-white text-sm font-bold tracking-wide">Edebiyat Asistanı</h4>
+                        <span class="text-[10px] text-amber-100 flex items-center gap-1 font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Sizinle
                         </span>
                     </div>
                 </div>
                 <button onclick="toggleChat()" class="text-white/80 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             
-            <div id="chatMessages" class="p-4 h-64 overflow-y-auto bg-slate-900/50 flex flex-col gap-3 text-sm">
+            <div id="chatMessages" class="p-4 h-64 overflow-y-auto bg-slate-950 flex flex-col gap-3 text-sm">
                 <div class="flex gap-2 w-full">
-                    <div class="w-6 h-6 rounded-full bg-indigo-500 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-robot text-white text-[10px]"></i></div>
-                    <div class="bg-slate-800 text-slate-200 px-3 py-2 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm">
-                        Merhaba! Marketim3000'e hoş geldiniz. Ben yapay zeka asistanınızım. Size kitaplarımız veya fiyatlarımız hakkında nasıl yardımcı olabilirim?
+                    <div class="w-6 h-6 rounded-full bg-amber-600 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-feather text-white text-[10px]"></i></div>
+                    <div class="bg-slate-800 text-slate-200 px-3 py-2 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm leading-relaxed">
+                        Merhaba, Edebiyat Metinleri'ne hoş geldiniz. Ruh halinize uygun bir okuma önerisi ister misiniz? Şiir mi, yoksa sürükleyici bir öykü mü arıyorsunuz?
                     </div>
                 </div>
             </div>
 
             <div class="p-3 bg-slate-900 border-t border-slate-800 flex items-center gap-2">
-                <input type="text" id="chatInput" placeholder="Bir soru sorun..." class="flex-grow bg-slate-800 text-white text-sm px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-cyan-500 transition" onkeypress="handleKeyPress(event)">
-                <button onclick="sendMessage()" class="bg-cyan-600 hover:bg-cyan-500 text-white w-10 h-10 rounded-xl flex items-center justify-center transition shadow-md"><i class="fa-solid fa-paper-plane text-sm"></i></button>
+                <input type="text" id="chatInput" placeholder="Bana bir tür söyleyin..." class="flex-grow bg-slate-950 text-white text-sm px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-amber-500 transition" onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()" class="bg-amber-600 hover:bg-amber-500 text-white w-10 h-10 rounded-xl flex items-center justify-center transition shadow-md"><i class="fa-regular fa-paper-plane text-sm"></i></button>
             </div>
         </div>
 
-        <button onclick="toggleChat()" class="w-16 h-16 bg-gradient-to-r from-indigo-600 to-cyan-500 hover:scale-105 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(6,182,212,0.4)] transition duration-300 relative">
-            <i class="fa-solid fa-robot text-white text-2xl"></i>
-            <span class="absolute -top-1 -right-2 bg-rose-500 text-white text-[10px] font-black px-2.5 py-1 border-2 border-slate-900 rounded-full tracking-wider shadow-sm whitespace-nowrap">AI CHAT</span>
+        <button onclick="toggleChat()" class="w-16 h-16 bg-gradient-to-r from-amber-700 to-yellow-500 hover:scale-105 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.3)] transition duration-300 relative">
+            <i class="fa-solid fa-feather-pointed text-white text-2xl"></i>
+            <span class="absolute -top-1 -right-2 bg-rose-600 text-white text-[10px] font-black px-2.5 py-1 border-2 border-slate-900 rounded-full tracking-wider shadow-sm whitespace-nowrap">SOHBET</span>
         </button>
     </div>
 
     <!-- Scriptler -->
     <script>
-        function filterProducts(category, btnElement) {
+        // Kategori Filtreleme
+        function filterPosts(category, btnElement) {
             document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('bg-cyan-600', 'border-cyan-500', 'text-white');
+                btn.classList.remove('bg-amber-600', 'border-amber-500', 'text-white');
                 btn.classList.add('glass', 'border-slate-700', 'text-slate-300');
             });
             btnElement.classList.remove('glass', 'border-slate-700', 'text-slate-300');
-            btnElement.classList.add('bg-cyan-600', 'border-cyan-500', 'text-white');
+            btnElement.classList.add('bg-amber-600', 'border-amber-500', 'text-white');
 
-            const products = document.querySelectorAll('.product-card');
-            products.forEach(product => {
-                if (category === 'all' || product.getAttribute('data-category') === category) {
-                    product.style.display = 'flex';
+            const posts = document.querySelectorAll('.post-card');
+            posts.forEach(post => {
+                if (category === 'all' || post.getAttribute('data-category') === category) {
+                    post.style.display = 'flex';
                 } else {
-                    product.style.display = 'none';
+                    post.style.display = 'none';
                 }
             });
         }
 
+        // Yorum Formu Simülasyonu
         function submitComment(event) {
             event.preventDefault();
             const btn = document.getElementById('commentBtn');
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gönderiliyor...';
-            btn.classList.replace('bg-emerald-600', 'bg-slate-600');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> İletiliyor...';
+            btn.classList.replace('bg-amber-600', 'bg-slate-600');
             btn.disabled = true;
 
             setTimeout(() => {
                 const formContainer = document.getElementById('commentFormContainer');
                 formContainer.innerHTML = `
                     <div class="text-center py-6">
-                        <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-lg">
+                        <div class="w-16 h-16 bg-amber-500/20 text-amber-500 border border-amber-500/30 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-lg">
                             <i class="fa-solid fa-check"></i>
                         </div>
-                        <h4 class="text-xl font-bold text-white mb-2">Yorumunuz Alındı!</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed max-w-md mx-auto">Değerli değerlendirmeniz başarıyla alınmış olup, onay için yöneticiye iletilmiştir. Desteğiniz için teşekkür ederiz.</p>
+                        <h4 class="text-xl font-serif font-bold text-white mb-2">Okur Notunuz Alındı!</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed max-w-md mx-auto">Değerli düşünceleriniz incelenmek üzere editörlerimize ulaştı. Edebiyat topluluğumuza katkınız için kalpten teşekkür ederiz.</p>
                     </div>
                 `;
             }, 1500);
         }
 
+        // Edebiyat Asistanı (Chatbot) Mantığı
         const chatWindow = document.getElementById('chatWindow');
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
@@ -442,7 +447,7 @@
         function sendMessage() {
             const userText = chatInput.value.trim();
             if (!userText) return;
-            chatMessages.innerHTML += `<div class="flex gap-2 w-full justify-end"><div class="bg-cyan-600 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm max-w-[85%]">${userText}</div></div>`;
+            chatMessages.innerHTML += `<div class="flex gap-2 w-full justify-end"><div class="bg-amber-600 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm max-w-[85%]">${userText}</div></div>`;
             chatInput.value = '';
             chatMessages.scrollTop = chatMessages.scrollHeight;
             setTimeout(() => { botReply(userText.toLowerCase()); }, 700);
@@ -450,18 +455,38 @@
 
         function botReply(text) {
             let reply = "";
-            if (text.includes("fiyat") || text.includes("ücret") || text.includes("kadar") || text.includes("kaç tl")) {
-                reply = "Mağazamızdaki eşsiz e-kitaplar kampanyada olup fiyatları <b>55 TL</b> ile <b>100 TL</b> arasında değişmektedir.";
-            } else if (text.includes("kitap") || text.includes("neler var") || text.includes("ürün")) {
-                reply = "Şu an satışta 5 harika ürünümüz var: <br>1. Psikoloji<br>2. Eğitimde YZ<br>3. Finans<br>4. Harika Aşk Romanı<br>5. Yeni Başlayanlar İçin YZ Kılavuzu";
-            } else if (text.includes("nasıl") || text.includes("satın al") || text.includes("indir")) {
-                reply = "Ürünlerin altındaki 'Satın Al' butonuna tıklayarak Shopier üzerinden ödeme yapabilirsiniz. Kitap anında inecektir.";
+            if (text.includes("fiyat") || text.includes("ücret") || text.includes("paralı")) {
+                reply = "Edebiyat Metinleri tamamen bağımsız ve <b>ücretsiz</b> bir okuma platformudur. Sitemizdeki hiçbir içerik için ücret talep edilmez.";
+            } else if (text.includes("şiir")) {
+                reply = "Şiir ruhun aynasıdır. Size koleksiyonumuzdan 'Güz Yağmurları Altında' adlı şiirimizi okumanızı şiddetle tavsiye ederim.";
+            } else if (text.includes("öykü") || text.includes("hikaye") || text.includes("roman")) {
+                reply = "Sürükleyici bir kurgu arıyorsanız, gizem ve tutku dolu 'Vepsteni İzinde' isimli öykümüz tam size göre.";
+            } else if (text.includes("neler var") || text.includes("ne okuyabilirim")) {
+                reply = "Platformumuzda öyküler, duygu yüklü şiirler, psikolojik denemeler ve ufuk açıcı inceleme makaleleri bulabilirsiniz. Hangi tür ilginizi çeker?";
             } else {
-                reply = "Detaylı bilgi için üst menüdeki <b>Canlı Destek (WhatsApp)</b> butonuna tıklayabilirsiniz.";
+                reply = "Ne güzel bir düşünce. Edebiyatın eşsiz dünyasında aradığınızı bulmanız için buradayım. Lütfen 'şiir', 'öykü' veya 'deneme' gibi türler yazarak bana yön verin.";
             }
-            chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-indigo-500 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-robot text-white text-[10px]"></i></div><div class="bg-slate-800 text-slate-200 px-3 py-2 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm max-w-[85%]">${reply}</div></div>`;
+            chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-amber-600 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-feather text-white text-[10px]"></i></div><div class="bg-slate-800 text-slate-200 px-3 py-2 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
     </script>
+
+    <!-- Alt Bilgi (Footer) -->
+    <footer class="border-t border-slate-800/80 bg-slate-950 py-12 mt-10 relative z-10">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+            <div>
+                <span class="text-xl font-serif font-black text-white tracking-wide flex items-center gap-2 justify-center md:justify-start">
+                    <i class="fa-solid fa-feather-pointed text-amber-500"></i> Edebiyat Metinleri
+                </span>
+                <p class="text-xs text-slate-500 mt-2">© 2026 Edebiyat Metinleri — Ticari amaç gütmeyen özgür okuma platformu.</p>
+            </div>
+            <div class="flex items-center gap-6 text-sm text-slate-400">
+                <a href="#" class="hover:text-amber-500 transition">Hakkımızda</a>
+                <span>•</span>
+                <a href="#" class="hover:text-amber-500 transition">Yazı Gönder</a>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
