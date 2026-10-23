@@ -5,19 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Kitap Deposu | Premium Dijital Kütüphane</title>
     
-    <!-- SEO ve Sosyal Medya (Open Graph) Etiketleri -->
-    <meta name="description" content="Ufkunuzu açacak rehberler, kişisel gelişim eserleri ve ücretsiz e-kitaplar. Hemen kaydolun ve okumaya başlayın.">
-    <meta property="og:title" content="E-Kitap Deposu | Ücretsiz Dijital Kütüphane">
-    <meta property="og:description" content="Bilginin ve kitapların dünyasında yeni bir yolculuğa çıkın.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1200&auto=format&fit=crop">
-    <meta property="og:url" content="https://www.marketim3000.online">
-    <meta name="twitter:card" content="summary_large_image">
-
+    <!-- PWA ve SEO -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#f59e0b"/>
+    <meta name="description" content="Ufkunuzu açacak rehberler, kişisel gelişim eserleri ve ücretsiz e-kitaplar.">
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
     <link rel="icon" href="logo.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
@@ -28,91 +24,86 @@
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#fffbeb', 100: '#fef3c7', 400: '#fbbf24',
-                            500: '#f59e0b', 600: '#d97706', 900: '#78350f',
-                        }
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] },
+                    colors: { brand: { 50: '#fffbeb', 100: '#fef3c7', 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 900: '#78350f' } }
                 }
             }
         }
     </script>
 
     <style>
-        body { background-color: #0f172a; color: #cbd5e1; }
+        /* Tema Renkleri */
+        body { transition: background-color 0.3s, color 0.3s; }
+        html.dark body { background-color: #0f172a; color: #cbd5e1; }
+        html.light body { background-color: #f8fafc; color: #334155; }
+        
         .glass-dark { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .hero-banner {
-            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.98)), 
-                        url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
-        }
-        .gold-text-gradient {
-            background: linear-gradient(to right, #fbbf24, #f59e0b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        html.light .glass-dark { background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(0, 0, 0, 0.05); }
+        
+        .hero-banner { background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.98)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat; }
+        html.light .hero-banner { background: linear-gradient(to bottom, rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.95)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat; }
+
+        .gold-text-gradient { background: linear-gradient(to right, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        html.light .gold-text-gradient { background: linear-gradient(to right, #d97706, #b45309); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        .chat-open { display: flex !important; animation: slideUp 0.25s ease-out forwards; }
         .modal-active { display: flex !important; animation: fadeIn 0.25s ease-out forwards; }
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
-        .star-rating input { display: none; }
-        .star-rating label { color: #475569; cursor: pointer; font-size: 1.5rem; transition: color 0.2s; }
-        .star-rating input:checked ~ label { color: #fbbf24; }
-        .star-rating label:hover, .star-rating label:hover ~ label { color: #f59e0b; }
+        
         /* Kitap Yükleniyor Animasyonu */
         .loader { border: 3px solid #1e293b; border-top: 3px solid #f59e0b; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        /* Arama ve Filtre Çubuğu Kaydırma Gizleme */
         .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Kitap Detay Modalı İçin */
+        #bookDetailModal { display: none; }
+        #adminModal { display: none; }
     </style>
 </head>
-<body class="font-sans min-h-screen flex flex-col selection:bg-brand-500 selection:text-slate-900 relative">
+<body class="font-sans min-h-screen flex flex-col relative">
 
     <!-- Üst Menü -->
-    <header class="border-b border-slate-800 glass-dark sticky top-0 z-40 shadow-lg">
+    <header class="border-b border-slate-800 dark:border-slate-800 light:border-slate-200 glass-dark sticky top-0 z-40 shadow-lg">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center gap-2">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 md:w-11 md:h-11 rounded-xl overflow-hidden bg-slate-800 border border-brand-500/30 flex items-center justify-center shadow-inner flex-shrink-0">
-                    <i class="fa-solid fa-book-bookmark text-brand-400 text-lg md:text-xl"></i>
+                <div class="w-10 h-10 rounded-xl bg-slate-800 dark:bg-slate-800 light:bg-slate-200 border border-brand-500/30 flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-book-bookmark text-brand-400 text-lg"></i>
                 </div>
                 <div>
-                    <h1 class="text-lg md:text-2xl font-serif font-black tracking-wide text-white leading-tight">
-                        E-Kitap Deposu
-                    </h1>
+                    <h1 class="text-lg md:text-2xl font-serif font-black tracking-wide text-white dark:text-white light:text-slate-900 leading-tight">E-Kitap Deposu</h1>
                     <span class="text-[9px] md:text-[10px] text-brand-400 font-bold tracking-wider uppercase block">Premium Dijital Arşiv</span>
                 </div>
             </div>
 
             <div class="flex items-center gap-2 md:gap-3">
-                <!-- Favorilerim Butonu (Sadece Giriş Yapınca Görünür) -->
-                <button id="myFavoritesBtn" onclick="toggleFavoritesView()" style="display: none;" class="hidden md:flex items-center gap-2 text-slate-300 hover:text-brand-400 px-3 py-2 text-xs font-semibold transition border border-slate-700 rounded-full">
+                <!-- Tema Değiştirici -->
+                <button onclick="toggleTheme()" class="w-8 h-8 rounded-full bg-slate-800 dark:bg-slate-800 light:bg-slate-200 text-slate-300 dark:text-slate-300 light:text-slate-600 flex items-center justify-center hover:scale-110 transition">
+                    <i id="themeIcon" class="fa-solid fa-sun"></i>
+                </button>
+
+                <!-- Admin Butonu (Giriş yapınca ve admin ise görünür) -->
+                <button id="adminPanelBtn" onclick="openAdminModal()" style="display: none;" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-2 rounded-full text-xs font-bold transition shadow-sm flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield"></i> Admin
+                </button>
+
+                <!-- Favorilerim -->
+                <button id="myFavoritesBtn" onclick="toggleFavoritesView()" style="display: none;" class="hidden md:flex items-center gap-2 text-slate-300 dark:text-slate-300 light:text-slate-600 hover:text-brand-400 px-3 py-2 text-xs font-semibold transition border border-slate-700 dark:border-slate-700 light:border-slate-300 rounded-full">
                     <i class="fa-solid fa-heart text-rose-500"></i> Favorilerim
                 </button>
 
-                <button id="googleLoginBtn" onclick="loginWithGoogle()" class="bg-white hover:bg-slate-100 text-slate-900 px-3.5 py-2 md:px-4 md:py-2 rounded-full text-xs font-bold transition shadow-sm flex items-center gap-2">
-                    <svg class="w-4 h-4" viewBox="0 0 24 24">
-                        <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
-                        <path fill="#34A853" d="M12 24c3.3 0 6.08-1.09 8.11-2.96l-3.88-3.05c-1.1.74-2.51 1.18-4.23 1.18-3.26 0-6.02-2.2-7-5.16H1.01v3.14C3.03 21.2 7.21 24 12 24z"/>
-                        <path fill="#FBBC05" d="M5 14.01c-.25-.74-.39-1.54-.39-2.36s.14-1.62.39-2.36V6.15H1.01C.37 7.43 0 8.87 0 10.65s.37 3.22 1.01 4.5l3.99-1.14z"/>
-                        <path fill="#EA4335" d="M12 4.75c1.79 0 3.41.62 4.68 1.82l3.51-3.51C18.07 1.19 15.3 0 12 0 7.21 0 3.03 2.8 1.01 6.85l3.99 3.14c.98-2.96 3.74-5.24 7-5.24z"/>
-                    </svg>
-                    <span>Google ile Kaydol</span>
+                <!-- Google Giriş -->
+                <button id="googleLoginBtn" onclick="loginWithGoogle()" class="bg-white hover:bg-slate-100 text-slate-900 px-3.5 py-2 rounded-full text-xs font-bold transition shadow-sm flex items-center gap-2">
+                    <i class="fa-brands fa-google"></i> Giriş Yap
                 </button>
 
-                <div id="userProfileArea" style="display: none;" class="items-center gap-2 bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full shadow-sm">
+                <!-- Profil -->
+                <div id="userProfileArea" style="display: none;" class="items-center gap-2 bg-slate-800 dark:bg-slate-800 light:bg-slate-200 border border-slate-700 dark:border-slate-700 light:border-slate-300 px-3 py-1.5 rounded-full shadow-sm">
                     <img id="userAvatarImg" src="" style="display:none;" class="w-6 h-6 rounded-full object-cover border border-brand-500">
-                    <div id="userAvatarText" class="w-6 h-6 rounded-full bg-brand-500 text-slate-900 font-bold text-xs flex items-center justify-center uppercase shadow-sm">U</div>
-                    <span id="userNameDisplay" class="text-xs font-semibold text-slate-200 max-w-[100px] truncate">Okur</span>
-                    <button onclick="logoutUser()" title="Çıkış Yap" class="text-slate-400 hover:text-rose-500 ml-1 text-xs transition">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                    </button>
+                    <div id="userAvatarText" class="w-6 h-6 rounded-full bg-brand-500 text-slate-900 font-bold text-xs flex items-center justify-center uppercase">U</div>
+                    <span id="userNameDisplay" class="text-xs font-semibold text-slate-200 dark:text-slate-200 light:text-slate-800 max-w-[100px] truncate">Okur</span>
+                    <button onclick="logoutUser()" class="text-slate-400 hover:text-rose-500 ml-1 text-xs"><i class="fa-solid fa-right-from-bracket"></i></button>
                 </div>
             </div>
         </div>
@@ -121,102 +112,99 @@
     <!-- Giriş Uyarı Modalı -->
     <div id="loginRequiredModal" style="display: none;" class="fixed inset-0 z-[999999] items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4">
         <div class="bg-slate-800 text-slate-200 w-full max-w-sm rounded-3xl p-6 text-center shadow-2xl border border-slate-700">
-            <div class="w-14 h-14 mx-auto mb-4 bg-brand-500/10 text-brand-400 rounded-full flex items-center justify-center text-2xl shadow-inner border border-brand-500/20">
-                <i class="fa-solid fa-lock"></i>
-            </div>
+            <div class="w-14 h-14 mx-auto mb-4 bg-brand-500/10 text-brand-400 rounded-full flex items-center justify-center text-2xl border border-brand-500/20"><i class="fa-solid fa-lock"></i></div>
             <h3 class="text-xl font-bold text-white mb-2">Giriş Yapılması Gerekli</h3>
-            <p class="text-xs text-slate-400 mb-6 leading-relaxed">İşlemi tamamlamak için lütfen sağ üst köşeden <b>Google ile Kaydol</b> butonuna tıklayarak ücretsiz oturum açın.</p>
-            <button onclick="closeLoginRequiredModal()" class="w-full bg-brand-500 hover:bg-brand-600 text-slate-900 font-bold py-3 rounded-xl text-xs transition shadow-md">
-                Tamam, Anladım
-            </button>
+            <p class="text-xs text-slate-400 mb-6">İşlemi tamamlamak için lütfen sağ üstten Google ile oturum açın.</p>
+            <button onclick="document.getElementById('loginRequiredModal').style.display='none'" class="w-full bg-brand-500 hover:bg-brand-600 text-slate-900 font-bold py-3 rounded-xl text-xs transition">Tamam</button>
         </div>
     </div>
 
     <!-- Hero Bölümü -->
     <section class="relative overflow-hidden hero-banner py-20 md:py-28 z-10 border-b border-slate-800">
         <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-4xl md:text-6xl font-serif font-black mb-6 text-white leading-tight">
+            <h2 class="text-4xl md:text-6xl font-serif font-black mb-6 text-slate-900 dark:text-white leading-tight">
                 Bilginin Gücünü <br class="hidden md:block">
                 <span class="gold-text-gradient italic font-normal">Keşfetmeye Hazır Mısınız?</span>
             </h2>
-            <p class="text-slate-400 max-w-2xl mx-auto text-base md:text-lg mb-8 leading-relaxed font-light">
-                Aradığınızı bulun, favorilerinize ekleyin ve hemen indirin.
-            </p>
+            <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-base md:text-lg mb-8 font-light">Aradığınızı bulun, favorilerinize ekleyin ve hemen indirin.</p>
         </div>
     </section>
 
-    <!-- Arama ve Filtreleme Alanı -->
+    <!-- Arama ve Filtreleme -->
     <section class="max-w-6xl mx-auto px-4 -mt-8 relative z-20 mb-10">
-        <div class="bg-slate-800/90 backdrop-blur-lg border border-slate-700 rounded-2xl p-4 md:p-6 shadow-2xl flex flex-col md:flex-row gap-4 items-center justify-between">
+        <div class="bg-white dark:bg-slate-800/90 backdrop-blur-lg border border-slate-200 dark:border-slate-700 rounded-2xl p-4 md:p-6 shadow-2xl flex flex-col md:flex-row gap-4 items-center justify-between">
             <div class="relative w-full md:w-1/2">
                 <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
-                <input type="text" id="searchInput" onkeyup="filterBooks()" placeholder="Kitap adı veya yazar ara..." class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:border-brand-500 transition text-sm">
+                <input type="text" id="searchInput" onkeyup="filterBooks()" placeholder="Kitap adı veya yazar ara..." class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:border-brand-500 text-sm">
             </div>
             <div class="w-full md:w-1/2 flex gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
                 <button onclick="filterCategory('Tümü')" class="category-btn active-category whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition border border-slate-600 bg-slate-700 text-white">Tümü</button>
-                <button onclick="filterCategory('Finans')" class="category-btn whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition border border-slate-700 text-slate-400 hover:text-white">Finans</button>
-                <button onclick="filterCategory('Kişisel Gelişim')" class="category-btn whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition border border-slate-700 text-slate-400 hover:text-white">Kişisel Gelişim</button>
-                <button onclick="filterCategory('Roman')" class="category-btn whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition border border-slate-700 text-slate-400 hover:text-white">Roman</button>
+                <button onclick="filterCategory('Finans')" class="category-btn whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition border border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white">Finans</button>
+                <button onclick="filterCategory('Kişisel Gelişim')" class="category-btn whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition border border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white">Kişisel Gelişim</button>
+                <button onclick="filterCategory('Roman')" class="category-btn whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition border border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white">Roman</button>
             </div>
         </div>
     </section>
 
-    <!-- Kitap Arşivi (Dinamik Liste) -->
-    <main id="koleksiyon" class="max-w-6xl mx-auto px-4 py-6 z-10 relative scroll-mt-20 min-h-[400px]">
-        <div class="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
-            <h3 class="text-2xl font-serif font-black text-white flex items-center gap-3" id="listTitle">
+    <!-- Kitap Arşivi -->
+    <main id="koleksiyon" class="max-w-6xl mx-auto px-4 py-6 z-10 relative min-h-[400px]">
+        <div class="flex justify-between items-center mb-8 border-b border-slate-200 dark:border-slate-800 pb-4">
+            <h3 class="text-2xl font-serif font-black text-slate-900 dark:text-white flex items-center gap-3" id="listTitle">
                 <i class="fa-solid fa-layer-group text-brand-500"></i> Tüm Kitaplar
             </h3>
-            <span id="bookCount" class="text-xs text-slate-400 bg-slate-800 px-3 py-1 rounded-full border border-slate-700">0 Kitap</span>
+            <span id="bookCount" class="text-xs text-slate-500 dark:text-slate-400 bg-slate-200 dark:bg-slate-800 px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">0 Kitap</span>
         </div>
 
-        <!-- Yükleniyor Göstergesi -->
         <div id="loadingIndicator" class="flex flex-col items-center justify-center py-20">
             <div class="loader mb-4"></div>
             <p class="text-slate-400 text-sm">Kitaplar Yükleniyor...</p>
         </div>
 
-        <!-- Kitapların Basılacağı Alan -->
-        <div id="bookGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- JavaScript ile doldurulacak -->
-        </div>
+        <div id="bookGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </main>
 
-    <!-- Bülten Kayıt Alanı -->
+    <!-- Bülten -->
     <section class="max-w-4xl mx-auto px-4 py-16 relative z-10">
-        <div class="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-3xl p-8 md:p-12 text-center shadow-2xl relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-brand-500/10 rounded-bl-full"></div>
-            <div class="absolute bottom-0 left-0 w-24 h-24 bg-brand-500/10 rounded-tr-full"></div>
-            <i class="fa-solid fa-envelope-open-text text-4xl text-brand-400 mb-4"></i>
-            <h3 class="text-2xl md:text-3xl font-serif font-black text-white mb-3">Yeni Kitaplardan Haberdar Olun</h3>
-            <p class="text-slate-400 text-sm mb-6 max-w-lg mx-auto">Bültenimize katılın, arşivimize eklenen yeni ücretsiz e-kitapları ilk siz öğrenin.</p>
-            
+        <div class="bg-gradient-to-br from-white to-slate-100 dark:from-slate-800 dark:to-slate-900 border border-slate-200 dark:border-slate-700 rounded-3xl p-8 md:p-12 text-center shadow-2xl relative overflow-hidden">
+            <i class="fa-solid fa-envelope-open-text text-4xl text-brand-500 mb-4"></i>
+            <h3 class="text-2xl md:text-3xl font-serif font-black text-slate-900 dark:text-white mb-3">Yeni Kitaplardan Haberdar Olun</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Bültenimize katılın, yeni e-kitapları ilk siz öğrenin.</p>
             <form action="https://formspree.io/f/xrppgddn" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
                 <input type="hidden" name="_subject" value="Yeni Bülten Kaydı!">
-                <input type="email" name="email" required placeholder="E-posta adresiniz" class="flex-grow bg-slate-900 border border-slate-700 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-brand-500 transition text-sm">
+                <input type="email" name="email" required placeholder="E-posta adresiniz" class="flex-grow bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:border-brand-500 text-sm">
                 <button type="submit" class="bg-brand-500 hover:bg-brand-400 text-slate-900 font-bold px-6 py-3 rounded-xl transition shadow-lg whitespace-nowrap">Abone Ol</button>
             </form>
         </div>
     </section>
 
-    <!-- Okur Yorumları -->
-    <section class="max-w-6xl mx-auto px-4 py-16 relative z-10 bg-slate-900 border-t border-slate-800">
-        <div id="commentFormContainer" class="max-w-2xl mx-auto bg-slate-800/80 border border-slate-700 rounded-3xl p-6 md:p-8 shadow-xl relative overflow-hidden">
+    <!-- Okur Yorumları (Dinamik) -->
+    <section class="max-w-6xl mx-auto px-4 py-16 relative z-10 bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+        <div class="flex flex-col text-center mb-10">
+            <h3 class="text-3xl font-serif font-black text-slate-900 dark:text-white mb-3">Okur Yorumları</h3>
+            <p class="text-slate-500 dark:text-slate-400">Onaylanmış gerçek okur yorumları.</p>
+        </div>
+        
+        <!-- Yorumların Listeleneceği Alan -->
+        <div id="commentsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <!-- JS ile doldurulacak -->
+        </div>
+
+        <!-- Yorum Formu -->
+        <div id="commentFormContainer" class="max-w-2xl mx-auto bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-3xl p-6 md:p-8 shadow-xl relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-400 to-brand-600"></div>
             <div class="text-center mb-6">
-                <h4 class="text-xl font-serif font-bold text-white mb-2"><i class="fa-solid fa-pen-nib text-brand-400 mr-2"></i>Deneyiminizi Paylaşın</h4>
+                <h4 class="text-xl font-serif font-bold text-slate-900 dark:text-white mb-2"><i class="fa-solid fa-pen-nib text-brand-500 mr-2"></i>Deneyiminizi Paylaşın</h4>
             </div>
             
-            <form action="https://formspree.io/f/xrppgddn" method="POST" onsubmit="submitComment(event)" class="flex flex-col gap-4">
-                <input type="hidden" name="_subject" value="Yeni Okur Yorumu Geldi!">
+            <form id="commentForm" onsubmit="submitComment(event)" class="flex flex-col gap-4">
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex-1">
-                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Adınız Soyadınız</label>
-                        <input type="text" name="name" id="commentNameInput" required placeholder="Örn: Ahmet Yılmaz" class="w-full bg-slate-900/50 border border-slate-700 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-brand-500 transition text-sm">
+                        <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">Adınız</label>
+                        <input type="text" name="name" id="commentNameInput" required placeholder="Örn: Ahmet Yılmaz" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:border-brand-500 text-sm">
                     </div>
                     <div class="flex-1">
-                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Puanınız</label>
-                        <div class="flex flex-row-reverse justify-end gap-1 star-rating bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-1.5 h-[46px] items-center">
+                        <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">Puanınız</label>
+                        <div class="flex flex-row-reverse justify-end gap-1 star-rating bg-slate-50 dark:bg-slate-900/50 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-1.5 h-[46px] items-center">
                             <input type="radio" id="star5" name="rating" value="5" required><label for="star5"><i class="fa-solid fa-star"></i></label>
                             <input type="radio" id="star4" name="rating" value="4"><label for="star4"><i class="fa-solid fa-star"></i></label>
                             <input type="radio" id="star3" name="rating" value="3"><label for="star3"><i class="fa-solid fa-star"></i></label>
@@ -226,73 +214,105 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Düşünceleriniz</label>
-                    <textarea name="message" required rows="3" placeholder="Kitap size neler kattı?..." class="w-full bg-slate-900/50 border border-slate-700 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-brand-500 transition text-sm resize-none"></textarea>
+                    <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-2">Düşünceleriniz</label>
+                    <textarea name="message" required rows="3" placeholder="Kitap size neler kattı?..." class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:border-brand-500 text-sm resize-none"></textarea>
                 </div>
-                <button type="submit" id="commentBtn" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-xl transition shadow-md mt-2 flex items-center justify-center gap-2">
-                    <i class="fa-regular fa-paper-plane text-brand-400"></i> Gönder
+                <button type="submit" id="commentBtn" class="bg-slate-800 dark:bg-slate-700 hover:bg-brand-500 dark:hover:bg-brand-500 text-white hover:text-slate-900 dark:hover:text-slate-900 font-bold py-3 px-6 rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-paper-plane text-brand-400 group-hover:text-slate-900"></i> Yorumu Gönder
                 </button>
+                <p class="text-[10px] text-center text-slate-400 mt-2">Yorumlar admin onayından sonra yayınlanır.</p>
             </form>
         </div>
     </section>
 
-    <!-- Chatbot Asistan -->
-    <div id="aiChatbot" style="z-index: 99999 !important;" class="fixed bottom-6 right-4 md:right-6 flex flex-col items-end">
-        <div id="chatWindow" style="display: none;" class="w-80 sm:w-96 bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl mb-4 overflow-hidden flex-col text-slate-200">
-            <div class="bg-brand-500 px-4 py-3 flex justify-between items-center text-slate-900">
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-full bg-slate-900 flex items-center justify-center shadow-sm text-brand-400">
-                        <i class="fa-solid fa-robot"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-slate-900 text-sm font-bold tracking-wide">Depo Asistanı</h4>
-                        <span class="text-[10px] text-brand-900 flex items-center gap-1 font-bold">
-                            <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span> Çevrimiçi
-                        </span>
-                    </div>
-                </div>
-                <button onclick="toggleChat()" class="text-slate-900/70 hover:text-slate-900 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
+    <!-- ============================================== -->
+    <!-- KİTAP DETAY MODALI (POPUP) -->
+    <!-- ============================================== -->
+    <div id="bookDetailModal" class="fixed inset-0 z-[99999] items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-3xl w-full max-w-3xl shadow-2xl relative overflow-hidden flex flex-col md:flex-row">
+            <button onclick="closeBookModal()" class="absolute top-4 right-4 z-10 w-8 h-8 bg-slate-900/50 text-white rounded-full flex items-center justify-center hover:bg-rose-500 transition"><i class="fa-solid fa-xmark"></i></button>
             
-            <div id="chatMessages" class="p-4 h-64 overflow-y-auto bg-slate-900 flex flex-col gap-3 text-sm">
-                <div class="flex gap-2 w-full">
-                    <div class="w-6 h-6 rounded-full bg-brand-500 text-slate-900 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-book text-[10px]"></i></div>
-                    <div class="bg-slate-800 text-slate-300 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm leading-relaxed">
-                        Merhaba! Kitabı indirmek için sağ üstten <b>Google ile Kaydol</b> butonunu kullanabilirsiniz.
-                    </div>
-                </div>
+            <div class="w-full md:w-1/2 h-64 md:h-auto bg-slate-200 dark:bg-slate-900 relative">
+                <img id="modalCover" src="" class="w-full h-full object-cover">
             </div>
-
-            <div class="p-3 bg-slate-800 border-t border-slate-700 flex items-center gap-2">
-                <input type="text" id="chatInput" placeholder="Bir soru sorun..." class="flex-grow bg-slate-900 text-white text-sm px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-brand-500 transition" onkeypress="handleKeyPress(event)">
-                <button onclick="sendMessage()" class="bg-brand-500 hover:bg-brand-400 text-slate-900 w-10 h-10 rounded-xl flex items-center justify-center transition shadow"><i class="fa-regular fa-paper-plane text-sm"></i></button>
+            <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center">
+                <span id="modalCategory" class="text-[10px] font-bold text-brand-500 uppercase tracking-widest mb-2 block"></span>
+                <h3 id="modalTitle" class="text-3xl font-serif font-black text-slate-900 dark:text-white mb-2 leading-tight"></h3>
+                <p id="modalAuthor" class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-4"><i class="fa-solid fa-pen-nib mr-1 text-brand-500"></i> <span></span></p>
+                <div id="modalStars" class="flex gap-1 text-brand-400 text-xs mb-4"></div>
+                <p id="modalDesc" class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6 flex-grow"></p>
+                
+                <div class="flex items-center justify-between border-t border-slate-200 dark:border-slate-700 pt-4 mt-auto">
+                    <span id="modalDownloadCount" class="text-xs font-bold text-slate-500"><i class="fa-solid fa-download"></i> 0 İndirme</span>
+                    <button id="modalDownloadBtn" class="bg-brand-500 hover:bg-brand-400 text-slate-900 px-6 py-3 rounded-xl text-sm font-bold transition shadow-lg flex items-center gap-2">
+                        <i class="fa-solid fa-download"></i> Hemen İndir
+                    </button>
+                </div>
             </div>
         </div>
-
-        <button onclick="toggleChat()" class="w-16 h-16 bg-brand-500 hover:bg-brand-400 hover:scale-105 rounded-full flex items-center justify-center shadow-lg shadow-brand-500/30 transition duration-300 relative text-slate-900">
-            <i class="fa-solid fa-book-open text-xl"></i>
-            <span class="absolute -top-1 -right-2 bg-white text-slate-900 text-[10px] font-black px-2.5 py-1 border-2 border-slate-900 rounded-full tracking-wider shadow whitespace-nowrap">ASİSTAN</span>
-        </button>
     </div>
 
-    <!-- Alt Bilgi -->
-    <footer class="border-t border-slate-800 bg-slate-950 py-8 relative z-10">
-        <div class="max-w-6xl mx-auto px-4 text-center">
-            <span class="text-lg font-serif font-black text-white tracking-wide flex items-center justify-center gap-2">
-                <i class="fa-solid fa-book-bookmark text-brand-500"></i> E-Kitap Deposu
-            </span>
-            <p class="text-xs text-slate-500 mt-2">© 2026 E-Kitap Deposu — Ticari amaç gütmeyen özgür arşiv.</p>
+    <!-- ============================================== -->
+    <!-- ADMİN PANELİ MODALI -->
+    <!-- ============================================== -->
+    <div id="adminModal" class="fixed inset-0 z-[999999] items-center justify-center bg-slate-950/90 backdrop-blur-md p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-4xl shadow-2xl relative overflow-hidden flex flex-col h-[90vh]">
+            <div class="bg-slate-800 p-4 border-b border-slate-700 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-white"><i class="fa-solid fa-user-shield text-rose-500 mr-2"></i> Yönetici Paneli</h2>
+                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            
+            <div class="flex border-b border-slate-700 bg-slate-900/50">
+                <button onclick="switchAdminTab('books')" id="tabBtnBooks" class="flex-1 py-3 text-sm font-bold text-white border-b-2 border-rose-500">Kitap Yönetimi</button>
+                <button onclick="switchAdminTab('comments')" id="tabBtnComments" class="flex-1 py-3 text-sm font-bold text-slate-400 hover:text-white border-b-2 border-transparent">Yorum Onaylama</button>
+            </div>
+
+            <div class="p-6 overflow-y-auto flex-grow">
+                <!-- Kitap Yönetimi Sekmesi -->
+                <div id="adminTabBooks">
+                    <form id="addBookForm" onsubmit="addNewBook(event)" class="bg-slate-800 p-4 rounded-2xl mb-8 border border-slate-700 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <h3 class="col-span-full text-brand-400 font-bold mb-2">Yeni Kitap Ekle</h3>
+                        <input type="text" id="newBookTitle" required placeholder="Kitap Adı" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm">
+                        <input type="text" id="newBookAuthor" required placeholder="Yazar" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm">
+                        <select id="newBookCategory" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm">
+                            <option value="Finans">Finans</option>
+                            <option value="Kişisel Gelişim">Kişisel Gelişim</option>
+                            <option value="Roman">Roman</option>
+                        </select>
+                        <input type="text" id="newBookFile" required placeholder="Dosya Adı (ör: kitap.epub)" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm">
+                        <input type="url" id="newBookCover" required placeholder="Kapak Resim URL'si" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm col-span-full">
+                        <textarea id="newBookDesc" required placeholder="Kitap Açıklaması" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm col-span-full" rows="2"></textarea>
+                        <button type="submit" class="col-span-full bg-brand-500 text-slate-900 font-bold py-2 rounded-lg">Kitabı Kaydet</button>
+                    </form>
+                    
+                    <h3 class="text-white font-bold mb-4">Mevcut Kitaplar</h3>
+                    <div id="adminBookList" class="space-y-2"></div>
+                </div>
+
+                <!-- Yorum Onaylama Sekmesi -->
+                <div id="adminTabComments" class="hidden">
+                    <h3 class="text-white font-bold mb-4">Onay Bekleyen Yorumlar</h3>
+                    <div id="adminCommentList" class="space-y-4"></div>
+                </div>
+            </div>
         </div>
+    </div>
+
+
+    <!-- Chatbot (Görsel amaçlı korundu) -->
+    <div id="aiChatbot" style="z-index: 99999 !important;" class="fixed bottom-6 right-4 flex flex-col items-end">
+        <button onclick="alert('Asistan şu an bakımda!')" class="w-14 h-14 bg-brand-500 rounded-full flex items-center justify-center shadow-lg text-slate-900"><i class="fa-solid fa-robot text-xl"></i></button>
+    </div>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 py-8 relative z-10 text-center">
+        <p class="text-xs text-slate-500">© 2026 E-Kitap Deposu — Tüm Hakları Saklıdır.</p>
     </footer>
 
-    <!-- ========================================== -->
-    <!-- JAVASCRIPT VE FIREBASE ENTEGRASYONU BÖLÜMÜ -->
-    <!-- ========================================== -->
+    <!-- JAVASCRIPT -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        // Firestore Modülleri
-        import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc, addDoc, updateDoc, increment, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDt6huvLeiGj0KuO4P1oBiLkmYFA13-wEs",
@@ -309,196 +329,47 @@
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // Global Değişkenler
-        let allBooks = []; // Veritabanından gelen tüm kitaplar
-        let currentCategory = 'Tümü'; // Seçili kategori
-        let searchQuery = ''; // Arama sorgusu
-        let userFavorites = []; // Kullanıcının favori kitap ID'leri
-        let showingFavoritesOnly = false; // Sadece favoriler mi gösteriliyor?
+        // !!! BURAYA KENDİ E-POSTANIZI YAZIN (ADMİN YETKİSİ İÇİN) !!!
+        const ADMIN_EMAIL = "oguzhanyasar890@gmail.com"; 
 
-        // --- Firebase Auth İşlemleri ---
-        window.loginWithGoogle = () => {
-            signInWithPopup(auth, provider).catch((error) => {
-                console.error("Giriş Hatası:", error);
-                alert("Giriş yapılamadı: " + error.message);
-            });
-        };
+        let allBooks = [];
+        let currentCategory = 'Tümü';
+        let searchQuery = '';
+        let userFavorites = [];
+        let showingFavoritesOnly = false;
 
-        window.logoutUser = () => {
-            signOut(auth);
-        };
-
-        window.closeLoginRequiredModal = () => {
-            document.getElementById('loginRequiredModal').style.display = 'none';
-        };
-
-        // --- Kitap İndirme Kontrolü ---
-        window.checkDownload = (event, fileName) => {
-            if (!auth.currentUser) {
-                event.preventDefault();
-                document.getElementById('loginRequiredModal').style.display = 'flex';
+        // --- TEMA AYARI ---
+        const html = document.documentElement;
+        const themeIcon = document.getElementById('themeIcon');
+        
+        function setTheme(isDark) {
+            if(isDark) {
+                html.classList.add('dark');
+                html.classList.remove('light');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
             } else {
-                const link = document.createElement('a');
-                link.href = fileName; 
-                link.download = fileName;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-        };
-
-        // --- Veritabanından Kitapları Çekme ---
-        async function loadBooks() {
-            const bookGrid = document.getElementById('bookGrid');
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            
-            try {
-                const querySnapshot = await getDocs(collection(db, "kitaplar"));
-                allBooks = [];
-                querySnapshot.forEach((doc) => {
-                    allBooks.push({ id: doc.id, ...doc.data() });
-                });
-
-                loadingIndicator.style.display = 'none';
-                renderBooks(); // Kitapları ekrana bas
-            } catch (error) {
-                console.error("Kitaplar yüklenirken hata:", error);
-                loadingIndicator.innerHTML = `<p class="text-rose-500 text-sm">Kitaplar yüklenemedi. Lütfen Firestore kurallarını kontrol edin.</p>`;
+                html.classList.add('light');
+                html.classList.remove('dark');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
             }
         }
+        window.toggleTheme = () => setTheme(!html.classList.contains('dark'));
+        
+        // Sayfa yüklendiğinde temayı kontrol et
+        if(localStorage.getItem('theme') === 'light') setTheme(false);
+        else setTheme(true);
 
-        // --- Kitapları Ekrana Basma (Filtreleme Destekli) ---
-        function renderBooks() {
-            const bookGrid = document.getElementById('bookGrid');
-            const bookCount = document.getElementById('bookCount');
-            bookGrid.innerHTML = '';
+        // --- AUTH ---
+        window.loginWithGoogle = () => signInWithPopup(auth, provider).catch(e => alert(e.message));
+        window.logoutUser = () => signOut(auth);
 
-            // Filtreleme Mantığı
-            let filteredBooks = allBooks.filter(book => {
-                const matchesCategory = currentCategory === 'Tümü' || book.kategori === currentCategory;
-                const matchesSearch = book.baslik.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                                      (book.yazar && book.yazar.toLowerCase().includes(searchQuery.toLowerCase()));
-                
-                if (showingFavoritesOnly) {
-                    return matchesCategory && matchesSearch && userFavorites.includes(book.id);
-                }
-                return matchesCategory && matchesSearch;
-            });
-
-            bookCount.innerText = `${filteredBooks.length} Kitap`;
-
-            if (filteredBooks.length === 0) {
-                bookGrid.innerHTML = `
-                    <div class="col-span-full text-center py-12">
-                        <div class="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-500 text-2xl border border-slate-700">
-                            <i class="fa-solid fa-box-open"></i>
-                        </div>
-                        <p class="text-slate-400 text-sm">Aradığınız kriterlere uygun kitap bulunamadı.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            // Kartları Oluşturma
-            filteredBooks.forEach(book => {
-                const isFavorite = userFavorites.includes(book.id);
-                const heartClass = isFavorite ? "fa-solid fa-heart text-rose-500" : "fa-regular fa-heart text-slate-400 hover:text-rose-500";
-                
-                // Kapak resmi yoksa varsayılan resim kullan
-                const coverImage = book.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800&auto=format&fit=crop';
-                const fileToDownload = book.dosyaAdi || 'Finansal_Ozgurluk.epub';
-
-                const cardHTML = `
-                    <article class="flex flex-col bg-slate-800/40 border border-slate-700 hover:border-brand-500/50 rounded-3xl overflow-hidden transition duration-300 shadow-xl group">
-                        <div class="w-full h-56 overflow-hidden relative bg-slate-900">
-                            <img src="${coverImage}" alt="${book.baslik}" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition duration-500 group-hover:opacity-100">
-                            <span class="absolute top-4 left-4 z-25 bg-brand-500 text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-md">${book.kategori || 'Genel'}</span>
-                            
-                            <!-- Favori Butonu -->
-                            <button onclick="toggleFavorite('${book.id}', this)" class="absolute top-4 right-4 z-25 w-8 h-8 bg-slate-900/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md transition hover:scale-110 border border-slate-700">
-                                <i class="${heartClass}"></i>
-                            </button>
-                        </div>
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h4 class="text-xl font-serif font-black text-white mb-1 leading-snug line-clamp-1">${book.baslik}</h4>
-                            <p class="text-xs text-brand-400 mb-3 font-medium"><i class="fa-solid fa-pen-nib mr-1"></i> ${book.yazar || 'Bilinmeyen Yazar'}</p>
-                            <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow line-clamp-3">
-                                ${book.aciklama || 'Bu kitap için henüz bir açıklama girilmemiş.'}
-                            </p>
-                            
-                            <button onclick="checkDownload(event, '${fileToDownload}')" class="w-full bg-slate-700 hover:bg-brand-500 text-white hover:text-slate-900 py-3 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-download"></i> İndir (EPUB)
-                            </button>
-                        </div>
-                    </article>
-                `;
-                bookGrid.innerHTML += cardHTML;
-            });
-        }
-
-        // --- Arama ve Filtreleme Fonksiyonları ---
-        window.filterBooks = () => {
-            searchQuery = document.getElementById('searchInput').value;
-            renderBooks();
-        };
-
-        window.filterCategory = (category) => {
-            currentCategory = category;
-            showingFavoritesOnly = false; // Kategori seçilince favorilerden çık
-            document.getElementById('listTitle').innerHTML = `<i class="fa-solid fa-layer-group text-brand-500"></i> ${category} Kitapları`;
-            
-            // Buton stillerini güncelle
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('bg-slate-700', 'text-white', 'border-slate-600');
-                btn.classList.add('text-slate-400', 'border-slate-700');
-            });
-            event.target.classList.remove('text-slate-400', 'border-slate-700');
-            event.target.classList.add('bg-slate-700', 'text-white', 'border-slate-600');
-
-            renderBooks();
-        };
-
-        // --- Favoriler Sistemi (Firestore) ---
-        window.toggleFavorite = async (bookId, btnElement) => {
-            if (!auth.currentUser) {
-                document.getElementById('loginRequiredModal').style.display = 'flex';
-                return;
-            }
-
-            const userId = auth.currentUser.uid;
-            const favRef = doc(db, "kullanicilar", userId, "favoriler", bookId);
-            const icon = btnElement.querySelector('i');
-
-            if (userFavorites.includes(bookId)) {
-                // Favorilerden Çıkar
-                await deleteDoc(favRef);
-                userFavorites = userFavorites.filter(id => id !== bookId);
-                icon.className = "fa-regular fa-heart text-slate-400 hover:text-rose-500";
-            } else {
-                // Favorilere Ekle
-                await setDoc(favRef, { addedAt: new Date() });
-                userFavorites.push(bookId);
-                icon.className = "fa-solid fa-heart text-rose-500";
-            }
-            
-            if(showingFavoritesOnly) renderBooks(); // Eğer sadece favoriler sayfasındaysa listeyi güncelle
-        };
-
-        window.toggleFavoritesView = () => {
-            showingFavoritesOnly = !showingFavoritesOnly;
-            if(showingFavoritesOnly) {
-                document.getElementById('listTitle').innerHTML = `<i class="fa-solid fa-heart text-rose-500"></i> Favori Kitaplarım`;
-            } else {
-                document.getElementById('listTitle').innerHTML = `<i class="fa-solid fa-layer-group text-brand-500"></i> Tüm Kitaplar`;
-            }
-            renderBooks();
-        };
-
-        // --- Kullanıcı Giriş Durumu Dinleyicisi ---
         onAuthStateChanged(auth, async (user) => {
             const loginBtn = document.getElementById('googleLoginBtn');
             const profileArea = document.getElementById('userProfileArea');
             const favBtn = document.getElementById('myFavoritesBtn');
+            const adminBtn = document.getElementById('adminPanelBtn');
             
             if (user) {
                 loginBtn.style.display = 'none';
@@ -506,76 +377,217 @@
                 favBtn.style.display = 'flex';
                 
                 document.getElementById('userNameDisplay').innerText = user.displayName || 'Okur';
-                
-                const avatarImg = document.getElementById('userAvatarImg');
-                const avatarText = document.getElementById('userAvatarText');
-                if (user.photoURL) {
-                    avatarImg.src = user.photoURL;
-                    avatarImg.style.display = 'block';
-                    avatarText.style.display = 'none';
+                document.getElementById('userAvatarImg').src = user.photoURL || '';
+                if(user.photoURL) {
+                    document.getElementById('userAvatarImg').style.display = 'block';
+                    document.getElementById('userAvatarText').style.display = 'none';
                 } else {
-                    avatarImg.style.display = 'none';
-                    avatarText.style.display = 'flex';
-                    avatarText.innerText = (user.displayName || 'U').charAt(0).toUpperCase();
+                    document.getElementById('userAvatarImg').style.display = 'none';
+                    document.getElementById('userAvatarText').style.display = 'flex';
+                    document.getElementById('userAvatarText').innerText = (user.displayName || 'U').charAt(0).toUpperCase();
                 }
 
-                // Kullanıcının favorilerini yükle
+                // Admin Kontrolü
+                if (user.email === ADMIN_EMAIL) {
+                    adminBtn.style.display = 'flex';
+                } else {
+                    adminBtn.style.display = 'none';
+                }
+
+                // Favorileri Yükle
                 try {
                     const favSnapshot = await getDocs(collection(db, "kullanicilar", user.uid, "favoriler"));
                     userFavorites = favSnapshot.docs.map(doc => doc.id);
-                    renderBooks(); // Favori ikonlarının güncellenmesi için yeniden çiz
-                } catch (e) {
-                    console.log("Favoriler yüklenemedi", e);
-                }
-
-                // Yorum formuna isim yaz
-                const commentNameInput = document.getElementById('commentNameInput');
-                if (commentNameInput && !commentNameInput.value) {
-                    commentNameInput.value = user.displayName || '';
-                }
+                    renderBooks();
+                } catch (e) { console.log("Favori hatası", e); }
 
             } else {
                 loginBtn.style.display = 'flex';
                 profileArea.style.display = 'none';
                 favBtn.style.display = 'none';
+                adminBtn.style.display = 'none';
                 userFavorites = [];
                 showingFavoritesOnly = false;
                 renderBooks();
             }
         });
 
-        // --- Sayfa Yüklendiğinde Çalışacaklar ---
-        document.addEventListener("DOMContentLoaded", () => {
-            loadBooks(); // Kitapları getir
-            
-            // Günün Sözü
-            const quotes = [
-                '"Bilgiye yapılan yatırım, her zaman en yüksek faizi getirir." — Benjamin Franklin',
-                '"Zenginlik, çok şeye sahip olmak değil, az şeye ihtiyaç duymaktır." — Epiktetos',
-                '"Paranızı yönetemezseniz, paranız sizi yönetir." — Dave Ramsey',
-                '"Bugün okuduğunuz bir kitap, yarınki geleceğinizi inşa eder."'
-            ];
-            const dailyQuoteEl = document.getElementById('dailyQuote');
-            if(dailyQuoteEl) dailyQuoteEl.innerText = quotes[Math.floor(Math.random() * quotes.length)];
-        });
+        // --- KİTAPLARI YÜKLE ---
+        async function loadBooks() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "kitaplar"));
+                allBooks = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                document.getElementById('loadingIndicator').style.display = 'none';
+                renderBooks();
+            } catch (error) {
+                console.error(error);
+                document.getElementById('loadingIndicator').innerHTML = `<p class="text-rose-500">Kitaplar yüklenemedi. Güvenlik kurallarını kontrol edin.</p>`;
+            }
+        }
 
-        // --- Diğer UI Fonksiyonları ---
-        window.copySiteLink = (btn) => {
-            navigator.clipboard.writeText('https://www.marketim3000.online');
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-check text-brand-400"></i> Kopyalandı!';
-            setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
+        // --- KİTAPLARI EKRANA BAS ---
+        function renderBooks() {
+            const grid = document.getElementById('bookGrid');
+            grid.innerHTML = '';
+
+            let filtered = allBooks.filter(book => {
+                const matchCat = currentCategory === 'Tümü' || book.kategori === currentCategory;
+                const matchSearch = book.baslik.toLowerCase().includes(searchQuery.toLowerCase()) || (book.yazar && book.yazar.toLowerCase().includes(searchQuery.toLowerCase()));
+                if (showingFavoritesOnly) return matchCat && matchSearch && userFavorites.includes(book.id);
+                return matchCat && matchSearch;
+            });
+
+            document.getElementById('bookCount').innerText = `${filtered.length} Kitap`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-10"><p class="text-slate-500">Kitap bulunamadı.</p></div>`;
+                return;
+            }
+
+            filtered.forEach(book => {
+                const isFav = userFavorites.includes(book.id);
+                const heartClass = isFav ? "fa-solid fa-heart text-rose-500" : "fa-regular fa-heart text-slate-400";
+                const cover = book.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800';
+                const dlCount = book.indirmeSayisi || 0;
+
+                grid.innerHTML += `
+                    <article class="flex flex-col bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 hover:border-brand-500 rounded-3xl overflow-hidden shadow-xl group cursor-pointer transition">
+                        <div onclick="openBookModal('${book.id}')" class="w-full h-56 overflow-hidden relative bg-slate-200 dark:bg-slate-900">
+                            <img src="${cover}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-4 left-4 bg-brand-500 text-slate-900 px-3 py-1 rounded-full text-[10px] font-bold uppercase">${book.kategori || 'Genel'}</span>
+                            <button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-4 right-4 w-8 h-8 bg-slate-900/80 rounded-full flex items-center justify-center transition hover:scale-110">
+                                <i class="${heartClass}"></i>
+                            </button>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h4 onclick="openBookModal('${book.id}')" class="text-xl font-serif font-black text-slate-900 dark:text-white mb-1 line-clamp-1">${book.baslik}</h4>
+                            <p class="text-xs text-brand-500 mb-3"><i class="fa-solid fa-pen-nib mr-1"></i> ${book.yazar || 'Bilinmiyor'}</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 flex-grow line-clamp-2">${book.aciklama}</p>
+                            
+                            <div class="flex items-center justify-between mt-auto pt-4 border-t border-slate-100 dark:border-slate-700">
+                                <span class="text-[10px] text-slate-400"><i class="fa-solid fa-download"></i> ${dlCount} İndirme</span>
+                                <button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${book.dosyaAdi}')" class="bg-brand-500 hover:bg-brand-400 text-slate-900 px-4 py-2 rounded-xl text-xs font-bold transition">İndir</button>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            });
+        }
+
+        // --- KİTAP DETAY MODALI ---
+        window.openBookModal = (bookId) => {
+            const book = allBooks.find(b => b.id === bookId);
+            if(!book) return;
+            
+            document.getElementById('modalCover').src = book.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800';
+            document.getElementById('modalTitle').innerText = book.baslik;
+            document.getElementById('modalAuthor').querySelector('span').innerText = book.yazar || 'Bilinmiyor';
+            document.getElementById('modalCategory').innerText = book.kategori || 'Genel';
+            document.getElementById('modalDesc').innerText = book.aciklama || '';
+            document.getElementById('modalDownloadCount').innerHTML = `<i class="fa-solid fa-download"></i> ${book.indirmeSayisi || 0} İndirme`;
+            
+            // İndirme butonuna event ekle
+            const dlBtn = document.getElementById('modalDownloadBtn');
+            dlBtn.onclick = (e) => checkDownload(e, book.id, book.dosyaAdi);
+
+            document.getElementById('bookDetailModal').classList.add('modal-active');
+        };
+        window.closeBookModal = () => document.getElementById('bookDetailModal').classList.remove('modal-active');
+
+        // --- İNDİRME VE SAYAÇ ---
+        window.checkDownload = async (event, bookId, fileName) => {
+            event.preventDefault();
+            if (!auth.currentUser) {
+                document.getElementById('loginRequiredModal').style.display = 'flex';
+                return;
+            }
+
+            try {
+                // İndirme sayısını 1 arttır
+                const bookRef = doc(db, "kitaplar", bookId);
+                await updateDoc(bookRef, { indirmeSayisi: increment(1) });
+                
+                // Yerel veriyi güncelle (Anlık UI güncellemesi için)
+                const bIndex = allBooks.findIndex(b => b.id === bookId);
+                if(bIndex > -1) allBooks[bIndex].indirmeSayisi = (allBooks[bIndex].indirmeSayisi || 0) + 1;
+                renderBooks();
+                if(document.getElementById('bookDetailModal').classList.contains('modal-active')) {
+                    document.getElementById('modalDownloadCount').innerHTML = `<i class="fa-solid fa-download"></i> ${allBooks[bIndex].indirmeSayisi} İndirme`;
+                }
+            } catch(e) { console.log("Sayaç hatası", e); }
+
+            // Dosyayı indir
+            const link = document.createElement('a');
+            link.href = fileName; 
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         };
 
+        // --- FAVORİLER ---
+        window.toggleFavorite = async (bookId, btn) => {
+            if (!auth.currentUser) return document.getElementById('loginRequiredModal').style.display = 'flex';
+            
+            const favRef = doc(db, "kullanicilar", auth.currentUser.uid, "favoriler", bookId);
+            const icon = btn.querySelector('i');
+
+            if (userFavorites.includes(bookId)) {
+                await deleteDoc(favRef);
+                userFavorites = userFavorites.filter(id => id !== bookId);
+                icon.className = "fa-regular fa-heart text-slate-400";
+            } else {
+                await setDoc(favRef, { addedAt: new Date() });
+                userFavorites.push(bookId);
+                icon.className = "fa-solid fa-heart text-rose-500";
+            }
+            if(showingFavoritesOnly) renderBooks();
+        };
+
+        window.toggleFavoritesView = () => {
+            showingFavoritesOnly = !showingFavoritesOnly;
+            document.getElementById('listTitle').innerHTML = showingFavoritesOnly ? `<i class="fa-solid fa-heart text-rose-500"></i> Favorilerim` : `<i class="fa-solid fa-layer-group text-brand-500"></i> Tüm Kitaplar`;
+            renderBooks();
+        };
+
+        // --- ARAMA VE FİLTRE ---
+        window.filterBooks = () => { searchQuery = document.getElementById('searchInput').value; renderBooks(); };
+        window.filterCategory = (cat) => {
+            currentCategory = cat;
+            showingFavoritesOnly = false;
+            document.getElementById('listTitle').innerHTML = `<i class="fa-solid fa-layer-group text-brand-500"></i> ${cat} Kitapları`;
+            document.querySelectorAll('.category-btn').forEach(b => {
+                b.classList.remove('bg-slate-700', 'text-white', 'border-slate-600');
+                b.classList.add('text-slate-400', 'border-slate-700');
+            });
+            event.target.classList.add('bg-slate-700', 'text-white', 'border-slate-600');
+            renderBooks();
+        };
+
+        // --- YORUM SİSTEMİ (FIRESTORE) ---
         window.submitComment = async (event) => {
             event.preventDefault();
             const form = event.target;
             const btn = document.getElementById('commentBtn');
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-brand-400"></i> İletiliyor...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gönderiliyor...';
             btn.disabled = true;
 
+            const name = form.name.value;
+            const rating = form.querySelector('input[name="rating"]:checked').value;
+            const message = form.message.value;
+
             try {
-                await fetch(form.action, {
+                // Firestore'a durumu 'pending' (onay bekliyor) olarak kaydet
+                await addDoc(collection(db, "yorumlar"), {
+                    isim: name,
+                    puan: Number(rating),
+                    mesaj: message,
+                    durum: "pending",
+                    tarih: new Date()
+                });
+
+                // Formspree'ye de mail bildirimi için gönder
+                fetch("https://formspree.io/f/xrppgddn", {
                     method: 'POST',
                     body: new FormData(form),
                     headers: { 'Accept': 'application/json' }
@@ -583,59 +595,183 @@
 
                 document.getElementById('commentFormContainer').innerHTML = `
                     <div class="text-center py-6">
-                        <div class="w-16 h-16 bg-brand-500/20 text-brand-400 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl border border-brand-500/30">
-                            <i class="fa-solid fa-check"></i>
-                        </div>
-                        <h4 class="text-xl font-serif font-bold text-white mb-2">Yorumunuz Alındı!</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed max-w-md mx-auto">Düşünceleriniz editörlerimize ulaştı. Teşekkür ederiz.</p>
+                        <div class="w-16 h-16 bg-brand-500/20 text-brand-500 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl"><i class="fa-solid fa-check"></i></div>
+                        <h4 class="text-xl font-serif font-bold text-slate-900 dark:text-white mb-2">Yorumunuz Alındı!</h4>
+                        <p class="text-slate-500 text-sm">Admin onayından sonra yayınlanacaktır. Teşekkürler.</p>
                     </div>
                 `;
-            } catch (error) {
-                alert('Yorum gönderilirken bir hata oluştu.');
-                btn.innerHTML = '<i class="fa-regular fa-paper-plane text-brand-400"></i> Gönder';
+            } catch (e) {
+                console.error(e);
+                alert("Yorum gönderilemedi.");
+                btn.innerHTML = 'Gönder';
                 btn.disabled = false;
             }
         };
 
-        // Chatbot
-        const chatWindow = document.getElementById('chatWindow');
-        const chatMessages = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
+        async function loadApprovedComments() {
+            const grid = document.getElementById('commentsGrid');
+            try {
+                const q = query(collection(db, "yorumlar"), where("durum", "==", "approved"));
+                const querySnapshot = await getDocs(q);
+                grid.innerHTML = '';
+                
+                if(querySnapshot.empty) {
+                    grid.innerHTML = `<div class="col-span-full text-center text-slate-500 text-sm">Henüz onaylanmış yorum bulunmuyor.</div>`;
+                    return;
+                }
 
-        window.toggleChat = () => {
-            if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
-                chatWindow.style.display = 'flex';
-            } else {
-                chatWindow.style.display = 'none';
-            }
-        };
-
-        window.handleKeyPress = (e) => { if (e.key === 'Enter') window.sendMessage(); };
-
-        window.sendMessage = () => {
-            const userText = chatInput.value.trim();
-            if (!userText) return;
-            chatMessages.innerHTML += `<div class="flex gap-2 w-full justify-end"><div class="bg-brand-500 text-slate-900 px-3.5 py-2.5 rounded-2xl rounded-tr-none shadow-sm max-w-[85%]">${userText}</div></div>`;
-            chatInput.value = '';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            setTimeout(() => { botReply(userText.toLowerCase()); }, 700);
-        };
-
-        function botReply(text) {
-            let reply = "E-Kitap Deposu'na hoş geldiniz. Kitabı indirebilmek için öncelikle sağ üstten Google ile kayıt olmanız gerekmektedir.";
-            if (text.includes("fiyat") || text.includes("ücret") || text.includes("paralı") || text.includes("bağış")) {
-                reply = "Sitemiz tamamen <b>ücretsizdir</b>. Dilerseniz karekod üzerinden destek amaçlı bağış yapabilirsiniz.";
-            } else if (text.includes("nasıl") || text.includes("açılır") || text.includes("epub") || text.includes("okunur")) {
-                reply = "EPUB dosyalarını Android'de <b>ReadEra</b> ile, iPhone'da ise <b>Apple Kitaplar</b> uygulaması ile kolayca açabilirsiniz.";
-            } else if (text.includes("favori")) {
-                reply = "Kitapların sağ üst köşesindeki kalp ikonuna tıklayarak favorilerinize ekleyebilir, üst menüden 'Favorilerim' butonuna basarak listenizi görebilirsiniz.";
-            } else if (text.includes("kitap") || text.includes("finans") || text.includes("indir")) {
-                reply = "Arşivimizdeki tüm kitapları sayfanın ortasındaki arama çubuğunu kullanarak bulabilir ve hemen indirebilirsiniz.";
-            }
-            chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-brand-500 text-slate-900 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-book text-[10px]"></i></div><div class="bg-slate-800 text-slate-300 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+                querySnapshot.forEach(doc => {
+                    const data = doc.data();
+                    let stars = '';
+                    for(let i=0; i<5; i++) {
+                        stars += `<i class="fa-solid fa-star ${i < data.puan ? 'text-brand-400' : 'text-slate-300 dark:text-slate-600'}"></i>`;
+                    }
+                    grid.innerHTML += `
+                        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 shadow-sm relative">
+                            <i class="fa-solid fa-quote-left absolute top-4 left-4 text-3xl text-brand-500/10"></i>
+                            <div class="flex gap-1 text-xs mb-4">${stars}</div>
+                            <p class="text-slate-600 dark:text-slate-300 text-sm italic mb-6 leading-relaxed">"${data.mesaj}"</p>
+                            <div class="flex items-center gap-3 border-t border-slate-100 dark:border-slate-700 pt-4 mt-auto">
+                                <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xs font-bold text-slate-600 dark:text-brand-400">${data.isim.charAt(0)}</div>
+                                <span class="text-xs text-slate-600 dark:text-slate-400 font-semibold">${data.isim}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch(e) { console.log(e); }
         }
-    </script>
 
+        // --- ADMİN PANELİ ---
+        window.openAdminModal = () => {
+            document.getElementById('adminModal').classList.add('modal-active');
+            loadAdminBooks();
+            loadAdminComments();
+        };
+        window.closeAdminModal = () => document.getElementById('adminModal').classList.remove('modal-active');
+
+        window.switchAdminTab = (tab) => {
+            if(tab === 'books') {
+                document.getElementById('adminTabBooks').classList.remove('hidden');
+                document.getElementById('adminTabComments').classList.add('hidden');
+                document.getElementById('tabBtnBooks').classList.add('border-rose-500', 'text-white');
+                document.getElementById('tabBtnBooks').classList.remove('border-transparent', 'text-slate-400');
+                document.getElementById('tabBtnComments').classList.remove('border-rose-500', 'text-white');
+                document.getElementById('tabBtnComments').classList.add('border-transparent', 'text-slate-400');
+            } else {
+                document.getElementById('adminTabBooks').classList.add('hidden');
+                document.getElementById('adminTabComments').classList.remove('hidden');
+                document.getElementById('tabBtnComments').classList.add('border-rose-500', 'text-white');
+                document.getElementById('tabBtnComments').classList.remove('border-transparent', 'text-slate-400');
+                document.getElementById('tabBtnBooks').classList.remove('border-rose-500', 'text-white');
+                document.getElementById('tabBtnBooks').classList.add('border-transparent', 'text-slate-400');
+            }
+        };
+
+        // Admin - Kitap Ekle
+        window.addNewBook = async (e) => {
+            e.preventDefault();
+            const newBook = {
+                baslik: document.getElementById('newBookTitle').value,
+                yazar: document.getElementById('newBookAuthor').value,
+                kategori: document.getElementById('newBookCategory').value,
+                dosyaAdi: document.getElementById('newBookFile').value,
+                kapakUrl: document.getElementById('newBookCover').value,
+                aciklama: document.getElementById('newBookDesc').value,
+                indirmeSayisi: 0
+            };
+            try {
+                await addDoc(collection(db, "kitaplar"), newBook);
+                alert("Kitap başarıyla eklendi!");
+                document.getElementById('addBookForm').reset();
+                loadBooks(); // Ana sayfayı güncelle
+                loadAdminBooks(); // Admin listesini güncelle
+            } catch(err) { alert("Hata: " + err.message); }
+        };
+
+        // Admin - Kitap Sil
+        window.deleteBook = async (id) => {
+            if(confirm("Bu kitabı silmek istediğinize emin misiniz?")) {
+                await deleteDoc(doc(db, "kitaplar", id));
+                loadBooks();
+                loadAdminBooks();
+            }
+        };
+
+        async function loadAdminBooks() {
+            const list = document.getElementById('adminBookList');
+            list.innerHTML = '<p class="text-slate-400 text-sm">Yükleniyor...</p>';
+            const snap = await getDocs(collection(db, "kitaplar"));
+            list.innerHTML = '';
+            snap.forEach(doc => {
+                const b = doc.data();
+                list.innerHTML += `
+                    <div class="flex justify-between items-center bg-slate-800 p-3 rounded-lg border border-slate-700">
+                        <div class="flex items-center gap-3">
+                            <img src="${b.kapakUrl}" class="w-10 h-10 object-cover rounded">
+                            <div>
+                                <p class="text-white text-sm font-bold">${b.baslik}</p>
+                                <p class="text-slate-400 text-xs">${b.yazar}</p>
+                            </div>
+                        </div>
+                        <button onclick="deleteBook('${doc.id}')" class="text-rose-500 hover:bg-rose-500/20 p-2 rounded transition"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            });
+        }
+
+        // Admin - Yorum Onayla
+        window.approveComment = async (id) => {
+            await updateDoc(doc(db, "yorumlar", id), { durum: "approved" });
+            loadApprovedComments();
+            loadAdminComments();
+        };
+        window.deleteComment = async (id) => {
+            if(confirm("Yorumu silmek istiyor musunuz?")) {
+                await deleteDoc(doc(db, "yorumlar", id));
+                loadAdminComments();
+            }
+        };
+
+        async function loadAdminComments() {
+            const list = document.getElementById('adminCommentList');
+            list.innerHTML = '<p class="text-slate-400 text-sm">Yükleniyor...</p>';
+            const q = query(collection(db, "yorumlar"), where("durum", "==", "pending"));
+            const snap = await getDocs(q);
+            list.innerHTML = '';
+            
+            if(snap.empty) {
+                list.innerHTML = '<p class="text-slate-400 text-sm">Onay bekleyen yorum yok.</p>';
+                return;
+            }
+
+            snap.forEach(doc => {
+                const c = doc.data();
+                list.innerHTML += `
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <p class="text-white text-sm font-bold">${c.isim} <span class="text-brand-500 text-xs ml-2">${c.puan} Yıldız</span></p>
+                            <p class="text-slate-300 text-xs mt-1">${c.mesaj}</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="approveComment('${doc.id}')" class="bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1 rounded text-xs font-bold transition">Onayla</button>
+                            <button onclick="deleteComment('${doc.id}')" class="bg-rose-500 hover:bg-rose-600 text-white px-3 py-1 rounded text-xs font-bold transition">Sil</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // --- BAŞLAT ---
+        document.addEventListener("DOMContentLoaded", () => {
+            loadBooks();
+            loadApprovedComments();
+            
+            // PWA Service Worker Kaydı
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js').then(() => console.log("PWA Aktif")).catch(e => console.log("PWA Hatası", e));
+            }
+        });
+
+    </script>
 </body>
-           </html>         </html></html>
+    </html></html>
