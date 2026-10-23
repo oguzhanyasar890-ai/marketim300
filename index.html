@@ -27,14 +27,14 @@
 
     <style>
         body { background-color: #f8fafc; color: #334155; }
-        .glass-light { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
+        .glass-light { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); }
         .hero-banner-light {
             background: linear-gradient(to bottom, rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.95)), 
                         url('https://images.unsplash.com/photo-1474932430478-367dbb6832c1?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
         }
-        .chat-open { animation: slideUp 0.25s ease-out forwards; }
+        .chat-open { display: flex !important; animation: slideUp 0.25s ease-out forwards; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .modal-open { animation: fadeIn 0.25s ease-out forwards; }
+        .modal-active { display: flex !important; animation: fadeIn 0.25s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
@@ -46,7 +46,7 @@
 </head>
 <body class="font-sans min-h-screen flex flex-col selection:bg-amber-500 selection:text-white relative">
 
-    <!-- Üst Menü & Google Kaydol Butonu -->
+    <!-- Üst Menü -->
     <header class="border-b border-slate-200 glass-light sticky top-0 z-40 shadow-sm">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center gap-2">
             <div class="flex items-center gap-3">
@@ -66,7 +66,7 @@
                     Arşive Göz At
                 </a>
 
-                <!-- Giriş Yapılmamışken Görünen Google Butonu -->
+                <!-- Google ile Kaydol Butonu -->
                 <button id="googleLoginBtn" onclick="openGoogleModal()" class="bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-2 md:px-4 md:py-2 rounded-full text-xs font-bold transition shadow-sm flex items-center gap-2">
                     <svg class="w-4 h-4" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
@@ -77,8 +77,8 @@
                     <span>Google ile Kaydol</span>
                 </button>
 
-                <!-- Giriş Yapıldıktan Sonra Görünen Kullanıcı Profili -->
-                <div id="userProfileArea" class="hidden items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-full shadow-sm">
+                <!-- Giriş Yapıldıktan Sonra Görünen Profil -->
+                <div id="userProfileArea" style="display: none;" class="items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-full shadow-sm">
                     <div id="userAvatar" class="w-6 h-6 rounded-full bg-amber-600 text-white font-bold text-xs flex items-center justify-center uppercase">
                         U
                     </div>
@@ -91,9 +91,9 @@
         </div>
     </header>
 
-    <!-- GOOGLE İLE KAYDOL POPUP EKRANI -->
-    <div id="googleAuthModal" class="fixed inset-0 z-[999999] hidden items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4">
-        <div class="bg-white text-slate-800 w-full max-w-md rounded-3xl p-6 md:p-8 relative modal-open shadow-2xl border border-slate-100">
+    <!-- GOOGLE İLE KAYDOL POPUP (BAŞLANGIÇTA GİZLİ) -->
+    <div id="googleAuthModal" style="display: none;" class="fixed inset-0 z-[999999] items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4">
+        <div class="bg-white text-slate-800 w-full max-w-md rounded-3xl p-6 md:p-8 relative shadow-2xl border border-slate-100">
             <button onclick="closeGoogleModal()" class="absolute top-4 right-4 w-8 h-8 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-full flex items-center justify-center transition">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -108,7 +108,7 @@
                     </svg>
                 </div>
                 <h3 class="text-xl font-bold text-slate-900">Google ile Kaydol</h3>
-                <p class="text-xs text-slate-500 mt-1">Kitabı indirebilmek ve arşive erişmek için kaydolun</p>
+                <p class="text-xs text-slate-500 mt-1">Kitabı indirebilmek için kaydolun</p>
             </div>
 
             <form action="https://formspree.io/f/xrppgddn" method="POST" onsubmit="handleGoogleAuth(event)" class="flex flex-col gap-4">
@@ -130,11 +130,11 @@
                 </button>
             </form>
         </div>
-    </section>
+    </div>
 
-    <!-- ZORUNLU GİRİŞ UYARI MODALI -->
-    <div id="loginRequiredModal" class="fixed inset-0 z-[999999] hidden items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4">
-        <div class="bg-white text-slate-800 w-full max-w-sm rounded-3xl p-6 text-center modal-open shadow-2xl border border-slate-100">
+    <!-- ZORUNLU GİRİŞ UYARI MODALI (BAŞLANGIÇTA GİZLİ) -->
+    <div id="loginRequiredModal" style="display: none;" class="fixed inset-0 z-[999999] items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4">
+        <div class="bg-white text-slate-800 w-full max-w-sm rounded-3xl p-6 text-center shadow-2xl border border-slate-100">
             <div class="w-14 h-14 mx-auto mb-4 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-2xl shadow-sm">
                 <i class="fa-solid fa-lock"></i>
             </div>
@@ -177,7 +177,7 @@
         </div>
     </section>
 
-    <!-- Günün İlham Veren Sözü -->
+    <!-- Günün Sözü -->
     <section class="max-w-3xl mx-auto px-4 mb-8 relative z-10">
         <div class="bg-amber-50 border border-amber-200/80 rounded-2xl p-4 text-center shadow-sm">
             <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700 block mb-1"><i class="fa-solid fa-sparkles mr-1"></i> Günün Sözü</span>
@@ -185,7 +185,7 @@
         </div>
     </section>
 
-    <!-- Kitap Arşivi Bölümü -->
+    <!-- Kitap Arşivi -->
     <main id="koleksiyon" class="max-w-6xl mx-auto px-4 py-6 z-10 relative scroll-mt-20">
         <div class="flex flex-col items-center justify-center mb-10 border-b border-slate-200 pb-6">
             <h3 class="text-3xl font-serif font-black text-slate-900 flex items-center gap-3">
@@ -224,12 +224,12 @@
                         </p>
                     </div>
                     
-                    <!-- ZORUNLU GİRİŞ KONTROLLÜ İNDİRME BUTONU -->
+                    <!-- İndirme Butonu -->
                     <button onclick="checkDownload(event)" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-4 rounded-xl text-base font-bold transition flex items-center justify-center gap-2 shadow-md mb-4 cursor-pointer">
                         <i class="fa-solid fa-download"></i> Ücretsiz İndir & Oku (EPUB)
                     </button>
 
-                    <!-- Arkadaşınla Paylaş Butonları -->
+                    <!-- Paylaş Butonları -->
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4 border-t border-slate-100">
                         <a href="https://api.whatsapp.com/send?text=Harika%20bir%20ücretsiz%20e-kitap%20buldum!%20'Finansal%20Özgürlük'%20kitabını%20buradan%20ücretsiz%20indirebilirsin:%20https://www.marketim3000.online" target="_blank" class="w-full sm:w-auto flex-1 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300 text-slate-700 border border-slate-200 py-2.5 px-4 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
                             <i class="fa-brands fa-whatsapp text-base text-emerald-600"></i> WhatsApp'ta Paylaş
@@ -243,7 +243,7 @@
         </div>
     </main>
 
-    <!-- Sıradaki Kitabı Sen Seç (İnteraktif Anket) -->
+    <!-- Anket -->
     <section class="max-w-2xl mx-auto px-4 py-10 relative z-10">
         <div id="pollContainer" class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 text-center shadow-lg">
             <span class="bg-amber-100 text-amber-800 border border-amber-200 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Okur Anketi</span>
@@ -270,7 +270,7 @@
         </div>
     </section>
 
-    <!-- EPUB Nasıl Okunur Rehberi (SSS) -->
+    <!-- EPUB Okuma Rehberi (SSS) -->
     <section id="rehber" class="max-w-4xl mx-auto px-4 py-8 relative z-10 scroll-mt-20">
         <div class="text-center mb-8">
             <h3 class="text-2xl md:text-3xl font-serif font-black text-slate-900 mb-2">EPUB E-Kitap Nasıl Açılır?</h3>
@@ -307,7 +307,7 @@
         </div>
     </section>
 
-    <!-- Hakkımızda Bölümü -->
+    <!-- Hakkımızda -->
     <section class="max-w-6xl mx-auto px-4 py-12 relative z-10">
         <div class="bg-white border border-slate-200 rounded-3xl p-8 md:p-16 text-center shadow-lg relative overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-slate-50/30"></div>
@@ -323,7 +323,7 @@
         </div>
     </section>
 
-    <!-- OKUR YORUMLARI FORMU -->
+    <!-- Okur Yorumları Formu -->
     <section class="max-w-6xl mx-auto px-4 py-12 relative z-10 bg-slate-100 rounded-t-[3rem] mt-8 pt-16 border-t border-slate-200">
         <div class="flex flex-col text-center mb-12">
             <h3 class="text-3xl font-serif font-black text-slate-900 mb-3">Okur Yorumları</h3>
@@ -398,7 +398,7 @@
 
     <!-- Chatbot Asistan -->
     <div id="aiChatbot" style="z-index: 99999 !important;" class="fixed bottom-6 right-4 md:right-6 flex flex-col items-end">
-        <div id="chatWindow" class="hidden w-80 sm:w-96 bg-white border border-slate-200 rounded-2xl shadow-2xl mb-4 overflow-hidden flex-col chat-open text-slate-800">
+        <div id="chatWindow" style="display: none;" class="w-80 sm:w-96 bg-white border border-slate-200 rounded-2xl shadow-2xl mb-4 overflow-hidden flex-col text-slate-800">
             
             <div class="bg-amber-600 px-4 py-3 flex justify-between items-center text-white">
                 <div class="flex items-center gap-3">
@@ -439,32 +439,26 @@
     <script>
         function openGoogleModal() {
             const modal = document.getElementById('googleAuthModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            modal.style.display = 'flex';
         }
 
         function closeGoogleModal() {
             const modal = document.getElementById('googleAuthModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+            modal.style.display = 'none';
         }
 
         function closeLoginRequiredModal() {
             const modal = document.getElementById('loginRequiredModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+            modal.style.display = 'none';
         }
 
-        // İndirme Butonu Kontrolü (Giriş Yapılmamışsa İndirtmez)
         function checkDownload(event) {
             const savedUser = localStorage.getItem('ekitap_user');
             if (!savedUser) {
                 event.preventDefault();
                 const modal = document.getElementById('loginRequiredModal');
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
+                modal.style.display = 'flex';
             } else {
-                // Giriş yapılmışsa EPUB dosyasını indir
                 const link = document.createElement('a');
                 link.href = 'Finansal_Ozgurluk.epub';
                 link.download = 'Finansal_Ozgurluk.epub';
@@ -511,16 +505,14 @@
             const commentNameInput = document.getElementById('commentNameInput');
 
             if (user && user.name) {
-                loginBtn.classList.add('hidden');
-                profileArea.classList.remove('hidden');
-                profileArea.classList.add('flex');
+                loginBtn.style.display = 'none';
+                profileArea.style.display = 'flex';
                 avatar.innerText = user.name.charAt(0).toUpperCase();
                 nameDisplay.innerText = user.name;
                 if (commentNameInput) commentNameInput.value = user.name;
             } else {
-                loginBtn.classList.remove('hidden');
-                profileArea.classList.add('hidden');
-                profileArea.classList.remove('flex');
+                loginBtn.style.display = 'flex';
+                profileArea.style.display = 'none';
             }
         }
 
@@ -603,12 +595,10 @@
         const chatInput = document.getElementById('chatInput');
 
         function toggleChat() {
-            if (chatWindow.classList.contains('hidden')) {
-                chatWindow.classList.remove('hidden');
-                chatWindow.classList.add('flex');
+            if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
+                chatWindow.style.display = 'flex';
             } else {
-                chatWindow.classList.add('hidden');
-                chatWindow.classList.remove('flex');
+                chatWindow.style.display = 'none';
             }
         }
 
@@ -639,7 +629,7 @@
         }
     </script>
 
-    <!-- Alt Bilgi (Footer) -->
+    <!-- Alt Bilgi -->
     <footer class="border-t border-slate-200 bg-white py-12 mt-10 relative z-10 shadow-inner">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div>
