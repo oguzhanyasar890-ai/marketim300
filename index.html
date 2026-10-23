@@ -15,9 +15,9 @@
     <link rel="icon" href="logo.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- EPUB Okuyucu Kütüphaneleri -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/epubjs/0.3.93/epub.min.js"></script>
+    <!-- EPUB Okuyucu Kütüphaneleri (jsDelivr CDN ile Güncellendi) -->
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.2/dist/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -232,12 +232,11 @@
         </div>
     </div>
 
-    <!-- 3. Kitap Detay Modalı (Genişletilmiş) -->
+    <!-- 3. Kitap Detay Modalı -->
     <div id="bookDetailModal" class="fixed inset-0 z-[99999] items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
         <div class="bg-slate-800 border border-slate-700 rounded-3xl w-full max-w-5xl shadow-2xl relative overflow-hidden flex flex-col md:flex-row max-h-[90vh]">
             <button onclick="closeBookModal()" class="absolute top-4 right-4 z-10 w-8 h-8 bg-slate-900/50 text-white rounded-full flex items-center justify-center hover:bg-rose-500 transition"><i class="fa-solid fa-xmark"></i></button>
             
-            <!-- Sol Taraf: Kapak ve Butonlar -->
             <div class="w-full md:w-1/2 flex flex-col border-r border-slate-700 overflow-y-auto">
                 <div class="h-64 md:h-80 bg-slate-900 relative">
                     <img id="modalCover" src="" class="w-full h-full object-cover">
@@ -248,7 +247,6 @@
                     <p id="modalAuthor" class="text-sm font-medium text-slate-400 mb-4"><i class="fa-solid fa-pen-nib mr-1 text-brand-500"></i> <span></span></p>
                     <p id="modalDesc" class="text-slate-300 text-sm leading-relaxed mb-6"></p>
                     
-                    <!-- BUTONLAR BURADA -->
                     <div class="mt-auto flex gap-2">
                         <button id="modalReadBtn" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white py-3 rounded-xl text-sm font-bold transition shadow-lg flex items-center justify-center gap-2">
                             <i class="fa-solid fa-book-open text-brand-400"></i> Sitede Oku
@@ -260,7 +258,6 @@
                 </div>
             </div>
 
-            <!-- Sağ Taraf: Yorumlar -->
             <div class="w-full md:w-1/2 flex flex-col bg-slate-900/30 overflow-hidden">
                 <div class="p-6 border-b border-slate-700 bg-slate-800">
                     <h4 class="text-lg font-bold text-white flex items-center gap-2"><i class="fa-solid fa-comments text-brand-400"></i> Kitap Yorumları</h4>
@@ -619,18 +616,26 @@
             renderBooks();
         };
 
-        // --- KİTAPLARI ÇEK & RENDER ET ---
+        // --- KİTAPLARI ÇEK & RENDER ET (Düzeltildi) ---
         async function loadBooks() {
             try {
-                const q = query(collection(db, "kitaplar"), orderBy("tarih", "desc"));
-                const querySnapshot = await getDocs(q);
+                // orderBy kaldırıldı. Böylece 'tarih' alanı olmayan eski kitaplar da listede görünür.
+                const querySnapshot = await getDocs(collection(db, "kitaplar"));
                 allBooks = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                
+                // Kitapları tarihe göre yeniden eskiye sırala (JavaScript ile)
+                allBooks.sort((a, b) => {
+                    const dateA = a.tarih ? (a.tarih.toMillis ? a.tarih.toMillis() : 0) : 0;
+                    const dateB = b.tarih ? (b.tarih.toMillis ? b.tarih.toMillis() : 0) : 0;
+                    return dateB - dateA;
+                });
+
                 document.getElementById('loadingIndicator').style.display = 'none';
                 renderBooks();
                 renderHomeSections();
             } catch (error) {
-                console.error(error);
-                document.getElementById('loadingIndicator').innerHTML = `<p class="text-rose-500">Kitaplar yüklenemedi.</p>`;
+                console.error("Kitaplar yüklenirken hata:", error);
+                document.getElementById('loadingIndicator').innerHTML = `<p class="text-rose-500">Kitaplar yüklenemedi. Lütfen kuralları kontrol edin.</p>`;
             }
         }
 
