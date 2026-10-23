@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Kitap Deposu | Premium Dijital Kütüphane</title>
     
+    <!-- PWA ve SEO -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#f59e0b"/>
+    <meta name="description" content="Ufkunuzu açacak rehberler, kişisel gelişim eserleri ve ücretsiz e-kitaplar.">
     
-    <!-- Fonts & Icons -->
+    <!-- Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="logo.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -32,6 +34,7 @@
     </script>
 
     <style>
+        /* Tema Renkleri */
         body { transition: background-color 0.3s, color 0.3s; }
         html.dark body { background-color: #0f172a; color: #cbd5e1; }
         html.light body { background-color: #f8fafc; color: #334155; }
@@ -89,7 +92,6 @@
                     <i class="fa-solid fa-right-to-bracket"></i> <span>Giriş Yap</span>
                 </button>
 
-                <!-- Profil Alanı -->
                 <div id="userProfileArea" style="display: none;" class="items-center gap-2 bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-full shadow-sm cursor-pointer hover:bg-slate-700 transition" onclick="openProfileModal()">
                     <img id="userAvatarImg" src="" style="display:none;" class="w-6 h-6 rounded-full object-cover border border-brand-500">
                     <div id="userAvatarText" class="w-6 h-6 rounded-full bg-brand-500 text-slate-900 font-bold text-xs flex items-center justify-center uppercase">U</div>
@@ -100,7 +102,7 @@
         </div>
     </header>
 
-    <!-- Hero -->
+    <!-- Hero Bölümü -->
     <section class="relative overflow-hidden hero-banner py-16 md:py-24 z-10 border-b border-slate-800">
         <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
             <h2 class="text-4xl md:text-6xl font-serif font-black mb-6 text-white leading-tight">
@@ -123,7 +125,7 @@
         </div>
     </section>
 
-    <!-- VİTRİN: Popüler ve Yeni Kitaplar -->
+    <!-- VİTRİN: Popüler ve Yeni -->
     <section class="max-w-6xl mx-auto px-4 py-4 z-10 relative">
         <div class="mb-10">
             <h3 class="text-xl font-serif font-black text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-fire text-rose-500"></i> En Çok İndirilenler</h3>
@@ -205,7 +207,7 @@
     <div id="profileModal" class="fixed inset-0 z-[999999] items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
         <div class="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-2xl shadow-2xl relative overflow-hidden flex flex-col max-h-[90vh]">
             <div class="bg-slate-800 p-6 border-b border-slate-700 flex items-center gap-4">
-                <img id="profileImg" src="" class="w-16 h-16 rounded-full border-2 border-brand-500 hidden">
+                <img id="profileImg" src="" class="w-16 h-16 rounded-full border-2 border-brand-500 hidden object-cover">
                 <div id="profileImgText" class="w-16 h-16 rounded-full bg-brand-500 text-slate-900 text-2xl font-bold flex items-center justify-center">U</div>
                 <div>
                     <h2 id="profileName" class="text-2xl font-bold text-white">Kullanıcı Adı</h2>
@@ -230,12 +232,12 @@
         </div>
     </div>
 
-    <!-- 3. Kitap Detay Modalı (Kitaba Özel Yorumlarla) -->
+    <!-- 3. Kitap Detay Modalı (Genişletilmiş) -->
     <div id="bookDetailModal" class="fixed inset-0 z-[99999] items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
         <div class="bg-slate-800 border border-slate-700 rounded-3xl w-full max-w-5xl shadow-2xl relative overflow-hidden flex flex-col md:flex-row max-h-[90vh]">
             <button onclick="closeBookModal()" class="absolute top-4 right-4 z-10 w-8 h-8 bg-slate-900/50 text-white rounded-full flex items-center justify-center hover:bg-rose-500 transition"><i class="fa-solid fa-xmark"></i></button>
             
-            <!-- Sol Taraf: Kapak ve İndirme -->
+            <!-- Sol Taraf: Kapak ve Butonlar -->
             <div class="w-full md:w-1/2 flex flex-col border-r border-slate-700 overflow-y-auto">
                 <div class="h-64 md:h-80 bg-slate-900 relative">
                     <img id="modalCover" src="" class="w-full h-full object-cover">
@@ -246,29 +248,28 @@
                     <p id="modalAuthor" class="text-sm font-medium text-slate-400 mb-4"><i class="fa-solid fa-pen-nib mr-1 text-brand-500"></i> <span></span></p>
                     <p id="modalDesc" class="text-slate-300 text-sm leading-relaxed mb-6"></p>
                     
+                    <!-- BUTONLAR BURADA -->
                     <div class="mt-auto flex gap-2">
                         <button id="modalReadBtn" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white py-3 rounded-xl text-sm font-bold transition shadow-lg flex items-center justify-center gap-2">
                             <i class="fa-solid fa-book-open text-brand-400"></i> Sitede Oku
                         </button>
                         <button id="modalDownloadBtn" class="flex-1 bg-brand-500 hover:bg-brand-400 text-slate-900 py-3 rounded-xl text-sm font-bold transition shadow-lg flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-download"></i> İndir
+                            <i class="fa-solid fa-download"></i> Hemen İndir
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Sağ Taraf: Kitaba Özel Yorumlar -->
+            <!-- Sağ Taraf: Yorumlar -->
             <div class="w-full md:w-1/2 flex flex-col bg-slate-900/30 overflow-hidden">
                 <div class="p-6 border-b border-slate-700 bg-slate-800">
                     <h4 class="text-lg font-bold text-white flex items-center gap-2"><i class="fa-solid fa-comments text-brand-400"></i> Kitap Yorumları</h4>
                 </div>
                 
-                <!-- Yorum Listesi -->
                 <div id="modalCommentsList" class="flex-grow overflow-y-auto p-6 space-y-4 h-64 md:h-auto">
                     <!-- JS ile doldurulacak -->
                 </div>
 
-                <!-- Yorum Yapma Formu -->
                 <div class="p-4 bg-slate-800 border-t border-slate-700">
                     <form id="modalCommentForm" onsubmit="submitBookComment(event)" class="flex flex-col gap-2">
                         <div class="flex gap-2">
@@ -315,15 +316,13 @@
             </div>
 
             <div class="p-6 overflow-y-auto flex-grow">
-                <!-- Kitaplar Sekmesi -->
+                <!-- Kitaplar -->
                 <div id="adminTabBooks">
                     <form id="addBookForm" onsubmit="addNewBook(event)" class="bg-slate-800 p-4 rounded-2xl mb-8 border border-slate-700 grid grid-cols-1 md:grid-cols-2 gap-4">
                         <h3 class="col-span-full text-brand-400 font-bold mb-2">Yeni Kitap Ekle</h3>
                         <input type="text" id="newBookTitle" required placeholder="Kitap Adı" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm">
                         <input type="text" id="newBookAuthor" required placeholder="Yazar" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm">
-                        <select id="newBookCategory" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm">
-                            <!-- Kategoriler dinamik gelecek -->
-                        </select>
+                        <select id="newBookCategory" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm"></select>
                         <input type="text" id="newBookFile" required placeholder="Dosya Adı (ör: kitap.epub)" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm">
                         <input type="url" id="newBookCover" required placeholder="Kapak Resim URL'si" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm col-span-full">
                         <textarea id="newBookDesc" required placeholder="Kitap Açıklaması" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm col-span-full" rows="2"></textarea>
@@ -333,16 +332,16 @@
                     <div id="adminBookList" class="space-y-2"></div>
                 </div>
 
-                <!-- Kategoriler Sekmesi -->
+                <!-- Kategoriler -->
                 <div id="adminTabCategories" class="hidden">
                     <form id="addCategoryForm" onsubmit="addCategory(event)" class="flex gap-2 mb-6">
-                        <input type="text" id="newCategoryName" required placeholder="Yeni Kategori Adı (ör: Bilim Kurgu)" class="flex-grow bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm">
+                        <input type="text" id="newCategoryName" required placeholder="Yeni Kategori Adı" class="flex-grow bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm">
                         <button type="submit" class="bg-brand-500 text-slate-900 font-bold px-4 rounded-lg text-sm">Ekle</button>
                     </form>
                     <div id="adminCategoryList" class="space-y-2"></div>
                 </div>
 
-                <!-- Yorum Onaylama -->
+                <!-- Yorumlar -->
                 <div id="adminTabComments" class="hidden">
                     <h3 class="text-white font-bold mb-4">Onay Bekleyen Yorumlar</h3>
                     <div id="adminCommentList" class="space-y-4"></div>
@@ -377,6 +376,7 @@
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
+        // !!! BURAYA KENDİ E-POSTANIZI YAZIN !!!
         const ADMIN_EMAIL = "oguzhanyasar890@gmail.com"; 
 
         let allBooks = [];
@@ -384,9 +384,8 @@
         let currentCategory = 'Tümü';
         let searchQuery = '';
         let userFavorites = [];
-        let showingFavoritesOnly = false;
         let currentBookForComments = null;
-        let rendition = null; // EPUB Reader için
+        let rendition = null;
 
         // --- TEMA AYARI ---
         const html = document.documentElement;
@@ -417,20 +416,15 @@
             const name = document.getElementById('authNameInput').value;
             const btn = document.getElementById('authSubmitBtn');
             btn.innerText = "İşleniyor..."; btn.disabled = true;
-
             try {
-                if (isLoginMode) {
-                    await signInWithEmailAndPassword(auth, email, pass);
-                } else {
+                if (isLoginMode) { await signInWithEmailAndPassword(auth, email, pass); }
+                else {
                     const res = await createUserWithEmailAndPassword(auth, email, pass);
                     await updateProfile(res.user, { displayName: name });
                 }
                 document.getElementById('authModal').classList.remove('modal-active');
-            } catch (err) {
-                alert("Hata: " + err.message);
-            } finally {
-                btn.innerText = isLoginMode ? "Giriş Yap" : "Hesap Oluştur"; btn.disabled = false;
-            }
+            } catch (err) { alert("Hata: " + err.message); } 
+            finally { btn.innerText = isLoginMode ? "Giriş Yap" : "Hesap Oluştur"; btn.disabled = false; }
         };
 
         window.loginWithGoogle = () => signInWithPopup(auth, provider).then(() => {
@@ -463,7 +457,6 @@
                 
                 for (const d of snap.docs) {
                     const data = d.data();
-                    // Kitap detayını al (isim vs için)
                     const bSnap = await getDocs(query(collection(db, "kitaplar"), where("__name__", "==", data.kitapId)));
                     if(!bSnap.empty) {
                         const book = bSnap.docs[0].data();
@@ -517,9 +510,7 @@
             document.getElementById('modalDownloadBtn').onclick = (e) => checkDownload(e, book.id, book.dosyaAdi);
             document.getElementById('modalReadBtn').onclick = () => openReader(book.dosyaAdi, book.baslik);
             
-            // Kitaba özel yorumları yükle
             loadBookComments(bookId);
-
             document.getElementById('bookDetailModal').classList.add('modal-active');
         };
         window.closeBookModal = () => {
@@ -567,7 +558,7 @@
                     isim: name,
                     puan: Number(rating),
                     mesaj: msg,
-                    durum: "pending", // Admin onayı bekleyecek
+                    durum: "pending",
                     tarih: serverTimestamp(),
                     userId: auth.currentUser ? auth.currentUser.uid : "anonim"
                 });
@@ -577,22 +568,37 @@
         };
 
         // --- EPUB OKUYUCU ---
-        window.openReader = (fileName, title) => {
+        window.openReader = async (fileName, title) => {
             document.getElementById('readerTitle').innerText = title;
             document.getElementById('readerModal').classList.add('modal-active');
+            document.getElementById('viewer').innerHTML = '<div class="flex items-center justify-center h-full"><div class="loader"></div></div>';
             
+            if (typeof ePub === 'undefined') {
+                document.getElementById('viewer').innerHTML = '<div class="p-8 text-center text-rose-500 font-bold">Okuyucu kütüphanesi yüklenemedi. İnternet bağlantınızı kontrol edin.</div>';
+                return;
+            }
+
             if(rendition) rendition.destroy();
             
-            // EPUB.js Başlat
-            const book = ePub(fileName);
-            rendition = book.renderTo("viewer", { width: "100%", height: "100%" });
-            rendition.display();
-            
-            // Klavye yön tuşları ile sayfa çevirme
-            rendition.on("keyup", (e) => {
-                if (e.key === "ArrowRight") rendition.next();
-                if (e.key === "ArrowLeft") rendition.prev();
-            });
+            try {
+                const book = ePub(fileName);
+                rendition = book.renderTo("viewer", { width: "100%", height: "100%" });
+                await rendition.display();
+                rendition.on("keyup", (e) => {
+                    if (e.key === "ArrowRight") rendition.next();
+                    if (e.key === "ArrowLeft") rendition.prev();
+                });
+            } catch (error) {
+                console.error("EPUB Okuma Hatası:", error);
+                document.getElementById('viewer').innerHTML = `
+                    <div class="p-8 text-center">
+                        <i class="fa-solid fa-triangle-exclamation text-4xl text-rose-500 mb-4"></i>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">Kitap Açılamadı</h3>
+                        <p class="text-sm text-slate-600">Dosya bulunamadı veya geçerli bir EPUB dosyası değil.</p>
+                        <p class="text-xs text-rose-400 mt-4 bg-rose-50 p-2 rounded">Hata: ${fileName} dosyası okunamadı.</p>
+                    </div>
+                `;
+            }
         };
         window.closeReader = () => {
             document.getElementById('readerModal').classList.remove('modal-active');
@@ -603,7 +609,6 @@
         window.filterBooks = () => { searchQuery = document.getElementById('searchInput').value.toLowerCase(); renderBooks(); };
         window.filterCategory = (cat) => {
             currentCategory = cat;
-            showingFavoritesOnly = false;
             document.getElementById('listTitle').innerHTML = `<i class="fa-solid fa-layer-group text-brand-500"></i> ${cat} Kitapları`;
             document.querySelectorAll('.cat-btn').forEach(b => {
                 b.classList.remove('bg-brand-500', 'text-slate-900', 'border-brand-500');
@@ -632,11 +637,9 @@
         function renderBooks() {
             const grid = document.getElementById('bookGrid');
             grid.innerHTML = '';
-
             let filtered = allBooks.filter(book => {
                 const matchCat = currentCategory === 'Tümü' || book.kategori === currentCategory;
                 const matchSearch = book.baslik.toLowerCase().includes(searchQuery) || (book.yazar && book.yazar.toLowerCase().includes(searchQuery));
-                if (showingFavoritesOnly) return matchCat && matchSearch && userFavorites.includes(book.id);
                 return matchCat && matchSearch;
             });
 
@@ -677,7 +680,6 @@
             const popularGrid = document.getElementById('popularBooks');
             const newGrid = document.getElementById('newBooks');
             
-            // Popüler (En çok indirilen ilk 5)
             const popular = [...allBooks].sort((a,b) => (b.indirmeSayisi||0) - (a.indirmeSayisi||0)).slice(0, 5);
             popularGrid.innerHTML = popular.map(b => `
                 <div onclick="openBookModal('${b.id}')" class="min-w-[140px] w-[140px] flex-shrink-0 snap-start cursor-pointer group">
@@ -686,7 +688,6 @@
                 </div>
             `).join('');
 
-            // Yeni (Son eklenen 5)
             const newB = allBooks.slice(0, 5);
             newGrid.innerHTML = newB.map(b => `
                 <div onclick="openBookModal('${b.id}')" class="min-w-[140px] w-[140px] flex-shrink-0 snap-start cursor-pointer group">
@@ -706,30 +707,21 @@
             } else {
                 await setDoc(favRef, { addedAt: serverTimestamp() }); userFavorites.push(bookId); icon.className = "fa-solid fa-heart text-rose-500";
             }
-            if(showingFavoritesOnly) renderBooks();
         };
 
-        // --- İNDİRME (Profil Geçmişine Kaydeder) ---
+        // --- İNDİRME ---
         window.checkDownload = async (event, bookId, fileName) => {
             event.preventDefault();
             if (!auth.currentUser) return document.getElementById('authModal').classList.add('modal-active');
-
             try {
-                // İndirme sayacını artır
                 await updateDoc(doc(db, "kitaplar", bookId), { indirmeSayisi: increment(1) });
-                
-                // Kullanıcı geçmişine ekle
                 await setDoc(doc(db, "kullanicilar", auth.currentUser.uid, "indirilenler", bookId), {
-                    kitapId: bookId,
-                    tarih: serverTimestamp()
+                    kitapId: bookId, tarih: serverTimestamp()
                 });
-
-                // Yerel güncelleme
                 const bIndex = allBooks.findIndex(b => b.id === bookId);
                 if(bIndex > -1) allBooks[bIndex].indirmeSayisi = (allBooks[bIndex].indirmeSayisi || 0) + 1;
-                renderBooks();
-                renderHomeSections();
-            } catch(e) { console.log("Sayaç hatası", e); }
+                renderBooks(); renderHomeSections();
+            } catch(e) { console.log(e); }
 
             const link = document.createElement('a');
             link.href = fileName; link.download = fileName;
@@ -741,15 +733,12 @@
             const catContainer = document.getElementById('categoryContainer');
             const catSelect = document.getElementById('newBookCategory');
             const adminCatList = document.getElementById('adminCategoryList');
-            
             try {
                 const snap = await getDocs(collection(db, "kategoriler"));
                 allCategories = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 
-                // Header filtreleri
                 catContainer.innerHTML = `<button onclick="filterCategory('Tümü')" class="cat-btn whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition border border-slate-600 bg-brand-500 text-slate-900">Tümü</button>`;
-                catSelect.innerHTML = '';
-                adminCatList.innerHTML = '';
+                catSelect.innerHTML = ''; adminCatList.innerHTML = '';
                 
                 allCategories.forEach(c => {
                     catContainer.innerHTML += `<button onclick="filterCategory('${c.ad}')" class="cat-btn whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition border border-slate-700 text-slate-400 hover:text-white">${c.ad}</button>`;
@@ -760,7 +749,7 @@
                             <button onclick="deleteCategory('${c.id}')" class="text-rose-500 hover:bg-rose-500/20 p-2 rounded"><i class="fa-solid fa-trash"></i></button>
                         </div>`;
                 });
-            } catch(e) { console.log("Kategori yüklenemedi", e); }
+            } catch(e) { console.log(e); }
         }
 
         window.addCategory = async (e) => {
@@ -771,18 +760,15 @@
             loadCategories();
         };
         window.deleteCategory = async (id) => {
-            if(confirm("Kategoriyi silmek istiyor musunuz? (Kitaplar silinmez)")) {
-                await deleteDoc(doc(db, "kategoriler", id));
-                loadCategories();
+            if(confirm("Kategoriyi silmek istiyor musunuz?")) {
+                await deleteDoc(doc(db, "kategoriler", id)); loadCategories();
             }
         };
 
         // --- ADMİN FONKSİYONLARI ---
         window.openAdminModal = () => {
             document.getElementById('adminModal').classList.add('modal-active');
-            loadAdminBooks();
-            loadAdminComments();
-            loadCategories();
+            loadAdminBooks(); loadAdminComments(); loadCategories();
         };
         window.switchAdminTab = (tab) => {
             ['Books', 'Categories', 'Comments'].forEach(t => {
@@ -806,7 +792,7 @@
                 kapakUrl: document.getElementById('newBookCover').value,
                 aciklama: document.getElementById('newBookDesc').value,
                 indirmeSayisi: 0,
-                tarih: serverTimestamp() // Yeni kitaplar için sıralama
+                tarih: serverTimestamp()
             };
             try {
                 await addDoc(collection(db, "kitaplar"), newBook);
@@ -838,7 +824,6 @@
             });
         }
 
-        // Yorum Onaylama
         window.approveComment = async (id) => { await updateDoc(doc(db, "yorumlar", id), { durum: "approved" }); loadAdminComments(); };
         window.deleteComment = async (id) => { if(confirm("Sil?")) { await deleteDoc(doc(db, "yorumlar", id)); loadAdminComments(); } };
 
@@ -899,19 +884,18 @@
                 try {
                     const favSnapshot = await getDocs(collection(db, "kullanicilar", user.uid, "favoriler"));
                     userFavorites = favSnapshot.docs.map(doc => doc.id);
-                    renderBooks();
                 } catch (e) {}
 
             } else {
                 loginBtn.style.display = 'flex'; profileArea.style.display = 'none'; adminBtn.style.display = 'none';
-                userFavorites = []; renderBooks();
+                userFavorites = [];
             }
+            renderBooks(); // UI güncelle
         });
 
         // --- BAŞLAT ---
         document.addEventListener("DOMContentLoaded", () => {
             loadCategories().then(() => loadBooks());
-            
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/sw.js').catch(e => console.log("PWA Hatası", e));
             }
