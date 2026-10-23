@@ -120,14 +120,13 @@
                         Kendi ekonomik bağımsızlığınızı kazanmanın, doğru bütçe yönetiminin ve geleceğinizi güvence altına almanın temel sırları. Finansal okuryazarlığınızı artıracak bu başucu eserini hemen cihazınıza indirip okumaya başlayabilirsiniz.
                     </p>
 
-                    <!-- YENİ EKLENEN: KİTABA ÖZEL QR KOD ALANI -->
+                    <!-- KUVEYTTÜRK BAĞIŞ QR KODU VE YAZISI -->
                     <div class="my-6 p-4 bg-slate-950/60 border border-slate-800 rounded-2xl flex flex-col items-center justify-center gap-2 shadow-inner">
-                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1"><i class="fa-solid fa-qrcode text-emerald-400 mr-1.5"></i> Hızlı Erişim için QR Kod</p>
-                        <!-- Otomatik Site Linkine Duyarlı QR Kod -->
-                        <div class="bg-white p-2.5 rounded-xl shadow-md">
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=https://www.marketim3000.online" alt="Kitap QR Kod" class="w-[130px] h-[130px] block">
+                        <div class="bg-white p-2.5 rounded-xl shadow-md overflow-hidden max-w-[200px]">
+                            <!-- Not: Eğer yüklediğiniz QR görselinin ismi farklıysa src kısmını ona göre güncelleyebilirsiniz -->
+                            <img src="IMG_1792734715502.jpg" alt="Bağış QR Kod" class="w-full h-auto block rounded-lg">
                         </div>
-                        <span class="text-[11px] text-slate-500 mt-1">Telefon kameranızla okutarak siteye kolayca ulaşın</span>
+                        <p class="text-xs font-semibold text-amber-400 tracking-wide mt-2">Dilerseniz destek olarak bağış yapabilirsiniz[span_1](start_span)[span_1](end_span).</p>
                     </div>
                     
                     <a href="Finansal_Ozgurluk.epub" download class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white border border-emerald-500/50 py-4 rounded-xl text-base font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
@@ -312,8 +311,8 @@
 
         function botReply(text) {
             let reply = "E-Kitap Deposu'na hoş geldiniz. Yeni eserimiz olan <b>Finansal Özgürlük</b> kitabını ücretsiz indirerek okumaya başlayabilirsiniz.";
-            if (text.includes("fiyat") || text.includes("ücret") || text.includes("paralı")) {
-                reply = "E-Kitap Deposu tamamen bağımsız ve <b>ücretsiz</b> bir platformdur. Hiçbir kitap için ücret talep edilmez.";
+            if (text.includes("fiyat") || text.includes("ücret") || text.includes("paralı") || text.includes("bağış")) {
+                reply = "E-Kitap Deposu tamamen bağımsız ve <b>ücretsiz</b> bir platformdur. Kitaplarımız için ücret alınmaz, dilerseniz alt kısımdaki KuveytTürk karekodundan destek amaçlı bağış yapabilirsiniz[span_2](start_span)[span_2](end_span).";
             } else if (text.includes("kitap") || text.includes("finans") || text.includes("oku") || text.includes("indir") || text.includes("epub")) {
                 reply = "Şu an arşivimizde <b>Finansal Özgürlük</b> e-kitabımız yayındadır. Ekranda görünen yeşil renkli 'Ücretsiz İndir & Oku' butonuna tıklayarak EPUB dosyasını cihazınıza indirebilirsiniz.";
             }
