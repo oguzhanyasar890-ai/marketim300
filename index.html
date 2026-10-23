@@ -54,7 +54,7 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         
-        #bookDetailModal, #adminModal, #authModal, #profileModal, #readerModal, #qrModal { display: none; }
+        #bookDetailModal, #adminModal, #authModal, #profileModal, #readerModal, #qrModal, #submissionModal { display: none; }
         .star-rating input { display: none; }
         .star-rating label { color: #475569; cursor: pointer; font-size: 1.5rem; transition: color 0.2s; }
         .star-rating input:checked ~ label { color: #fbbf24; }
@@ -154,6 +154,27 @@
 
         <div id="bookGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </main>
+
+    <!-- ============================================== -->
+    <!-- SİZDEN GELENLER BÖLÜMÜ (YENİ EKLENDİ)          -->
+    <!-- ============================================== -->
+    <section id="sizdenGelenlerSection" class="max-w-6xl mx-auto px-4 py-12 z-10 relative border-t border-slate-800/80 mt-8">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+            <div>
+                <h3 class="text-2xl font-serif font-black text-white flex items-center gap-3">
+                    <i class="fa-solid fa-feather-pointed text-brand-500"></i> Sizden Gelenler
+                </h3>
+                <p class="text-xs text-slate-400 mt-1">Okurlarımızın paylaştığı favori kitap alıntıları, tavsiyeler ve mesajlar.</p>
+            </div>
+            <button onclick="openSubmissionModal()" class="bg-brand-500 hover:bg-brand-400 text-slate-900 px-4 py-2.5 rounded-xl text-xs font-bold transition shadow-lg flex items-center gap-2">
+                <i class="fa-solid fa-paper-plane"></i> Siz de Paylaşın
+            </button>
+        </div>
+
+        <div id="sizdenGelenlerGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <p class="text-slate-400 text-sm col-span-full text-center py-6">Yükleniyor...</p>
+        </div>
+    </section>
 
     <!-- ============================================== -->
     <!-- MODALLAR -->
@@ -285,6 +306,7 @@
                 <button onclick="switchAdminTab('books')" id="tabBtnBooks" class="flex-1 py-3 px-4 text-sm font-bold text-white border-b-2 border-rose-500 whitespace-nowrap">Kitaplar</button>
                 <button onclick="switchAdminTab('categories')" id="tabBtnCategories" class="flex-1 py-3 px-4 text-sm font-bold text-slate-400 hover:text-white border-b-2 border-transparent whitespace-nowrap">Kategoriler</button>
                 <button onclick="switchAdminTab('comments')" id="tabBtnComments" class="flex-1 py-3 px-4 text-sm font-bold text-slate-400 hover:text-white border-b-2 border-transparent whitespace-nowrap">Yorum Onaylama</button>
+                <button onclick="switchAdminTab('submissions')" id="tabBtnSubmissions" class="flex-1 py-3 px-4 text-sm font-bold text-slate-400 hover:text-white border-b-2 border-transparent whitespace-nowrap">Sizden Gelenler</button>
             </div>
             <div class="p-6 overflow-y-auto flex-grow">
                 <div id="adminTabBooks">
@@ -309,21 +331,24 @@
                     <div id="adminCategoryList" class="space-y-2"></div>
                 </div>
                 <div id="adminTabComments" class="hidden">
-                    <h3 class="text-white font-bold mb-4">Onay Bekleyen Yorumlar</h3>
+                    <h3 class="text-white font-bold mb-4">Onay Bekleyen Kitap Yorumları</h3>
                     <div id="adminCommentList" class="space-y-4"></div>
+                </div>
+                <div id="adminTabSubmissions" class="hidden">
+                    <h3 class="text-white font-bold mb-4">Sizden Gelenler Yönetimi</h3>
+                    <div id="adminSubmissionList" class="space-y-4"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 6. QR KOD MODALI (YENİ EKLENDİ) -->
+    <!-- 6. QR KOD MODALI -->
     <div id="qrModal" class="fixed inset-0 z-[999999] items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
         <div class="bg-slate-800 border border-slate-700 rounded-3xl w-full max-w-sm p-8 shadow-2xl relative text-center">
             <button onclick="closeQRModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
             <h3 class="text-2xl font-bold text-white mb-2">Site QR Kodu</h3>
             <p class="text-xs text-slate-400 mb-6">Telefonunuzun kamerasıyla okutarak siteye anında ulaşın.</p>
             
-            <!-- QR Kod Görseli -->
             <div class="bg-white p-4 rounded-2xl inline-block shadow-lg mb-6">
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://www.marketim3000.online&color=15,23,42" alt="Site QR Kodu" class="w-48 h-48 block">
             </div>
@@ -332,7 +357,6 @@
                 <button onclick="navigator.clipboard.writeText('https://www.marketim3000.online'); alert('Link Kopyalandı!')" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white py-3 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2">
                     <i class="fa-regular fa-copy"></i> Linki Kopyala
                 </button>
-                <!-- QR Kodunu İndirme Butonu -->
                 <a href="https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=https://www.marketim3000.online&color=15,23,42" download="ekitap-qr.png" target="_blank" class="flex-1 bg-brand-500 hover:bg-brand-400 text-slate-900 py-3 rounded-xl text-sm font-bold transition flex items-center justify-center gap-2">
                     <i class="fa-solid fa-download"></i> İndir
                 </a>
@@ -340,7 +364,48 @@
         </div>
     </div>
 
-    <!-- 7. CHATBOT ASİSTAN -->
+    <!-- 7. SİZDEN GELENLER GÖNDERİM MODALI (YENİ EKLENDİ) -->
+    <div id="submissionModal" class="fixed inset-0 z-[999999] items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-3xl w-full max-w-lg p-8 shadow-2xl relative">
+            <button onclick="closeSubmissionModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 mx-auto mb-3 bg-brand-500/10 text-brand-400 rounded-2xl flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white">Sizden Gelenler</h3>
+                <p class="text-xs text-slate-400 mt-1">Beğendiğiniz bir kitap alıntısını, kitap önerinizi veya mesajınızı paylaşın.</p>
+            </div>
+            <form id="submissionForm" onsubmit="submitSizdenGelen(event)" class="flex flex-col gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs text-slate-400 font-bold mb-1 block">Adınız / Rumuzunuz</label>
+                        <input type="text" id="subName" required placeholder="Örn: Ahmet Y." class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500">
+                    </div>
+                    <div>
+                        <label class="text-xs text-slate-400 font-bold mb-1 block">Gönderi Türü</label>
+                        <select id="subType" class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500">
+                            <option value="Kitap Alıntısı">Kitap Alıntısı</option>
+                            <option value="Kitap Tavsiyesi">Kitap Tavsiyesi</option>
+                            <option value="Okur Mesajı">Okur Mesajı</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-xs text-slate-400 font-bold mb-1 block">İlgili Kitap veya Başlık</label>
+                    <input type="text" id="subTopic" required placeholder="Örn: Simyacı - Paulo Coelho" class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500">
+                </div>
+                <div>
+                    <label class="text-xs text-slate-400 font-bold mb-1 block">Paylaşımınız</label>
+                    <textarea id="subMessage" required rows="4" placeholder="Alıntınızı, önerinizi veya düşüncelerinizi buraya yazın..." class="w-full bg-slate-900 border border-slate-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500 resize-none"></textarea>
+                </div>
+                <button type="submit" id="subSubmitBtn" class="w-full bg-brand-500 hover:bg-brand-400 text-slate-900 font-bold py-3 rounded-xl transition mt-2">
+                    Gönderiyi Paylaş
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 8. CHATBOT ASİSTAN -->
     <div id="aiChatbot" style="z-index: 99999 !important;" class="fixed bottom-6 right-4 md:right-6 flex flex-col items-end">
         <div id="chatWindow" style="display: none;" class="w-80 sm:w-96 bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl mb-4 overflow-hidden flex-col text-slate-200">
             <div class="bg-brand-500 px-4 py-3 flex justify-between items-center text-slate-900">
@@ -379,7 +444,7 @@
         </button>
     </div>
 
-    <!-- FOOTER (QR Kod Butonu Eklendi) -->
+    <!-- FOOTER -->
     <footer class="border-t border-slate-800 bg-slate-950 py-8 relative z-10 text-center mt-auto">
         <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-4">
             <p class="text-xs text-slate-500">© 2026 E-Kitap Deposu — Tüm Hakları Saklıdır.</p>
@@ -433,6 +498,108 @@
         // --- QR MODAL FONKSİYONLARI ---
         window.openQRModal = () => { document.getElementById('qrModal').classList.add('modal-active'); };
         window.closeQRModal = () => { document.getElementById('qrModal').classList.remove('modal-active'); };
+
+        // --- SİZDEN GELENLER MODAL & VERİ FONKSİYONLARI ---
+        window.openSubmissionModal = () => { document.getElementById('submissionModal').classList.add('modal-active'); };
+        window.closeSubmissionModal = () => { document.getElementById('submissionModal').classList.remove('modal-active'); };
+
+        async function loadSizdenGelenler() {
+            const grid = document.getElementById('sizdenGelenlerGrid');
+            try {
+                const q = query(collection(db, "sizdenGelenler"), where("durum", "==", "approved"));
+                const snap = await getDocs(q);
+                grid.innerHTML = '';
+
+                if (snap.empty) {
+                    grid.innerHTML = `
+                        <div class="col-span-full bg-slate-800/40 border border-slate-700/70 rounded-3xl p-8 text-center">
+                            <i class="fa-solid fa-quote-left text-3xl text-brand-500/40 mb-3"></i>
+                            <p class="text-slate-300 text-sm font-medium">Henüz paylaşılan bir gönderi bulunmuyor.</p>
+                            <p class="text-slate-500 text-xs mt-1">İlk favori kitap alıntısını veya tavsiyesini paylaşan siz olun!</p>
+                        </div>`;
+                    return;
+                }
+
+                const items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                items.sort((a, b) => {
+                    const tA = a.tarih ? (a.tarih.toMillis ? a.tarih.toMillis() : 0) : 0;
+                    const tB = b.tarih ? (b.tarih.toMillis ? b.tarih.toMillis() : 0) : 0;
+                    return tB - tA;
+                });
+
+                items.forEach(item => {
+                    let badgeStyle = "bg-brand-500/10 text-brand-400 border-brand-500/30";
+                    let icon = "fa-quote-right";
+                    if (item.tur === "Kitap Tavsiyesi") {
+                        badgeStyle = "bg-emerald-500/10 text-emerald-400 border-emerald-500/30";
+                        icon = "fa-lightbulb";
+                    } else if (item.tur === "Okur Mesajı") {
+                        badgeStyle = "bg-sky-500/10 text-sky-400 border-sky-500/30";
+                        icon = "fa-heart";
+                    }
+
+                    const dateStr = item.tarih && item.tarih.toDate ? new Date(item.tarih.toDate()).toLocaleDateString('tr-TR') : '';
+                    const initial = (item.isim || 'O').charAt(0).toUpperCase();
+
+                    grid.innerHTML += `
+                        <div class="bg-slate-800/40 border border-slate-700 hover:border-brand-500/60 rounded-3xl p-6 flex flex-col justify-between shadow-lg transition group">
+                            <div>
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border ${badgeStyle}">
+                                        ${item.tur || 'Paylaşım'}
+                                    </span>
+                                    <i class="fa-solid ${icon} text-slate-600 group-hover:text-brand-400 transition"></i>
+                                </div>
+                                <h4 class="text-white font-serif font-bold text-base mb-2 line-clamp-1">${item.baslik || ''}</h4>
+                                <p class="text-slate-300 text-sm italic leading-relaxed mb-6">"${item.mesaj}"</p>
+                            </div>
+                            <div class="flex items-center justify-between pt-4 border-t border-slate-700/60 mt-auto">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-7 h-7 rounded-full bg-brand-500 text-slate-900 font-bold text-xs flex items-center justify-center">
+                                        ${initial}
+                                    </div>
+                                    <span class="text-xs font-bold text-slate-200">${item.isim}</span>
+                                </div>
+                                <span class="text-[10px] text-slate-500">${dateStr}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (e) {
+                console.error("Sizden gelenler yüklenemedi:", e);
+                grid.innerHTML = `<p class="text-slate-500 text-xs col-span-full text-center">Gönderiler şu anda yüklenemiyor.</p>`;
+            }
+        }
+
+        window.submitSizdenGelen = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('subSubmitBtn');
+            btn.innerText = "Gönderiliyor...";
+            btn.disabled = true;
+
+            try {
+                await addDoc(collection(db, "sizdenGelenler"), {
+                    isim: document.getElementById('subName').value.trim(),
+                    tur: document.getElementById('subType').value,
+                    baslik: document.getElementById('subTopic').value.trim(),
+                    mesaj: document.getElementById('subMessage').value.trim(),
+                    durum: "pending",
+                    tarih: serverTimestamp(),
+                    userId: auth.currentUser ? auth.currentUser.uid : "anonim"
+                });
+                alert("Paylaşımınız alındı! Yönetici onayından sonra 'Sizden Gelenler' bölümünde yayınlanacaktır.");
+                document.getElementById('submissionForm').reset();
+                if (auth.currentUser && auth.currentUser.displayName) {
+                    document.getElementById('subName').value = auth.currentUser.displayName;
+                }
+                closeSubmissionModal();
+            } catch (err) {
+                alert("Hata: " + err.message);
+            } finally {
+                btn.innerText = "Gönderiyi Paylaş";
+                btn.disabled = false;
+            }
+        };
 
         // --- AUTH İŞLEMLERİ ---
         let isLoginMode = true;
@@ -837,10 +1004,10 @@
         // --- ADMİN FONKSİYONLARI ---
         window.openAdminModal = () => {
             document.getElementById('adminModal').classList.add('modal-active');
-            loadAdminBooks(); loadAdminComments(); loadCategories();
+            loadAdminBooks(); loadAdminComments(); loadCategories(); loadAdminSubmissions();
         };
         window.switchAdminTab = (tab) => {
-            ['Books', 'Categories', 'Comments'].forEach(t => {
+            ['Books', 'Categories', 'Comments', 'Submissions'].forEach(t => {
                 document.getElementById('adminTab' + t).classList.add('hidden');
                 document.getElementById('tabBtn' + t).classList.remove('border-rose-500', 'text-white');
                 document.getElementById('tabBtn' + t).classList.add('border-transparent', 'text-slate-400');
@@ -921,6 +1088,56 @@
             });
         }
 
+        // --- ADMİN SİZDEN GELENLER YÖNETİMİ ---
+        window.approveSubmission = async (id) => {
+            await updateDoc(doc(db, "sizdenGelenler", id), { durum: "approved" });
+            loadAdminSubmissions();
+            loadSizdenGelenler();
+        };
+        window.deleteSubmission = async (id) => {
+            if(confirm("Bu gönderiyi silmek istiyor musunuz?")) {
+                await deleteDoc(doc(db, "sizdenGelenler", id));
+                loadAdminSubmissions();
+                loadSizdenGelenler();
+            }
+        };
+
+        async function loadAdminSubmissions() {
+            const list = document.getElementById('adminSubmissionList');
+            list.innerHTML = '<p class="text-slate-400 text-sm">Yükleniyor...</p>';
+            try {
+                const snap = await getDocs(collection(db, "sizdenGelenler"));
+                list.innerHTML = '';
+                if(snap.empty) return list.innerHTML = '<p class="text-slate-400 text-sm">Henüz gönderi bulunmuyor.</p>';
+
+                snap.forEach(d => {
+                    const s = d.data();
+                    const isPending = s.durum === "pending";
+                    const statusBadge = isPending 
+                        ? '<span class="bg-amber-500/20 text-amber-400 text-[10px] px-2 py-0.5 rounded font-bold">Onay Bekliyor</span>'
+                        : '<span class="bg-emerald-500/20 text-emerald-400 text-[10px] px-2 py-0.5 rounded font-bold">Yayında</span>';
+
+                    list.innerHTML += `
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-brand-400 text-xs font-bold">${s.tur || 'Paylaşım'}</span>
+                                    ${statusBadge}
+                                </div>
+                                <p class="text-white text-sm font-bold">${s.baslik || ''} <span class="text-slate-400 font-normal text-xs">— ${s.isim}</span></p>
+                                <p class="text-slate-300 text-xs mt-1 italic">"${s.mesaj}"</p>
+                            </div>
+                            <div class="flex gap-2">
+                                ${isPending ? `<button onclick="approveSubmission('${d.id}')" class="bg-emerald-500 hover:bg-emerald-600 px-3 py-1 rounded text-xs font-bold text-white">Onayla</button>` : ''}
+                                <button onclick="deleteSubmission('${d.id}')" class="bg-rose-500 hover:bg-rose-600 px-3 py-1 rounded text-xs font-bold text-white">Sil</button>
+                            </div>
+                        </div>`;
+                });
+            } catch(e) {
+                list.innerHTML = '<p class="text-rose-500 text-sm">Gönderiler yüklenemedi.</p>';
+            }
+        }
+
         // --- AUTH DEĞİŞİMİ ---
         onAuthStateChanged(auth, async (user) => {
             const loginBtn = document.getElementById('googleLoginBtn');
@@ -947,6 +1164,7 @@
                 document.getElementById('profileName').innerText = user.displayName || 'Okur';
                 document.getElementById('profileEmail').innerText = user.email;
                 document.getElementById('modalCommentName').value = user.displayName || '';
+                document.getElementById('subName').value = user.displayName || '';
 
                 if (user.email === ADMIN_EMAIL) adminBtn.style.display = 'flex'; else adminBtn.style.display = 'none';
 
@@ -996,6 +1214,8 @@
                 reply = "EPUB dosyalarını Android'de <b>ReadEra</b> ile, iPhone'da ise <b>Apple Kitaplar</b> uygulaması ile kolayca açabilirsiniz. Ayrıca sitemizdeki <b>'Oku'</b> butonu ile doğrudan tarayıcıda okuyabilirsiniz.";
             } else if (text.includes("favori")) {
                 reply = "Kitapların sağ üst köşesindeki kalp ikonuna tıklayarak favorilerinize ekleyebilir, üst menüden 'Favorilerim' butonuna basarak listenizi görebilirsiniz.";
+            } else if (text.includes("sizden") || text.includes("alıntı") || text.includes("öneri") || text.includes("tavsiye")) {
+                reply = "Sayfanın alt kısmındaki <b>'Sizden Gelenler'</b> bölümünden sevdiğiniz kitap alıntılarını, kitap tavsiyelerinizi veya mesajlarınızı bizimle paylaşabilirsiniz.";
             } else if (text.includes("kitap") || text.includes("finans") || text.includes("indir")) {
                 reply = "Arşivimizdeki tüm kitapları sayfanın ortasındaki arama çubuğunu kullanarak bulabilir, okuyabilir veya indirebilirsiniz.";
             } else if (text.includes("qr")) {
@@ -1008,6 +1228,7 @@
         // --- BAŞLAT ---
         document.addEventListener("DOMContentLoaded", () => {
             loadCategories().then(() => loadBooks());
+            loadSizdenGelenler();
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/sw.js').catch(e => console.log("PWA Hatası", e));
             }
