@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Kitap Deposu | Ücretsiz Dijital Kütüphane ve Okuma Platformu</title>
+    <title>E-Kitap Deposu | Ücretsiz Dijital Kütüphane</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="https://images.unsplash.com/photo-1455390582262-044cdead27d8?q=80&w=100&auto=format&fit=crop" type="image/x-icon">
+    <link rel="icon" href="logo.png" type="image/x-icon">
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
+    <!-- DİKKAT: Tailwind CDN yerine kendi derlediğiniz CSS dosyasını kullanmalısınız. 
+         Geçici olarak CDN bırakıldı, aşağıdaki talimatlara bakın. -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -66,8 +69,8 @@
                     Arşive Göz At
                 </a>
 
-                <!-- Google ile Kaydol Butonu -->
-                <button id="googleLoginBtn" onclick="openGoogleModal()" class="bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-2 md:px-4 md:py-2 rounded-full text-xs font-bold transition shadow-sm flex items-center gap-2">
+                <!-- Google ile Kaydol Butonu (Firebase tetikler) -->
+                <button id="googleLoginBtn" onclick="loginWithGoogle()" class="bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-2 md:px-4 md:py-2 rounded-full text-xs font-bold transition shadow-sm flex items-center gap-2">
                     <svg class="w-4 h-4" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
                         <path fill="#34A853" d="M12 24c3.3 0 6.08-1.09 8.11-2.96l-3.88-3.05c-1.1.74-2.51 1.18-4.23 1.18-3.26 0-6.02-2.2-7-5.16H1.01v3.14C3.03 21.2 7.21 24 12 24z"/>
@@ -79,9 +82,8 @@
 
                 <!-- Giriş Yapıldıktan Sonra Görünen Profil -->
                 <div id="userProfileArea" style="display: none;" class="items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-full shadow-sm">
-                    <div id="userAvatar" class="w-6 h-6 rounded-full bg-amber-600 text-white font-bold text-xs flex items-center justify-center uppercase">
-                        U
-                    </div>
+                    <img id="userAvatarImg" src="" style="display:none;" class="w-6 h-6 rounded-full object-cover">
+                    <div id="userAvatarText" class="w-6 h-6 rounded-full bg-amber-600 text-white font-bold text-xs flex items-center justify-center uppercase">U</div>
                     <span id="userNameDisplay" class="text-xs font-semibold text-slate-800 max-w-[100px] truncate">Okur</span>
                     <button onclick="logoutUser()" title="Çıkış Yap" class="text-slate-400 hover:text-rose-600 ml-1 text-xs transition">
                         <i class="fa-solid fa-right-from-bracket"></i>
@@ -91,55 +93,14 @@
         </div>
     </header>
 
-    <!-- GOOGLE İLE KAYDOL POPUP (BAŞLANGIÇTA GİZLİ) -->
-    <div id="googleAuthModal" style="display: none;" class="fixed inset-0 z-[999999] items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4">
-        <div class="bg-white text-slate-800 w-full max-w-md rounded-3xl p-6 md:p-8 relative shadow-2xl border border-slate-100">
-            <button onclick="closeGoogleModal()" class="absolute top-4 right-4 w-8 h-8 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-full flex items-center justify-center transition">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="text-center mb-6">
-                <div class="w-12 h-12 mx-auto mb-3 bg-amber-50 border border-amber-200 rounded-2xl flex items-center justify-center shadow-sm">
-                    <svg class="w-6 h-6" viewBox="0 0 24 24">
-                        <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
-                        <path fill="#34A853" d="M12 24c3.3 0 6.08-1.09 8.11-2.96l-3.88-3.05c-1.1.74-2.51 1.18-4.23 1.18-3.26 0-6.02-2.2-7-5.16H1.01v3.14C3.03 21.2 7.21 24 12 24z"/>
-                        <path fill="#FBBC05" d="M5 14.01c-.25-.74-.39-1.54-.39-2.36s.14-1.62.39-2.36V6.15H1.01C.37 7.43 0 8.87 0 10.65s.37 3.22 1.01 4.5l3.99-1.14z"/>
-                        <path fill="#EA4335" d="M12 4.75c1.79 0 3.41.62 4.68 1.82l3.51-3.51C18.07 1.19 15.3 0 12 0 7.21 0 3.03 2.8 1.01 6.85l3.99 3.14c.98-2.96 3.74-5.24 7-5.24z"/>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold text-slate-900">Google ile Kaydol</h3>
-                <p class="text-xs text-slate-500 mt-1">Kitabı indirebilmek için kaydolun</p>
-            </div>
-
-            <form action="https://formspree.io/f/xrppgddn" method="POST" onsubmit="handleGoogleAuth(event)" class="flex flex-col gap-4">
-                <input type="hidden" name="_subject" value="Yeni E-Kitap Deposu Üye Kaydı!">
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 mb-1.5">Adınız ve Soyadınız</label>
-                    <input type="text" name="name" id="authName" required placeholder="Örn: Ahmet Yılmaz" class="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 mb-1.5">Gmail Adresiniz</label>
-                    <input type="email" name="email" id="authEmail" required placeholder="ornek@gmail.com" class="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
-                </div>
-                <div class="flex items-start gap-2 mt-1">
-                    <input type="checkbox" id="notifyCheck" checked class="mt-1 rounded text-amber-600">
-                    <label for="notifyCheck" class="text-[11px] text-slate-500 leading-tight">Yeni ücretsiz e-kitaplar yüklendiğinde haberdar olmak istiyorum.</label>
-                </div>
-                <button type="submit" id="authSubmitBtn" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl text-sm transition shadow-md mt-2 flex items-center justify-center gap-2">
-                    Google Hesabımla Bağlan
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- ZORUNLU GİRİŞ UYARI MODALI (BAŞLANGIÇTA GİZLİ) -->
+    <!-- ZORUNLU GİRİŞ UYARI MODALI -->
     <div id="loginRequiredModal" style="display: none;" class="fixed inset-0 z-[999999] items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4">
         <div class="bg-white text-slate-800 w-full max-w-sm rounded-3xl p-6 text-center shadow-2xl border border-slate-100">
             <div class="w-14 h-14 mx-auto mb-4 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-2xl shadow-sm">
                 <i class="fa-solid fa-lock"></i>
             </div>
             <h3 class="text-xl font-bold text-slate-900 mb-2">Giriş Yapılması Gerekli</h3>
-            <p class="text-xs text-slate-600 mb-6 leading-relaxed">Kitabı indirebilmek için lütfen önce sağ üst köşeden <b>Google ile Kaydol</b> butonuna tıklayarak ücretsiz oturum açın.</p>
+            <p class="text-xs text-slate-600 mb-6 leading-relaxed">Kitabı indirebilmek için lütfen sağ üst köşeden <b>Google ile Kaydol</b> butonuna tıklayarak ücretsiz oturum açın.</p>
             <button onclick="closeLoginRequiredModal()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl text-xs transition shadow-md">
                 Tamam, Anladım
             </button>
@@ -169,7 +130,6 @@
                 <h3 class="text-lg font-serif font-bold text-slate-900 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-headphones text-amber-600"></i> Haftanın Sesli Seçkisi
                 </h3>
-                <p class="text-xs text-slate-500">Okurken dinleyebileceğiniz özel seçkimiz</p>
             </div>
             <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-200 shadow-inner bg-slate-900">
                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/yTqspLk31-g" title="Haftanın Seçkisi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -205,8 +165,6 @@
                         <span><i class="fa-solid fa-book-bookmark"></i> EPUB Formatı</span>
                         <span>•</span>
                         <span>Ücretsiz E-Kitap</span>
-                        <span>•</span>
-                        <span>Kayıt Şartlı</span>
                     </div>
                     <h4 class="text-3xl font-serif font-black text-slate-900 mb-4 transition leading-snug">Finansal Özgürlük</h4>
                     <p class="text-slate-600 text-base leading-relaxed mb-6 flex-grow">
@@ -216,9 +174,10 @@
                     <!-- KUVEYTTÜRK BAĞIŞ QR KODU -->
                     <div class="my-6 p-5 bg-slate-50 border border-slate-200 rounded-2xl flex flex-col items-center justify-center gap-2 shadow-sm">
                         <div class="bg-white p-2.5 rounded-xl shadow border border-slate-100 overflow-hidden max-w-[200px]">
+                            <!-- GitHub'a yüklediğiniz resim adı tam olarak bu olmalı -->
                             <img src="IMG_1792734715502.jpg" alt="Bağış QR Kod" class="w-full h-auto block rounded-lg">
                         </div>
-                        <p class="text-xs font-semibold text-amber-800 tracking-wide mt-2">Dilerseniz destek olarak bağış yapabilirsiniz[span_0](start_span)[span_0](end_span).</p>
+                        <p class="text-xs font-semibold text-amber-800 tracking-wide mt-2">Dilerseniz destek olarak bağış yapabilirsiniz.</p>
                         <p class="text-[11px] text-slate-500 max-w-md leading-relaxed mt-1">
                             <i class="fa-solid fa-mobile-screen-button text-slate-400 mr-1"></i> <b>Telefondan giriyorsanız:</b> Karekodun ekran görüntüsünü alıp mobil bankacılık uygulamanızda <b>"QR İşlemleri > Galeriden Seç"</b> adımıyla kolayca okutabilirsiniz.
                         </p>
@@ -307,23 +266,7 @@
         </div>
     </section>
 
-    <!-- Hakkımızda -->
-    <section class="max-w-6xl mx-auto px-4 py-12 relative z-10">
-        <div class="bg-white border border-slate-200 rounded-3xl p-8 md:p-16 text-center shadow-lg relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-slate-50/30"></div>
-            <div class="relative z-10">
-                <div class="w-16 h-16 mx-auto bg-amber-50 border border-amber-200 rounded-full flex items-center justify-center mb-6 shadow-sm">
-                    <i class="fa-solid fa-book text-amber-600 text-2xl"></i>
-                </div>
-                <h3 class="text-3xl md:text-4xl font-serif font-black text-slate-900 mb-6">Bilgi ve Kitap Herkes İçindir</h3>
-                <p class="text-slate-600 leading-relaxed max-w-3xl mx-auto text-base md:text-lg font-light">
-                    Bilginin dönüştürücü gücüne inanıyoruz. E-Kitap Deposu, ticari kaygılardan uzak, okumayı ve gelişmeyi seven herkesin ücretsiz ve özgürce faydalanabileceği dijital bir kütüphanedir.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Okur Yorumları Formu -->
+    <!-- Okur Yorumları Formu (Formspree ile Çalışmaya Devam Ediyor) -->
     <section class="max-w-6xl mx-auto px-4 py-12 relative z-10 bg-slate-100 rounded-t-[3rem] mt-8 pt-16 border-t border-slate-200">
         <div class="flex flex-col text-center mb-12">
             <h3 class="text-3xl font-serif font-black text-slate-900 mb-3">Okur Yorumları</h3>
@@ -334,7 +277,7 @@
             <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm relative">
                 <i class="fa-solid fa-quote-left absolute top-4 left-4 text-3xl text-amber-500/10"></i>
                 <div class="flex gap-1 text-amber-500 text-xs mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p class="text-slate-600 text-sm italic mb-6 leading-relaxed">"Finansal Özgürlük kitabını dün indirip tek solukta okudum. Para yönetimi ve birikim konusunda bakış açımı tamamen değiştirdi. Harika bir rehber."</p>
+                <p class="text-slate-600 text-sm italic mb-6 leading-relaxed">"Finansal Özgürlük kitabını dün indirip tek solukta okudum. Para yönetimi ve birikim konusunda bakış açımı tamamen değiştirdi."</p>
                 <div class="flex items-center gap-3 border-t border-slate-100 pt-4 mt-auto">
                     <div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-bold text-slate-700">E.Y.</div>
                     <span class="text-xs text-slate-600 font-semibold">Sadık Okur</span>
@@ -364,7 +307,6 @@
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-600 to-yellow-500"></div>
             <div class="text-center mb-6">
                 <h4 class="text-xl font-serif font-bold text-slate-900 mb-2"><i class="fa-solid fa-pen-nib text-amber-600 mr-2"></i>Okuma Deneyiminizi Paylaşın</h4>
-                <p class="text-xs text-slate-500">Kitap hakkında hissettiklerinizi bizimle ve diğer okurlarla paylaşın.</p>
             </div>
             
             <form action="https://formspree.io/f/xrppgddn" method="POST" onsubmit="submitComment(event)" class="flex flex-col gap-4">
@@ -399,11 +341,10 @@
     <!-- Chatbot Asistan -->
     <div id="aiChatbot" style="z-index: 99999 !important;" class="fixed bottom-6 right-4 md:right-6 flex flex-col items-end">
         <div id="chatWindow" style="display: none;" class="w-80 sm:w-96 bg-white border border-slate-200 rounded-2xl shadow-2xl mb-4 overflow-hidden flex-col text-slate-800">
-            
             <div class="bg-amber-600 px-4 py-3 flex justify-between items-center text-white">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-full bg-amber-700 flex items-center justify-center overflow-hidden border border-amber-500 shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1519682577862-22b62b24e493?q=80&w=150&auto=format&fit=crop" alt="Asistan" class="w-full h-full object-cover">
+                        <i class="fa-solid fa-robot text-white"></i>
                     </div>
                     <div>
                         <h4 class="text-white text-sm font-bold tracking-wide">Depo Asistanı</h4>
@@ -436,102 +377,96 @@
         </button>
     </div>
 
-    <script>
-        function openGoogleModal() {
-            const modal = document.getElementById('googleAuthModal');
-            modal.style.display = 'flex';
-        }
+    <!-- Firebase Modüler SDK Script -->
+    <script type="module">
+        // Firebase Modüllerini İçe Aktar
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-        function closeGoogleModal() {
-            const modal = document.getElementById('googleAuthModal');
-            modal.style.display = 'none';
-        }
+        // Firebase Yapılandırmanız (Screenshot'tan alınmıştır, kontrol edin)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDt6huvLeiG0KuO4P1iBikmYFA13-wE...", // Tam anahtarı Firebase Konsolunuzdan kopyalayın
+            authDomain: "pazarlık-3000-e1806.firebaseapp.com",
+            projectId: "pazarlık-3000-e1806",
+            storageBucket: "pazarlık-3000-e1806.firebasestorage.app",
+            messagingSenderId: "1003242342277",
+            appId: "1:1003242342277:web:8f5e2a18820bf1d4fba6ec",
+            measurementId: "G-G3E1GQZDQK"
+        };
 
-        function closeLoginRequiredModal() {
-            const modal = document.getElementById('loginRequiredModal');
-            modal.style.display = 'none';
-        }
+        // Firebase'i Başlat
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
 
-        function checkDownload(event) {
-            const savedUser = localStorage.getItem('ekitap_user');
-            if (!savedUser) {
+        // --- Global Fonksiyonları Window'a Tanımla (HTML onclick için) ---
+        window.loginWithGoogle = () => {
+            signInWithPopup(auth, provider).catch((error) => {
+                console.error("Giriş Hatası:", error);
+                alert("Giriş yapılamadı: " + error.message);
+            });
+        };
+
+        window.logoutUser = () => {
+            signOut(auth).catch((error) => console.error("Çıkış Hatası:", error));
+        };
+
+        window.closeLoginRequiredModal = () => {
+            document.getElementById('loginRequiredModal').style.display = 'none';
+        };
+
+        window.checkDownload = (event) => {
+            if (!auth.currentUser) {
                 event.preventDefault();
-                const modal = document.getElementById('loginRequiredModal');
-                modal.style.display = 'flex';
+                document.getElementById('loginRequiredModal').style.display = 'flex';
             } else {
                 const link = document.createElement('a');
-                link.href = 'Finansal_Ozgurluk.epub';
+                link.href = 'Finansal_Ozgurluk.epub'; // GitHub'a yüklediğiniz EPUB dosyası
                 link.download = 'Finansal_Ozgurluk.epub';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
             }
-        }
+        };
 
-        async function handleGoogleAuth(event) {
-            event.preventDefault();
-            const form = event.target;
-            const name = document.getElementById('authName').value.trim();
-            const email = document.getElementById('authEmail').value.trim();
-            const btn = document.getElementById('authSubmitBtn');
-
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Kayıt Yapılıyor...';
-            btn.disabled = true;
-
-            try {
-                await fetch(form.action, {
-                    method: 'POST',
-                    body: new FormData(form),
-                    headers: { 'Accept': 'application/json' }
-                });
-
-                const userData = { name: name, email: email };
-                localStorage.setItem('ekitap_user', JSON.stringify(userData));
-                updateUserUI(userData);
-                closeGoogleModal();
-            } catch (error) {
-                alert('Bağlantı sırasında bir hata oluştu.');
-            } finally {
-                btn.innerHTML = 'Google Hesabımla Bağlan';
-                btn.disabled = false;
-            }
-        }
-
-        function updateUserUI(user) {
+        // --- Oturum Durumunu Dinle ---
+        onAuthStateChanged(auth, (user) => {
             const loginBtn = document.getElementById('googleLoginBtn');
             const profileArea = document.getElementById('userProfileArea');
-            const avatar = document.getElementById('userAvatar');
+            const avatarText = document.getElementById('userAvatarText');
+            const avatarImg = document.getElementById('userAvatarImg');
             const nameDisplay = document.getElementById('userNameDisplay');
             const commentNameInput = document.getElementById('commentNameInput');
 
-            if (user && user.name) {
+            if (user) {
                 loginBtn.style.display = 'none';
                 profileArea.style.display = 'flex';
-                avatar.innerText = user.name.charAt(0).toUpperCase();
-                nameDisplay.innerText = user.name;
-                if (commentNameInput) commentNameInput.value = user.name;
+                
+                // Kullanıcı Adı
+                nameDisplay.innerText = user.displayName || 'Okur';
+                
+                // Profil Resmi
+                if (user.photoURL) {
+                    avatarImg.src = user.photoURL;
+                    avatarImg.style.display = 'block';
+                    avatarText.style.display = 'none';
+                } else {
+                    avatarImg.style.display = 'none';
+                    avatarText.style.display = 'flex';
+                    avatarText.innerText = (user.displayName || 'U').charAt(0).toUpperCase();
+                }
+
+                // Yorum formuna ismi otomatik doldur
+                if (commentNameInput && !commentNameInput.value) {
+                    commentNameInput.value = user.displayName || '';
+                }
             } else {
                 loginBtn.style.display = 'flex';
                 profileArea.style.display = 'none';
             }
-        }
-
-        function logoutUser() {
-            localStorage.removeItem('ekitap_user');
-            updateUserUI(null);
-            const commentNameInput = document.getElementById('commentNameInput');
-            if (commentNameInput) commentNameInput.value = '';
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedUser = localStorage.getItem('ekitap_user');
-            if (savedUser) {
-                try {
-                    updateUserUI(JSON.parse(savedUser));
-                } catch (e) {}
-            }
         });
 
+        // --- Diğer Arayüz Fonksiyonları ---
         const quotes = [
             '"Bilgiye yapılan yatırım, her zaman en yüksek faizi getirir." — Benjamin Franklin',
             '"Zenginlik, çok şeye sahip olmak değil, az şeye ihtiyaç duymaktır." — Epiktetos',
@@ -540,14 +475,14 @@
         ];
         document.getElementById('dailyQuote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
 
-        function copySiteLink(btn) {
+        window.copySiteLink = (btn) => {
             navigator.clipboard.writeText('https://www.marketim3000.online');
             const originalHTML = btn.innerHTML;
             btn.innerHTML = '<i class="fa-solid fa-check text-emerald-600"></i> Link Kopyalandı!';
             setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
-        }
+        };
 
-        function voteBook(topic) {
+        window.voteBook = (topic) => {
             document.getElementById('pollContainer').innerHTML = `
                 <div class="py-4">
                     <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
@@ -557,9 +492,10 @@
                     <p class="text-xs text-slate-500">Tercihiniz (<b>${topic}</b>) editör listemize eklendi. Katkınız için teşekkürler!</p>
                 </div>
             `;
-        }
+        };
 
-        async function submitComment(event) {
+        // Yorum Formu (Formspree Kullanıyor)
+        window.submitComment = async (event) => {
             event.preventDefault();
             const form = event.target;
             const btn = document.getElementById('commentBtn');
@@ -573,14 +509,13 @@
                     headers: { 'Accept': 'application/json' }
                 });
 
-                const formContainer = document.getElementById('commentFormContainer');
-                formContainer.innerHTML = `
+                document.getElementById('commentFormContainer').innerHTML = `
                     <div class="text-center py-6">
                         <div class="w-16 h-16 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-sm">
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <h4 class="text-xl font-serif font-bold text-slate-900 mb-2">Yorumunuz Alındı!</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed max-w-md mx-auto">Değerli düşünceleriniz incelenmek üzere editörlerimize ulaştı. E-Kitap Deposu topluluğuna katkınız için teşekkür ederiz.</p>
+                        <p class="text-slate-600 text-sm leading-relaxed max-w-md mx-auto">Değerli düşünceleriniz incelenmek üzere editörlerimize ulaştı. Teşekkür ederiz.</p>
                     </div>
                 `;
             } catch (error) {
@@ -588,35 +523,36 @@
                 btn.innerHTML = '<i class="fa-regular fa-paper-plane"></i> Gönder';
                 btn.disabled = false;
             }
-        }
+        };
 
+        // Chatbot
         const chatWindow = document.getElementById('chatWindow');
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
 
-        function toggleChat() {
+        window.toggleChat = () => {
             if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
                 chatWindow.style.display = 'flex';
             } else {
                 chatWindow.style.display = 'none';
             }
-        }
+        };
 
-        function handleKeyPress(e) { if (e.key === 'Enter') sendMessage(); }
+        window.handleKeyPress = (e) => { if (e.key === 'Enter') window.sendMessage(); };
 
-        function sendMessage() {
+        window.sendMessage = () => {
             const userText = chatInput.value.trim();
             if (!userText) return;
             chatMessages.innerHTML += `<div class="flex gap-2 w-full justify-end"><div class="bg-amber-600 text-white px-3.5 py-2.5 rounded-2xl rounded-tr-none shadow-sm max-w-[85%]">${userText}</div></div>`;
             chatInput.value = '';
             chatMessages.scrollTop = chatMessages.scrollHeight;
             setTimeout(() => { botReply(userText.toLowerCase()); }, 700);
-        }
+        };
 
         function botReply(text) {
             let reply = "E-Kitap Deposu'na hoş geldiniz. Kitabı indirebilmek için öncelikle sağ üstten Google ile kayıt olmanız gerekmektedir.";
             if (text.includes("fiyat") || text.includes("ücret") || text.includes("paralı") || text.includes("bağış")) {
-                reply = "E-Kitap Deposu tamamen bağımsız ve <b>ücretsiz</b> bir platformdur. Kitaplarımız için ücret alınmaz, dilerseniz karekod üzerinden destek amaçlı bağış yapabilirsiniz[span_1](start_span)[span_1](end_span).";
+                reply = "E-Kitap Deposu tamamen bağımsız ve <b>ücretsiz</b> bir platformdur. Kitaplarımız için ücret alınmaz, dilerseniz karekod üzerinden destek amaçlı bağış yapabilirsiniz.";
             } else if (text.includes("nasıl") || text.includes("açılır") || text.includes("epub") || text.includes("okunur")) {
                 reply = "EPUB dosyalarını Android'de <b>ReadEra</b> veya <b>Play Kitaplar</b> ile, iPhone'da ise doğrudan <b>Apple Kitaplar</b> uygulaması ile kolayca açabilirsiniz.";
             } else if (text.includes("kayıt") || text.includes("üye") || text.includes("google")) {
@@ -642,7 +578,7 @@
             <div class="flex flex-col md:flex-row items-center gap-6">
                 <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl shadow-sm">
                     <i class="fa-solid fa-eye text-amber-600 text-xs"></i>
-                    <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Toplam Ziyaretçi:</span>
+                    <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Ziyaretçi:</span>
                     <img src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fwww.marketim3000.online&labelColor=%23f1f5f9&countColor=%23d97706&label=+" alt="Ziyaretçi Sayısı" class="h-[18px]">
                 </div>
 
@@ -656,4 +592,4 @@
     </footer>
 
 </body>
-</html>
+                        </html></ht</html>ml></html>
