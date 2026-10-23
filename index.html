@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Kitap Deposu | Ücretsiz Dijital Kütüphane</title>
+    <title>E-Kitap Deposu | Ücretsiz Dijital Kütüphane ve Okuma Platformu</title>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon (Kendi logonuzun yolunu girebilirsiniz) -->
     <link rel="icon" href="logo.png" type="image/x-icon">
     
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- DİKKAT: Tailwind CDN yerine kendi derlediğiniz CSS dosyasını kullanmalısınız. 
-         Geçici olarak CDN bırakıldı, aşağıdaki talimatlara bakın. -->
+    <!-- Tailwind CSS (Not: Üretim ortamında CDN yerine derlenmiş CSS kullanmanız önerilir) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -28,6 +31,7 @@
         }
     </script>
 
+    <!-- Özel Stiller -->
     <style>
         body { background-color: #f8fafc; color: #334155; }
         .glass-light { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); }
@@ -130,6 +134,7 @@
                 <h3 class="text-lg font-serif font-bold text-slate-900 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-headphones text-amber-600"></i> Haftanın Sesli Seçkisi
                 </h3>
+                <p class="text-xs text-slate-500">Okurken dinleyebileceğiniz özel seçkimiz</p>
             </div>
             <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-200 shadow-inner bg-slate-900">
                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/yTqspLk31-g" title="Haftanın Seçkisi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -165,6 +170,8 @@
                         <span><i class="fa-solid fa-book-bookmark"></i> EPUB Formatı</span>
                         <span>•</span>
                         <span>Ücretsiz E-Kitap</span>
+                        <span>•</span>
+                        <span>Kayıt Şartlı</span>
                     </div>
                     <h4 class="text-3xl font-serif font-black text-slate-900 mb-4 transition leading-snug">Finansal Özgürlük</h4>
                     <p class="text-slate-600 text-base leading-relaxed mb-6 flex-grow">
@@ -266,7 +273,23 @@
         </div>
     </section>
 
-    <!-- Okur Yorumları Formu (Formspree ile Çalışmaya Devam Ediyor) -->
+    <!-- Hakkımızda -->
+    <section class="max-w-6xl mx-auto px-4 py-12 relative z-10">
+        <div class="bg-white border border-slate-200 rounded-3xl p-8 md:p-16 text-center shadow-lg relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-slate-50/30"></div>
+            <div class="relative z-10">
+                <div class="w-16 h-16 mx-auto bg-amber-50 border border-amber-200 rounded-full flex items-center justify-center mb-6 shadow-sm">
+                    <i class="fa-solid fa-book text-amber-600 text-2xl"></i>
+                </div>
+                <h3 class="text-3xl md:text-4xl font-serif font-black text-slate-900 mb-6">Bilgi ve Kitap Herkes İçindir</h3>
+                <p class="text-slate-600 leading-relaxed max-w-3xl mx-auto text-base md:text-lg font-light">
+                    Bilginin dönüştürücü gücüne inanıyoruz. E-Kitap Deposu, ticari kaygılardan uzak, okumayı ve gelişmeyi seven herkesin ücretsiz ve özgürce faydalanabileceği dijital bir kütüphanedir.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Okur Yorumları Formu -->
     <section class="max-w-6xl mx-auto px-4 py-12 relative z-10 bg-slate-100 rounded-t-[3rem] mt-8 pt-16 border-t border-slate-200">
         <div class="flex flex-col text-center mb-12">
             <h3 class="text-3xl font-serif font-black text-slate-900 mb-3">Okur Yorumları</h3>
@@ -307,6 +330,7 @@
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-600 to-yellow-500"></div>
             <div class="text-center mb-6">
                 <h4 class="text-xl font-serif font-bold text-slate-900 mb-2"><i class="fa-solid fa-pen-nib text-amber-600 mr-2"></i>Okuma Deneyiminizi Paylaşın</h4>
+                <p class="text-xs text-slate-500">Kitap hakkında hissettiklerinizi bizimle ve diğer okurlarla paylaşın.</p>
             </div>
             
             <form action="https://formspree.io/f/xrppgddn" method="POST" onsubmit="submitComment(event)" class="flex flex-col gap-4">
@@ -341,6 +365,7 @@
     <!-- Chatbot Asistan -->
     <div id="aiChatbot" style="z-index: 99999 !important;" class="fixed bottom-6 right-4 md:right-6 flex flex-col items-end">
         <div id="chatWindow" style="display: none;" class="w-80 sm:w-96 bg-white border border-slate-200 rounded-2xl shadow-2xl mb-4 overflow-hidden flex-col text-slate-800">
+            
             <div class="bg-amber-600 px-4 py-3 flex justify-between items-center text-white">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-full bg-amber-700 flex items-center justify-center overflow-hidden border border-amber-500 shadow-sm">
@@ -377,18 +402,46 @@
         </button>
     </div>
 
-    <!-- Firebase Modüler SDK Script -->
+    <!-- Alt Bilgi -->
+    <footer class="border-t border-slate-200 bg-white py-12 mt-10 relative z-10 shadow-inner">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <div>
+                <span class="text-xl font-serif font-black text-slate-900 tracking-wide flex items-center gap-2 justify-center md:justify-start">
+                    <i class="fa-solid fa-book-bookmark text-amber-600"></i> E-Kitap Deposu
+                </span>
+                <p class="text-xs text-slate-500 mt-2">© 2026 E-Kitap Deposu — Ticari amaç gütmeyen özgür e-kitap arşivi.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl shadow-sm">
+                    <i class="fa-solid fa-eye text-amber-600 text-xs"></i>
+                    <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Toplam Ziyaretçi:</span>
+                    <img src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fwww.marketim3000.online&labelColor=%23f1f5f9&countColor=%23d97706&label=+" alt="Ziyaretçi Sayısı" class="h-[18px]">
+                </div>
+
+                <div class="flex items-center gap-6 text-sm text-slate-600">
+                    <a href="#rehber" class="hover:text-amber-600 transition">Nasıl Okunur?</a>
+                    <span>•</span>
+                    <a href="#koleksiyon" class="hover:text-amber-600 transition">Arşiv</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT VE FIREBASE ENTEGRASYONU BÖLÜMÜ -->
+    <!-- ========================================== -->
     <script type="module">
         // Firebase Modüllerini İçe Aktar
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-        // Firebase Yapılandırmanız (Screenshot'tan alınmıştır, kontrol edin)
+        // Sizin Firebase Yapılandırmanız
         const firebaseConfig = {
-            apiKey: "AIzaSyDt6huvLeiG0KuO4P1iBikmYFA13-wE...", // Tam anahtarı Firebase Konsolunuzdan kopyalayın
-            authDomain: "pazarlık-3000-e1806.firebaseapp.com",
-            projectId: "pazarlık-3000-e1806",
-            storageBucket: "pazarlık-3000-e1806.firebasestorage.app",
+            apiKey: "AIzaSyDt6huvLeiGj0KuO4P1oBiLkmYFA13-wEs",
+            authDomain: "marketim3000-e1806.firebaseapp.com",
+            projectId: "marketim3000-e1806",
+            storageBucket: "marketim3000-e1806.firebasestorage.app",
             messagingSenderId: "1003242342277",
             appId: "1:1003242342277:web:8f5e2a18820bf1d4fba6ec",
             measurementId: "G-G3E1GQZDQK"
@@ -399,11 +452,15 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        // --- Global Fonksiyonları Window'a Tanımla (HTML onclick için) ---
+        // --- Global Fonksiyonlar (HTML onclick için window'a tanımlanmalı) ---
         window.loginWithGoogle = () => {
             signInWithPopup(auth, provider).catch((error) => {
                 console.error("Giriş Hatası:", error);
-                alert("Giriş yapılamadı: " + error.message);
+                if(error.code === 'auth/unauthorized-domain') {
+                    alert("Giriş yapılamadı: Bu alan adı Firebase yetkili alan adları listesinde yok. Lütfen Firebase konsolundan 'marketim3000.online' adresini ekleyin.");
+                } else {
+                    alert("Giriş yapılamadı: " + error.message);
+                }
             });
         };
 
@@ -420,8 +477,9 @@
                 event.preventDefault();
                 document.getElementById('loginRequiredModal').style.display = 'flex';
             } else {
+                // Kullanıcı giriş yapmışsa indirmeyi başlat
                 const link = document.createElement('a');
-                link.href = 'Finansal_Ozgurluk.epub'; // GitHub'a yüklediğiniz EPUB dosyası
+                link.href = 'Finansal_Ozgurluk.epub'; 
                 link.download = 'Finansal_Ozgurluk.epub';
                 document.body.appendChild(link);
                 link.click();
@@ -439,13 +497,12 @@
             const commentNameInput = document.getElementById('commentNameInput');
 
             if (user) {
+                // Kullanıcı giriş yaptıysa
                 loginBtn.style.display = 'none';
                 profileArea.style.display = 'flex';
                 
-                // Kullanıcı Adı
                 nameDisplay.innerText = user.displayName || 'Okur';
                 
-                // Profil Resmi
                 if (user.photoURL) {
                     avatarImg.src = user.photoURL;
                     avatarImg.style.display = 'block';
@@ -461,6 +518,7 @@
                     commentNameInput.value = user.displayName || '';
                 }
             } else {
+                // Kullanıcı çıkış yaptıysa
                 loginBtn.style.display = 'flex';
                 profileArea.style.display = 'none';
             }
@@ -525,7 +583,7 @@
             }
         };
 
-        // Chatbot
+        // Chatbot İşlemleri
         const chatWindow = document.getElementById('chatWindow');
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
@@ -565,31 +623,5 @@
         }
     </script>
 
-    <!-- Alt Bilgi -->
-    <footer class="border-t border-slate-200 bg-white py-12 mt-10 relative z-10 shadow-inner">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            <div>
-                <span class="text-xl font-serif font-black text-slate-900 tracking-wide flex items-center gap-2 justify-center md:justify-start">
-                    <i class="fa-solid fa-book-bookmark text-amber-600"></i> E-Kitap Deposu
-                </span>
-                <p class="text-xs text-slate-500 mt-2">© 2026 E-Kitap Deposu — Ticari amaç gütmeyen özgür e-kitap arşivi.</p>
-            </div>
-            
-            <div class="flex flex-col md:flex-row items-center gap-6">
-                <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl shadow-sm">
-                    <i class="fa-solid fa-eye text-amber-600 text-xs"></i>
-                    <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Ziyaretçi:</span>
-                    <img src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fwww.marketim3000.online&labelColor=%23f1f5f9&countColor=%23d97706&label=+" alt="Ziyaretçi Sayısı" class="h-[18px]">
-                </div>
-
-                <div class="flex items-center gap-6 text-sm text-slate-600">
-                    <a href="#rehber" class="hover:text-amber-600 transition">Nasıl Okunur?</a>
-                    <span>•</span>
-                    <a href="#koleksiyon" class="hover:text-amber-600 transition">Arşiv</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
 </body>
-                        </html></ht</html>ml></html>
+                </html></html>
