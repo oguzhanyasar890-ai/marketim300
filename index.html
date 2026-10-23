@@ -108,10 +108,9 @@
                     </svg>
                 </div>
                 <h3 class="text-xl font-bold text-slate-900">Google ile Kaydol</h3>
-                <p class="text-xs text-slate-500 mt-1">E-Kitap Deposu'na devam etmek için bilgilerinizi girin</p>
+                <p class="text-xs text-slate-500 mt-1">Kitabı indirebilmek ve arşive erişmek için kaydolun</p>
             </div>
 
-            <!-- FORMSPREE BAĞLANTILI ÜYE KAYIT FORMU -->
             <form action="https://formspree.io/f/xrppgddn" method="POST" onsubmit="handleGoogleAuth(event)" class="flex flex-col gap-4">
                 <input type="hidden" name="_subject" value="Yeni E-Kitap Deposu Üye Kaydı!">
                 <div>
@@ -131,9 +130,23 @@
                 </button>
             </form>
         </div>
+    </section>
+
+    <!-- ZORUNLU GİRİŞ UYARI MODALI -->
+    <div id="loginRequiredModal" class="fixed inset-0 z-[999999] hidden items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4">
+        <div class="bg-white text-slate-800 w-full max-w-sm rounded-3xl p-6 text-center modal-open shadow-2xl border border-slate-100">
+            <div class="w-14 h-14 mx-auto mb-4 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-2xl shadow-sm">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-2">Giriş Yapılması Gerekli</h3>
+            <p class="text-xs text-slate-600 mb-6 leading-relaxed">Kitabı indirebilmek için lütfen önce sağ üst köşeden <b>Google ile Kaydol</b> butonuna tıklayarak ücretsiz oturum açın.</p>
+            <button onclick="closeLoginRequiredModal()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl text-xs transition shadow-md">
+                Tamam, Anladım
+            </button>
+        </div>
     </div>
 
-    <!-- Hero Bölümü (Açık Tema) -->
+    <!-- Hero Bölümü -->
     <section class="relative overflow-hidden hero-banner-light py-20 md:py-28 z-10 border-b border-slate-200">
         <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
             <div class="inline-flex items-center gap-2 bg-amber-100 text-amber-800 border border-amber-200 px-4 py-1.5 rounded-full text-xs font-bold mb-6 shadow-sm">
@@ -144,7 +157,7 @@
                 <span class="text-amber-600 italic font-normal">Yeni Bir Yolculuğa Çıkın</span>
             </h2>
             <p class="text-slate-600 max-w-2xl mx-auto text-base md:text-lg mb-8 leading-relaxed font-light">
-                Ufkunuzu açacak rehberler, kişisel gelişim eserleri ve hayatınızı dönüştürecek kitaplar. Hiçbir ücret ödemeden, özgürce indirin ve okuyun.
+                Ufkunuzu açacak rehberler, kişisel gelişim eserleri ve hayatınızı dönüştürecek kitaplar. Ücretsiz kayıt olarak hemen indirin ve okuyun.
             </p>
         </div>
     </section>
@@ -178,7 +191,7 @@
             <h3 class="text-3xl font-serif font-black text-slate-900 flex items-center gap-3">
                 E-Kitap Arşivi
             </h3>
-            <p class="text-slate-500 text-sm mt-2 text-center">Depomuzun en yeni eseri ücretsiz erişime açıldı.</p>
+            <p class="text-slate-500 text-sm mt-2 text-center">İndirmek için önce Google ile kaydolmanız gerekmektedir.</p>
         </div>
 
         <div class="flex justify-center" id="postContainer">
@@ -193,11 +206,11 @@
                         <span>•</span>
                         <span>Ücretsiz E-Kitap</span>
                         <span>•</span>
-                        <span>Anında İndir</span>
+                        <span>Kayıt Şartlı</span>
                     </div>
                     <h4 class="text-3xl font-serif font-black text-slate-900 mb-4 transition leading-snug">Finansal Özgürlük</h4>
                     <p class="text-slate-600 text-base leading-relaxed mb-6 flex-grow">
-                        Kendi ekonomik bağımsızlığınızı kazanmanın, doğru bütçe yönetiminin ve geleceğinizi güvence altına almanın temel sırları. Finansal okuryazarlığınızı artıracak bu başucu eserini hemen cihazınıza indirip okumaya başlayabilirsiniz.
+                        Kendi ekonomik bağımsızlığınızı kazanmanın, doğru bütçe yönetiminin ve geleceğinizi güvence altına almanın temel sırları. Üye olduktan sonra hemen indirebilirsiniz.
                     </p>
 
                     <!-- KUVEYTTÜRK BAĞIŞ QR KODU -->
@@ -211,10 +224,10 @@
                         </p>
                     </div>
                     
-                    <!-- İndirme Butonu -->
-                    <a href="Finansal_Ozgurluk.epub" download class="w-full bg-amber-600 hover:bg-amber-700 text-white py-4 rounded-xl text-base font-bold transition flex items-center justify-center gap-2 shadow-md mb-4">
+                    <!-- ZORUNLU GİRİŞ KONTROLLÜ İNDİRME BUTONU -->
+                    <button onclick="checkDownload(event)" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-4 rounded-xl text-base font-bold transition flex items-center justify-center gap-2 shadow-md mb-4 cursor-pointer">
                         <i class="fa-solid fa-download"></i> Ücretsiz İndir & Oku (EPUB)
-                    </a>
+                    </button>
 
                     <!-- Arkadaşınla Paylaş Butonları -->
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4 border-t border-slate-100">
@@ -406,7 +419,7 @@
                 <div class="flex gap-2 w-full">
                     <div class="w-6 h-6 rounded-full bg-amber-600 text-white flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-book text-[10px]"></i></div>
                     <div class="bg-white text-slate-700 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-slate-200 shadow-sm leading-relaxed">
-                        Merhaba, E-Kitap Deposu'na hoş geldiniz! Şu an yayında olan yeni kitabımız 'Finansal Özgürlük' hakkında bilgi almak ister misiniz?
+                        Merhaba! Kitabı indirebilmek için öncelikle sağ üst köşeden <b>Google ile Kaydol</b> butonuna tıklayarak üye olmanız gerekmektedir.
                     </div>
                 </div>
             </div>
@@ -434,6 +447,31 @@
             const modal = document.getElementById('googleAuthModal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
+        }
+
+        function closeLoginRequiredModal() {
+            const modal = document.getElementById('loginRequiredModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // İndirme Butonu Kontrolü (Giriş Yapılmamışsa İndirtmez)
+        function checkDownload(event) {
+            const savedUser = localStorage.getItem('ekitap_user');
+            if (!savedUser) {
+                event.preventDefault();
+                const modal = document.getElementById('loginRequiredModal');
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                // Giriş yapılmışsa EPUB dosyasını indir
+                const link = document.createElement('a');
+                link.href = 'Finansal_Ozgurluk.epub';
+                link.download = 'Finansal_Ozgurluk.epub';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
         }
 
         async function handleGoogleAuth(event) {
@@ -586,15 +624,15 @@
         }
 
         function botReply(text) {
-            let reply = "E-Kitap Deposu'na hoş geldiniz. Yeni eserimiz olan <b>Finansal Özgürlük</b> kitabını ücretsiz indirerek okumaya başlayabilirsiniz.";
+            let reply = "E-Kitap Deposu'na hoş geldiniz. Kitabı indirebilmek için öncelikle sağ üstten Google ile kayıt olmanız gerekmektedir.";
             if (text.includes("fiyat") || text.includes("ücret") || text.includes("paralı") || text.includes("bağış")) {
                 reply = "E-Kitap Deposu tamamen bağımsız ve <b>ücretsiz</b> bir platformdur. Kitaplarımız için ücret alınmaz, dilerseniz karekod üzerinden destek amaçlı bağış yapabilirsiniz[span_1](start_span)[span_1](end_span).";
             } else if (text.includes("nasıl") || text.includes("açılır") || text.includes("epub") || text.includes("okunur")) {
                 reply = "EPUB dosyalarını Android'de <b>ReadEra</b> veya <b>Play Kitaplar</b> ile, iPhone'da ise doğrudan <b>Apple Kitaplar</b> uygulaması ile kolayca açabilirsiniz.";
             } else if (text.includes("kayıt") || text.includes("üye") || text.includes("google")) {
-                reply = "Sağ üst köşedeki <b>Google ile Kaydol</b> butonuna tıklayarak saniyeler içinde okur profilinizi oluşturabilirsiniz.";
+                reply = "Sağ üst köşedeki <b>Google ile Kaydol</b> butonuna tıklayarak saniyeler içinde okur profilinizi oluşturabilir ve hemen indirme yapabilirsiniz.";
             } else if (text.includes("kitap") || text.includes("finans") || text.includes("indir")) {
-                reply = "Şu an arşivimizde <b>Finansal Özgürlük</b> e-kitabımız yayındadır. 'Ücretsiz İndir & Oku' butonuna tıklayarak hemen indirebilirsiniz.";
+                reply = "Arşivimizde <b>Finansal Özgürlük</b> e-kitabımız yayındadır. Kayıt olduktan sonra indirebilirsiniz.";
             }
             chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-amber-600 text-white flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-book text-[10px]"></i></div><div class="bg-white text-slate-700 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-slate-200 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
             chatMessages.scrollTop = chatMessages.scrollHeight;
