@@ -6,7 +6,7 @@
     <title>E-Kitap Deposu | Ücretsiz Dijital Kütüphane ve Okuma Platformu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="https://images.unsplash.com/photo-1455390582262-044cdead27d8?q=80&w=100&auto=format&fit=crop" type="image/x-icon">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -26,59 +26,124 @@
     </script>
 
     <style>
-        body { background-color: #0f172a; }
-        .glass { background: rgba(30, 41, 59, 0.75); backdrop-filter: blur(16px); }
-        .hero-banner {
-            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 1)), 
+        body { background-color: #f8fafc; color: #334155; }
+        .glass-light { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
+        .hero-banner-light {
+            background: linear-gradient(to bottom, rgba(248, 250, 252, 0.8), rgba(248, 250, 252, 0.95)), 
                         url('https://images.unsplash.com/photo-1474932430478-367dbb6832c1?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
-            background-attachment: fixed;
         }
-        .chat-open { animation: slideUp 0.3s ease-out forwards; }
+        .chat-open { animation: slideUp 0.25s ease-out forwards; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-open { animation: fadeIn 0.25s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
         .star-rating input { display: none; }
-        .star-rating label { color: #475569; cursor: pointer; font-size: 1.5rem; transition: color 0.2s; }
+        .star-rating label { color: #cbd5e1; cursor: pointer; font-size: 1.5rem; transition: color 0.2s; }
         .star-rating input:checked ~ label { color: #f59e0b; }
         .star-rating label:hover, .star-rating label:hover ~ label { color: #fbbf24; }
     </style>
 </head>
-<body class="text-slate-300 font-sans min-h-screen flex flex-col selection:bg-amber-600 selection:text-white relative">
+<body class="font-sans min-h-screen flex flex-col selection:bg-amber-500 selection:text-white relative">
 
-    <header class="border-b border-slate-800/80 glass sticky top-0 z-40">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+    <!-- Üst Menü & Google Kaydol Butonu -->
+    <header class="border-b border-slate-200 glass-light sticky top-0 z-40 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center gap-2">
             <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-xl overflow-hidden bg-slate-900 border border-slate-700 flex items-center justify-center shadow-lg">
-                    <i class="fa-solid fa-book-bookmark text-amber-500 text-xl"></i>
+                <div class="w-10 h-10 md:w-11 md:h-11 rounded-xl overflow-hidden bg-amber-50 border border-amber-200 flex items-center justify-center shadow-sm flex-shrink-0">
+                    <i class="fa-solid fa-book-bookmark text-amber-600 text-lg md:text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-serif font-black tracking-wide text-white">
+                    <h1 class="text-lg md:text-2xl font-serif font-black tracking-wide text-slate-900 leading-tight">
                         E-Kitap Deposu
                     </h1>
-                    <span class="text-[10px] text-amber-500 font-semibold tracking-wider uppercase block">Ücretsiz Dijital Arşiv</span>
+                    <span class="text-[9px] md:text-[10px] text-amber-600 font-semibold tracking-wider uppercase block">Ücretsiz Dijital Arşiv</span>
                 </div>
             </div>
-            <div class="flex items-center gap-2">
-                <a href="#rehber" class="hidden sm:inline-block text-slate-400 hover:text-white px-3 py-2 text-xs font-semibold transition">
-                    Nasıl Okunur?
-                </a>
-                <a href="#koleksiyon" class="bg-amber-600/20 hover:bg-amber-600/30 text-amber-500 border border-amber-500/30 px-5 py-2 rounded-full text-xs font-bold transition shadow-sm">
+
+            <div class="flex items-center gap-2 md:gap-3">
+                <a href="#koleksiyon" class="hidden md:inline-block text-slate-600 hover:text-amber-600 px-3 py-2 text-xs font-semibold transition">
                     Arşive Göz At
                 </a>
+
+                <!-- Giriş Yapılmamışken Görünen Google Butonu -->
+                <button id="googleLoginBtn" onclick="openGoogleModal()" class="bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-2 md:px-4 md:py-2 rounded-full text-xs font-bold transition shadow-sm flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+                        <path fill="#34A853" d="M12 24c3.3 0 6.08-1.09 8.11-2.96l-3.88-3.05c-1.1.74-2.51 1.18-4.23 1.18-3.26 0-6.02-2.2-7-5.16H1.01v3.14C3.03 21.2 7.21 24 12 24z"/>
+                        <path fill="#FBBC05" d="M5 14.01c-.25-.74-.39-1.54-.39-2.36s.14-1.62.39-2.36V6.15H1.01C.37 7.43 0 8.87 0 10.65s.37 3.22 1.01 4.5l3.99-1.14z"/>
+                        <path fill="#EA4335" d="M12 4.75c1.79 0 3.41.62 4.68 1.82l3.51-3.51C18.07 1.19 15.3 0 12 0 7.21 0 3.03 2.8 1.01 6.85l3.99 3.14c.98-2.96 3.74-5.24 7-5.24z"/>
+                    </svg>
+                    <span>Google ile Kaydol</span>
+                </button>
+
+                <!-- Giriş Yapıldıktan Sonra Görünen Kullanıcı Profili -->
+                <div id="userProfileArea" class="hidden items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-full shadow-sm">
+                    <div id="userAvatar" class="w-6 h-6 rounded-full bg-amber-600 text-white font-bold text-xs flex items-center justify-center uppercase">
+                        U
+                    </div>
+                    <span id="userNameDisplay" class="text-xs font-semibold text-slate-800 max-w-[100px] truncate">Okur</span>
+                    <button onclick="logoutUser()" title="Çıkış Yap" class="text-slate-400 hover:text-rose-600 ml-1 text-xs transition">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
-    <section class="relative overflow-hidden hero-banner py-20 md:py-28 z-10 border-b border-slate-800/80">
+    <!-- GOOGLE İLE KAYDOL POPUP EKRANI -->
+    <div id="googleAuthModal" class="fixed inset-0 z-[999999] hidden items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4">
+        <div class="bg-white text-slate-800 w-full max-w-md rounded-3xl p-6 md:p-8 relative modal-open shadow-2xl border border-slate-100">
+            <button onclick="closeGoogleModal()" class="absolute top-4 right-4 w-8 h-8 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-full flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 mx-auto mb-3 bg-amber-50 border border-amber-200 rounded-2xl flex items-center justify-center shadow-sm">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+                        <path fill="#34A853" d="M12 24c3.3 0 6.08-1.09 8.11-2.96l-3.88-3.05c-1.1.74-2.51 1.18-4.23 1.18-3.26 0-6.02-2.2-7-5.16H1.01v3.14C3.03 21.2 7.21 24 12 24z"/>
+                        <path fill="#FBBC05" d="M5 14.01c-.25-.74-.39-1.54-.39-2.36s.14-1.62.39-2.36V6.15H1.01C.37 7.43 0 8.87 0 10.65s.37 3.22 1.01 4.5l3.99-1.14z"/>
+                        <path fill="#EA4335" d="M12 4.75c1.79 0 3.41.62 4.68 1.82l3.51-3.51C18.07 1.19 15.3 0 12 0 7.21 0 3.03 2.8 1.01 6.85l3.99 3.14c.98-2.96 3.74-5.24 7-5.24z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900">Google ile Kaydol</h3>
+                <p class="text-xs text-slate-500 mt-1">E-Kitap Deposu'na devam etmek için bilgilerinizi girin</p>
+            </div>
+
+            <!-- FORMSPREE BAĞLANTILI ÜYE KAYIT FORMU -->
+            <form action="https://formspree.io/f/xrppgddn" method="POST" onsubmit="handleGoogleAuth(event)" class="flex flex-col gap-4">
+                <input type="hidden" name="_subject" value="Yeni E-Kitap Deposu Üye Kaydı!">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1.5">Adınız ve Soyadınız</label>
+                    <input type="text" name="name" id="authName" required placeholder="Örn: Ahmet Yılmaz" class="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1.5">Gmail Adresiniz</label>
+                    <input type="email" name="email" id="authEmail" required placeholder="ornek@gmail.com" class="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-600 transition">
+                </div>
+                <div class="flex items-start gap-2 mt-1">
+                    <input type="checkbox" id="notifyCheck" checked class="mt-1 rounded text-amber-600">
+                    <label for="notifyCheck" class="text-[11px] text-slate-500 leading-tight">Yeni ücretsiz e-kitaplar yüklendiğinde haberdar olmak istiyorum.</label>
+                </div>
+                <button type="submit" id="authSubmitBtn" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl text-sm transition shadow-md mt-2 flex items-center justify-center gap-2">
+                    Google Hesabımla Bağlan
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hero Bölümü (Açık Tema) -->
+    <section class="relative overflow-hidden hero-banner-light py-20 md:py-28 z-10 border-b border-slate-200">
         <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
-            <div class="inline-flex items-center gap-2 bg-amber-500/10 text-amber-400 border border-amber-500/20 px-4 py-1.5 rounded-full text-xs font-bold mb-6 shadow-lg backdrop-blur-md">
+            <div class="inline-flex items-center gap-2 bg-amber-100 text-amber-800 border border-amber-200 px-4 py-1.5 rounded-full text-xs font-bold mb-6 shadow-sm">
                 <i class="fa-solid fa-book-open-reader"></i> Tamamen Ücretsiz E-Kitap ve Okuma Platformu
             </div>
-            <h2 class="text-4xl md:text-6xl font-serif font-black mb-6 text-white leading-tight drop-shadow-md">
+            <h2 class="text-4xl md:text-6xl font-serif font-black mb-6 text-slate-900 leading-tight">
                 Bilginin ve Kitapların Dünyasında <br class="hidden md:block">
-                <span class="text-amber-500 italic font-normal">Yeni Bir Yolculuğa Çıkın</span>
+                <span class="text-amber-600 italic font-normal">Yeni Bir Yolculuğa Çıkın</span>
             </h2>
-            <p class="text-slate-300 max-w-2xl mx-auto text-base md:text-lg mb-8 leading-relaxed font-light drop-shadow">
+            <p class="text-slate-600 max-w-2xl mx-auto text-base md:text-lg mb-8 leading-relaxed font-light">
                 Ufkunuzu açacak rehberler, kişisel gelişim eserleri ve hayatınızı dönüştürecek kitaplar. Hiçbir ücret ödemeden, özgürce indirin ve okuyun.
             </p>
         </div>
@@ -86,78 +151,78 @@
 
     <!-- Haftanın Dinletisi (Video) -->
     <section class="max-w-4xl mx-auto px-4 -mt-10 relative z-20 mb-10">
-        <div class="glass border border-slate-700/80 rounded-3xl p-4 md:p-6 shadow-2xl bg-slate-900/90">
+        <div class="bg-white border border-slate-200 rounded-3xl p-4 md:p-6 shadow-xl">
             <div class="text-center mb-4">
-                <h3 class="text-lg font-serif font-bold text-white flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-headphones text-amber-500"></i> Haftanın Sesli Seçkisi
+                <h3 class="text-lg font-serif font-bold text-slate-900 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-headphones text-amber-600"></i> Haftanın Sesli Seçkisi
                 </h3>
-                <p class="text-xs text-slate-400">Okurken dinleyebileceğiniz özel seçkimiz</p>
+                <p class="text-xs text-slate-500">Okurken dinleyebileceğiniz özel seçkimiz</p>
             </div>
-            <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-inner bg-black">
+            <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-200 shadow-inner bg-slate-900">
                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/yTqspLk31-g" title="Haftanın Seçkisi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </section>
 
-    <!-- YENİ: Günün İlham Veren Sözü -->
+    <!-- Günün İlham Veren Sözü -->
     <section class="max-w-3xl mx-auto px-4 mb-8 relative z-10">
-        <div class="bg-slate-900/80 border border-amber-500/20 rounded-2xl p-4 text-center shadow-lg">
-            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-500 block mb-1"><i class="fa-solid fa-sparkles mr-1"></i> Günün Sözü</span>
-            <p id="dailyQuote" class="text-sm md:text-base font-serif italic text-slate-200">"Bilgiye yapılan yatırım, her zaman en yüksek faizi getirir." — Benjamin Franklin</p>
+        <div class="bg-amber-50 border border-amber-200/80 rounded-2xl p-4 text-center shadow-sm">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700 block mb-1"><i class="fa-solid fa-sparkles mr-1"></i> Günün Sözü</span>
+            <p id="dailyQuote" class="text-sm md:text-base font-serif italic text-slate-800">"Bilgiye yapılan yatırım, her zaman en yüksek faizi getirir." — Benjamin Franklin</p>
         </div>
     </section>
 
+    <!-- Kitap Arşivi Bölümü -->
     <main id="koleksiyon" class="max-w-6xl mx-auto px-4 py-6 z-10 relative scroll-mt-20">
-        <div class="flex flex-col items-center justify-center mb-10 border-b border-slate-800/80 pb-6">
-            <h3 class="text-3xl font-serif font-black text-white flex items-center gap-3">
+        <div class="flex flex-col items-center justify-center mb-10 border-b border-slate-200 pb-6">
+            <h3 class="text-3xl font-serif font-black text-slate-900 flex items-center gap-3">
                 E-Kitap Arşivi
             </h3>
-            <p class="text-slate-400 text-sm mt-2 text-center">Depomuzun en yeni eseri ücretsiz erişime açıldı.</p>
+            <p class="text-slate-500 text-sm mt-2 text-center">Depomuzun en yeni eseri ücretsiz erişime açıldı.</p>
         </div>
 
         <div class="flex justify-center" id="postContainer">
-            <article class="post-card w-full max-w-2xl flex flex-col glass border border-emerald-500/30 hover:border-emerald-500/60 rounded-3xl overflow-hidden transition duration-500 shadow-[0_0_30px_rgba(16,185,129,0.1)] group">
-                <div class="w-full h-64 overflow-hidden relative">
-                    <div class="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition duration-500 z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=1200&auto=format&fit=crop" alt="Finansal Özgürlük" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    <span class="absolute top-4 left-4 z-20 bg-emerald-600/90 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-lg">Finans & Gelişim</span>
+            <article class="post-card w-full max-w-2xl flex flex-col bg-white border border-slate-200 hover:border-amber-400 rounded-3xl overflow-hidden transition duration-300 shadow-lg group">
+                <div class="w-full h-64 overflow-hidden relative bg-slate-100">
+                    <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=1200&auto=format&fit=crop" alt="Finansal Özgürlük" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <span class="absolute top-4 left-4 z-25 bg-amber-600 text-white px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-md">Finans & Gelişim</span>
                 </div>
                 <div class="p-6 md:p-8 flex flex-col flex-grow text-center">
-                    <div class="flex items-center justify-center gap-2 text-xs text-emerald-400/90 mb-4 font-medium">
+                    <div class="flex items-center justify-center gap-2 text-xs text-amber-700 mb-4 font-medium">
                         <span><i class="fa-solid fa-book-bookmark"></i> EPUB Formatı</span>
                         <span>•</span>
                         <span>Ücretsiz E-Kitap</span>
                         <span>•</span>
                         <span>Anında İndir</span>
                     </div>
-                    <h4 class="text-3xl font-serif font-black text-white mb-4 group-hover:text-emerald-400 transition leading-snug">Finansal Özgürlük</h4>
-                    <p class="text-slate-400 text-base leading-relaxed mb-6 flex-grow">
+                    <h4 class="text-3xl font-serif font-black text-slate-900 mb-4 transition leading-snug">Finansal Özgürlük</h4>
+                    <p class="text-slate-600 text-base leading-relaxed mb-6 flex-grow">
                         Kendi ekonomik bağımsızlığınızı kazanmanın, doğru bütçe yönetiminin ve geleceğinizi güvence altına almanın temel sırları. Finansal okuryazarlığınızı artıracak bu başucu eserini hemen cihazınıza indirip okumaya başlayabilirsiniz.
                     </p>
 
-                    <!-- KUVEYTTÜRK BAĞIŞ QR KODU VE MOBİL KULLANIM İPUCU -->
-                    <div class="my-6 p-5 bg-slate-950/70 border border-slate-800 rounded-2xl flex flex-col items-center justify-center gap-2 shadow-inner">
-                        <div class="bg-white p-2.5 rounded-xl shadow-md overflow-hidden max-w-[200px]">
+                    <!-- KUVEYTTÜRK BAĞIŞ QR KODU -->
+                    <div class="my-6 p-5 bg-slate-50 border border-slate-200 rounded-2xl flex flex-col items-center justify-center gap-2 shadow-sm">
+                        <div class="bg-white p-2.5 rounded-xl shadow border border-slate-100 overflow-hidden max-w-[200px]">
                             <img src="IMG_1792734715502.jpg" alt="Bağış QR Kod" class="w-full h-auto block rounded-lg">
                         </div>
-                        <p class="text-xs font-semibold text-amber-400 tracking-wide mt-2">Dilerseniz destek olarak bağış yapabilirsiniz.</p>
-                        <p class="text-[11px] text-slate-400 max-w-md leading-relaxed mt-1">
-                            <i class="fa-solid fa-mobile-screen-button text-slate-300 mr-1"></i> <b>Telefondan giriyorsanız:</b> Karekodun ekran görüntüsünü alıp mobil bankacılık uygulamanızda <b>"QR İşlemleri > Galeriden Seç"</b> adımıyla kolayca okutabilirsiniz.
+                        <p class="text-xs font-semibold text-amber-800 tracking-wide mt-2">Dilerseniz destek olarak bağış yapabilirsiniz[span_0](start_span)[span_0](end_span).</p>
+                        <p class="text-[11px] text-slate-500 max-w-md leading-relaxed mt-1">
+                            <i class="fa-solid fa-mobile-screen-button text-slate-400 mr-1"></i> <b>Telefondan giriyorsanız:</b> Karekodun ekran görüntüsünü alıp mobil bankacılık uygulamanızda <b>"QR İşlemleri > Galeriden Seç"</b> adımıyla kolayca okutabilirsiniz.
                         </p>
                     </div>
                     
                     <!-- İndirme Butonu -->
-                    <a href="Finansal_Ozgurluk.epub" download class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white border border-emerald-500/50 py-4 rounded-xl text-base font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 mb-4">
+                    <a href="Finansal_Ozgurluk.epub" download class="w-full bg-amber-600 hover:bg-amber-700 text-white py-4 rounded-xl text-base font-bold transition flex items-center justify-center gap-2 shadow-md mb-4">
                         <i class="fa-solid fa-download"></i> Ücretsiz İndir & Oku (EPUB)
                     </a>
 
-                    <!-- YENİ: Arkadaşınla Paylaş Butonları -->
-                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4 border-t border-slate-800/80">
-                        <a href="https://api.whatsapp.com/send?text=Harika%20bir%20ücretsiz%20e-kitap%20buldum!%20'Finansal%20Özgürlük'%20kitabını%20buradan%20ücretsiz%20indirebilirsin:%20https://www.marketim3000.online" target="_blank" class="w-full sm:w-auto flex-1 bg-slate-800/80 hover:bg-emerald-600/20 hover:text-emerald-400 hover:border-emerald-500/40 text-slate-300 border border-slate-700 py-2.5 px-4 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
-                            <i class="fa-brands fa-whatsapp text-base text-emerald-400"></i> WhatsApp'ta Paylaş
+                    <!-- Arkadaşınla Paylaş Butonları -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4 border-t border-slate-100">
+                        <a href="https://api.whatsapp.com/send?text=Harika%20bir%20ücretsiz%20e-kitap%20buldum!%20'Finansal%20Özgürlük'%20kitabını%20buradan%20ücretsiz%20indirebilirsin:%20https://www.marketim3000.online" target="_blank" class="w-full sm:w-auto flex-1 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300 text-slate-700 border border-slate-200 py-2.5 px-4 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-base text-emerald-600"></i> WhatsApp'ta Paylaş
                         </a>
-                        <button onclick="copySiteLink(this)" class="w-full sm:w-auto flex-1 bg-slate-800/80 hover:bg-amber-600/20 hover:text-amber-400 hover:border-amber-500/40 text-slate-300 border border-slate-700 py-2.5 px-4 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
-                            <i class="fa-regular fa-copy text-amber-400"></i> Site Linkini Kopyala
+                        <button onclick="copySiteLink(this)" class="w-full sm:w-auto flex-1 bg-slate-100 hover:bg-amber-50 hover:text-amber-700 hover:border-amber-300 text-slate-700 border border-slate-200 py-2.5 px-4 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
+                            <i class="fa-regular fa-copy text-amber-600"></i> Site Linkini Kopyala
                         </button>
                     </div>
                 </div>
@@ -165,137 +230,140 @@
         </div>
     </main>
 
-    <!-- YENİ: Sıradaki Kitabı Sen Seç (İnteraktif Anket) -->
+    <!-- Sıradaki Kitabı Sen Seç (İnteraktif Anket) -->
     <section class="max-w-2xl mx-auto px-4 py-10 relative z-10">
-        <div id="pollContainer" class="glass border border-slate-700/80 rounded-3xl p-6 md:p-8 text-center shadow-xl">
-            <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Okur Anketi</span>
-            <h3 class="text-xl md:text-2xl font-serif font-bold text-white mt-3 mb-2">Sıradaki Ücretsiz E-Kitabımız Ne Olsun?</h3>
-            <p class="text-xs text-slate-400 mb-6">Arşivimize eklenecek bir sonraki eseri oylarınızla siz belirleyin.</p>
+        <div id="pollContainer" class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 text-center shadow-lg">
+            <span class="bg-amber-100 text-amber-800 border border-amber-200 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Okur Anketi</span>
+            <h3 class="text-xl md:text-2xl font-serif font-bold text-slate-900 mt-3 mb-2">Sıradaki Ücretsiz E-Kitabımız Ne Olsun?</h3>
+            <p class="text-xs text-slate-500 mb-6">Arşivimize eklenecek bir sonraki eseri oylarınızla siz belirleyin.</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
-                <button onclick="voteBook('Kişisel Gelişim & Psikoloji')" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-amber-600/20 border border-slate-800 hover:border-amber-500/50 transition flex items-center gap-3 group">
-                    <i class="fa-solid fa-brain text-amber-500 text-lg group-hover:scale-110 transition"></i>
-                    <span class="text-xs font-bold text-slate-200">Kişisel Gelişim & Psikoloji</span>
+                <button onclick="voteBook('Kişisel Gelişim & Psikoloji')" class="p-3.5 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 transition flex items-center gap-3 group">
+                    <i class="fa-solid fa-brain text-amber-600 text-lg group-hover:scale-110 transition"></i>
+                    <span class="text-xs font-bold text-slate-800">Kişisel Gelişim & Psikoloji</span>
                 </button>
-                <button onclick="voteBook('Yapay Zeka & Teknoloji')" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-amber-600/20 border border-slate-800 hover:border-amber-500/50 transition flex items-center gap-3 group">
-                    <i class="fa-solid fa-microchip text-amber-500 text-lg group-hover:scale-110 transition"></i>
-                    <span class="text-xs font-bold text-slate-200">Yapay Zeka & Teknoloji</span>
+                <button onclick="voteBook('Yapay Zeka & Teknoloji')" class="p-3.5 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 transition flex items-center gap-3 group">
+                    <i class="fa-solid fa-microchip text-amber-600 text-lg group-hover:scale-110 transition"></i>
+                    <span class="text-xs font-bold text-slate-800">Yapay Zeka & Teknoloji</span>
                 </button>
-                <button onclick="voteBook('Sürükleyici Roman / Öykü')" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-amber-600/20 border border-slate-800 hover:border-amber-500/50 transition flex items-center gap-3 group">
-                    <i class="fa-solid fa-feather-pointed text-amber-500 text-lg group-hover:scale-110 transition"></i>
-                    <span class="text-xs font-bold text-slate-200">Sürükleyici Roman / Öykü</span>
+                <button onclick="voteBook('Sürükleyici Roman / Öykü')" class="p-3.5 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 transition flex items-center gap-3 group">
+                    <i class="fa-solid fa-feather-pointed text-amber-600 text-lg group-hover:scale-110 transition"></i>
+                    <span class="text-xs font-bold text-slate-800">Sürükleyici Roman / Öykü</span>
                 </button>
-                <button onclick="voteBook('Yatırım & Borsa Rehberi')" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-amber-600/20 border border-slate-800 hover:border-amber-500/50 transition flex items-center gap-3 group">
-                    <i class="fa-solid fa-chart-line text-amber-500 text-lg group-hover:scale-110 transition"></i>
-                    <span class="text-xs font-bold text-slate-200">Yatırım & Borsa Rehberi</span>
+                <button onclick="voteBook('Yatırım & Borsa Rehberi')" class="p-3.5 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 transition flex items-center gap-3 group">
+                    <i class="fa-solid fa-chart-line text-amber-600 text-lg group-hover:scale-110 transition"></i>
+                    <span class="text-xs font-bold text-slate-800">Yatırım & Borsa Rehberi</span>
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- YENİ: EPUB Nasıl Okunur Rehberi (SSS) -->
+    <!-- EPUB Nasıl Okunur Rehberi (SSS) -->
     <section id="rehber" class="max-w-4xl mx-auto px-4 py-8 relative z-10 scroll-mt-20">
         <div class="text-center mb-8">
-            <h3 class="text-2xl md:text-3xl font-serif font-black text-white mb-2">EPUB E-Kitap Nasıl Açılır?</h3>
-            <p class="text-xs md:text-sm text-slate-400">İndirdiğiniz kitabı telefon veya bilgisayarınızda okumak için aşağıdaki adımları izleyebilirsiniz.</p>
+            <h3 class="text-2xl md:text-3xl font-serif font-black text-slate-900 mb-2">EPUB E-Kitap Nasıl Açılır?</h3>
+            <p class="text-xs md:text-sm text-slate-500">İndirdiğiniz kitabı telefon veya bilgisayarınızda okumak için aşağıdaki adımları izleyebilirsiniz.</p>
         </div>
         <div class="flex flex-col gap-3">
-            <details class="glass border border-slate-800 hover:border-slate-700 rounded-2xl p-5 cursor-pointer group transition">
-                <summary class="font-bold text-white flex justify-between items-center outline-none text-sm md:text-base">
-                    <span><i class="fa-brands fa-android text-emerald-400 mr-2 text-lg"></i> Android Telefonlarda Nasıl Okunur?</span>
+            <details class="bg-white border border-slate-200 hover:border-slate-300 rounded-2xl p-5 cursor-pointer group transition shadow-sm">
+                <summary class="font-bold text-slate-800 flex justify-between items-center outline-none text-sm md:text-base">
+                    <span><i class="fa-brands fa-android text-emerald-600 mr-2 text-lg"></i> Android Telefonlarda Nasıl Okunur?</span>
                     <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition duration-300"></i>
                 </summary>
-                <p class="text-slate-400 text-xs md:text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">
+                <p class="text-slate-600 text-xs md:text-sm mt-4 leading-relaxed border-t border-slate-100 pt-4">
                     Android telefonlarda EPUB okumak çok kolaydır. Play Store üzerinden ücretsiz olan <b>"ReadEra"</b>, <b>"Google Play Kitaplar"</b> veya <b>"Lithium"</b> uygulamalarından birini indirin. Ardından sitemizden indirdiğiniz <i>Finansal_Ozgurluk.epub</i> dosyasına tıkladığınızda kitabınız gerçek bir kitap sayfası görünümüyle anında açılacaktır.
                 </p>
             </details>
-            <details class="glass border border-slate-800 hover:border-slate-700 rounded-2xl p-5 cursor-pointer group transition">
-                <summary class="font-bold text-white flex justify-between items-center outline-none text-sm md:text-base">
-                    <span><i class="fa-brands fa-apple text-slate-200 mr-2 text-lg"></i> iPhone / iPad (iOS) Cihazlarda Nasıl Okunur?</span>
+            <details class="bg-white border border-slate-200 hover:border-slate-300 rounded-2xl p-5 cursor-pointer group transition shadow-sm">
+                <summary class="font-bold text-slate-800 flex justify-between items-center outline-none text-sm md:text-base">
+                    <span><i class="fa-brands fa-apple text-slate-800 mr-2 text-lg"></i> iPhone / iPad (iOS) Cihazlarda Nasıl Okunur?</span>
                     <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition duration-300"></i>
                 </summary>
-                <p class="text-slate-400 text-xs md:text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">
+                <p class="text-slate-600 text-xs md:text-sm mt-4 leading-relaxed border-t border-slate-100 pt-4">
                     iPhone ve iPad cihazlarda ek bir uygulama indirmenize gerek yoktur. Dosyayı indirdikten sonra üzerine tıkladığınızda telefonunuzda yüklü gelen <b>"Kitaplar" (Apple Books)</b> uygulaması eseri otomatik olarak açacaktır.
                 </p>
             </details>
-            <details class="glass border border-slate-800 hover:border-slate-700 rounded-2xl p-5 cursor-pointer group transition">
-                <summary class="font-bold text-white flex justify-between items-center outline-none text-sm md:text-base">
-                    <span><i class="fa-solid fa-laptop text-amber-400 mr-2 text-lg"></i> Bilgisayarda (PC / Mac) Nasıl Okunur?</span>
+            <details class="bg-white border border-slate-200 hover:border-slate-300 rounded-2xl p-5 cursor-pointer group transition shadow-sm">
+                <summary class="font-bold text-slate-800 flex justify-between items-center outline-none text-sm md:text-base">
+                    <span><i class="fa-solid fa-laptop text-amber-600 mr-2 text-lg"></i> Bilgisayarda (PC / Mac) Nasıl Okunur?</span>
                     <i class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition duration-300"></i>
                 </summary>
-                <p class="text-slate-400 text-xs md:text-sm mt-4 leading-relaxed border-t border-slate-800 pt-4">
+                <p class="text-slate-600 text-xs md:text-sm mt-4 leading-relaxed border-t border-slate-100 pt-4">
                     Bilgisayarınızda ücretsiz <b>"Calibre"</b> veya <b>"Aquile Reader"</b> programlarını kullanabilir ya da hiç program kurmadan Chrome tarayıcınıza <b>"EPUBReader"</b> eklentisini ekleyerek kitabı doğrudan tarayıcı üzerinde okuyabilirsiniz.
                 </p>
             </details>
         </div>
     </section>
 
+    <!-- Hakkımızda Bölümü -->
     <section class="max-w-6xl mx-auto px-4 py-12 relative z-10">
-        <div class="glass border border-slate-700/60 rounded-3xl p-8 md:p-16 text-center shadow-2xl relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-br from-amber-900/20 to-slate-900/80"></div>
+        <div class="bg-white border border-slate-200 rounded-3xl p-8 md:p-16 text-center shadow-lg relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-slate-50/30"></div>
             <div class="relative z-10">
-                <div class="w-16 h-16 mx-auto bg-slate-800 border border-slate-700 rounded-full flex items-center justify-center mb-6 shadow-lg">
-                    <i class="fa-solid fa-book text-amber-500 text-2xl"></i>
+                <div class="w-16 h-16 mx-auto bg-amber-50 border border-amber-200 rounded-full flex items-center justify-center mb-6 shadow-sm">
+                    <i class="fa-solid fa-book text-amber-600 text-2xl"></i>
                 </div>
-                <h3 class="text-3xl md:text-4xl font-serif font-black text-white mb-6">Bilgi ve Kitap Herkes İçindir</h3>
-                <p class="text-slate-300 leading-relaxed max-w-3xl mx-auto text-base md:text-lg font-light">
+                <h3 class="text-3xl md:text-4xl font-serif font-black text-slate-900 mb-6">Bilgi ve Kitap Herkes İçindir</h3>
+                <p class="text-slate-600 leading-relaxed max-w-3xl mx-auto text-base md:text-lg font-light">
                     Bilginin dönüştürücü gücüne inanıyoruz. E-Kitap Deposu, ticari kaygılardan uzak, okumayı ve gelişmeyi seven herkesin ücretsiz ve özgürce faydalanabileceği dijital bir kütüphanedir.
                 </p>
             </div>
         </div>
     </section>
 
-    <section class="max-w-6xl mx-auto px-4 py-12 relative z-10 bg-slate-900/50 rounded-t-[3rem] mt-8 pt-16">
+    <!-- OKUR YORUMLARI FORMU -->
+    <section class="max-w-6xl mx-auto px-4 py-12 relative z-10 bg-slate-100 rounded-t-[3rem] mt-8 pt-16 border-t border-slate-200">
         <div class="flex flex-col text-center mb-12">
-            <h3 class="text-3xl font-serif font-black text-white mb-3">Okur Yorumları</h3>
-            <p class="text-slate-400">Eserlerimiz hakkında değerli okurlarımızın bıraktığı izler.</p>
+            <h3 class="text-3xl font-serif font-black text-slate-900 mb-3">Okur Yorumları</h3>
+            <p class="text-slate-500">Eserlerimiz hakkında değerli okurlarımızın bıraktığı izler.</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            <div class="glass border border-slate-800 rounded-2xl p-6 shadow-xl relative">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm relative">
                 <i class="fa-solid fa-quote-left absolute top-4 left-4 text-3xl text-amber-500/10"></i>
                 <div class="flex gap-1 text-amber-500 text-xs mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">"Finansal Özgürlük kitabını dün indirip tek solukta okudum. Para yönetimi ve birikim konusunda bakış açımı tamamen değiştirdi. Harika bir rehber."</p>
-                <div class="flex items-center gap-3 border-t border-slate-800 pt-4 mt-auto">
-                    <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-bold text-slate-300">E.Y.</div>
-                    <span class="text-xs text-slate-400 font-semibold">Sadık Okur</span>
+                <p class="text-slate-600 text-sm italic mb-6 leading-relaxed">"Finansal Özgürlük kitabını dün indirip tek solukta okudum. Para yönetimi ve birikim konusunda bakış açımı tamamen değiştirdi. Harika bir rehber."</p>
+                <div class="flex items-center gap-3 border-t border-slate-100 pt-4 mt-auto">
+                    <div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-bold text-slate-700">E.Y.</div>
+                    <span class="text-xs text-slate-600 font-semibold">Sadık Okur</span>
                 </div>
             </div>
-            <div class="glass border border-slate-800 rounded-2xl p-6 shadow-xl relative">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm relative">
                 <i class="fa-solid fa-quote-left absolute top-4 left-4 text-3xl text-amber-500/10"></i>
                 <div class="flex gap-1 text-amber-500 text-xs mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">"EPUB formatında olması telefonumdan okumamı çok kolaylaştırdı. Karmaşık finans terimlerini herkesin anlayabileceği sade bir dille anlatmış."</p>
-                <div class="flex items-center gap-3 border-t border-slate-800 pt-4 mt-auto">
-                    <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-bold text-slate-300">A.K.</div>
-                    <span class="text-xs text-slate-400 font-semibold">Öğrenci</span>
+                <p class="text-slate-600 text-sm italic mb-6 leading-relaxed">"EPUB formatında olması telefonumdan okumamı çok kolaylaştırdı. Karmaşık finans terimlerini herkesin anlayabileceği sade bir dille anlatmış."</p>
+                <div class="flex items-center gap-3 border-t border-slate-100 pt-4 mt-auto">
+                    <div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-bold text-slate-700">A.K.</div>
+                    <span class="text-xs text-slate-600 font-semibold">Öğrenci</span>
                 </div>
             </div>
-            <div class="glass border border-slate-800 rounded-2xl p-6 shadow-xl relative">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm relative">
                 <i class="fa-solid fa-quote-left absolute top-4 left-4 text-3xl text-amber-500/10"></i>
                 <div class="flex gap-1 text-amber-500 text-xs mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p class="text-slate-300 text-sm italic mb-6 leading-relaxed">"E-Kitap Deposu harika bir düşünce. Böyle değerli bir eserin hiçbir ticari kaygı güdülmeden tamamen ücretsiz sunulması takdire şayan."</p>
-                <div class="flex items-center gap-3 border-t border-slate-800 pt-4 mt-auto">
-                    <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-bold text-slate-300">M.S.</div>
-                    <span class="text-xs text-slate-400 font-semibold">Kitap Kurdu</span>
+                <p class="text-slate-600 text-sm italic mb-6 leading-relaxed">"E-Kitap Deposu harika bir düşünce. Böyle değerli bir eserin hiçbir ticari kaygı güdülmeden tamamen ücretsiz sunulması takdire şayan."</p>
+                <div class="flex items-center gap-3 border-t border-slate-100 pt-4 mt-auto">
+                    <div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-bold text-slate-700">M.S.</div>
+                    <span class="text-xs text-slate-600 font-semibold">Kitap Kurdu</span>
                 </div>
             </div>
         </div>
 
-        <div id="commentFormContainer" class="max-w-2xl mx-auto bg-slate-900 border border-slate-700/80 rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+        <div id="commentFormContainer" class="max-w-2xl mx-auto bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-xl relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-600 to-yellow-500"></div>
             <div class="text-center mb-6">
-                <h4 class="text-xl font-serif font-bold text-white mb-2"><i class="fa-solid fa-pen-nib text-amber-500 mr-2"></i>Okuma Deneyiminizi Paylaşın</h4>
-                <p class="text-xs text-slate-400">Kitap hakkında hissettiklerinizi bizimle ve diğer okurlarla paylaşın.</p>
+                <h4 class="text-xl font-serif font-bold text-slate-900 mb-2"><i class="fa-solid fa-pen-nib text-amber-600 mr-2"></i>Okuma Deneyiminizi Paylaşın</h4>
+                <p class="text-xs text-slate-500">Kitap hakkında hissettiklerinizi bizimle ve diğer okurlarla paylaşın.</p>
             </div>
             
-            <form id="customerCommentForm" onsubmit="submitComment(event)" class="flex flex-col gap-4">
+            <form action="https://formspree.io/f/xrppgddn" method="POST" onsubmit="submitComment(event)" class="flex flex-col gap-4">
+                <input type="hidden" name="_subject" value="Yeni Okur Yorumu Geldi!">
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex-1">
-                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Adınız Soyadınız</label>
-                        <input type="text" required placeholder="Örn: Ahmet Yılmaz" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition text-sm">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Adınız Soyadınız</label>
+                        <input type="text" name="name" id="commentNameInput" required placeholder="Örn: Ahmet Yılmaz" class="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-600 transition text-sm">
                     </div>
                     <div class="flex-1">
-                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Değerlendirmeniz</label>
-                        <div class="flex flex-row-reverse justify-end gap-1 star-rating bg-slate-950 border border-slate-800 rounded-xl px-4 py-1.5 h-[46px] items-center">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Değerlendirmeniz</label>
+                        <div class="flex flex-row-reverse justify-end gap-1 star-rating bg-slate-50 border border-slate-300 rounded-xl px-4 py-1.5 h-[46px] items-center">
                             <input type="radio" id="star5" name="rating" value="5" required><label for="star5"><i class="fa-solid fa-star"></i></label>
                             <input type="radio" id="star4" name="rating" value="4"><label for="star4"><i class="fa-solid fa-star"></i></label>
                             <input type="radio" id="star3" name="rating" value="3"><label for="star3"><i class="fa-solid fa-star"></i></label>
@@ -305,57 +373,135 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Düşünceleriniz</label>
-                    <textarea required rows="3" placeholder="Finansal Özgürlük kitabı size neler kattı? Düşünceleriniz..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 transition text-sm resize-none"></textarea>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Düşünceleriniz</label>
+                    <textarea name="message" required rows="3" placeholder="Finansal Özgürlük kitabı size neler kattı? Düşünceleriniz..." class="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-600 transition text-sm resize-none"></textarea>
                 </div>
-                <button type="submit" id="commentBtn" class="bg-amber-600 hover:bg-amber-500 text-white font-bold py-3 px-6 rounded-xl transition shadow-lg mt-2 flex items-center justify-center gap-2">
+                <button type="submit" id="commentBtn" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-xl transition shadow-md mt-2 flex items-center justify-center gap-2">
                     <i class="fa-regular fa-paper-plane"></i> Gönder
                 </button>
             </form>
         </div>
     </section>
 
+    <!-- Chatbot Asistan -->
     <div id="aiChatbot" style="z-index: 99999 !important;" class="fixed bottom-6 right-4 md:right-6 flex flex-col items-end">
-        <div id="chatWindow" class="hidden w-80 sm:w-96 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl mb-4 overflow-hidden flex-col chat-open">
+        <div id="chatWindow" class="hidden w-80 sm:w-96 bg-white border border-slate-200 rounded-2xl shadow-2xl mb-4 overflow-hidden flex-col chat-open text-slate-800">
             
-            <div class="bg-gradient-to-r from-amber-700 to-amber-500 px-4 py-3 flex justify-between items-center">
+            <div class="bg-amber-600 px-4 py-3 flex justify-between items-center text-white">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden border-2 border-white/30 shadow-md">
+                    <div class="w-9 h-9 rounded-full bg-amber-700 flex items-center justify-center overflow-hidden border border-amber-500 shadow-sm">
                         <img src="https://images.unsplash.com/photo-1519682577862-22b62b24e493?q=80&w=150&auto=format&fit=crop" alt="Asistan" class="w-full h-full object-cover">
                     </div>
                     <div>
                         <h4 class="text-white text-sm font-bold tracking-wide">Depo Asistanı</h4>
                         <span class="text-[10px] text-amber-100 flex items-center gap-1 font-semibold">
-                            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Çevrimiçi
+                            <span class="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span> Çevrimiçi
                         </span>
                     </div>
                 </div>
                 <button onclick="toggleChat()" class="text-white/80 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             
-            <div id="chatMessages" class="p-4 h-64 overflow-y-auto bg-slate-950 flex flex-col gap-3 text-sm">
+            <div id="chatMessages" class="p-4 h-64 overflow-y-auto bg-slate-50 flex flex-col gap-3 text-sm">
                 <div class="flex gap-2 w-full">
-                    <div class="w-6 h-6 rounded-full bg-amber-600 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-book text-white text-[10px]"></i></div>
-                    <div class="bg-slate-800 text-slate-200 px-3 py-2 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm leading-relaxed">
-                        Merhaba, E-Kitap Deposu'na hoş geldiniz! Şu an yayında olan yeni kitabımız 'Finansal Özgürlük' veya EPUB dosyalarının nasıl açıldığı hakkında bilgi almak ister misiniz?
+                    <div class="w-6 h-6 rounded-full bg-amber-600 text-white flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-book text-[10px]"></i></div>
+                    <div class="bg-white text-slate-700 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-slate-200 shadow-sm leading-relaxed">
+                        Merhaba, E-Kitap Deposu'na hoş geldiniz! Şu an yayında olan yeni kitabımız 'Finansal Özgürlük' hakkında bilgi almak ister misiniz?
                     </div>
                 </div>
             </div>
 
-            <div class="p-3 bg-slate-900 border-t border-slate-800 flex items-center gap-2">
-                <input type="text" id="chatInput" placeholder="Bir soru sorun..." class="flex-grow bg-slate-950 text-white text-sm px-3 py-2 rounded-xl border border-slate-700 focus:outline-none focus:border-amber-500 transition" onkeypress="handleKeyPress(event)">
-                <button onclick="sendMessage()" class="bg-amber-600 hover:bg-amber-500 text-white w-10 h-10 rounded-xl flex items-center justify-center transition shadow-md"><i class="fa-regular fa-paper-plane text-sm"></i></button>
+            <div class="p-3 bg-white border-t border-slate-200 flex items-center gap-2">
+                <input type="text" id="chatInput" placeholder="Bir soru sorun..." class="flex-grow bg-slate-50 text-slate-900 text-sm px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:border-amber-600 transition" onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()" class="bg-amber-600 hover:bg-amber-700 text-white w-10 h-10 rounded-xl flex items-center justify-center transition shadow"><i class="fa-regular fa-paper-plane text-sm"></i></button>
             </div>
         </div>
 
-        <button onclick="toggleChat()" class="w-16 h-16 bg-gradient-to-r from-amber-700 to-yellow-500 hover:scale-105 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.3)] transition duration-300 relative">
-            <i class="fa-solid fa-book-open text-white text-2xl"></i>
-            <span class="absolute -top-1 -right-2 bg-rose-600 text-white text-[10px] font-black px-2.5 py-1 border-2 border-slate-900 rounded-full tracking-wider shadow-sm whitespace-nowrap">ASİSTAN</span>
+        <button onclick="toggleChat()" class="w-16 h-16 bg-amber-600 hover:bg-amber-700 hover:scale-105 rounded-full flex items-center justify-center shadow-lg transition duration-300 relative text-white">
+            <i class="fa-solid fa-book-open text-xl"></i>
+            <span class="absolute -top-1 -right-2 bg-slate-900 text-white text-[10px] font-black px-2.5 py-1 border-2 border-white rounded-full tracking-wider shadow whitespace-nowrap">ASİSTAN</span>
         </button>
     </div>
 
     <script>
-        // Günün Sözü Döngüsü
+        function openGoogleModal() {
+            const modal = document.getElementById('googleAuthModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeGoogleModal() {
+            const modal = document.getElementById('googleAuthModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        async function handleGoogleAuth(event) {
+            event.preventDefault();
+            const form = event.target;
+            const name = document.getElementById('authName').value.trim();
+            const email = document.getElementById('authEmail').value.trim();
+            const btn = document.getElementById('authSubmitBtn');
+
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Kayıt Yapılıyor...';
+            btn.disabled = true;
+
+            try {
+                await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                const userData = { name: name, email: email };
+                localStorage.setItem('ekitap_user', JSON.stringify(userData));
+                updateUserUI(userData);
+                closeGoogleModal();
+            } catch (error) {
+                alert('Bağlantı sırasında bir hata oluştu.');
+            } finally {
+                btn.innerHTML = 'Google Hesabımla Bağlan';
+                btn.disabled = false;
+            }
+        }
+
+        function updateUserUI(user) {
+            const loginBtn = document.getElementById('googleLoginBtn');
+            const profileArea = document.getElementById('userProfileArea');
+            const avatar = document.getElementById('userAvatar');
+            const nameDisplay = document.getElementById('userNameDisplay');
+            const commentNameInput = document.getElementById('commentNameInput');
+
+            if (user && user.name) {
+                loginBtn.classList.add('hidden');
+                profileArea.classList.remove('hidden');
+                profileArea.classList.add('flex');
+                avatar.innerText = user.name.charAt(0).toUpperCase();
+                nameDisplay.innerText = user.name;
+                if (commentNameInput) commentNameInput.value = user.name;
+            } else {
+                loginBtn.classList.remove('hidden');
+                profileArea.classList.add('hidden');
+                profileArea.classList.remove('flex');
+            }
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('ekitap_user');
+            updateUserUI(null);
+            const commentNameInput = document.getElementById('commentNameInput');
+            if (commentNameInput) commentNameInput.value = '';
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedUser = localStorage.getItem('ekitap_user');
+            if (savedUser) {
+                try {
+                    updateUserUI(JSON.parse(savedUser));
+                } catch (e) {}
+            }
+        });
+
         const quotes = [
             '"Bilgiye yapılan yatırım, her zaman en yüksek faizi getirir." — Benjamin Franklin',
             '"Zenginlik, çok şeye sahip olmak değil, az şeye ihtiyaç duymaktır." — Epiktetos',
@@ -364,50 +510,56 @@
         ];
         document.getElementById('dailyQuote').innerText = quotes[Math.floor(Math.random() * quotes.length)];
 
-        // Link Kopyalama Fonksiyonu
         function copySiteLink(btn) {
             navigator.clipboard.writeText('https://www.marketim3000.online');
             const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i> Link Kopyalandı!';
+            btn.innerHTML = '<i class="fa-solid fa-check text-emerald-600"></i> Link Kopyalandı!';
             setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
         }
 
-        // Anket Oylama Fonksiyonu
         function voteBook(topic) {
             document.getElementById('pollContainer').innerHTML = `
                 <div class="py-4">
-                    <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
                         <i class="fa-solid fa-check"></i>
                     </div>
-                    <h4 class="text-lg font-serif font-bold text-white mb-1">Oyunuz Kaydedildi!</h4>
-                    <p class="text-xs text-slate-400">Tercihiniz (<b>${topic}</b>) editör listemize eklendi. Katkınız için teşekkürler!</p>
+                    <h4 class="text-lg font-serif font-bold text-slate-900 mb-1">Oyunuz Kaydedildi!</h4>
+                    <p class="text-xs text-slate-500">Tercihiniz (<b>${topic}</b>) editör listemize eklendi. Katkınız için teşekkürler!</p>
                 </div>
             `;
         }
 
-        // Yorum Gönderme Fonksiyonu
-        function submitComment(event) {
+        async function submitComment(event) {
             event.preventDefault();
+            const form = event.target;
             const btn = document.getElementById('commentBtn');
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> İletiliyor...';
-            btn.classList.replace('bg-amber-600', 'bg-slate-600');
             btn.disabled = true;
 
-            setTimeout(() => {
+            try {
+                await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
                 const formContainer = document.getElementById('commentFormContainer');
                 formContainer.innerHTML = `
                     <div class="text-center py-6">
-                        <div class="w-16 h-16 bg-amber-500/20 text-amber-500 border border-amber-500/30 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-lg">
+                        <div class="w-16 h-16 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl shadow-sm">
                             <i class="fa-solid fa-check"></i>
                         </div>
-                        <h4 class="text-xl font-serif font-bold text-white mb-2">Yorumunuz Alındı!</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed max-w-md mx-auto">Değerli düşünceleriniz incelenmek üzere editörlerimize ulaştı. E-Kitap Deposu topluluğuna katkınız için teşekkür ederiz.</p>
+                        <h4 class="text-xl font-serif font-bold text-slate-900 mb-2">Yorumunuz Alındı!</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed max-w-md mx-auto">Değerli düşünceleriniz incelenmek üzere editörlerimize ulaştı. E-Kitap Deposu topluluğuna katkınız için teşekkür ederiz.</p>
                     </div>
                 `;
-            }, 1500);
+            } catch (error) {
+                alert('Yorum gönderilirken bir hata oluştu.');
+                btn.innerHTML = '<i class="fa-regular fa-paper-plane"></i> Gönder';
+                btn.disabled = false;
+            }
         }
 
-        // Chatbot Fonksiyonları
         const chatWindow = document.getElementById('chatWindow');
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
@@ -427,7 +579,7 @@
         function sendMessage() {
             const userText = chatInput.value.trim();
             if (!userText) return;
-            chatMessages.innerHTML += `<div class="flex gap-2 w-full justify-end"><div class="bg-amber-600 text-white px-3 py-2 rounded-2xl rounded-tr-none shadow-sm max-w-[85%]">${userText}</div></div>`;
+            chatMessages.innerHTML += `<div class="flex gap-2 w-full justify-end"><div class="bg-amber-600 text-white px-3.5 py-2.5 rounded-2xl rounded-tr-none shadow-sm max-w-[85%]">${userText}</div></div>`;
             chatInput.value = '';
             chatMessages.scrollTop = chatMessages.scrollHeight;
             setTimeout(() => { botReply(userText.toLowerCase()); }, 700);
@@ -436,37 +588,40 @@
         function botReply(text) {
             let reply = "E-Kitap Deposu'na hoş geldiniz. Yeni eserimiz olan <b>Finansal Özgürlük</b> kitabını ücretsiz indirerek okumaya başlayabilirsiniz.";
             if (text.includes("fiyat") || text.includes("ücret") || text.includes("paralı") || text.includes("bağış")) {
-                reply = "E-Kitap Deposu tamamen bağımsız ve <b>ücretsiz</b> bir platformdur. Kitaplarımız için ücret alınmaz, dilerseniz karekod üzerinden destek amaçlı bağış yapabilirsiniz.";
+                reply = "E-Kitap Deposu tamamen bağımsız ve <b>ücretsiz</b> bir platformdur. Kitaplarımız için ücret alınmaz, dilerseniz karekod üzerinden destek amaçlı bağış yapabilirsiniz[span_1](start_span)[span_1](end_span).";
             } else if (text.includes("nasıl") || text.includes("açılır") || text.includes("epub") || text.includes("okunur")) {
                 reply = "EPUB dosyalarını Android'de <b>ReadEra</b> veya <b>Play Kitaplar</b> ile, iPhone'da ise doğrudan <b>Apple Kitaplar</b> uygulaması ile kolayca açabilirsiniz.";
+            } else if (text.includes("kayıt") || text.includes("üye") || text.includes("google")) {
+                reply = "Sağ üst köşedeki <b>Google ile Kaydol</b> butonuna tıklayarak saniyeler içinde okur profilinizi oluşturabilirsiniz.";
             } else if (text.includes("kitap") || text.includes("finans") || text.includes("indir")) {
-                reply = "Şu an arşivimizde <b>Finansal Özgürlük</b> e-kitabımız yayındadır. Yeşil renkli 'Ücretsiz İndir & Oku' butonuna tıklayarak hemen indirebilirsiniz.";
+                reply = "Şu an arşivimizde <b>Finansal Özgürlük</b> e-kitabımız yayındadır. 'Ücretsiz İndir & Oku' butonuna tıklayarak hemen indirebilirsiniz.";
             }
-            chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-amber-600 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-book text-white text-[10px]"></i></div><div class="bg-slate-800 text-slate-200 px-3 py-2 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
+            chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-amber-600 text-white flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-book text-[10px]"></i></div><div class="bg-white text-slate-700 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-slate-200 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
     </script>
 
-    <footer class="border-t border-slate-800/80 bg-slate-950 py-12 mt-10 relative z-10">
+    <!-- Alt Bilgi (Footer) -->
+    <footer class="border-t border-slate-200 bg-white py-12 mt-10 relative z-10 shadow-inner">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div>
-                <span class="text-xl font-serif font-black text-white tracking-wide flex items-center gap-2 justify-center md:justify-start">
-                    <i class="fa-solid fa-book-bookmark text-amber-500"></i> E-Kitap Deposu
+                <span class="text-xl font-serif font-black text-slate-900 tracking-wide flex items-center gap-2 justify-center md:justify-start">
+                    <i class="fa-solid fa-book-bookmark text-amber-600"></i> E-Kitap Deposu
                 </span>
                 <p class="text-xs text-slate-500 mt-2">© 2026 E-Kitap Deposu — Ticari amaç gütmeyen özgür e-kitap arşivi.</p>
             </div>
             
             <div class="flex flex-col md:flex-row items-center gap-6">
-                <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-2 rounded-xl shadow-inner">
-                    <i class="fa-solid fa-eye text-amber-500 text-xs"></i>
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Toplam Ziyaretçi:</span>
-                    <img src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fwww.marketim3000.online&labelColor=%230f172a&countColor=%23d97706&label=+" alt="Ziyaretçi Sayısı" class="h-[18px]">
+                <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl shadow-sm">
+                    <i class="fa-solid fa-eye text-amber-600 text-xs"></i>
+                    <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Toplam Ziyaretçi:</span>
+                    <img src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fwww.marketim3000.online&labelColor=%23f1f5f9&countColor=%23d97706&label=+" alt="Ziyaretçi Sayısı" class="h-[18px]">
                 </div>
 
-                <div class="flex items-center gap-6 text-sm text-slate-400">
-                    <a href="#rehber" class="hover:text-amber-500 transition">Nasıl Okunur?</a>
+                <div class="flex items-center gap-6 text-sm text-slate-600">
+                    <a href="#rehber" class="hover:text-amber-600 transition">Nasıl Okunur?</a>
                     <span>•</span>
-                    <a href="#koleksiyon" class="hover:text-amber-500 transition">Arşiv</a>
+                    <a href="#koleksiyon" class="hover:text-amber-600 transition">Arşiv</a>
                 </div>
             </div>
         </div>
