@@ -114,6 +114,127 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
+// === BASİT GİRİŞ KİLİDİ - KESİN ÇALIŞAN ===
+function openAuthWithMessage(msg) {
+    const modal = document.getElementById('authModal');
+    if(modal) {
+        modal.classList.add('modal-active');
+        modal.style.display = 'flex';
+        let warn = document.getElementById('authRequiredWarning');
+        if(!warn) {
+            warn = document.createElement('div');
+            warn.id = 'authRequiredWarning';
+            warn.className = 'bg-amber-50 border-2 border-amber-300 text-amber-900 text-xs font-black rounded-xl p-3 mb-4 flex items-center gap-2';
+            const form = document.getElementById('emailAuthForm');
+            if(form) form.parentNode.insertBefore(warn, form);
+        }
+        warn.innerHTML = `<i class="fa-solid fa-lock text-amber-600"></i> ${msg}`;
+        warn.style.display = 'flex';
+    }
+}
+
+window.openReader = async function(fileName, title, bookId) {
+    if (!auth.currentUser) {
+        openAuthWithMessage('Kitapları okumak için Google ile giriş yapmalısınız');
+        return;
+    }
+    // original logic
+    activeBookTitle = title;
+    activeBookId = bookId || fileName;
+    document.getElementById('readerTitle').innerText = title;
+    document.getElementById('readerModal').classList.add('modal-active');
+    document.getElementById('readingProgressBar').style.width = '0%';
+    const ttsProg = document.getElementById('ttsProgressText');
+    if(ttsProg) ttsProg.innerText = "Hazırlanıyor...";
+    if(typeof stopSpeech === 'function') stopSpeech();
+    const viewer = document.getElementById('viewer');
+    viewer.innerHTML = '<div class="flex flex-col items-center justify-center h-96 gap-3"><div class="loader"></div><p class="text-xs opacity-70 font-sans">Kitap Hazırlanıyor...</p></div>';
+    if (typeof rendition !== 'undefined' && rendition) { rendition.destroy(); rendition = null; }
+    activePdfDoc = null;
+    fullBookTextContent = "";
+    if(typeof highlightElements !== 'undefined') highlightElements = [];
+
+    const cleanFile = (fileName || '').trim();
+    const ext = cleanFile.includes('.') ? cleanFile.substring(cleanFile.lastIndexOf('.')).toLowerCase() : '';
+    const baseName = cleanFile.includes('.') ? cleanFile.substring(0, cleanFile.lastIndexOf('.')) : cleanFile;
+
+    const candidateTxt = ext === '.txt' ? cleanFile : baseName + '.txt';
+    const candidatePdf = ext === '.pdf' ? cleanFile : baseName + '.pdf';
+    const candidateEpub = ext === '.epub' ? cleanFile : baseName + '.epub';
+
+    let txtContent = null;
+    try {
+        const res = await fetch(candidateTxt, { cache: 'no-store' });
+        if(res.ok) {
+            const t = await res.text();
+            if(!t.trim().startsWith('<!DOCTYPE') && !t.trim().startsWith('<html')) txtContent = t;
+        }
+    } catch(e){}
+
+    if(txtContent) {
+        activeTxtUrl = candidateTxt;
+        await loadTxtIntoReaderDirect(txtContent, title);
+        if(typeof setupMediaSession === 'function') setupMediaSession();
+        if(typeof startReadingStats === 'function') startReadingStats();
+        if(typeof renderHighlightsPanel === 'function') renderHighlightsPanel();
+        return;
+    }
+    try {
+        const res = await fetch(candidatePdf, { method: 'HEAD' });
+        if(res.ok) {
+            activePdfUrl = candidatePdf;
+            await loadPdfIntoReader(candidatePdf, title);
+            return;
+        }
+    } catch(e){
+        // try directly
+        try { await loadPdfIntoReader(candidatePdf, title); return; } catch(e2){}
+    }
+    try {
+        await loadEpubIntoReader(candidateEpub, title);
+        return;
+    } catch(e){
+        viewer.innerHTML = `<div class="p-8 text-center h-96 flex flex-col items-center justify-center font-sans"><i class="fa-solid fa-triangle-exclamation text-5xl text-brand-600 mb-4"></i><h3 class="text-xl font-bold mb-2">Dosya Bulunamadı</h3><p class="text-sm opacity-80">${cleanFile}</p><button onclick="closeReader()" class="mt-6 bg-brand-600 text-white px-6 py-2 rounded-lg font-bold text-xs">Geri Dön</button></div>`;
+    }
+};
+
+window.checkDownload = async function(event, bookId, fileName) {
+    if(event) event.preventDefault();
+    if (!auth.currentUser) {
+        openAuthWithMessage('Kitapları indirmek için Google ile giriş yapmalısınız');
+        return;
+    }
+    try {
+        await updateDoc(doc(db, "kitaplar", bookId), { indirmeSayisi: increment(1) });
+        await setDoc(doc(db, "kullanicilar", auth.currentUser.uid, "indirilenler", bookId), { kitapId: bookId, tarih: serverTimestamp() });
+        const bIndex = allBooks.findIndex(b => b.id === bookId);
+        if(bIndex > -1) allBooks[bIndex].indirmeSayisi = (allBooks[bIndex].indirmeSayisi || 0) + 1;
+        if(typeof renderBooks === 'function') renderBooks();
+        if(typeof renderHomeSections === 'function') renderHomeSections();
+    } catch(e) {}
+    const link = document.createElement('a');
+    link.href = fileName; link.download = fileName;
+    document.body.appendChild(link); link.click(); document.body.removeChild(link);
+    if(typeof showToast === 'function') showToast('📥 İndiriliyor...');
+};
+
+// Kitap kartındaki Oku ve İndir butonları için de aynı kontrol
+window.openBookModal = async function(bookId) {
+    const book = allBooks.find(b => b.id === bookId);
+    if(!book) return;
+    currentBookForComments = book;
+    document.getElementById('modalCover').src = book.kapakUrl;
+    document.getElementById('modalTitle').innerText = book.baslik;
+    document.getElementById('modalAuthor').querySelector('span').innerText = book.yazar;
+    document.getElementById('modalCategory').innerText = book.kategori || 'Genel';
+    document.getElementById('modalDesc').innerText = book.aciklama;
+    document.getElementById('modalDownloadBtn').onclick = (e) => checkDownload(e, book.id, book.dosyaAdi);
+    document.getElementById('modalReadBtn').onclick = () => openReader(book.dosyaAdi, book.baslik, book.id);
+    if(typeof loadBookComments === 'function') loadBookComments(bookId);
+    document.getElementById('bookDetailModal').classList.add('modal-active');
+};
+
 </script>
 
     <style>
