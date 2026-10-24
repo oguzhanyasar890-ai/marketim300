@@ -282,7 +282,7 @@ window.addYoutubeVideo = async (e) => {
     const ytId = extractYoutubeId(url);
     if(!ytId){ alert('Geçerli YouTube linki girin'); return; }
     try {
-        const newRef = doc(collection(db, "youtubeKitaplar")); await setDoc(newRef, { baslik: title, youtubeUrl: url, youtubeId: ytId, aciklama: desc, tarih: serverTimestamp() });
+        const ref = doc(collection(db, "youtubeKitaplar")); await setDoc(ref, { baslik: title, youtubeUrl: url, youtubeId: ytId, aciklama: desc, tarih: serverTimestamp() });
         alert('Eklendi!');
         document.getElementById('addYoutubeForm').reset();
         loadYoutubeBooks();
@@ -394,7 +394,7 @@ setTimeout(()=>{ loadYoutubeBooks(); }, 1500);
                     <i class="fa-solid fa-headphones"></i> SESLİ KİTAP & DİJİTAL ARŞİV
                 </div>
                 <h2 class="text-3xl sm:text-5xl md:text-[3.2rem] font-sans font-black mb-4 text-slate-900 leading-[1.1] tracking-tight">
-                    Bilginin Gücünü<br>
+                    v999 FIX - Bilginin Gücünü<br>
                     <span class="text-brand-600">Dinleyerek Keşfedin!</span>
                 </h2>
                 <p class="text-slate-800 text-sm sm:text-[15px] max-w-xl mx-auto mb-8 leading-relaxed font-bold bg-slate-100 rounded-xl px-4 py-3">
