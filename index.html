@@ -282,7 +282,7 @@ window.addYoutubeVideo = async (e) => {
     const ytId = extractYoutubeId(url);
     if(!ytId){ alert('Geçerli YouTube linki girin'); return; }
     try {
-        await addDoc(collection(db, "youtubeKitaplar"), { baslik: title, youtubeUrl: url, youtubeId: ytId, aciklama: desc, tarih: serverTimestamp() });
+        const newRef = doc(collection(db, "youtubeKitaplar")); await setDoc(newRef, { baslik: title, youtubeUrl: url, youtubeId: ytId, aciklama: desc, tarih: serverTimestamp() });
         alert('Eklendi!');
         document.getElementById('addYoutubeForm').reset();
         loadYoutubeBooks();
