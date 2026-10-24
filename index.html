@@ -163,7 +163,7 @@
                         <option value="newest">Sırala: En Yeni</option>
                         <option value="popular">Sırala: En Çok İndirilen</option>
                         <option value="az">Sırala: A - Z</option>
-                    </select>
+                    </select><button onclick="openSidePanels()" title="Araçlar - Vurgular, AI Özet, Arama" class="bg-white text-brand-600 hover:bg-red-50 w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs transition shadow ml-1"><i class="fa-solid fa-sliders"></i></button><button onclick="openStatsModal()" title="İstatistiklerim" class="bg-amber-400 text-black hover:bg-amber-300 w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs transition shadow"><i class="fa-solid fa-chart-line"></i></button>
                 </div>
             </div>
             <div class="flex items-center justify-between gap-4 pt-4">
@@ -290,7 +290,38 @@
         <button onclick="toggleChat()" class="w-14 h-14 bg-brand-600 hover:bg-brand-700 hover:scale-105 rounded-full flex items-center justify-center shadow-lg shadow-brand-600/35 transition duration-300 relative text-white"><i class="fa-solid fa-comments text-lg"></i><span class="absolute -top-1.5 -right-1 bg-white text-brand-600 text-[9px] font-black px-2 py-0.5 border border-brand-600 rounded-full tracking-wider shadow">ASİSTAN</span></button>
     </div>
 
-    <footer class="border-t-2 border-red-100 dark:border-slate-800 bg-red-50/40 dark:bg-slate-950 py-8 relative z-10 text-center mt-auto"><div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4"><div class="flex items-center gap-3"><img src="./Logom.png?v=2" onerror="handleLogoError(this)" alt="Logo" class="w-10 h-10 rounded-xl bg-slate-950 border border-brand-600 object-contain p-0.5 shadow-sm"><p class="text-xs font-semibold text-slate-600 dark:text-slate-400">© 2026 E-Kitap Deposu — Tüm Hakları Saklıdır. v2.1 Fixed</p></div><button onclick="openQRModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition shadow-md shadow-brand-600/20 flex items-center gap-2"><i class="fa-solid fa-qrcode"></i> QR Kod</button></div></footer>
+    
+    <!-- YENİ PANELLER v3 -->
+    <div id="sidePanels" class="fixed right-0 top-[88px] bottom-0 w-80 bg-white dark:bg-slate-900 border-l-2 border-red-100 dark:border-slate-700 shadow-2xl z-[9999998] transform translate-x-full transition-transform duration-300 overflow-y-auto">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-sm text-slate-900 dark:text-white">Araçlar</h3>
+                <button onclick="closeSidePanels()" class="text-slate-500 hover:text-brand-600"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="flex gap-1 mb-4 bg-red-50 dark:bg-slate-800 rounded-xl p-1">
+                <button onclick="switchSideTab('highlights')" id="sideTabHighlights" class="flex-1 py-2 text-[11px] font-bold rounded-lg bg-brand-600 text-white">Vurgular</button>
+                <button onclick="switchSideTab('ai')" id="sideTabAI" class="flex-1 py-2 text-[11px] font-bold rounded-lg text-slate-600">AI Özet</button>
+                <button onclick="switchSideTab('search')" id="sideTabSearch" class="flex-1 py-2 text-[11px] font-bold rounded-lg text-slate-600">Ara</button>
+            </div>
+            <div id="sideTabContentHighlights">
+                <div id="highlightsList"></div>
+            </div>
+            <div id="sideTabContentAI" class="hidden">
+                <div id="aiPanel" class="hidden"><div id="aiPanelContent"></div></div>
+                <button onclick="generateAISummary()" class="w-full bg-gradient-to-r from-brand-600 to-brand-700 text-white py-3 rounded-xl text-xs font-bold shadow-lg flex items-center justify-center gap-2"><i class="fa-solid fa-wand-magic-sparkles"></i> Bu Kitabı Özetle</button>
+                <p class="text-[10px] text-slate-500 mt-2 text-center">Yapay zeka kitabın en önemli kısımlarını bulur</p>
+            </div>
+            <div id="sideTabContentSearch" class="hidden">
+                <div class="flex gap-2 mb-3">
+                    <input id="insideSearchInput" onkeyup="if(event.key==='Enter') searchInsideBook(this.value)" placeholder="Kitap içinde ara..." class="flex-1 bg-red-50 dark:bg-slate-800 border border-red-200 rounded-lg px-3 py-2 text-xs">
+                    <button onclick="searchInsideBook(document.getElementById('insideSearchInput').value)" class="bg-brand-600 text-white px-3 rounded-lg text-xs"><i class="fa-solid fa-search"></i></button>
+                </div>
+                <p class="text-[10px] text-slate-500">Örn: para, yatırım, mutluluk</p>
+            </div>
+        </div>
+    </div>
+
+<footer class="border-t-2 border-red-100 dark:border-slate-800 bg-red-50/40 dark:bg-slate-950 py-8 relative z-10 text-center mt-auto"><div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4"><div class="flex items-center gap-3"><img src="./Logom.png?v=2" onerror="handleLogoError(this)" alt="Logo" class="w-10 h-10 rounded-xl bg-slate-950 border border-brand-600 object-contain p-0.5 shadow-sm"><p class="text-xs font-semibold text-slate-600 dark:text-slate-400">© 2026 E-Kitap Deposu — Tüm Hakları Saklıdır. v2.1 Fixed</p></div><button onclick="openQRModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition shadow-md shadow-brand-600/20 flex items-center gap-2"><i class="fa-solid fa-qrcode"></i> QR Kod</button></div></footer>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -1198,6 +1229,418 @@ document.addEventListener("DOMContentLoaded", () => {
     loadCategories().then(() => loadBooks());
     loadSizdenGelenler();
 });
+
+// ================= HEPSİ EKLENDİ - İLERİ DÜZEY ÖZELLİKLER v3 =================
+
+// 1. ARKA PLANDA DİNLEME - Media Session API
+function setupMediaSession() {
+    if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: activeBookTitle || 'E-Kitap',
+            artist: 'E-Kitap Deposu',
+            album: 'Sesli Kitap',
+            artwork: [{ src: './Logom.png?v=2', sizes: '512x512', type: 'image/png' }]
+        });
+        navigator.mediaSession.setActionHandler('play', () => { if(isPaused) toggleSpeech(); else if(!isSpeaking) toggleSpeech(); });
+        navigator.mediaSession.setActionHandler('pause', () => { if(isSpeaking && !isPaused) toggleSpeech(); });
+        navigator.mediaSession.setActionHandler('nexttrack', () => skipSentence(1));
+        navigator.mediaSession.setActionHandler('previoustrack', () => skipSentence(-1));
+        navigator.mediaSession.setActionHandler('stop', () => stopSpeech());
+    }
+}
+
+// 2. VURGULAMA + NOT ALMA + FIRESTORE SYNC
+let userHighlights = JSON.parse(localStorage.getItem('highlights_' + (auth.currentUser?.uid || 'anon')) || '[]');
+let selectionTooltip = null;
+
+function initSelectionTooltip() {
+    if(selectionTooltip) return;
+    selectionTooltip = document.createElement('div');
+    selectionTooltip.id = 'selectionTooltip';
+    selectionTooltip.className = 'fixed z-[99999999] hidden bg-slate-900 text-white rounded-xl shadow-2xl p-1.5 flex gap-1 border border-white/10';
+    selectionTooltip.innerHTML = `
+        <button onclick="highlightSelection()" class="px-3 py-1.5 bg-yellow-400 text-black rounded-lg text-xs font-bold hover:bg-yellow-300 flex items-center gap-1"><i class="fa-solid fa-highlighter"></i> Vurgula</button>
+        <button onclick="addNoteToSelection()" class="px-3 py-1.5 bg-brand-600 text-white rounded-lg text-xs font-bold hover:bg-brand-700 flex items-center gap-1"><i class="fa-solid fa-sticky-note"></i> Not</button>
+    `;
+    document.body.appendChild(selectionTooltip);
+}
+
+document.addEventListener('mouseup', (e) => {
+    const viewer = document.getElementById('viewer');
+    if(!viewer || !viewer.contains(e.target)) return;
+    setTimeout(() => {
+        const sel = window.getSelection();
+        const text = sel.toString().trim();
+        if(text.length > 5 && text.length < 500) {
+            initSelectionTooltip();
+            const range = sel.getRangeAt(0);
+            const rect = range.getBoundingClientRect();
+            selectionTooltip.style.left = Math.min(window.innerWidth - 200, rect.left + window.scrollX) + 'px';
+            selectionTooltip.style.top = (rect.top + window.scrollY - 50) + 'px';
+            selectionTooltip.classList.remove('hidden');
+            selectionTooltip.classList.add('flex');
+        } else {
+            if(selectionTooltip) { selectionTooltip.classList.add('hidden'); selectionTooltip.classList.remove('flex'); }
+        }
+    }, 100);
+});
+
+window.highlightSelection = async () => {
+    const sel = window.getSelection();
+    const text = sel.toString().trim();
+    if(!text) return;
+    try {
+        const range = sel.getRangeAt(0);
+        const span = document.createElement('span');
+        span.className = 'tts-highlight bg-yellow-200 dark:bg-yellow-400 text-black px-1 rounded';
+        span.title = 'Vurgulandı';
+        span.dataset.highlight = Date.now().toString();
+        range.surroundContents(span);
+        sel.removeAllRanges();
+        selectionTooltip.classList.add('hidden');
+        
+        const highlightData = { id: span.dataset.highlight, bookId: activeBookId, text: text, timestamp: new Date().toISOString(), type: 'highlight' };
+        userHighlights.push(highlightData);
+        localStorage.setItem('highlights_' + (auth.currentUser?.uid || 'anon'), JSON.stringify(userHighlights));
+        localStorage.setItem('highlights_global', JSON.stringify(userHighlights));
+        
+        if(auth.currentUser) {
+            try { await addDoc(collection(db, "kullanicilar", auth.currentUser.uid, "vurgular"), highlightData); } catch(e){}
+        }
+        renderHighlightsPanel();
+        showToast('Vurgulandı ✓');
+    } catch(e) {
+        // surroundContents bazen hata verir, fallback
+        document.execCommand('hiliteColor', false, '#fef08a');
+        selectionTooltip.classList.add('hidden');
+    }
+};
+
+window.addNoteToSelection = async () => {
+    const sel = window.getSelection();
+    const text = sel.toString().trim();
+    if(!text) return;
+    const note = prompt(`"${text.substring(0,50)}..." için notunuz:`);
+    if(note === null) return;
+    const highlightData = { id: Date.now().toString(), bookId: activeBookId, text: text, note: note, timestamp: new Date().toISOString(), type: 'note' };
+    userHighlights.push(highlightData);
+    localStorage.setItem('highlights_' + (auth.currentUser?.uid || 'anon'), JSON.stringify(userHighlights));
+    localStorage.setItem('highlights_global', JSON.stringify(userHighlights));
+    if(auth.currentUser) {
+        try { await addDoc(collection(db, "kullanicilar", auth.currentUser.uid, "vurgular"), highlightData); } catch(e){}
+    }
+    renderHighlightsPanel();
+    showToast('Not eklendi ✓');
+    sel.removeAllRanges();
+    if(selectionTooltip) selectionTooltip.classList.add('hidden');
+};
+
+function renderHighlightsPanel() {
+    const panel = document.getElementById('highlightsList');
+    if(!panel) return;
+    const bookHighlights = userHighlights.filter(h => h.bookId === activeBookId);
+    if(bookHighlights.length === 0) {
+        panel.innerHTML = '<p class="text-xs text-slate-500 text-center py-4">Henüz vurgu yok. Metni seçip vurgula.</p>';
+        return;
+    }
+    panel.innerHTML = bookHighlights.map(h => `
+        <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700/30 rounded-xl p-3 mb-2">
+            <p class="text-xs text-slate-800 dark:text-slate-200 italic">"${h.text}"</p>
+            ${h.note ? `<p class="text-[11px] mt-2 bg-white dark:bg-slate-800 p-2 rounded border"><b>Not:</b> ${h.note}</p>` : ''}
+            <span class="text-[10px] text-slate-500 mt-1 block">${new Date(h.timestamp).toLocaleString('tr-TR')}</span>
+        </div>
+    `).join('');
+}
+
+function showToast(msg) {
+    let toast = document.getElementById('toast');
+    if(!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        toast.className = 'fixed bottom-20 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-2xl z-[99999999] transition-all';
+        document.body.appendChild(toast);
+    }
+    toast.innerText = msg;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translate(-50%, 0)';
+    setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translate(-50%, 20px)'; }, 2000);
+}
+
+// 3. KİTAP İÇİ ARAMA + FULL-TEXT SEARCH
+window.searchInsideBook = (query) => {
+    if(!query || query.trim().length < 2) {
+        document.querySelectorAll('.search-highlight').forEach(el => {
+            el.outerHTML = el.innerHTML;
+        });
+        return;
+    }
+    const viewer = document.getElementById('viewer');
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    const walker = document.createTreeWalker(viewer, NodeFilter.SHOW_TEXT);
+    let node;
+    let count = 0;
+    const nodesToReplace = [];
+    while(node = walker.nextNode()) {
+        if(node.parentElement.classList.contains('search-highlight')) continue;
+        if(regex.test(node.textContent)) {
+            nodesToReplace.push(node);
+        }
+    }
+    // Önce temizle
+    viewer.innerHTML = viewer.innerHTML.replace(/<span class="search-highlight[^>]*>(.*?)<\/span>/gi, '$1');
+    
+    let firstMatch = null;
+    const content = viewer.innerHTML;
+    const newContent = content.replace(regex, (match) => {
+        count++;
+        if(count === 1) return `<span class="search-highlight bg-brand-600 text-white px-1 rounded font-bold" id="search-first">${match}</span>`;
+        return `<span class="search-highlight bg-red-200 text-brand-800 px-1 rounded">${match}</span>`;
+    });
+    if(count > 0) {
+        viewer.innerHTML = newContent;
+        document.getElementById('search-first')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        showToast(`${count} sonuç bulundu`);
+    } else {
+        showToast('Sonuç bulunamadı');
+    }
+};
+
+// 4. YAPAY ZEKA ÖZET + KİTABA SOR
+window.generateAISummary = () => {
+    if(!fullBookTextContent || fullBookTextContent.length < 100) {
+        alert('Özet için yeterli metin yok. TXT kitap açın.');
+        return;
+    }
+    const panel = document.getElementById('aiPanel');
+    const content = document.getElementById('aiPanelContent');
+    panel.classList.remove('hidden');
+    
+    // Basit extractive summarization - kelime frekansı
+    content.innerHTML = '<div class="flex items-center gap-2 text-xs"><div class="loader w-4 h-4"></div> Yapay zeka özetliyor...</div>';
+    
+    setTimeout(() => {
+        const sentences = fullBookTextContent.match(/[^.!?]+[.!?]+/g) || [];
+        const wordFreq = {};
+        const words = fullBookTextContent.toLowerCase().replace(/[^a-zçğıöşü\s]/g, '').split(/\s+/);
+        words.forEach(w => {
+            if(w.length > 3) wordFreq[w] = (wordFreq[w] || 0) + 1;
+        });
+        
+        const scored = sentences.map(s => {
+            let score = 0;
+            s.toLowerCase().split(/\s+/).forEach(w => { score += wordFreq[w] || 0; });
+            return { text: s.trim(), score: score / s.split(/\s+/).length };
+        }).sort((a,b) => b.score - a.score).slice(0, 7).sort((a,b) => sentences.indexOf(a.text) - sentences.indexOf(b.text));
+        
+        const summary = scored.map(s => s.text).join(' ');
+        content.innerHTML = `
+            <div class="bg-brand-50 dark:bg-slate-800 rounded-xl p-4 border border-brand-200">
+                <h4 class="font-bold text-sm text-brand-700 mb-2 flex items-center gap-2"><i class="fa-solid fa-wand-magic-sparkles"></i> Akıllı Özet (AI)</h4>
+                <p class="text-xs leading-relaxed text-slate-700 dark:text-slate-300">${summary}</p>
+                <div class="mt-3 pt-3 border-t border-brand-100 flex gap-2">
+                    <span class="text-[10px] bg-white border px-2 py-1 rounded-full">${sentences.length} cümleden özetlendi</span>
+                    <span class="text-[10px] bg-white border px-2 py-1 rounded-full">~${Math.round(fullBookTextContent.length / 5)} karakter</span>
+                </div>
+            </div>
+            <div class="mt-4">
+                <h5 class="font-bold text-xs mb-2">Kitaba Sor (Beta)</h5>
+                <div class="flex gap-2">
+                    <input id="askBookInput" placeholder="Örn: Yazar ne öneriyor?" class="flex-1 bg-white dark:bg-slate-900 border border-red-200 rounded-lg px-3 py-2 text-xs">
+                    <button onclick="askBookAI()" class="bg-brand-600 text-white px-3 py-2 rounded-lg text-xs font-bold">Sor</button>
+                </div>
+                <div id="askBookAnswer" class="mt-3"></div>
+            </div>
+        `;
+    }, 800);
+};
+
+window.askBookAI = () => {
+    const q = document.getElementById('askBookInput').value.trim().toLowerCase();
+    if(!q) return;
+    const answerBox = document.getElementById('askBookAnswer');
+    answerBox.innerHTML = '<div class="loader w-4 h-4"></div>';
+    
+    setTimeout(() => {
+        const sentences = fullBookTextContent.match(/[^.!?]+[.!?]+/g) || [];
+        const keywords = q.split(/\s+/).filter(w => w.length > 2);
+        const results = sentences.filter(s => {
+            const lower = s.toLowerCase();
+            return keywords.some(k => lower.includes(k));
+        }).slice(0, 3);
+        
+        if(results.length === 0) {
+            answerBox.innerHTML = `<p class="text-xs bg-amber-50 border border-amber-200 rounded-lg p-3">Kitapta "<b>${q}</b>" ile ilgili doğrudan eşleşme bulamadım. Farklı kelimelerle deneyin.</p>`;
+        } else {
+            answerBox.innerHTML = `<div class="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 rounded-xl p-3">
+                <p class="text-xs font-bold text-emerald-700 mb-2">Kitapta bulduklarım:</p>
+                ${results.map(r => `<p class="text-xs italic mb-2">"${r.trim()}"</p>`).join('')}
+            </div>`;
+        }
+    }, 600);
+};
+
+// 5. OKUMA İSTATİSTİKLERİ + ROZETLER
+let readingStartTime = null;
+let readingInterval = null;
+
+function startReadingStats() {
+    readingStartTime = Date.now();
+    if(readingInterval) clearInterval(readingInterval);
+    readingInterval = setInterval(() => {
+        if(isSpeaking || document.hasFocus()) {
+            const elapsed = Math.floor((Date.now() - readingStartTime) / 1000);
+            const total = parseInt(localStorage.getItem('totalReadingTime') || '0') + 1;
+            localStorage.setItem('totalReadingTime', total.toString());
+            const booksRead = JSON.parse(localStorage.getItem('booksRead') || '[]');
+            if(!booksRead.includes(activeBookId)) {
+                // %80 okunduysa bitmiş say
+                const progress = document.getElementById('readingProgressBar').style.width;
+                if(parseInt(progress) > 80) {
+                    booksRead.push(activeBookId);
+                    localStorage.setItem('booksRead', JSON.stringify(booksRead));
+                    showToast('🎉 Kitap bitirildi! Rozet kazanıldı');
+                }
+            }
+        }
+    }, 1000);
+}
+
+function getReadingStats() {
+    const totalSec = parseInt(localStorage.getItem('totalReadingTime') || '0');
+    const booksRead = JSON.parse(localStorage.getItem('booksRead') || '[]').length;
+    const highlightsCount = JSON.parse(localStorage.getItem('highlights_global') || '[]').length;
+    return {
+        hours: Math.floor(totalSec / 3600),
+        minutes: Math.floor((totalSec % 3600) / 60),
+        books: booksRead,
+        highlights: highlightsCount,
+        streak: parseInt(localStorage.getItem('readingStreak') || '1')
+    };
+}
+
+window.openStatsModal = () => {
+    const stats = getReadingStats();
+    const modal = document.getElementById('statsModal');
+    if(!modal) {
+        const div = document.createElement('div');
+        div.id = 'statsModal';
+        div.className = 'fixed inset-0 z-[999999] hidden items-center justify-center bg-slate-950/75 backdrop-blur-sm p-4';
+        div.innerHTML = `
+            <div class="bg-white dark:bg-slate-800 border-2 border-red-100 dark:border-slate-700 rounded-3xl w-full max-w-md p-6 shadow-2xl relative">
+                <button onclick="document.getElementById('statsModal').classList.remove('modal-active'); document.getElementById('statsModal').classList.add('hidden');" class="absolute top-4 right-4 text-slate-400 hover:text-brand-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2"><i class="fa-solid fa-chart-line text-brand-600"></i> Okuma İstatistiklerim</h3>
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <div class="bg-red-50 dark:bg-slate-900 rounded-2xl p-4 text-center border border-red-100"><div class="text-2xl font-black text-brand-600" id="statHours">0</div><div class="text-[11px] font-bold text-slate-600">Saat Okuma</div></div>
+                    <div class="bg-red-50 dark:bg-slate-900 rounded-2xl p-4 text-center border border-red-100"><div class="text-2xl font-black text-brand-600" id="statBooks">0</div><div class="text-[11px] font-bold text-slate-600">Kitap Bitirildi</div></div>
+                    <div class="bg-red-50 dark:bg-slate-900 rounded-2xl p-4 text-center border border-red-100"><div class="text-2xl font-black text-brand-600" id="statHighlights">0</div><div class="text-[11px] font-bold text-slate-600">Vurgu & Not</div></div>
+                    <div class="bg-red-50 dark:bg-slate-900 rounded-2xl p-4 text-center border border-red-100"><div class="text-2xl font-black text-brand-600" id="statStreak">0</div><div class="text-[11px] font-bold text-slate-600">Gün Streak 🔥</div></div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-xs bg-amber-50 border border-amber-200 rounded-xl p-3"><i class="fa-solid fa-trophy text-amber-600"></i> <span><b>Okuma Ustası</b> rozetine ${Math.max(0, 5 - stats.books)} kitap kaldı!</span></div>
+                    <div class="flex items-center gap-2 text-xs bg-emerald-50 border border-emerald-200 rounded-xl p-3"><i class="fa-solid fa-fire text-emerald-600"></i> <span>Streak: ${stats.streak} gün üst üste okuyorsun!</span></div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(div);
+        div.addEventListener('click', (e) => { if(e.target === div) { div.classList.remove('modal-active'); div.classList.add('hidden'); } });
+    }
+    const modalEl = document.getElementById('statsModal');
+    modalEl.classList.remove('hidden');
+    modalEl.classList.add('modal-active');
+    setTimeout(() => {
+        document.getElementById('statHours').innerText = stats.hours + 's ' + stats.minutes + 'dk';
+        document.getElementById('statBooks').innerText = stats.books;
+        document.getElementById('statHighlights').innerText = stats.highlights;
+        document.getElementById('statStreak').innerText = stats.streak;
+    }, 100);
+};
+
+// 6. SOSYAL OKUMA LİSTELERİ
+window.createReadingList = async () => {
+    const title = prompt('Liste adını gir (Örn: Yaz Tatili İçin 5 Kitap):');
+    if(!title) return;
+    if(!auth.currentUser) { alert('Giriş yapmalısın'); openAuthModal(); return; }
+    try {
+        await addDoc(collection(db, "okumaListeleri"), {
+            baslik: title,
+            userId: auth.currentUser.uid,
+            userName: auth.currentUser.displayName || auth.currentUser.email,
+            kitaplar: [],
+            olusturmaTarihi: serverTimestamp(),
+            public: true
+        });
+        showToast('Liste oluşturuldu ✓');
+        loadReadingLists();
+    } catch(e) { alert(e.message); }
+};
+
+async function loadReadingLists() {
+    const container = document.getElementById('readingListsContainer');
+    if(!container) return;
+    try {
+        const snap = await getDocs(collection(db, "okumaListeleri"));
+        if(snap.empty) { container.innerHTML = '<p class="text-xs text-slate-500">Henüz liste yok. İlk listeyi sen oluştur!</p>'; return; }
+        container.innerHTML = snap.docs.map(d => {
+            const data = d.data();
+            return `<div class="surface-card rounded-2xl p-4 border hover:border-brand-600 transition cursor-pointer"><h4 class="font-bold text-sm text-slate-900 dark:text-white">${data.baslik}</h4><p class="text-[11px] text-slate-500 mt-1">${data.userName} • ${data.kitaplar?.length || 0} kitap</p></div>`;
+        }).join('');
+    } catch(e) { container.innerHTML = '<p class="text-xs text-brand-600">Listeler yüklenemedi</p>'; }
+}
+
+// Override openReader to add new features
+const originalOpenReader = window.openReader;
+window.openReader = async function(fileName, title, bookId) {
+    await originalOpenReader(fileName, title, bookId);
+    setupMediaSession();
+    startReadingStats();
+    renderHighlightsPanel();
+    // Streak güncelle
+    const today = new Date().toDateString();
+    const lastRead = localStorage.getItem('lastReadDate');
+    if(lastRead !== today) {
+        const streak = parseInt(localStorage.getItem('readingStreak') || '0') + 1;
+        localStorage.setItem('readingStreak', streak.toString());
+        localStorage.setItem('lastReadDate', today);
+    }
+};
+
+// Override toggleSpeech to update media session
+const originalToggleSpeech = window.toggleSpeech;
+window.toggleSpeech = function() {
+    const result = originalToggleSpeech();
+    if('mediaSession' in navigator) {
+        navigator.mediaSession.playbackState = isSpeaking && !isPaused ? 'playing' : 'paused';
+    }
+    return result;
+};
+
+console.log('✅ İleri Düzey Özellikler Yüklendi: Vurgulama, Not, Arka Plan Dinleme, AI Özet, Kitap İçi Arama, İstatistikler, Listeler');
+
 </script>
+
+
+<script>
+function openSidePanels() { document.getElementById('sidePanels').classList.remove('translate-x-full'); }
+function closeSidePanels() { document.getElementById('sidePanels').classList.add('translate-x-full'); }
+function switchSideTab(tab) {
+    document.getElementById('sideTabContentHighlights').classList.add('hidden');
+    document.getElementById('sideTabContentAI').classList.add('hidden');
+    document.getElementById('sideTabContentSearch').classList.add('hidden');
+    document.getElementById('sideTabHighlights').className = 'flex-1 py-2 text-[11px] font-bold rounded-lg text-slate-600';
+    document.getElementById('sideTabAI').className = 'flex-1 py-2 text-[11px] font-bold rounded-lg text-slate-600';
+    document.getElementById('sideTabSearch').className = 'flex-1 py-2 text-[11px] font-bold rounded-lg text-slate-600';
+    if(tab === 'highlights') {
+        document.getElementById('sideTabContentHighlights').classList.remove('hidden');
+        document.getElementById('sideTabHighlights').className = 'flex-1 py-2 text-[11px] font-bold rounded-lg bg-brand-600 text-white';
+    } else if(tab === 'ai') {
+        document.getElementById('sideTabContentAI').classList.remove('hidden');
+        document.getElementById('sideTabAI').className = 'flex-1 py-2 text-[11px] font-bold rounded-lg bg-brand-600 text-white';
+    } else if(tab === 'search') {
+        document.getElementById('sideTabContentSearch').classList.remove('hidden');
+        document.getElementById('sideTabSearch').className = 'flex-1 py-2 text-[11px] font-bold rounded-lg bg-brand-600 text-white';
+    }
+}
+</script>
+
 </body>
 </html>
