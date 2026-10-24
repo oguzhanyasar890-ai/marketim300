@@ -235,6 +235,146 @@ window.openBookModal = async function(bookId) {
     document.getElementById('bookDetailModal').classList.add('modal-active');
 };
 
+
+// === YOUTUBE BÖLÜMÜ ===
+function extractYoutubeId(url) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+}
+
+async function loadYoutubeBooks() {
+    const grid = document.getElementById('youtubeGrid');
+    try {
+        const snap = await getDocs(collection(db, "youtubeKitaplar"));
+        if(snap.empty) {
+            grid.innerHTML = `
+                <div class="col-span-full surface-card rounded-3xl p-8 text-center">
+                    <i class="fa-brands fa-youtube text-5xl text-red-200 mb-4"></i>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-2">Henüz YouTube videosu eklenmedi</h4>
+                    <p class="text-xs text-slate-500 mb-4">Admin panelinden YouTube linklerinizi ekleyin, burada otomatik görünecek.</p>
+                    <p class="text-[11px] text-slate-400">YouTube kanal linkinizi bana gönderirseniz videolarınızı otomatik çekebilirim.</p>
+                </div>
+            `;
+            return;
+        }
+        const videos = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a,b) => (b.tarih?.toMillis?.() || 0) - (a.tarih?.toMillis?.() || 0));
+        grid.innerHTML = videos.map(v => {
+            const ytId = extractYoutubeId(v.youtubeUrl) || v.youtubeId;
+            const thumb = ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : (v.kapakUrl || '');
+            return `
+                <div class="surface-card rounded-3xl overflow-hidden hover:border-red-600 transition group">
+                    <div class="relative aspect-video bg-black overflow-hidden">
+                        <img src="${thumb}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.style.display='none'">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition flex items-center justify-center">
+                            <button onclick="openYoutubePlayer('${ytId}', '${(v.baslik || '').replace(/'/g, "\'")}')" class="w-14 h-14 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center shadow-xl transition hover:scale-110">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                        </div>
+                        <span class="absolute top-2 left-2 bg-red-600 text-white text-[9px] font-black px-2 py-1 rounded">YOUTUBE</span>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white line-clamp-2 mb-1">${v.baslik || 'Sesli Kitap'}</h4>
+                        <p class="text-[11px] text-slate-500 line-clamp-2 mb-3">${v.aciklama || 'YouTube kanalındaki sesli kitap'}</p>
+                        <div class="flex gap-2">
+                            <button onclick="openYoutubePlayer('${ytId}', '${(v.baslik || '').replace(/'/g, "\'")}')" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1"><i class="fa-solid fa-play"></i> İzle</button>
+                            <a href="${v.youtubeUrl}" target="_blank" class="flex-1 bg-white border border-red-200 text-red-600 py-2 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1 hover:bg-red-50"><i class="fa-brands fa-youtube"></i> YouTube'da Aç</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    } catch(e) {
+        console.error(e);
+        grid.innerHTML = `<p class="col-span-full text-center text-xs text-red-500">YouTube videoları yüklenemedi: ${e.message}</p>`;
+    }
+}
+
+window.openYoutubePlayer = (ytId, title) => {
+    if(!ytId) { alert('Video ID bulunamadı'); return; }
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 z-[9999999] bg-black/90 flex items-center justify-center p-4';
+    modal.innerHTML = `
+        <div class="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 class="font-bold text-sm text-slate-900 dark:text-white line-clamp-1">${title}</h3>
+                <button onclick="this.closest('.fixed').remove()" class="w-8 h-8 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center hover:bg-red-100"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="aspect-video bg-black">
+                <iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1" class="w-full h-full" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+    `;
+    modal.addEventListener('click', (e) => { if(e.target === modal) modal.remove(); });
+    document.body.appendChild(modal);
+};
+
+window.addYoutubeVideo = async (e) => {
+    e.preventDefault();
+    const title = document.getElementById('ytTitle').value.trim();
+    const url = document.getElementById('ytUrl').value.trim();
+    const desc = document.getElementById('ytDesc').value.trim();
+    const ytId = extractYoutubeId(url);
+    if(!ytId) { alert('Geçerli bir YouTube linki girin'); return; }
+    try {
+        await addDoc(collection(db, "youtubeKitaplar"), {
+            baslik: title,
+            youtubeUrl: url,
+            youtubeId: ytId,
+            aciklama: desc,
+            tarih: serverTimestamp(),
+            kapakUrl: `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`
+        });
+        alert('YouTube videosu eklendi!');
+        document.getElementById('addYoutubeForm').reset();
+        loadYoutubeBooks();
+        loadAdminYoutubeList();
+    } catch(err) { alert(err.message); }
+};
+
+window.deleteYoutubeVideo = async (id) => {
+    if(confirm('Bu videoyu silmek istiyor musun?')) {
+        await deleteDoc(doc(db, "youtubeKitaplar", id));
+        loadYoutubeBooks();
+        loadAdminYoutubeList();
+    }
+};
+
+async function loadAdminYoutubeList() {
+    const list = document.getElementById('adminYoutubeList');
+    if(!list) return;
+    list.innerHTML = '<p class="text-slate-400 text-sm">Yükleniyor...</p>';
+    try {
+        const snap = await getDocs(collection(db, "youtubeKitaplar"));
+        list.innerHTML = '';
+        if(snap.empty) { list.innerHTML = '<p class="text-slate-400 text-sm">Henüz video yok.</p>'; return; }
+        snap.forEach(d => {
+            const v = d.data();
+            list.innerHTML += `<div class="flex justify-between items-center bg-red-50/50 dark:bg-slate-800 p-3 rounded-xl border border-red-100 dark:border-slate-700"><div class="flex items-center gap-3"><img src="https://img.youtube.com/vi/${v.youtubeId}/mqdefault.jpg" class="w-16 h-10 object-cover rounded"><div><p class="text-slate-900 dark:text-white text-sm font-bold line-clamp-1">${v.baslik}</p><p class="text-slate-500 text-[10px]">${v.youtubeUrl}</p></div></div><button onclick="deleteYoutubeVideo('${d.id}')" class="text-red-600 p-2"><i class="fa-solid fa-trash"></i></button></div>`;
+        });
+    } catch(e) { list.innerHTML = `<p class="text-red-500 text-xs">${e.message}</p>`; }
+}
+
+// Admin tab switch güncelle
+const originalSwitchAdminTab = window.switchAdminTab;
+window.switchAdminTab = (tab) => {
+    ['Books', 'Youtube', 'Categories', 'Comments', 'Submissions'].forEach(t => {
+        const tabEl = document.getElementById('adminTab' + t);
+        const btnEl = document.getElementById('tabBtn' + t);
+        if(tabEl) tabEl.classList.add('hidden');
+        if(btnEl) { btnEl.classList.remove('border-brand-600', 'text-brand-600'); btnEl.classList.add('border-transparent', 'text-slate-500'); }
+    });
+    const active = tab.charAt(0).toUpperCase() + tab.slice(1);
+    const activeTab = document.getElementById('adminTab' + active);
+    const activeBtn = document.getElementById('tabBtn' + active);
+    if(activeTab) activeTab.classList.remove('hidden');
+    if(activeBtn) { activeBtn.classList.add('border-brand-600', 'text-brand-600'); activeBtn.classList.remove('border-transparent', 'text-slate-500'); }
+    if(tab === 'youtube') loadAdminYoutubeList();
+};
+
+// Load on start
+document.addEventListener('DOMContentLoaded', () => { setTimeout(() => { loadYoutubeBooks(); }, 1000); });
+
 </script>
 
     <style>
@@ -385,7 +525,28 @@ window.openBookModal = async function(bookId) {
     <div id="bookGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"></div>
   </main>
 
-  <section id="sizdenGelenlerSection" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 z-10 relative w-full border-t border-red-100 dark:border-slate-800 mt-4">
+  
+    <!-- YOUTUBE SESLİ KİTAPLAR BÖLÜMÜ - YENİ -->
+    <section id="youtubeBolumu" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 z-10 relative w-full border-t border-red-100 dark:border-slate-800 mt-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center text-lg shadow-md shadow-red-600/20"><i class="fa-brands fa-youtube"></i></div>
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-sans font-black text-slate-900 dark:text-white">YouTube'da Dinle</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Kanalımdaki sesli kitaplar ve özetler</p>
+                </div>
+            </div>
+            <a href="https://www.youtube.com" target="_blank" id="youtubeChannelLink" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition shadow-lg shadow-red-600/25 flex items-center gap-2"><i class="fa-brands fa-youtube"></i> Kanala Git</a>
+        </div>
+        <div id="youtubeGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="col-span-full text-center py-12">
+                <i class="fa-brands fa-youtube text-5xl text-red-200 mb-4"></i>
+                <p class="text-slate-500 text-sm">YouTube videoları yükleniyor...</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sizdenGelenlerSection" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 z-10 relative w-full border-t border-red-100 dark:border-slate-800 mt-4">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center text-lg shadow-md shadow-brand-600/20"><i class="fa-solid fa-feather-pointed"></i></div>
