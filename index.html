@@ -52,269 +52,7 @@
     .tts-highlight { background: #fef08a; color: #000; border-radius: 4px; padding: 0 2px; transition: all 0.2s; }
     html.dark .tts-highlight { background: #facc15; color: #000; }
   </style>
-  <script>window.handleLogoError = function(img) { img.onerror = null; img.src = "https://via.placeholder.com/100x100?text=E"; };
-// === GİRİŞ ZORUNLULUĞU - KİLİT SİSTEMİ ===
-function requireAuth(actionName = 'Bu işlemi yapmak') {
-    if (!auth.currentUser) {
-        const modal = document.getElementById('authModal');
-        if(modal) {
-            modal.classList.add('modal-active');
-            // Show warning message in auth modal
-            let warn = document.getElementById('authRequiredWarning');
-            if(!warn) {
-                warn = document.createElement('div');
-                warn.id = 'authRequiredWarning';
-                warn.className = 'bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold rounded-xl p-3 mb-4 flex items-center gap-2';
-                warn.innerHTML = '<i class="fa-solid fa-lock"></i> Kitapları okumak ve indirmek için önce Google ile giriş yapmalısınız.';
-                const form = document.getElementById('emailAuthForm');
-                if(form) form.parentNode.insertBefore(warn, form);
-            }
-            warn.style.display = 'flex';
-            warn.innerText = `${actionName} için önce Google ile giriş yapmalısınız.`;
-            warn.innerHTML = `<i class="fa-solid fa-lock"></i> ${actionName} için önce Google ile giriş yapmalısınız.`;
-        }
-        showToast('🔒 Önce giriş yapmalısınız');
-        return false;
-    }
-    return true;
-}
-
-// Override openReader with auth check
-const originalOpenReaderWithAuth = window.openReader;
-window.openReader = async function(fileName, title, bookId) {
-    if (!requireAuth('Kitap okumak')) return;
-    return await originalOpenReaderWithAuth(fileName, title, bookId);
-};
-
-// Override checkDownload with stronger message
-const originalCheckDownload = window.checkDownload;
-window.checkDownload = async function(event, bookId, fileName) {
-    if(event) event.preventDefault();
-    if (!requireAuth('Kitap indirmek')) return;
-    // If already has original logic, call it but bypass its own auth check
-    try {
-        await updateDoc(doc(db, "kitaplar", bookId), { indirmeSayisi: increment(1) });
-        await setDoc(doc(db, "kullanicilar", auth.currentUser.uid, "indirilenler", bookId), { kitapId: bookId, tarih: serverTimestamp() });
-        const bIndex = allBooks.findIndex(b => b.id === bookId);
-        if(bIndex > -1) allBooks[bIndex].indirmeSayisi = (allBooks[bIndex].indirmeSayisi || 0) + 1;
-        renderBooks(); renderHomeSections();
-    } catch(e) {}
-    const link = document.createElement('a');
-    link.href = fileName; link.download = fileName;
-    document.body.appendChild(link); link.click(); document.body.removeChild(link);
-    showToast('📥 İndiriliyor...');
-};
-
-// Also lock modal buttons
-document.addEventListener('DOMContentLoaded', () => {
-    // Hide auth warning when user logs in
-    onAuthStateChanged(auth, (user) => {
-        const warn = document.getElementById('authRequiredWarning');
-        if(warn && user) warn.style.display = 'none';
-    });
-});
-
-
-// === BASİT GİRİŞ KİLİDİ - KESİN ÇALIŞAN ===
-function openAuthWithMessage(msg) {
-    const modal = document.getElementById('authModal');
-    if(modal) {
-        modal.classList.add('modal-active');
-        modal.style.display = 'flex';
-        let warn = document.getElementById('authRequiredWarning');
-        if(!warn) {
-            warn = document.createElement('div');
-            warn.id = 'authRequiredWarning';
-            warn.className = 'bg-amber-50 border-2 border-amber-300 text-amber-900 text-xs font-black rounded-xl p-3 mb-4 flex items-center gap-2';
-            const form = document.getElementById('emailAuthForm');
-            if(form) form.parentNode.insertBefore(warn, form);
-        }
-        warn.innerHTML = `<i class="fa-solid fa-lock text-amber-600"></i> ${msg}`;
-        warn.style.display = 'flex';
-    }
-}
-
-window.openReader = async function(fileName, title, bookId) {
-    if (!auth.currentUser) {
-        openAuthWithMessage('Kitapları okumak için Google ile giriş yapmalısınız');
-        return;
-    }
-    // original logic
-    activeBookTitle = title;
-    activeBookId = bookId || fileName;
-    document.getElementById('readerTitle').innerText = title;
-    document.getElementById('readerModal').classList.add('modal-active');
-    document.getElementById('readingProgressBar').style.width = '0%';
-    const ttsProg = document.getElementById('ttsProgressText');
-    if(ttsProg) ttsProg.innerText = "Hazırlanıyor...";
-    if(typeof stopSpeech === 'function') stopSpeech();
-    const viewer = document.getElementById('viewer');
-    viewer.innerHTML = '<div class="flex flex-col items-center justify-center h-96 gap-3"><div class="loader"></div><p class="text-xs opacity-70 font-sans">Kitap Hazırlanıyor...</p></div>';
-    if (typeof rendition !== 'undefined' && rendition) { rendition.destroy(); rendition = null; }
-    activePdfDoc = null;
-    fullBookTextContent = "";
-    if(typeof highlightElements !== 'undefined') highlightElements = [];
-
-    const cleanFile = (fileName || '').trim();
-    const ext = cleanFile.includes('.') ? cleanFile.substring(cleanFile.lastIndexOf('.')).toLowerCase() : '';
-    const baseName = cleanFile.includes('.') ? cleanFile.substring(0, cleanFile.lastIndexOf('.')) : cleanFile;
-
-    const candidateTxt = ext === '.txt' ? cleanFile : baseName + '.txt';
-    const candidatePdf = ext === '.pdf' ? cleanFile : baseName + '.pdf';
-    const candidateEpub = ext === '.epub' ? cleanFile : baseName + '.epub';
-
-    let txtContent = null;
-    try {
-        const res = await fetch(candidateTxt, { cache: 'no-store' });
-        if(res.ok) {
-            const t = await res.text();
-            if(!t.trim().startsWith('<!DOCTYPE') && !t.trim().startsWith('<html')) txtContent = t;
-        }
-    } catch(e){}
-
-    if(txtContent) {
-        activeTxtUrl = candidateTxt;
-        await loadTxtIntoReaderDirect(txtContent, title);
-        if(typeof setupMediaSession === 'function') setupMediaSession();
-        if(typeof startReadingStats === 'function') startReadingStats();
-        if(typeof renderHighlightsPanel === 'function') renderHighlightsPanel();
-        return;
-    }
-    try {
-        const res = await fetch(candidatePdf, { method: 'HEAD' });
-        if(res.ok) {
-            activePdfUrl = candidatePdf;
-            await loadPdfIntoReader(candidatePdf, title);
-            return;
-        }
-    } catch(e){
-        // try directly
-        try { await loadPdfIntoReader(candidatePdf, title); return; } catch(e2){}
-    }
-    try {
-        await loadEpubIntoReader(candidateEpub, title);
-        return;
-    } catch(e){
-        viewer.innerHTML = `<div class="p-8 text-center h-96 flex flex-col items-center justify-center font-sans"><i class="fa-solid fa-triangle-exclamation text-5xl text-brand-600 mb-4"></i><h3 class="text-xl font-bold mb-2">Dosya Bulunamadı</h3><p class="text-sm opacity-80">${cleanFile}</p><button onclick="closeReader()" class="mt-6 bg-brand-600 text-white px-6 py-2 rounded-lg font-bold text-xs">Geri Dön</button></div>`;
-    }
-};
-
-window.checkDownload = async function(event, bookId, fileName) {
-    if(event) event.preventDefault();
-    if (!auth.currentUser) {
-        openAuthWithMessage('Kitapları indirmek için Google ile giriş yapmalısınız');
-        return;
-    }
-    try {
-        await updateDoc(doc(db, "kitaplar", bookId), { indirmeSayisi: increment(1) });
-        await setDoc(doc(db, "kullanicilar", auth.currentUser.uid, "indirilenler", bookId), { kitapId: bookId, tarih: serverTimestamp() });
-        const bIndex = allBooks.findIndex(b => b.id === bookId);
-        if(bIndex > -1) allBooks[bIndex].indirmeSayisi = (allBooks[bIndex].indirmeSayisi || 0) + 1;
-        if(typeof renderBooks === 'function') renderBooks();
-        if(typeof renderHomeSections === 'function') renderHomeSections();
-    } catch(e) {}
-    const link = document.createElement('a');
-    link.href = fileName; link.download = fileName;
-    document.body.appendChild(link); link.click(); document.body.removeChild(link);
-    if(typeof showToast === 'function') showToast('📥 İndiriliyor...');
-};
-
-// Kitap kartındaki Oku ve İndir butonları için de aynı kontrol
-window.openBookModal = async function(bookId) {
-    const book = allBooks.find(b => b.id === bookId);
-    if(!book) return;
-    currentBookForComments = book;
-    document.getElementById('modalCover').src = book.kapakUrl;
-    document.getElementById('modalTitle').innerText = book.baslik;
-    document.getElementById('modalAuthor').querySelector('span').innerText = book.yazar;
-    document.getElementById('modalCategory').innerText = book.kategori || 'Genel';
-    document.getElementById('modalDesc').innerText = book.aciklama;
-    document.getElementById('modalDownloadBtn').onclick = (e) => checkDownload(e, book.id, book.dosyaAdi);
-    document.getElementById('modalReadBtn').onclick = () => { if(!auth.currentUser){ openAuthWithMessage('Okumak için Google ile giriş yapmalısınız'); return; } openReader(book.dosyaAdi, book.baslik, book.id); };
-    if(typeof loadBookComments === 'function') loadBookComments(bookId);
-    document.getElementById('bookDetailModal').classList.add('modal-active');
-};
-
-
-// === YOUTUBE - HARDCODED + FIREBASE ===
-function extractYoutubeId(url) {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    const m = url.match(regExp);
-    return (m && m[2].length === 11) ? m[2] : null;
-}
-async function loadYoutubeBooks() {
-    const grid = document.getElementById('youtubeGrid');
-    if(!grid) return;
-    // Hardcoded already there, now load extra from Firebase
-    try {
-        const snap = await getDocs(collection(db, "youtubeKitaplar"));
-        if(snap.empty) return;
-        let extraHtml = '';
-        snap.forEach(d => {
-            const v = d.data();
-            if(v.youtubeId === 'm7RwG9DRxf8') return; // skip hardcoded duplicate
-            const ytId = v.youtubeId || extractYoutubeId(v.youtubeUrl) || '';
-            if(!ytId) return;
-            extraHtml += `<div class="surface-card rounded-3xl overflow-hidden group"><div class="relative aspect-video bg-black"><img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/20 flex items-center justify-center"><button onclick="openYoutubePlayer('${ytId}', \`${(v.baslik||'').replace(/`/g,'')} \`)" class="w-14 h-14 bg-red-600 text-white rounded-full"><i class="fa-solid fa-play ml-1"></i></button></div></div><div class="p-4"><h4 class="font-bold text-sm">${v.baslik||''}</h4><p class="text-[11px] text-slate-500 mt-1">${v.aciklama||''}</p><div class="flex gap-2 mt-3"><button onclick="openYoutubePlayer('${ytId}', \`${(v.baslik||'').replace(/`/g,'')} \`)" class="flex-1 bg-red-600 text-white py-2 rounded-xl text-[11px] font-bold">İzle</button><a href="${v.youtubeUrl}" target="_blank" class="flex-1 bg-white border text-red-600 py-2 rounded-xl text-[11px] font-bold text-center">YouTube'da Aç</a></div></div></div>`;
-        });
-        grid.innerHTML += extraHtml;
-    } catch(e) { console.log("YT firebase optional", e); }
-}
-window.openYoutubePlayer = (ytId, title) => {
-    const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 z-[9999999] bg-black/90 flex items-center justify-center p-4';
-    modal.innerHTML = `<div class="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-4xl overflow-hidden"><div class="flex justify-between items-center p-4 border-b"><h3 class="font-bold text-sm text-slate-900 dark:text-white">${title}</h3><button onclick="this.closest('.fixed').remove()" class="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button></div><div class="aspect-video bg-black"><iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1" class="w-full h-full" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>`;
-    modal.addEventListener('click', e=>{ if(e.target===modal) modal.remove(); });
-    document.body.appendChild(modal);
-};
-window.addYoutubeVideo = async (e) => {
-    e.preventDefault();
-    const title = document.getElementById('ytTitle').value.trim();
-    const url = document.getElementById('ytUrl').value.trim();
-    const desc = document.getElementById('ytDesc').value.trim();
-    const ytId = extractYoutubeId(url);
-    if(!ytId){ alert('Geçerli YouTube linki girin'); return; }
-    try {
-        const ref = doc(collection(db, "youtubeKitaplar"));
-        await setDoc(ref, { baslik: title, youtubeUrl: url, youtubeId: ytId, aciklama: desc, tarih: serverTimestamp() });
-        alert('Eklendi!');
-        document.getElementById('addYoutubeForm').reset();
-        loadYoutubeBooks();
-        loadAdminYoutubeList();
-    } catch(err){ alert('Hata: ' + err.message); console.error(err); }
-};
-window.deleteYoutubeVideo = async (id) => { if(confirm('Silinsin mi?')){ await deleteDoc(doc(db, "youtubeKitaplar", id)); loadYoutubeBooks(); loadAdminYoutubeList(); } };
-async function loadAdminYoutubeList(){
-    const list=document.getElementById('adminYoutubeList');
-    if(!list) return;
-    try{
-        const snap=await getDocs(collection(db, "youtubeKitaplar"));
-        list.innerHTML='';
-        if(snap.empty){ list.innerHTML='<p class="text-xs text-slate-400">Henüz Firebase'de video yok, ama sabit video sitede görünüyor.</p>'; return; }
-        snap.forEach(d=>{
-            const v=d.data();
-            list.innerHTML+=`<div class="flex justify-between items-center bg-red-50 p-3 rounded-xl text-sm"><div class="flex gap-2 items-center"><img src="https://img.youtube.com/vi/${v.youtubeId}/mqdefault.jpg" class="w-12 h-8 rounded"><span class="font-bold">${v.baslik}</span></div><button onclick="deleteYoutubeVideo('${d.id}')" class="text-red-600"><i class="fa-solid fa-trash"></i></button></div>`;
-        });
-    }catch(e){ list.innerHTML='<p class="text-xs text-red-500">'+e.message+'</p>'; }
-}
-const _origSwitchAdminTab = window.switchAdminTab;
-window.switchAdminTab = (tab) => {
-    ['Books','Youtube','Categories','Comments','Submissions'].forEach(t=>{
-        const te=document.getElementById('adminTab'+t);
-        const be=document.getElementById('tabBtn'+t);
-        if(te) te.classList.add('hidden');
-        if(be){ be.classList.remove('border-brand-600','text-brand-600'); be.classList.add('border-transparent','text-slate-500'); }
-    });
-    const a=tab.charAt(0).toUpperCase()+tab.slice(1);
-    const at=document.getElementById('adminTab'+a);
-    const ab=document.getElementById('tabBtn'+a);
-    if(at) at.classList.remove('hidden');
-    if(ab){ ab.classList.add('border-brand-600','text-brand-600'); ab.classList.remove('border-transparent','text-slate-500'); }
-    if(tab==='youtube') loadAdminYoutubeList();
-};
-setTimeout(loadYoutubeBooks, 1200);
-
-</script>
+  <script>window.handleLogoError = function(img) { img.onerror = null; img.src = "https://via.placeholder.com/100x100?text=E"; };</script>
 
     <style>
         .locked-book::after {
@@ -676,6 +414,182 @@ let activePdfDoc = null;
 let fullBookTextContent = "";
 let activeBookId = null;
 
+// === GİRİŞ UYARI KİLİDİ ===
+function openAuthWithMessage(msg) {
+  const modal = document.getElementById('authModal');
+  if (modal) {
+    modal.classList.add('modal-active');
+    let warn = document.getElementById('authRequiredWarning');
+    if (!warn) {
+      warn = document.createElement('div');
+      warn.id = 'authRequiredWarning';
+      warn.className = 'bg-amber-50 border-2 border-amber-300 text-amber-900 text-xs font-black rounded-xl p-3 mb-4 flex items-center gap-2';
+      const form = document.getElementById('emailAuthForm');
+      if (form) form.parentNode.insertBefore(warn, form);
+    }
+    warn.innerHTML = `<i class="fa-solid fa-lock text-amber-600"></i> ${msg}`;
+    warn.style.display = 'flex';
+  }
+}
+window.openAuthWithMessage = openAuthWithMessage;
+
+// === YOUTUBE SİSTEMİ (SABİT + FIREBASE) ===
+function extractYoutubeId(url) {
+  if (!url) return null;
+  const regExp = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regExp);
+  return match ? match[1] : null;
+}
+
+async function loadYoutubeBooks() {
+  const grid = document.getElementById('youtubeGrid');
+  if (!grid) return;
+
+  const hardcodedHtml = `
+    <div class="surface-card rounded-3xl overflow-hidden group border-2 border-red-100">
+      <div class="relative aspect-video bg-black">
+        <img src="https://img.youtube.com/vi/m7RwG9DRxf8/hqdefault.jpg" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+          <button onclick="openYoutubePlayer('m7RwG9DRxf8', 'Finansal Özgürlük Sesli Kitap 1.1')" class="w-14 h-14 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center shadow-xl transition hover:scale-110"><i class="fa-solid fa-play ml-1"></i></button>
+        </div>
+        <span class="absolute top-2 left-2 bg-red-600 text-white text-[9px] font-black px-2 py-1 rounded">YOUTUBE</span>
+      </div>
+      <div class="p-4">
+        <h4 class="font-bold text-sm text-slate-900 dark:text-white line-clamp-2">Finansal Özgürlük Sesli Kitap 1.1</h4>
+        <p class="text-[11px] text-slate-500 line-clamp-2 mt-1">Kanalıma abone olmayı unutmayın!</p>
+        <div class="flex gap-2 mt-3">
+          <button onclick="openYoutubePlayer('m7RwG9DRxf8', 'Finansal Özgürlük Sesli Kitap 1.1')" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1"><i class="fa-solid fa-play"></i> İzle</button>
+          <a href="https://youtu.be/m7RwG9DRxf8?si=B9QIJ40Dzpq22PDi" target="_blank" class="flex-1 bg-white border border-red-200 text-red-600 py-2 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1"><i class="fa-brands fa-youtube"></i> YouTube'da Aç</a>
+        </div>
+      </div>
+    </div>`;
+
+  try {
+    const snap = await getDocs(collection(db, "youtubeKitaplar"));
+    let extraHtml = '';
+    const videos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    videos.sort((a, b) => {
+      const tA = a.tarih?.toMillis ? a.tarih.toMillis() : 0;
+      const tB = b.tarih?.toMillis ? b.tarih.toMillis() : 0;
+      return tB - tA;
+    });
+
+    videos.forEach(v => {
+      const ytId = v.youtubeId || extractYoutubeId(v.youtubeUrl) || '';
+      if (!ytId || ytId === 'm7RwG9DRxf8') return;
+      const safeTitle = (v.baslik || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+      extraHtml += `
+        <div class="surface-card rounded-3xl overflow-hidden group border-2 border-red-100">
+          <div class="relative aspect-video bg-black">
+            <img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+              <button onclick="openYoutubePlayer('${ytId}', '${safeTitle}')" class="w-14 h-14 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center shadow-xl transition hover:scale-110"><i class="fa-solid fa-play ml-1"></i></button>
+            </div>
+            <span class="absolute top-2 left-2 bg-red-600 text-white text-[9px] font-black px-2 py-1 rounded">YOUTUBE</span>
+          </div>
+          <div class="p-4">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white line-clamp-2">${v.baslik || ''}</h4>
+            <p class="text-[11px] text-slate-500 line-clamp-2 mt-1">${v.aciklama || ''}</p>
+            <div class="flex gap-2 mt-3">
+              <button onclick="openYoutubePlayer('${ytId}', '${safeTitle}')" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1"><i class="fa-solid fa-play"></i> İzle</button>
+              <a href="${v.youtubeUrl}" target="_blank" class="flex-1 bg-white border border-red-200 text-red-600 py-2 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1"><i class="fa-brands fa-youtube"></i> YouTube'da Aç</a>
+            </div>
+          </div>
+        </div>`;
+    });
+    grid.innerHTML = hardcodedHtml + extraHtml;
+  } catch (e) {
+    console.error("YouTube videoları yüklenirken hata:", e);
+    grid.innerHTML = hardcodedHtml;
+  }
+}
+
+window.openYoutubePlayer = (ytId, title) => {
+  const modal = document.createElement('div');
+  modal.className = 'fixed inset-0 z-[9999999] bg-black/90 flex items-center justify-center p-4';
+  modal.innerHTML = `
+    <div class="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-4xl overflow-hidden">
+      <div class="flex justify-between items-center p-4 border-b dark:border-slate-700">
+        <h3 class="font-bold text-sm text-slate-900 dark:text-white">${title}</h3>
+        <button onclick="this.closest('.fixed').remove()" class="w-8 h-8 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-full flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="aspect-video bg-black">
+        <iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1" class="w-full h-full" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>`;
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+  document.body.appendChild(modal);
+};
+
+window.addYoutubeVideo = async (e) => {
+  e.preventDefault();
+  const title = document.getElementById('ytTitle').value.trim();
+  const url = document.getElementById('ytUrl').value.trim();
+  const desc = document.getElementById('ytDesc').value.trim();
+  const ytId = extractYoutubeId(url);
+
+  if (!ytId) {
+    alert('Lütfen geçerli bir YouTube linki girin! (Örn: https://youtu.be/... veya https://www.youtube.com/watch?v=...)');
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "youtubeKitaplar"), {
+      baslik: title,
+      youtubeUrl: url,
+      youtubeId: ytId,
+      aciklama: desc,
+      tarih: serverTimestamp()
+    });
+    alert('YouTube videosu başarıyla eklendi!');
+    document.getElementById('addYoutubeForm').reset();
+    await loadYoutubeBooks();
+    await loadAdminYoutubeList();
+  } catch (err) {
+    alert('Video eklenirken hata oluştu: ' + err.message);
+    console.error(err);
+  }
+};
+
+window.deleteYoutubeVideo = async (id) => {
+  if (confirm('Bu videoyu silmek istediğinize emin misiniz?')) {
+    try {
+      await deleteDoc(doc(db, "youtubeKitaplar", id));
+      await loadYoutubeBooks();
+      await loadAdminYoutubeList();
+    } catch (err) {
+      alert('Silme hatası: ' + err.message);
+    }
+  }
+};
+
+async function loadAdminYoutubeList() {
+  const list = document.getElementById('adminYoutubeList');
+  if (!list) return;
+  list.innerHTML = '<p class="text-xs text-slate-400">Yükleniyor...</p>';
+  try {
+    const snap = await getDocs(collection(db, "youtubeKitaplar"));
+    list.innerHTML = '';
+    if (snap.empty) {
+      list.innerHTML = '<p class="text-xs text-slate-400">Henüz Firebase\'de video yok, ancak sabit video sitede görünüyor.</p>';
+      return;
+    }
+    snap.forEach(d => {
+      const v = d.data();
+      list.innerHTML += `
+        <div class="flex justify-between items-center bg-red-50 dark:bg-slate-800 p-3 rounded-xl text-sm border border-red-100 dark:border-slate-700">
+          <div class="flex gap-3 items-center">
+            <img src="https://img.youtube.com/vi/${v.youtubeId}/mqdefault.jpg" class="w-14 h-10 object-cover rounded">
+            <span class="font-bold text-slate-900 dark:text-white">${v.baslik}</span>
+          </div>
+          <button onclick="deleteYoutubeVideo('${d.id}')" class="text-red-600 hover:bg-red-100 p-2 rounded"><i class="fa-solid fa-trash"></i></button>
+        </div>`;
+    });
+  } catch (e) {
+    list.innerHTML = '<p class="text-xs text-red-500">Hata: ' + e.message + '</p>';
+  }
+}
+
 // === YENİ NESİL TTS SİSTEMİ - FIXED ===
 let speechSynth = window.speechSynthesis;
 let currentUtterance = null;
@@ -700,7 +614,6 @@ setTimeout(loadVoices, 500);
 
 function chunkTextSmart(text) {
   const clean = text.replace(/\s+/g, ' ').trim();
-  // Cümleleri böl
   const sentences = clean.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [clean];
   let chunks = [];
   let current = "";
@@ -710,7 +623,6 @@ function chunkTextSmart(text) {
     if((current + " " + s).length > 180) {
       if(current) chunks.push(current);
       if(s.length > 180) {
-        // Çok uzun cümleyi kelimelerden böl
         let words = s.split(' ');
         let part = "";
         for(let w of words) {
@@ -764,7 +676,6 @@ function speakNextChunk() {
 }
 
 function highlightCurrentSentence() {
-  // Önceki vurguyu temizle
   document.querySelectorAll('.tts-highlight').forEach(el => el.classList.remove('tts-highlight'));
   if(highlightElements[queueIndex]) {
     const el = highlightElements[queueIndex];
@@ -788,8 +699,6 @@ function stopSpeechUI() {
   isPaused = false;
   const icon = document.getElementById('ttsIcon');
   if(icon) icon.className = "fa-solid fa-play";
-  const status = document.getElementById('ttsStatus');
-  // status text id yoksa eski yapıyla uyumlu
   const prog = document.getElementById('ttsProgressText');
   if(prog) prog.innerText = "Hazır";
   document.querySelectorAll('.tts-highlight').forEach(el => el.classList.remove('tts-highlight'));
@@ -815,7 +724,6 @@ window.toggleSpeech = () => {
     if(prog) prog.innerText = "Dinleniyor...";
     return;
   }
-  // Yeni başlat
   if (!fullBookTextContent || fullBookTextContent.trim().length < 10) {
     alert("Seslendirilecek metin bulunamadı. Lütfen TXT formatlı kitap ekleyin, PDF'lerde taranmış kitaplar seslendirilemez.");
     return;
@@ -824,14 +732,13 @@ window.toggleSpeech = () => {
   speechSynth.cancel();
   speechQueue = chunkTextSmart(fullBookTextContent);
   queueIndex = 0;
-  // Kayıtlı yerden devam et
   const saved = localStorage.getItem('tts_' + activeBookId);
   if(saved) {
     const idx = parseInt(saved);
     if(idx > 0 && idx < speechQueue.length) {
-      queueIndex = idx;
-      if(confirm(`Kaldığınız yerden devam edilsin mi? (${idx}. cümle)`)) {}
-      else queueIndex = 0;
+      if(confirm(`Kaldığınız yerden devam edilsin mi? (${idx}. cümle)`)) {
+        queueIndex = idx;
+      }
     }
   }
   isSpeaking = true;
@@ -854,7 +761,7 @@ window.skipSentence = (dir) => {
   speechSynth.cancel();
   queueIndex += dir;
   if(queueIndex < 0) queueIndex = 0;
-  if(queueIndex >= speechQueue.length) queueIndex = speechQueue.length -1;
+  if(queueIndex >= speechQueue.length) queueIndex = speechQueue.length - 1;
   if(isSpeaking) {
     setTimeout(() => speakNextChunk(), 100);
   }
@@ -1056,7 +963,7 @@ async function tryFetchExists(url) {
   try {
     const res = await fetch(url, { method: 'HEAD', cache: 'no-store' });
     return res.ok;
-  } catch { return true; } // CORS ise var say
+  } catch { return true; }
 }
 
 function updateFormatButtonsUI() {
@@ -1078,6 +985,10 @@ function updateFormatButtonsUI() {
 }
 
 window.openReader = async (fileName, title, bookId) => {
+  if (!auth.currentUser) {
+    openAuthWithMessage('Kitapları okumak ve dinlemek için Google ile giriş yapmalısınız');
+    return;
+  }
   activeBookTitle = title;
   activeBookId = bookId || fileName;
   document.getElementById('readerTitle').innerText = title;
@@ -1100,19 +1011,16 @@ window.openReader = async (fileName, title, bookId) => {
   const candidatePdf = ext === '.pdf' ? cleanFile : baseName + '.pdf';
   const candidateEpub = ext === '.epub' ? cleanFile : baseName + '.epub';
 
-  // Önce TXT dene - sesli için en iyisi
   let txtContent = await tryFetchText(candidateTxt);
   if(txtContent) {
     activeTxtUrl = candidateTxt;
     activePdfUrl = null; activeEpubUrl = null;
-    // PDF ve EPUB var mı diye de kontrol et (arka planda)
     tryFetchExists(candidatePdf).then(exists => { if(exists) activePdfUrl = candidatePdf; updateFormatButtonsUI(); });
     tryFetchExists(candidateEpub).then(exists => { if(exists) activeEpubUrl = candidateEpub; updateFormatButtonsUI(); });
     await loadTxtIntoReaderDirect(txtContent, title);
     return;
   }
 
-  // TXT yoksa PDF dene
   try {
     const pdfExists = await tryFetchExists(candidatePdf);
     if(pdfExists) {
@@ -1123,7 +1031,6 @@ window.openReader = async (fileName, title, bookId) => {
     }
   } catch(e){}
 
-  // EPUB dene
   try {
     const epubExists = await tryFetchExists(candidateEpub);
     if(epubExists) {
@@ -1156,10 +1063,8 @@ async function loadTxtIntoReaderDirect(rawText, title) {
 
   viewer.innerHTML = `<div class="max-w-3xl mx-auto px-5 sm:px-12 py-10 sm:py-14 font-reading"><div class="text-center mb-10 pb-8 border-b border-current/15"><span class="text-[10px] font-sans font-bold uppercase tracking-widest text-brand-600">Akıllı Okuyucu - Kaldığın Yerden Devam</span><h1 class="text-2xl sm:text-4xl font-sans font-black mt-2">${title}</h1><p class="text-xs text-slate-500 mt-2"><i class="fa-solid fa-volume-high text-brand-600 mr-1"></i> Oynat tuşuna bas, sarı vurgu ile takip et. Hız değiştirebilirsin.</p></div><div id="txtContentBody" style="font-size: ${currentReaderFontSize}px;">${paragraphs}</div><div class="mt-16 pt-8 border-t border-current/15 text-center opacity-60 text-xs font-sans"><i class="fa-solid fa-check-circle mr-1 text-brand-600"></i> Son — E-Kitap Deposu</div></div>`;
   
-  // Vurgu için elementleri topla
   setTimeout(() => {
     highlightElements = Array.from(viewer.querySelectorAll('[data-tts-id]'));
-    // Kayıtlı scroll varsa geri yükle
     const savedScroll = localStorage.getItem('scroll_' + activeBookId);
     if(savedScroll) {
       document.getElementById('readerScrollContainer').scrollTop = parseInt(savedScroll);
@@ -1186,7 +1091,6 @@ async function loadPdfIntoReader(pdfUrl, title) {
     const statusHeader = document.getElementById('pdfStatusHeader');
     if(statusHeader) statusHeader.innerHTML = `<span class="px-3.5 py-1 rounded-full bg-red-50 text-brand-600 border border-red-200">${title} — ${totalPages} Sayfa</span>`;
     
-    // Ses için metni çıkar (ilk 25 sayfa)
     let extracted = "";
     const maxExtract = Math.min(totalPages, 25);
     for(let i=1; i<=maxExtract; i++) {
@@ -1244,11 +1148,9 @@ async function loadEpubIntoReader(epubUrl, title) {
     const book = ePub(epubUrl);
     rendition = book.renderTo("epubViewer", { width: "100%", height: "100%" });
     await rendition.display();
-    // Ses için metni çıkar
     let epubText = "";
     try {
       await book.ready;
-      // Spine'dan metin topla
       for(let i=0; i<Math.min(book.spine.length, 10); i++) {
         try {
           const section = book.spine.get(i);
@@ -1296,7 +1198,6 @@ window.updateReadingProgress = () => {
   const scrollHeight = container.scrollHeight - container.clientHeight;
   const percent = scrollHeight > 0 ? Math.min(100, Math.round((scrollTop / scrollHeight) * 100)) : 0;
   if(!isSpeaking) document.getElementById('readingProgressBar').style.width = `${percent}%`;
-  // Scroll kaydet
   if(activeBookId) localStorage.setItem('scroll_' + activeBookId, scrollTop.toString());
 };
 window.closeReader = () => {
@@ -1356,7 +1257,8 @@ window.renderBooks = () => {
     const cover = book.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800';
     const safeTitle = book.baslik.replace(/'/g, "\\'");
     const safeFile = book.dosyaAdi.replace(/'/g, "\\'");
-    const isLocked = !auth.currentUser; grid.innerHTML += `<article class="surface-card hover:border-brand-600 rounded-2xl sm:rounded-3xl p-3 sm:p-4 flex flex-col group transition duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[2/3] rounded-xl sm:rounded-2xl overflow-hidden relative bg-red-50 mb-3.5 cursor-pointer book-cover-shadow ${isLocked ? 'locked-book' : ''}"><img src="${cover}" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><span class="absolute top-2.5 left-2.5 bg-brand-600 text-white px-2.5 py-1 rounded-lg text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider shadow">${book.kategori || 'Genel'}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-2.5 right-2.5 w-7 h-7 sm:w-8 sm:h-8 bg-white/95 rounded-full flex items-center justify-center transition hover:scale-110 shadow"><i class="${heartClass} text-xs"></i></button><span class="absolute bottom-2.5 left-2.5 text-[10px] font-bold text-slate-900 bg-white/95 px-2.5 py-0.5 rounded-md flex items-center gap-1 shadow"><i class="fa-solid fa-download text-brand-600 text-[9px]"></i> ${book.indirmeSayisi || 0}</span></div><div class="flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="text-sm sm:text-base font-sans font-bold text-slate-900 dark:text-white mb-0.5 line-clamp-1 cursor-pointer group-hover:text-brand-600 transition">${book.baslik}</h4><p class="text-[11px] font-bold text-brand-600 mb-2 line-clamp-1">${book.yazar}</p><p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed mb-3.5 line-clamp-2 hidden sm:block">${book.aciklama || ''}</p><div class="mt-auto pt-2.5 border-t border-red-100 dark:border-slate-700/40 flex flex-col gap-1.5"><div class="grid grid-cols-2 gap-1.5"><button onclick="event.stopPropagation(); if(!auth.currentUser){ openAuthWithMessage('Dinlemek ve okumak için Google ile giriş yapmalısınız'); return; } openReader('${safeFile}', '${safeTitle}', '${book.id}')" class="bg-white hover:bg-red-50 text-brand-600 border border-brand-600 py-2 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1"><i class="fa-solid fa-headphones"></i> Dinle & Oku</button><button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${safeFile}')" class="bg-brand-600 hover:bg-brand-700 text-white py-2 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1 shadow-sm"><i class="fa-solid fa-download"></i> İndir</button></div><button onclick="event.stopPropagation(); openBookModal('${book.id}')" class="w-full bg-red-50/70 dark:bg-slate-800 hover:bg-red-100 text-slate-700 dark:text-slate-300 py-1.5 rounded-lg text-[10px] font-bold transition flex items-center justify-center gap-1"><i class="fa-regular fa-comment-dots text-brand-600"></i> Detay & Yorumlar</button></div></div></article>`;
+    const isLocked = !auth.currentUser;
+    grid.innerHTML += `<article class="surface-card hover:border-brand-600 rounded-2xl sm:rounded-3xl p-3 sm:p-4 flex flex-col group transition duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[2/3] rounded-xl sm:rounded-2xl overflow-hidden relative bg-red-50 mb-3.5 cursor-pointer book-cover-shadow ${isLocked ? 'locked-book' : ''}"><img src="${cover}" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><span class="absolute top-2.5 left-2.5 bg-brand-600 text-white px-2.5 py-1 rounded-lg text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider shadow">${book.kategori || 'Genel'}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-2.5 right-2.5 w-7 h-7 sm:w-8 sm:h-8 bg-white/95 rounded-full flex items-center justify-center transition hover:scale-110 shadow"><i class="${heartClass} text-xs"></i></button><span class="absolute bottom-2.5 left-2.5 text-[10px] font-bold text-slate-900 bg-white/95 px-2.5 py-0.5 rounded-md flex items-center gap-1 shadow"><i class="fa-solid fa-download text-brand-600 text-[9px]"></i> ${book.indirmeSayisi || 0}</span></div><div class="flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="text-sm sm:text-base font-sans font-bold text-slate-900 dark:text-white mb-0.5 line-clamp-1 cursor-pointer group-hover:text-brand-600 transition">${book.baslik}</h4><p class="text-[11px] font-bold text-brand-600 mb-2 line-clamp-1">${book.yazar}</p><p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed mb-3.5 line-clamp-2 hidden sm:block">${book.aciklama || ''}</p><div class="mt-auto pt-2.5 border-t border-red-100 dark:border-slate-700/40 flex flex-col gap-1.5"><div class="grid grid-cols-2 gap-1.5"><button onclick="event.stopPropagation(); openReader('${safeFile}', '${safeTitle}', '${book.id}')" class="bg-white hover:bg-red-50 text-brand-600 border border-brand-600 py-2 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1"><i class="fa-solid fa-headphones"></i> Dinle & Oku</button><button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${safeFile}')" class="bg-brand-600 hover:bg-brand-700 text-white py-2 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1 shadow-sm"><i class="fa-solid fa-download"></i> İndir</button></div><button onclick="event.stopPropagation(); openBookModal('${book.id}')" class="w-full bg-red-50/70 dark:bg-slate-800 hover:bg-red-100 text-slate-700 dark:text-slate-300 py-1.5 rounded-lg text-[10px] font-bold transition flex items-center justify-center gap-1"><i class="fa-regular fa-comment-dots text-brand-600"></i> Detay & Yorumlar</button></div></div></article>`;
   });
 };
 function renderHomeSections() {
@@ -1368,15 +1270,18 @@ function renderHomeSections() {
   newGrid.innerHTML = newB.map((b) => `<div onclick="openBookModal('${b.id}')" class="flex items-center gap-3.5 p-2.5 rounded-2xl bg-red-50/40 dark:bg-slate-900/50 hover:bg-red-50 border border-red-100 dark:border-slate-800 hover:border-brand-600 cursor-pointer group transition"><div class="relative flex-shrink-0"><img src="${b.kapakUrl}" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-14 h-20 object-cover rounded-xl shadow-md group-hover:scale-105 transition"><span class="absolute -top-1.5 -left-1.5 px-1.5 py-0.5 rounded bg-brand-600 text-white font-black text-[8px] uppercase shadow">YENİ</span></div><div class="min-w-0 flex-grow"><span class="text-[9px] font-extrabold uppercase text-brand-600 block mb-0.5">${b.kategori || 'Genel'}</span><h4 class="text-slate-900 dark:text-white text-xs sm:text-sm font-bold truncate group-hover:text-brand-600 transition">${b.baslik}</h4><p class="text-slate-500 text-[11px] truncate">${b.yazar}</p><span class="text-[10px] text-brand-600 mt-1 inline-flex items-center gap-1 font-bold">Hemen Dinle <i class="fa-solid fa-headphones text-[9px]"></i></span></div></div>`).join('');
 }
 window.toggleFavorite = async (bookId, btn) => {
-  if (!auth.currentUser) return document.getElementById('authModal').classList.add('modal-active');
+  if (!auth.currentUser) return openAuthWithMessage('Favorilere eklemek için Google ile giriş yapmalısınız');
   const favRef = doc(db, "kullanicilar", auth.currentUser.uid, "favoriler", bookId);
   const icon = btn.querySelector('i');
   if (userFavorites.includes(bookId)) { await deleteDoc(favRef); userFavorites = userFavorites.filter(id => id !== bookId); icon.className = "fa-regular fa-heart text-slate-700 text-xs"; }
   else { await setDoc(favRef, { addedAt: serverTimestamp() }); userFavorites.push(bookId); icon.className = "fa-solid fa-heart text-brand-600 text-xs"; }
 };
 window.checkDownload = async (event, bookId, fileName) => {
-  event.preventDefault();
-  if (!auth.currentUser) return document.getElementById('authModal').classList.add('modal-active');
+  if (event) event.preventDefault();
+  if (!auth.currentUser) {
+    openAuthWithMessage('Kitapları indirmek için Google ile giriş yapmalısınız');
+    return;
+  }
   try {
     await updateDoc(doc(db, "kitaplar", bookId), { indirmeSayisi: increment(1) });
     await setDoc(doc(db, "kullanicilar", auth.currentUser.uid, "indirilenler", bookId), { kitapId: bookId, tarih: serverTimestamp() });
@@ -1407,18 +1312,38 @@ async function loadCategories() {
 }
 window.addCategory = async (e) => { e.preventDefault(); const name = document.getElementById('newCategoryName').value; await addDoc(collection(db, "kategoriler"), { ad: name }); document.getElementById('newCategoryName').value = ''; loadCategories(); };
 window.deleteCategory = async (id) => { if(confirm("Kategoriyi silmek istiyor musunuz?")) { await deleteDoc(doc(db, "kategoriler", id)); loadCategories(); } };
-window.openAdminModal = () => { document.getElementById('adminModal').classList.add('modal-active'); loadAdminBooks(); loadAdminComments(); loadCategories(); loadAdminSubmissions(); };
+
+// === ADMİN PANELİ VE SEKME YÖNETİMİ (YOUTUBE DAHİL) ===
+window.openAdminModal = () => {
+  document.getElementById('adminModal').classList.add('modal-active');
+  loadAdminBooks();
+  loadAdminYoutubeList();
+  loadAdminComments();
+  loadCategories();
+  loadAdminSubmissions();
+};
+
 window.switchAdminTab = (tab) => {
-  ['Books', 'Categories', 'Comments', 'Submissions'].forEach(t => {
-    document.getElementById('adminTab' + t).classList.add('hidden');
-    document.getElementById('tabBtn' + t).classList.remove('border-brand-600', 'text-brand-600');
-    document.getElementById('tabBtn' + t).classList.add('border-transparent', 'text-slate-500');
+  ['Books', 'Youtube', 'Categories', 'Comments', 'Submissions'].forEach(t => {
+    const tabEl = document.getElementById('adminTab' + t);
+    const btnEl = document.getElementById('tabBtn' + t);
+    if (tabEl) tabEl.classList.add('hidden');
+    if (btnEl) {
+      btnEl.classList.remove('border-brand-600', 'text-brand-600');
+      btnEl.classList.add('border-transparent', 'text-slate-500');
+    }
   });
   const active = tab.charAt(0).toUpperCase() + tab.slice(1);
-  document.getElementById('adminTab' + active).classList.remove('hidden');
-  document.getElementById('tabBtn' + active).classList.add('border-brand-600', 'text-brand-600');
-  document.getElementById('tabBtn' + active).classList.remove('border-transparent', 'text-slate-500');
+  const activeTabEl = document.getElementById('adminTab' + active);
+  const activeBtnEl = document.getElementById('tabBtn' + active);
+  if (activeTabEl) activeTabEl.classList.remove('hidden');
+  if (activeBtnEl) {
+    activeBtnEl.classList.add('border-brand-600', 'text-brand-600');
+    activeBtnEl.classList.remove('border-transparent', 'text-slate-500');
+  }
+  if (tab === 'youtube') loadAdminYoutubeList();
 };
+
 window.addNewBook = async (e) => {
   e.preventDefault();
   const newBook = { baslik: document.getElementById('newBookTitle').value.trim(), yazar: document.getElementById('newBookAuthor').value.trim(), kategori: document.getElementById('newBookCategory').value || 'Genel', dosyaAdi: document.getElementById('newBookFile').value.trim(), kapakUrl: document.getElementById('newBookCover').value.trim(), aciklama: document.getElementById('newBookDesc').value.trim(), indirmeSayisi: 0, tarih: serverTimestamp() };
@@ -1471,6 +1396,9 @@ onAuthStateChanged(auth, async (user) => {
   const loginBtn = document.getElementById('googleLoginBtn');
   const profileArea = document.getElementById('userProfileArea');
   const adminBtn = document.getElementById('adminPanelBtn');
+  const warn = document.getElementById('authRequiredWarning');
+  if (warn && user) warn.style.display = 'none';
+
   if (user) {
     loginBtn.style.display = 'none'; profileArea.style.display = 'flex';
     document.getElementById('userNameDisplay').innerText = user.displayName || user.email.split('@')[0];
@@ -1537,10 +1465,16 @@ document.addEventListener('keydown', (e) => {
 const savedTheme = localStorage.getItem('reader_theme');
 if(savedTheme) setReaderTheme(savedTheme);
 
-document.addEventListener("DOMContentLoaded", () => {
+function initApp() {
   loadCategories().then(() => loadBooks());
   loadSizdenGelenler();
-});
+  loadYoutubeBooks();
+}
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initApp);
+} else {
+  initApp();
+}
 </script>
 </body>
 </html>
