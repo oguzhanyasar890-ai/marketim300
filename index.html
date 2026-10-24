@@ -246,7 +246,7 @@ async function loadYoutubeBooks() {
     const grid = document.getElementById('youtubeGrid');
     if(!grid) return;
     try {
-        const snap = await window._fbGetDocs(window._fbCollection(db, "youtubeKitaplar"));
+        const snap = await window._fbGetDocs(window._fbCollection(window._db, "youtubeKitaplar"));
         if(snap.empty) {
             grid.innerHTML = `<div class="col-span-full surface-card rounded-3xl p-8 text-center"><i class="fa-brands fa-youtube text-5xl text-red-200 mb-4"></i><h4 class="font-bold text-slate-900 dark:text-white mb-2">Henüz YouTube videosu eklenmedi</h4><p class="text-xs text-slate-500 mb-4">Admin panelinden YouTube linklerinizi ekleyin.</p></div>`;
             return;
@@ -275,17 +275,17 @@ window.addYoutubeVideo = async (e) => {
     const ytId = extractYoutubeId(url);
     if(!ytId) { alert('Geçerli YouTube linki girin'); return; }
     try {
-        await window._fbAddDoc(window._fbCollection(db, "youtubeKitaplar"), { baslik: title, youtubeUrl: url, youtubeId: ytId, aciklama: desc, tarih: window._fbServerTimestamp(), kapakUrl: `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` });
+        await window._fbAddDoc(window._fbCollection(window._db, "youtubeKitaplar"), { baslik: title, youtubeUrl: url, youtubeId: ytId, aciklama: desc, tarih: window._fbServerTimestamp(), kapakUrl: `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` });
         alert('Eklendi!'); document.getElementById('addYoutubeForm').reset(); loadYoutubeBooks(); loadAdminYoutubeList();
     } catch(err) { alert(err.message); }
 };
-window.deleteYoutubeVideo = async (id) => { if(confirm('Sil?')) { await window._fbDeleteDoc(window._fbDoc(db, "youtubeKitaplar", id)); loadYoutubeBooks(); loadAdminYoutubeList(); } };
+window.deleteYoutubeVideo = async (id) => { if(confirm('Sil?')) { await window._fbDeleteDoc(window._fbDoc(window._db, "youtubeKitaplar", id)); loadYoutubeBooks(); loadAdminYoutubeList(); } };
 async function loadAdminYoutubeList() {
     const list = document.getElementById('adminYoutubeList');
     if(!list) return;
     list.innerHTML = '<p class="text-slate-400 text-sm">Yükleniyor...</p>';
     try {
-        const snap = await window._fbGetDocs(window._fbCollection(db, "youtubeKitaplar"));
+        const snap = await window._fbGetDocs(window._fbCollection(window._db, "youtubeKitaplar"));
         list.innerHTML = '';
         if(snap.empty) { list.innerHTML = '<p class="text-slate-400 text-sm">Henüz video yok.</p>'; return; }
         snap.forEach(d => {
@@ -632,6 +632,8 @@ window._fbDeleteDoc = deleteDoc;
 window._fbGetDocs = getDocs;
 window._fbDoc = doc;
 window._fbServerTimestamp = serverTimestamp;
+window._db = db;
+window._auth = auth;
 ;
 
 if (window.pdfjsLib) window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
