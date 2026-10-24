@@ -29,7 +29,19 @@
     html.dark .glass-nav { background: rgba(15, 23, 42, 0.9); border-bottom: 1px solid rgba(239, 68, 68, 0.2); }
     .surface-card { background: #ffffff; border: 1px solid #fecaca; box-shadow: 0 8px 24px -4px rgba(220, 38, 38, 0.06); }
     html.dark .surface-card { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(239, 68, 68, 0.2); }
-    .hero-banner { background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.98)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat; backdrop-filter: none; }
+    .hero-banner { 
+            background: linear-gradient(to bottom, rgba(255,255,255,0.15), rgba(255,255,255,0.55)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+            backdrop-filter: none;
+        }
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.0);
+            z-index: 0;
+        }
+        .hero-banner > * { position: relative; z-index: 1; }
+        
     html.dark .hero-banner { background: #0f172a; }
     .red-text-gradient { background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #991b1b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .book-cover-shadow { box-shadow: 0 12px 25px -5px rgba(220, 38, 38, 0.18), 0 0 0 1px rgba(220, 38, 38, 0.1); }
@@ -93,7 +105,7 @@
     </div>
   </header>
 
-  <section class="relative overflow-hidden hero-banner pt-10 pb-14 md:py-16 z-10 border-b border-red-100 dark:border-slate-800">
+  <section class="relative overflow-hidden hero-banner  pt-10 pb-14 md:py-16 z-10 border-b border-red-100 dark:border-slate-800">
     <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
       <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-5 rounded-3xl bg-slate-950 border-2 border-brand-600 shadow-xl shadow-brand-600/20 p-2 flex items-center justify-center">
         <img src="./Logom.png?v=2" onerror="handleLogoError(this)" alt="Logo" class="w-full h-full object-contain">
@@ -216,7 +228,7 @@
     </div>
   </div>
 
-  <div id="bookDetailModal" class="fixed inset-0 z-[99999] items-center justify-center bg-slate-950/75 backdrop-blur-sm p-4">
+  <div id="bookDetailModal" class="fixed inset-0 z-[99998] items-center justify-center bg-slate-950/75 backdrop-blur-sm p-4">
     <div class="bg-white dark:bg-slate-800 border-2 border-red-100 dark:border-slate-700 rounded-3xl w-full max-w-4xl shadow-2xl relative overflow-hidden flex flex-col md:flex-row max-h-[90vh]">
       <button onclick="closeBookModal()" class="absolute top-4 right-4 z-10 w-9 h-9 bg-brand-600 text-white rounded-full flex items-center justify-center hover:bg-brand-700 transition shadow"><i class="fa-solid fa-xmark"></i></button>
       <div class="w-full md:w-1/2 flex flex-col border-b md:border-b-0 md:border-r border-red-100 dark:border-slate-700 overflow-y-auto p-6">
@@ -297,7 +309,7 @@
   </footer>
   
   <!-- WhatsApp Destek - Sabit Sağ Alt Yeşil Titreşimli -->
-  <a href="https://wa.me/905000000000?text=Merhaba%20E-Kitap%20Deposu%20Destek" target="_blank" id="whatsappSupport" class="fixed bottom-6 right-6 z-[99999] bg-[#25D366] hover:bg-[#128C7E] text-white px-5 py-3.5 rounded-full shadow-xl flex items-center gap-2.5 font-bold text-sm transition-all hover:scale-105 active:scale-95" style="animation: whatsappPulse 2s infinite;">
+  <a href="https://wa.me/905542026620?text=Merhaba%20E-Kitap%20Deposu%20Destek" target="_blank" id="whatsappSupport" class="fixed bottom-6 left-6 z-[99998] bg-[#25D366] hover:bg-[#128C7E] text-white px-5 py-3.5 rounded-full shadow-xl flex items-center gap-2.5 font-bold text-sm transition-all hover:scale-105 active:scale-95" style="animation: whatsappPulse 2s infinite;">
     <i class="fa-brands fa-whatsapp text-xl"></i> Destek
   </a>
   <style>
