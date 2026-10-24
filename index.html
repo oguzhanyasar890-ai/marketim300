@@ -29,18 +29,7 @@
     html.dark .glass-nav { background: rgba(15, 23, 42, 0.9); border-bottom: 1px solid rgba(239, 68, 68, 0.2); }
     .surface-card { background: #ffffff; border: 1px solid #fecaca; box-shadow: 0 8px 24px -4px rgba(220, 38, 38, 0.06); }
     html.dark .surface-card { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(239, 68, 68, 0.2); }
-    .hero-banner { 
-            background: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
-            backdrop-filter: none;
-        }
-        .hero-banner::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(255,255,255,0.0);
-            z-index: 0;
-        }
-        .hero-banner > * { position: relative; z-index: 1; }
+    .hero-banner { position: relative; }
         
     html.dark .hero-banner { background: #0f172a; }
     .red-text-gradient { background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #991b1b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -76,7 +65,7 @@
           <img src="./Logom.png?v=2" onerror="handleLogoError(this)" alt="Logo" class="w-full h-full object-contain p-0.5">
         </div>
         <div>
-          <h1 class="text-lg md:text-2xl font-serif font-black tracking-wide text-slate-900 dark:text-white leading-none">E-Kitap Deposu</h1>
+          <h1 class="text-lg md:text-2xl font-sans font-black tracking-wide text-slate-900 dark:text-white leading-none">E-Kitap Deposu</h1>
           <span class="text-[10px] text-brand-600 dark:text-brand-400 font-extrabold tracking-widest uppercase block mt-1">Dijital Mağaza & Sesli Arşiv</span>
         </div>
       </a>
@@ -105,37 +94,41 @@
     </div>
   </header>
 
-  <section class="relative overflow-hidden hero-banner  pt-10 pb-14 md:py-16 z-10 border-b border-red-100 dark:border-slate-800">
-    <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
-      <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-5 rounded-3xl bg-slate-950 border-2 border-brand-600 shadow-xl shadow-brand-600/20 p-2 flex items-center justify-center">
-        <img src="./Logom.png?v=2" onerror="handleLogoError(this)" alt="Logo" class="w-full h-full object-contain">
-      </div>
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-50 dark:bg-brand-500/10 border border-red-200 dark:border-brand-500/30 text-brand-600 dark:text-brand-400 text-[11px] font-bold mb-4">
-        <i class="fa-solid fa-headphones"></i> Sesli Kitap & Dijital Arşiv
-      </div>
-      <h2 class="text-3xl sm:text-5xl md:text-6xl font-serif font-black mb-4 text-slate-900 dark:text-white leading-tight">
-        Bilginin Gücünü <br>
-        <span class="red-text-gradient italic font-normal">Dinleyerek Keşfedin!</span>
-      </h2>
-      <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm max-w-xl mx-auto mb-8 leading-relaxed font-medium">
-        Seçkin e-kitap koleksiyonunu ister gözlerinizle okuyun, ister yapay zeka seslendirmesi ile kaldığınız yerden dinleyin.
-      </p>
-      <div class="flex flex-wrap justify-center gap-3">
-        <a href="#kitaplarBolumu" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3 rounded-xl text-xs sm:text-sm transition shadow-lg shadow-brand-600/25 flex items-center gap-2">
-          <i class="fa-solid fa-book-open"></i> Kütüphaneye Göz At
-        </a>
-        <a href="#sizdenGelenlerSection" class="bg-white dark:bg-slate-800 hover:bg-red-50 text-brand-600 dark:text-slate-200 border border-red-200 dark:border-slate-700 font-bold px-6 py-3 rounded-xl text-xs sm:text-sm transition shadow-sm flex items-center gap-2">
-          <i class="fa-solid fa-feather-pointed"></i> Sizden Gelenler
-        </a>
-      </div>
-    </div>
-  </section>
+      <section class="relative overflow-hidden hero-banner pt-10 pb-14 md:py-20 z-10 border-b border-red-100 dark:border-slate-800">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600&auto=format&fit=crop')] bg-cover bg-center"></div>
+        <div class="absolute inset-0 bg-black/30"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            <div class="bg-white rounded-[2rem] p-7 sm:p-10 shadow-2xl border-2 border-white">
+                <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-5 rounded-3xl bg-slate-950 border-2 border-brand-600 shadow-xl shadow-brand-600/20 p-2 flex items-center justify-center">
+                    <img src="./Logom.png?v=2" onerror="handleLogoError(this)" alt="Logo" class="w-full h-full object-contain">
+                </div>
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-600 text-white text-[11px] font-black mb-5 tracking-wide">
+                    <i class="fa-solid fa-headphones"></i> SESLİ KİTAP & DİJİTAL ARŞİV
+                </div>
+                <h2 class="text-3xl sm:text-5xl md:text-[3.2rem] font-sans font-black mb-4 text-slate-900 leading-[1.1] tracking-tight">
+                    Bilginin Gücünü<br>
+                    <span class="text-brand-600">Dinleyerek Keşfedin!</span>
+                </h2>
+                <p class="text-slate-800 text-sm sm:text-[15px] max-w-xl mx-auto mb-8 leading-relaxed font-bold bg-slate-100 rounded-xl px-4 py-3">
+                    Seçkin e-kitap koleksiyonunu ister gözlerinizle okuyun, ister yapay zeka seslendirmesi ile kaldığınız yerden dinleyin.
+                </p>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <a href="#kitaplarBolumu" class="bg-brand-600 hover:bg-brand-700 text-white font-black px-7 py-3.5 rounded-xl text-sm transition shadow-lg shadow-brand-600/25 flex items-center gap-2 tracking-wide">
+                        <i class="fa-solid fa-book-open"></i> Kütüphaneye Göz At
+                    </a>
+                    <a href="#sizdenGelenlerSection" class="bg-slate-900 hover:bg-black text-white font-black px-7 py-3.5 rounded-xl text-sm transition shadow-sm flex items-center gap-2 tracking-wide">
+                        <i class="fa-solid fa-feather-pointed"></i> Sizden Gelenler
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
   <section id="vitrin" class="max-w-7xl mx-auto px-4 sm:px-6 py-8 z-10 relative w-full">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div class="surface-card rounded-3xl p-5 sm:p-6">
         <div class="flex items-center justify-between mb-4 pb-3 border-b border-red-100 dark:border-slate-700/50">
-          <h3 class="text-base sm:text-lg font-serif font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
+          <h3 class="text-base sm:text-lg font-sans font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
             <span class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm shadow-sm"><i class="fa-solid fa-fire"></i></span> En Çok İndirilenler
           </h3>
           <span class="text-[11px] font-bold text-brand-600 bg-red-50 dark:bg-slate-800 px-2.5 py-1 rounded-full">Popüler</span>
@@ -144,7 +137,7 @@
       </div>
       <div class="surface-card rounded-3xl p-5 sm:p-6">
         <div class="flex items-center justify-between mb-4 pb-3 border-b border-red-100 dark:border-slate-700/50">
-          <h3 class="text-base sm:text-lg font-serif font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
+          <h3 class="text-base sm:text-lg font-sans font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
             <span class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm shadow-sm"><i class="fa-solid fa-sparkles"></i></span> Yeni Eklenenler
           </h3>
           <span class="text-[11px] font-bold text-brand-600 bg-red-50 dark:bg-slate-800 px-2.5 py-1 rounded-full">Son Eklenenler</span>
@@ -161,7 +154,7 @@
           <div class="flex items-center gap-2.5">
             <span class="w-9 h-9 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold shadow-md shadow-brand-600/20"><i class="fa-solid fa-layer-group"></i></span>
             <div>
-              <h2 class="text-xl sm:text-2xl font-serif font-black text-slate-900 dark:text-white leading-none" id="listTitle">Kitaplar Koleksiyonu</h2>
+              <h2 class="text-xl sm:text-2xl font-sans font-black text-slate-900 dark:text-white leading-none" id="listTitle">Kitaplar Koleksiyonu</h2>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Arşivdeki tüm dijital kitapları okuyun, dinleyin ve indirin.</p>
             </div>
           </div>
@@ -195,7 +188,7 @@
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center text-lg shadow-md shadow-brand-600/20"><i class="fa-solid fa-feather-pointed"></i></div>
         <div>
-          <h3 class="text-xl sm:text-2xl font-serif font-black text-slate-900 dark:text-white">Sizden Gelenler</h3>
+          <h3 class="text-xl sm:text-2xl font-sans font-black text-slate-900 dark:text-white">Sizden Gelenler</h3>
           <p class="text-xs text-slate-500 dark:text-slate-400">Okurlarımızın paylaştığı favori alıntılar.</p>
         </div>
       </div>
@@ -232,7 +225,7 @@
     <div class="bg-white dark:bg-slate-800 border-2 border-red-100 dark:border-slate-700 rounded-3xl w-full max-w-4xl shadow-2xl relative overflow-hidden flex flex-col md:flex-row max-h-[90vh]">
       <button onclick="closeBookModal()" class="absolute top-4 right-4 z-10 w-9 h-9 bg-brand-600 text-white rounded-full flex items-center justify-center hover:bg-brand-700 transition shadow"><i class="fa-solid fa-xmark"></i></button>
       <div class="w-full md:w-1/2 flex flex-col border-b md:border-b-0 md:border-r border-red-100 dark:border-slate-700 overflow-y-auto p-6">
-        <div class="flex gap-5 items-start mb-5"><img id="modalCover" src="" class="w-28 sm:w-36 aspect-[2/3] object-cover rounded-xl book-cover-shadow flex-shrink-0 bg-red-50"><div class="flex flex-col"><span id="modalCategory" class="text-[10px] font-extrabold text-white bg-brand-600 px-2.5 py-1 rounded-md uppercase tracking-wider w-fit mb-2"></span><h3 id="modalTitle" class="text-xl sm:text-2xl font-serif font-black text-slate-900 dark:text-white mb-1.5 leading-snug"></h3><p id="modalAuthor" class="text-xs font-bold text-brand-600 mb-3"><i class="fa-solid fa-feather mr-1"></i> <span></span></p></div></div>
+        <div class="flex gap-5 items-start mb-5"><img id="modalCover" src="" class="w-28 sm:w-36 aspect-[2/3] object-cover rounded-xl book-cover-shadow flex-shrink-0 bg-red-50"><div class="flex flex-col"><span id="modalCategory" class="text-[10px] font-extrabold text-white bg-brand-600 px-2.5 py-1 rounded-md uppercase tracking-wider w-fit mb-2"></span><h3 id="modalTitle" class="text-xl sm:text-2xl font-sans font-black text-slate-900 dark:text-white mb-1.5 leading-snug"></h3><p id="modalAuthor" class="text-xs font-bold text-brand-600 mb-3"><i class="fa-solid fa-feather mr-1"></i> <span></span></p></div></div>
         <p id="modalDesc" class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-6 flex-grow"></p>
         <div class="mt-auto flex gap-2.5 pt-4 border-t border-red-100 dark:border-slate-700"><button id="modalReadBtn" class="flex-1 bg-white hover:bg-red-50 text-brand-600 border-2 border-brand-600 py-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2"><i class="fa-solid fa-book-open"></i> Oku & Dinle</button><button id="modalDownloadBtn" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl text-xs font-bold transition shadow-lg shadow-brand-600/25 flex items-center justify-center gap-2"><i class="fa-solid fa-download"></i> İndir</button></div>
       </div>
@@ -589,7 +582,7 @@ function renderSubmissionCards(items) {
     else if (item.tur === "Okur Mesajı") { badgeStyle = "bg-red-100/70 text-brand-700 border-red-200 dark:bg-red-500/10 dark:text-red-300"; icon = "fa-heart"; }
     const dateStr = item.tarihStr || (item.tarih && item.tarih.toDate ? new Date(item.tarih.toDate()).toLocaleDateString('tr-TR') : '');
     const initial = (item.isim || 'O').charAt(0).toUpperCase();
-    return `<div class="surface-card hover:border-brand-600 rounded-3xl p-6 flex flex-col justify-between transition group"><div><div class="flex justify-between items-center mb-4"><span class="text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full border ${badgeStyle}">${item.tur || 'Paylaşım'}</span><i class="fa-solid ${icon} text-red-200 dark:text-slate-600 group-hover:text-brand-600 transition"></i></div><h4 class="text-slate-900 dark:text-white font-serif font-bold text-base mb-2 line-clamp-1">${item.baslik || ''}</h4><p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm italic leading-relaxed mb-6">"${item.mesaj}"</p></div><div class="flex items-center justify-between pt-4 border-t border-red-100 dark:border-slate-700/40 mt-auto"><div class="flex items-center gap-2.5"><div class="w-7 h-7 rounded-lg bg-brand-600 text-white font-bold text-xs flex items-center justify-center shadow-sm">${initial}</div><span class="text-xs font-bold text-slate-800 dark:text-slate-200">${item.isim}</span></div><span class="text-[10px] text-brand-600 dark:text-slate-400 font-bold">${dateStr}</span></div></div>`;
+    return `<div class="surface-card hover:border-brand-600 rounded-3xl p-6 flex flex-col justify-between transition group"><div><div class="flex justify-between items-center mb-4"><span class="text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full border ${badgeStyle}">${item.tur || 'Paylaşım'}</span><i class="fa-solid ${icon} text-red-200 dark:text-slate-600 group-hover:text-brand-600 transition"></i></div><h4 class="text-slate-900 dark:text-white font-sans font-bold text-base mb-2 line-clamp-1">${item.baslik || ''}</h4><p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm italic leading-relaxed mb-6">"${item.mesaj}"</p></div><div class="flex items-center justify-between pt-4 border-t border-red-100 dark:border-slate-700/40 mt-auto"><div class="flex items-center gap-2.5"><div class="w-7 h-7 rounded-lg bg-brand-600 text-white font-bold text-xs flex items-center justify-center shadow-sm">${initial}</div><span class="text-xs font-bold text-slate-800 dark:text-slate-200">${item.isim}</span></div><span class="text-[10px] text-brand-600 dark:text-slate-400 font-bold">${dateStr}</span></div></div>`;
   }).join('');
 }
 async function loadSizdenGelenler() {
@@ -831,12 +824,12 @@ async function loadTxtIntoReaderDirect(rawText, title) {
   
   const paragraphs = rawText.split(/\r?\n/).map(line => line.trim()).filter(line => line.length > 0).map((line, idx) => {
     if (line.length < 80 && (line === line.toUpperCase() || /^(BÖLÜM|GİRİŞ|SONUÇ|ÖNSÖZ|KISIM|\d+[\.\-\)])/i.test(line))) {
-      return `<h4 data-tts-id="${idx}" class="font-serif font-bold text-xl sm:text-2xl mt-8 mb-4 pb-2 border-b border-current/15 text-brand-700">${line}</h4>`;
+      return `<h4 data-tts-id="${idx}" class="font-sans font-bold text-xl sm:text-2xl mt-8 mb-4 pb-2 border-b border-current/15 text-brand-700">${line}</h4>`;
     }
     return `<p data-tts-id="${idx}" class="mb-5 leading-relaxed text-justify tts-paragraph">${line}</p>`;
   }).join('');
 
-  viewer.innerHTML = `<div class="max-w-3xl mx-auto px-5 sm:px-12 py-10 sm:py-14 font-reading"><div class="text-center mb-10 pb-8 border-b border-current/15"><span class="text-[10px] font-sans font-bold uppercase tracking-widest text-brand-600">Akıllı Okuyucu - Kaldığın Yerden Devam</span><h1 class="text-2xl sm:text-4xl font-serif font-black mt-2">${title}</h1><p class="text-xs text-slate-500 mt-2"><i class="fa-solid fa-volume-high text-brand-600 mr-1"></i> Oynat tuşuna bas, sarı vurgu ile takip et. Hız değiştirebilirsin.</p></div><div id="txtContentBody" style="font-size: ${currentReaderFontSize}px;">${paragraphs}</div><div class="mt-16 pt-8 border-t border-current/15 text-center opacity-60 text-xs font-sans"><i class="fa-solid fa-check-circle mr-1 text-brand-600"></i> Son — E-Kitap Deposu</div></div>`;
+  viewer.innerHTML = `<div class="max-w-3xl mx-auto px-5 sm:px-12 py-10 sm:py-14 font-reading"><div class="text-center mb-10 pb-8 border-b border-current/15"><span class="text-[10px] font-sans font-bold uppercase tracking-widest text-brand-600">Akıllı Okuyucu - Kaldığın Yerden Devam</span><h1 class="text-2xl sm:text-4xl font-sans font-black mt-2">${title}</h1><p class="text-xs text-slate-500 mt-2"><i class="fa-solid fa-volume-high text-brand-600 mr-1"></i> Oynat tuşuna bas, sarı vurgu ile takip et. Hız değiştirebilirsin.</p></div><div id="txtContentBody" style="font-size: ${currentReaderFontSize}px;">${paragraphs}</div><div class="mt-16 pt-8 border-t border-current/15 text-center opacity-60 text-xs font-sans"><i class="fa-solid fa-check-circle mr-1 text-brand-600"></i> Son — E-Kitap Deposu</div></div>`;
   
   // Vurgu için elementleri topla
   setTimeout(() => {
@@ -1038,7 +1031,7 @@ window.renderBooks = () => {
     const cover = book.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800';
     const safeTitle = book.baslik.replace(/'/g, "\\'");
     const safeFile = book.dosyaAdi.replace(/'/g, "\\'");
-    grid.innerHTML += `<article class="surface-card hover:border-brand-600 rounded-2xl sm:rounded-3xl p-3 sm:p-4 flex flex-col group transition duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[2/3] rounded-xl sm:rounded-2xl overflow-hidden relative bg-red-50 mb-3.5 cursor-pointer book-cover-shadow"><img src="${cover}" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><span class="absolute top-2.5 left-2.5 bg-brand-600 text-white px-2.5 py-1 rounded-lg text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider shadow">${book.kategori || 'Genel'}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-2.5 right-2.5 w-7 h-7 sm:w-8 sm:h-8 bg-white/95 rounded-full flex items-center justify-center transition hover:scale-110 shadow"><i class="${heartClass} text-xs"></i></button><span class="absolute bottom-2.5 left-2.5 text-[10px] font-bold text-slate-900 bg-white/95 px-2.5 py-0.5 rounded-md flex items-center gap-1 shadow"><i class="fa-solid fa-download text-brand-600 text-[9px]"></i> ${book.indirmeSayisi || 0}</span></div><div class="flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="text-sm sm:text-base font-serif font-bold text-slate-900 dark:text-white mb-0.5 line-clamp-1 cursor-pointer group-hover:text-brand-600 transition">${book.baslik}</h4><p class="text-[11px] font-bold text-brand-600 mb-2 line-clamp-1">${book.yazar}</p><p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed mb-3.5 line-clamp-2 hidden sm:block">${book.aciklama || ''}</p><div class="mt-auto pt-2.5 border-t border-red-100 dark:border-slate-700/40 flex flex-col gap-1.5"><div class="grid grid-cols-2 gap-1.5"><button onclick="event.stopPropagation(); openReader('${safeFile}', '${safeTitle}', '${book.id}')" class="bg-white hover:bg-red-50 text-brand-600 border border-brand-600 py-2 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1"><i class="fa-solid fa-headphones"></i> Dinle & Oku</button><button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${safeFile}')" class="bg-brand-600 hover:bg-brand-700 text-white py-2 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1 shadow-sm"><i class="fa-solid fa-download"></i> İndir</button></div><button onclick="event.stopPropagation(); openBookModal('${book.id}')" class="w-full bg-red-50/70 dark:bg-slate-800 hover:bg-red-100 text-slate-700 dark:text-slate-300 py-1.5 rounded-lg text-[10px] font-bold transition flex items-center justify-center gap-1"><i class="fa-regular fa-comment-dots text-brand-600"></i> Detay & Yorumlar</button></div></div></article>`;
+    grid.innerHTML += `<article class="surface-card hover:border-brand-600 rounded-2xl sm:rounded-3xl p-3 sm:p-4 flex flex-col group transition duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[2/3] rounded-xl sm:rounded-2xl overflow-hidden relative bg-red-50 mb-3.5 cursor-pointer book-cover-shadow"><img src="${cover}" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><span class="absolute top-2.5 left-2.5 bg-brand-600 text-white px-2.5 py-1 rounded-lg text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider shadow">${book.kategori || 'Genel'}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-2.5 right-2.5 w-7 h-7 sm:w-8 sm:h-8 bg-white/95 rounded-full flex items-center justify-center transition hover:scale-110 shadow"><i class="${heartClass} text-xs"></i></button><span class="absolute bottom-2.5 left-2.5 text-[10px] font-bold text-slate-900 bg-white/95 px-2.5 py-0.5 rounded-md flex items-center gap-1 shadow"><i class="fa-solid fa-download text-brand-600 text-[9px]"></i> ${book.indirmeSayisi || 0}</span></div><div class="flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="text-sm sm:text-base font-sans font-bold text-slate-900 dark:text-white mb-0.5 line-clamp-1 cursor-pointer group-hover:text-brand-600 transition">${book.baslik}</h4><p class="text-[11px] font-bold text-brand-600 mb-2 line-clamp-1">${book.yazar}</p><p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed mb-3.5 line-clamp-2 hidden sm:block">${book.aciklama || ''}</p><div class="mt-auto pt-2.5 border-t border-red-100 dark:border-slate-700/40 flex flex-col gap-1.5"><div class="grid grid-cols-2 gap-1.5"><button onclick="event.stopPropagation(); openReader('${safeFile}', '${safeTitle}', '${book.id}')" class="bg-white hover:bg-red-50 text-brand-600 border border-brand-600 py-2 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1"><i class="fa-solid fa-headphones"></i> Dinle & Oku</button><button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${safeFile}')" class="bg-brand-600 hover:bg-brand-700 text-white py-2 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1 shadow-sm"><i class="fa-solid fa-download"></i> İndir</button></div><button onclick="event.stopPropagation(); openBookModal('${book.id}')" class="w-full bg-red-50/70 dark:bg-slate-800 hover:bg-red-100 text-slate-700 dark:text-slate-300 py-1.5 rounded-lg text-[10px] font-bold transition flex items-center justify-center gap-1"><i class="fa-regular fa-comment-dots text-brand-600"></i> Detay & Yorumlar</button></div></div></article>`;
   });
 };
 function renderHomeSections() {
