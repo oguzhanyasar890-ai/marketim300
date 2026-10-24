@@ -5,19 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Kitap Deposu | Premium Dijital Kütüphane</title>
     
-    <!-- PWA ve SEO -->
+    <!-- PWA, Favicon ve SEO -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#f59e0b"/>
     <meta name="description" content="Ufkunuzu açacak rehberler, kişisel gelişim eserleri ve ücretsiz e-kitaplar.">
+    <link rel="icon" href="Logom.png" type="image/png">
+    <link rel="apple-touch-icon" href="Logom.png">
     
     <!-- Google Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
-    <link rel="icon" href="logo.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- EPUB Okuyucu Kütüphaneleri -->
+    <!-- EPUB & PDF Okuyucu Kütüphaneleri -->
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.2/dist/jszip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -81,6 +83,8 @@
         .reader-theme-dark { background-color: #0f172a !important; color: #e2e8f0 !important; }
         .reader-theme-light { background-color: #ffffff !important; color: #1e293b !important; }
 
+        .pdf-page-canvas { max-width: 100%; height: auto !important; margin: 0 auto 1.25rem auto; display: block; border-radius: 0.5rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35); }
+
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .chat-open { display: flex !important; animation: slideUp 0.25s ease-out forwards; }
     </style>
@@ -89,15 +93,15 @@
 
     <!-- Üst Menü -->
     <header class="glass-nav sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex justify-between items-center gap-3">
-            <!-- Logo -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center gap-3">
+            <!-- Yeni Logo Alanı (Logom.png) -->
             <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-500/20 group-hover:scale-105 transition">
-                    <i class="fa-solid fa-book-bookmark text-slate-950 text-lg"></i>
+                <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-black border border-brand-500/40 overflow-hidden flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-500/10 group-hover:scale-105 group-hover:border-brand-400 transition">
+                    <img src="Logom.png" alt="E-Kitap Deposu Logo" class="w-full h-full object-contain p-0.5">
                 </div>
                 <div>
                     <h1 class="text-lg md:text-xl font-serif font-black tracking-wide dark:text-white text-slate-900 leading-none">E-Kitap Deposu</h1>
-                    <span class="text-[9px] text-brand-500 font-extrabold tracking-widest uppercase block mt-1">Premium Dijital Arşiv</span>
+                    <span class="text-[9px] text-brand-500 font-extrabold tracking-widest uppercase block mt-1">Dijital Mağaza & Arşiv</span>
                 </div>
             </a>
 
@@ -133,10 +137,15 @@
     </header>
 
     <!-- Hero Bölümü -->
-    <section class="relative overflow-hidden hero-banner pt-12 pb-16 md:py-20 z-10">
+    <section class="relative overflow-hidden hero-banner pt-10 pb-14 md:py-16 z-10">
         <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-[11px] font-semibold mb-5">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> Dijital Okuma Deneyimi
+            <!-- Hero Logo Rozeti -->
+            <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-5 rounded-2xl bg-black border border-brand-500/40 shadow-2xl shadow-brand-500/15 p-1.5 flex items-center justify-center">
+                <img src="Logom.png" alt="Kitap Deposu Logo" class="w-full h-full object-contain">
+            </div>
+
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-[11px] font-semibold mb-4">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> TXT, PDF & EPUB Dijital Okuma Deneyimi
             </div>
             <h2 class="text-3xl sm:text-5xl md:text-6xl font-serif font-black mb-4 dark:text-white text-slate-900 leading-tight">
                 Bilginin Gücünü <br>
@@ -275,7 +284,9 @@
         <div class="bg-slate-800 border border-slate-700 rounded-3xl w-full max-w-md p-8 shadow-2xl relative">
             <button onclick="document.getElementById('authModal').classList.remove('modal-active')" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
             <div class="text-center mb-6">
-                <div class="w-12 h-12 mx-auto mb-3 bg-brand-500/10 text-brand-400 rounded-2xl flex items-center justify-center text-xl"><i class="fa-solid fa-user-lock"></i></div>
+                <div class="w-16 h-16 mx-auto mb-3 bg-black border border-brand-500/40 rounded-2xl flex items-center justify-center overflow-hidden p-1 shadow-lg">
+                    <img src="Logom.png" alt="Logo" class="w-full h-full object-contain">
+                </div>
                 <h3 class="text-2xl font-bold text-white" id="authTitle">Giriş Yap</h3>
             </div>
             <form id="emailAuthForm" onsubmit="handleEmailAuth(event)" class="flex flex-col gap-4 mb-4">
@@ -376,22 +387,29 @@
         </div>
     </div>
 
-    <!-- 4. AKILLI KİTAP OKUYUCU MODALI (TXT & EPUB DESTEKLİ) -->
+    <!-- 4. AKILLI KİTAP OKUYUCU MODALI (TXT, PDF & EPUB DESTEKLİ) -->
     <div id="readerModal" class="fixed inset-0 z-[9999999] bg-slate-950 flex-col">
         <!-- Üst Okuyucu Kontrol Barı -->
         <div class="bg-slate-900 px-3 sm:px-6 py-2.5 flex flex-wrap justify-between items-center gap-2 border-b border-slate-800 shadow-md">
-            <div class="flex items-center gap-2.5 min-w-0">
-                <i class="fa-solid fa-book-open-reader text-brand-400"></i>
-                <h3 id="readerTitle" class="text-white font-bold text-xs sm:text-sm truncate max-w-[160px] sm:max-w-xs">Kitap Okunuyor...</h3>
-                <span id="readerFormatBadge" class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-brand-500/20 text-brand-400 border border-brand-500/30">TXT</span>
+            <div class="flex items-center gap-2 min-w-0">
+                <img src="Logom.png" alt="Logo" class="w-6 h-6 rounded object-contain bg-black border border-brand-500/40">
+                <h3 id="readerTitle" class="text-white font-bold text-xs sm:text-sm truncate max-w-[140px] sm:max-w-xs">Kitap Okunuyor...</h3>
+                <span id="readerFormatBadge" class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-brand-500/20 text-brand-400 border border-brand-500/30">OKUYUCU</span>
             </div>
 
             <!-- Okuma Özelleştirme Kontrolleri -->
-            <div class="flex items-center gap-1.5 sm:gap-2">
-                <!-- Yazı Boyutu Kontrolleri -->
-                <div id="txtControls" class="flex items-center bg-slate-800 border border-slate-700 rounded-lg p-0.5">
-                    <button onclick="changeReaderFontSize(-2)" title="Yazıyı Küçült" class="px-2.5 py-1 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-700 rounded-md transition">A-</button>
-                    <button onclick="changeReaderFontSize(2)" title="Yazıyı Büyüt" class="px-2.5 py-1 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-700 rounded-md transition">A+</button>
+            <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                <!-- Format Seçici Butonlar -->
+                <div id="formatButtonsContainer" class="hidden items-center gap-1 bg-slate-800 border border-slate-700 rounded-lg p-0.5">
+                    <button id="btnModeTxt" onclick="switchReaderFormat('txt')" class="hidden px-2 py-1 text-[10px] font-bold rounded-md transition">TXT</button>
+                    <button id="btnModePdf" onclick="switchReaderFormat('pdf')" class="hidden px-2 py-1 text-[10px] font-bold rounded-md transition">PDF</button>
+                    <button id="btnModeEpub" onclick="switchReaderFormat('epub')" class="hidden px-2 py-1 text-[10px] font-bold rounded-md transition">EPUB</button>
+                </div>
+
+                <!-- Yazı Boyutu / PDF Yakınlaştırma Kontrolleri -->
+                <div id="zoomAndFontControls" class="flex items-center bg-slate-800 border border-slate-700 rounded-lg p-0.5">
+                    <button onclick="adjustReaderSize(-1)" title="Küçült / Uzaklaştır" class="px-2.5 py-1 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-700 rounded-md transition">A-</button>
+                    <button onclick="adjustReaderSize(1)" title="Büyüt / Yakınlaştır" class="px-2.5 py-1 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-700 rounded-md transition">A+</button>
                 </div>
 
                 <!-- Okuma Teması Seçimi (Sepya / Gece / Beyaz) -->
@@ -400,11 +418,6 @@
                     <button onclick="setReaderTheme('dark')" title="Gece Modu" class="w-5 h-5 rounded-full bg-slate-900 border border-slate-500 hover:scale-110 transition"></button>
                     <button onclick="setReaderTheme('light')" title="Beyaz Sayfa" class="w-5 h-5 rounded-full bg-white border border-slate-300 hover:scale-110 transition"></button>
                 </div>
-
-                <!-- Format Değiştirici (Eğer hem TXT hem EPUB varsa) -->
-                <button id="switchFormatBtn" onclick="switchReaderFormat()" style="display:none;" class="bg-slate-800 hover:bg-slate-700 text-brand-400 border border-slate-700 px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition">
-                    EPUB'a Geç
-                </button>
 
                 <!-- Kapat Butonu -->
                 <button onclick="closeReader()" class="bg-rose-600 hover:bg-rose-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
@@ -441,12 +454,12 @@
                 <div id="adminTabBooks">
                     <form id="addBookForm" onsubmit="addNewBook(event)" class="bg-slate-800 p-4 rounded-2xl mb-8 border border-slate-700 grid grid-cols-1 md:grid-cols-2 gap-4">
                         <h3 class="col-span-full text-brand-400 font-bold mb-1">Yeni Kitap Ekle</h3>
-                        <p class="col-span-full text-[11px] text-slate-400 mb-2">Not: GitHub'a kitabın aynı isimle <b>.txt</b> versiyonunu da yüklerseniz (ör: <i>Finansal_Ozgurluk.txt</i>), sitede okuma özelliği otomatik olarak TXT versiyonunu kullanır.</p>
+                        <p class="col-span-full text-[11px] text-slate-400 mb-2">Not: Dosya adına <b>.pdf</b>, <b>.epub</b> veya <b>.txt</b> yazabilirsiniz. Kapak resmi için tam URL veya GitHub'a yüklediğiniz resim adını (ör: <i>kapak.webp</i>) girebilirsiniz.</p>
                         <input type="text" id="newBookTitle" required placeholder="Kitap Adı" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm">
                         <input type="text" id="newBookAuthor" required placeholder="Yazar" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm">
                         <select id="newBookCategory" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm"></select>
-                        <input type="text" id="newBookFile" required placeholder="Dosya Adı (ör: Finansal_Ozgurluk.epub)" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm">
-                        <input type="url" id="newBookCover" required placeholder="Kapak Resim URL'si" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm col-span-full">
+                        <input type="text" id="newBookFile" required placeholder="Dosya Adı (ör: para_ve_kripto_piyasalari.pdf)" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm">
+                        <input type="text" id="newBookCover" required placeholder="Kapak Resmi (ör: kapak.webp veya https://...)" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm col-span-full">
                         <textarea id="newBookDesc" required placeholder="Kitap Açıklaması" class="bg-slate-900 border border-slate-600 text-white rounded-lg p-2 text-sm col-span-full" rows="2"></textarea>
                         <button type="submit" class="col-span-full bg-brand-500 text-slate-900 font-bold py-2 rounded-lg">Kitabı Kaydet</button>
                     </form>
@@ -540,8 +553,8 @@
         <div id="chatWindow" style="display: none;" class="w-80 sm:w-96 bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl mb-4 overflow-hidden flex-col text-slate-200">
             <div class="bg-brand-500 px-4 py-3 flex justify-between items-center text-slate-900">
                 <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-full bg-slate-900 flex items-center justify-center shadow-sm text-brand-400">
-                        <i class="fa-solid fa-robot"></i>
+                    <div class="w-9 h-9 rounded-full bg-black flex items-center justify-center shadow-sm overflow-hidden p-0.5">
+                        <img src="Logom.png" alt="Asistan Logo" class="w-full h-full object-contain">
                     </div>
                     <div>
                         <h4 class="text-slate-900 text-sm font-bold tracking-wide">Depo Asistanı</h4>
@@ -555,9 +568,11 @@
             
             <div id="chatMessages" class="p-4 h-64 overflow-y-auto bg-slate-900 flex flex-col gap-3 text-sm">
                 <div class="flex gap-2 w-full">
-                    <div class="w-6 h-6 rounded-full bg-brand-500 text-slate-900 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-book text-[10px]"></i></div>
+                    <div class="w-6 h-6 rounded-full bg-black border border-brand-500/40 flex-shrink-0 flex items-center justify-center mt-1 overflow-hidden p-0.5">
+                        <img src="Logom.png" alt="Bot" class="w-full h-full object-contain">
+                    </div>
                     <div class="bg-slate-800 text-slate-300 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm leading-relaxed">
-                        Merhaba! Kitapları <b>Oku</b> butonuna tıklayarak doğrudan tarayıcınızda okuyabilir veya <b>Giriş Yap</b> butonuyla indirebilirsiniz.
+                        Merhaba! Kitapları (TXT, PDF ve EPUB) <b>Oku</b> butonuna tıklayarak doğrudan tarayıcınızda okuyabilir veya <b>Giriş Yap</b> butonuyla indirebilirsiniz.
                     </div>
                 </div>
             </div>
@@ -577,7 +592,10 @@
     <!-- FOOTER -->
     <footer class="border-t border-slate-800/80 bg-slate-950 py-8 relative z-10 text-center mt-auto">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p class="text-xs text-slate-500">© 2026 E-Kitap Deposu — Tüm Hakları Saklıdır.</p>
+            <div class="flex items-center gap-3">
+                <img src="Logom.png" alt="E-Kitap Deposu Logo" class="w-9 h-9 rounded-lg bg-black border border-slate-800 object-contain p-0.5">
+                <p class="text-xs text-slate-500">© 2026 E-Kitap Deposu — Tüm Hakları Saklıdır.</p>
+            </div>
             <button onclick="openQRModal()" class="bg-slate-800/90 hover:bg-slate-700 text-brand-400 border border-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2">
                 <i class="fa-solid fa-qrcode"></i> Site QR Kodunu Göster
             </button>
@@ -589,6 +607,11 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
         import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc, addDoc, updateDoc, increment, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // PDF.js Worker Ayarı
+        if (window.pdfjsLib) {
+            window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
 
         const firebaseConfig = {
             apiKey: "AIzaSyDt6huvLeiGj0KuO4P1oBiLkmYFA13-wEs",
@@ -617,10 +640,13 @@
         // Okuyucu Değişkenleri
         let rendition = null;
         let currentReaderFontSize = 18;
-        let currentReaderMode = 'txt'; // 'txt' veya 'epub'
+        let currentPdfScale = 1.3;
+        let currentReaderMode = 'txt'; // 'txt', 'pdf', 'epub'
         let activeTxtUrl = null;
+        let activePdfUrl = null;
         let activeEpubUrl = null;
         let activeBookTitle = '';
+        let activePdfDoc = null;
 
         // --- TEMA AYARI ---
         const html = document.documentElement;
@@ -651,15 +677,15 @@
             {
                 isim: "Elif K.",
                 tur: "Kitap Tavsiyesi",
-                baslik: "Finansal Özgürlük",
-                mesaj: "Bütçe yönetimi ve finansal farkındalık kazanmak isteyen herkesin mutlaka okuması gereken akıcı bir başucu rehberi.",
+                baslik: "Para ve Kripto Piyasaları",
+                mesaj: "Finansal okuryazarlık ve kripto varlıkların mantığını anlamak isteyen herkesin mutlaka okuması gereken akıcı bir rehber.",
                 tarihStr: "Okur Önerisi"
             },
             {
                 isim: "Mert D.",
                 tur: "Okur Mesajı",
                 baslik: "E-Kitap Deposu",
-                mesaj: "Kitapları indirmeden doğrudan tarayıcı üzerinden okuyucu ile okuyabilmek harika bir kolaylık olmuş, emeğinize sağlık!",
+                mesaj: "Kitapları indirmeden doğrudan tarayıcı üzerinden PDF ve TXT okuyucu ile okuyabilmek harika bir kolaylık olmuş!",
                 tarihStr: "Okur Yorumu"
             }
         ];
@@ -927,8 +953,53 @@
         };
 
         // ==========================================================
-        // AKILLI OKUYUCU (TXT ÖNCELİKLİ + EPUB DESTEKLİ)
+        // AKILLI ÇOKLU FORMAT OKUYUCU (TXT + PDF + EPUB)
         // ==========================================================
+        async function checkFileExists(url) {
+            try {
+                const res = await fetch(url, { method: 'HEAD' });
+                if (!res.ok) return false;
+                const ct = res.headers.get('content-type') || '';
+                if (ct.includes('text/html') && !url.toLowerCase().endsWith('.html')) return false;
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function updateFormatButtonsUI() {
+            const container = document.getElementById('formatButtonsContainer');
+            const btnTxt = document.getElementById('btnModeTxt');
+            const btnPdf = document.getElementById('btnModePdf');
+            const btnEpub = document.getElementById('btnModeEpub');
+
+            const availableCount = [activeTxtUrl, activePdfUrl, activeEpubUrl].filter(Boolean).length;
+            if (availableCount > 1) {
+                container.classList.remove('hidden');
+                container.classList.add('flex');
+            } else {
+                container.classList.add('hidden');
+                container.classList.remove('flex');
+            }
+
+            const setBtnStyle = (btn, url, modeName) => {
+                if (!url) {
+                    btn.classList.add('hidden');
+                    return;
+                }
+                btn.classList.remove('hidden');
+                if (currentReaderMode === modeName) {
+                    btn.className = "px-2.5 py-1 text-[10px] font-extrabold rounded-md bg-brand-500 text-slate-950 transition";
+                } else {
+                    btn.className = "px-2.5 py-1 text-[10px] font-bold rounded-md text-slate-300 hover:text-white transition";
+                }
+            };
+
+            setBtnStyle(btnTxt, activeTxtUrl, 'txt');
+            setBtnStyle(btnPdf, activePdfUrl, 'pdf');
+            setBtnStyle(btnEpub, activeEpubUrl, 'epub');
+        }
+
         window.openReader = async (fileName, title) => {
             activeBookTitle = title;
             document.getElementById('readerTitle').innerText = title;
@@ -936,68 +1007,55 @@
             document.getElementById('readingProgressBar').style.width = '0%';
             
             const viewer = document.getElementById('viewer');
-            viewer.innerHTML = '<div class="flex items-center justify-center h-96"><div class="loader"></div></div>';
+            viewer.innerHTML = '<div class="flex flex-col items-center justify-center h-96 gap-3"><div class="loader"></div><p class="text-xs opacity-70 font-sans">Kitap hazırlanıyor...</p></div>';
 
-            if(rendition) { rendition.destroy(); rendition = null; }
+            if (rendition) { rendition.destroy(); rendition = null; }
+            activePdfDoc = null;
 
-            // Dosya adından .txt ve .epub versiyonlarını türet (Örn: Finansal_Ozgurluk.epub -> Finansal_Ozgurluk.txt)
-            const baseName = fileName.includes('.') ? fileName.substring(0, fileName.lastIndexOf('.')) : fileName;
-            const candidateTxt = baseName + '.txt';
-            const candidateEpub = fileName.toLowerCase().endsWith('.epub') ? fileName : baseName + '.epub';
+            const cleanFile = (fileName || '').trim();
+            const ext = cleanFile.includes('.') ? cleanFile.substring(cleanFile.lastIndexOf('.')).toLowerCase() : '';
+            const baseName = cleanFile.includes('.') ? cleanFile.substring(0, cleanFile.lastIndexOf('.')) : cleanFile;
 
-            activeTxtUrl = null;
-            activeEpubUrl = null;
+            const candidateTxt = ext === '.txt' ? cleanFile : baseName + '.txt';
+            const candidatePdf = ext === '.pdf' ? cleanFile : baseName + '.pdf';
+            const candidateEpub = ext === '.epub' ? cleanFile : baseName + '.epub';
 
-            // 1. TXT dosyası sunucuda (GitHub'da) var mı kontrol et
-            try {
-                const txtRes = await fetch(candidateTxt);
-                if (txtRes.ok) {
-                    const contentType = txtRes.headers.get('content-type') || '';
-                    if (!contentType.includes('text/html')) {
-                        activeTxtUrl = candidateTxt;
-                    }
-                }
-            } catch (e) {}
+            const [hasTxt, hasPdf, hasEpub] = await Promise.all([
+                checkFileExists(candidateTxt),
+                checkFileExists(candidatePdf),
+                checkFileExists(candidateEpub)
+            ]);
 
-            // 2. EPUB dosyası sunucuda var mı kontrol et
-            try {
-                const epubRes = await fetch(candidateEpub, { method: 'HEAD' });
-                if (epubRes.ok) {
-                    activeEpubUrl = candidateEpub;
-                }
-            } catch (e) {}
+            activeTxtUrl = hasTxt ? candidateTxt : null;
+            activePdfUrl = hasPdf ? candidatePdf : null;
+            activeEpubUrl = hasEpub ? candidateEpub : null;
 
-            // Her iki format da mevcutsa geçiş butonunu göster
-            const switchBtn = document.getElementById('switchFormatBtn');
-            if (activeTxtUrl && activeEpubUrl) {
-                switchBtn.style.display = 'inline-block';
-            } else {
-                switchBtn.style.display = 'none';
-            }
-
-            // TXT varsa öncelikli olarak TXT aç (çok daha hızlı ve mobil uyumlu)
-            if (activeTxtUrl) {
+            if (ext === '.pdf' && activePdfUrl) {
+                await loadPdfIntoReader(activePdfUrl, title);
+            } else if (activeTxtUrl) {
                 await loadTxtIntoReader(activeTxtUrl, title);
+            } else if (activePdfUrl) {
+                await loadPdfIntoReader(activePdfUrl, title);
             } else if (activeEpubUrl) {
                 await loadEpubIntoReader(activeEpubUrl);
             } else {
                 viewer.innerHTML = `
-                    <div class="p-8 text-center h-96 flex flex-col items-center justify-center">
+                    <div class="p-8 text-center h-96 flex flex-col items-center justify-center font-sans">
                         <i class="fa-solid fa-triangle-exclamation text-5xl text-rose-500 mb-4"></i>
                         <h3 class="text-xl font-bold mb-2">Kitap Dosyası Bulunamadı</h3>
-                        <p class="text-sm opacity-80 max-w-md mx-auto">Sunucuda <b>${candidateTxt}</b> veya <b>${candidateEpub}</b> dosyasına ulaşılamadı.</p>
+                        <p class="text-sm opacity-80 max-w-md mx-auto">Sunucuda <b>${cleanFile}</b> dosyasına ulaşılamadı. Dosya adının GitHub'daki adla birebir aynı olduğundan emin olun.</p>
                         <button onclick="closeReader()" class="mt-6 bg-slate-800 hover:bg-slate-700 text-white px-6 py-2 rounded-lg font-bold text-xs">Geri Dön</button>
                     </div>
                 `;
             }
         };
 
+        // 1. TXT OKUYUCU
         async function loadTxtIntoReader(txtUrl, title) {
             currentReaderMode = 'txt';
             document.getElementById('readerFormatBadge').innerText = 'TXT OKUYUCU';
-            document.getElementById('txtControls').style.display = 'flex';
-            const switchBtn = document.getElementById('switchFormatBtn');
-            if (activeEpubUrl) switchBtn.innerText = "EPUB Görünümü";
+            document.getElementById('zoomAndFontControls').style.display = 'flex';
+            updateFormatButtonsUI();
 
             const viewer = document.getElementById('viewer');
             if (rendition) { rendition.destroy(); rendition = null; }
@@ -1007,13 +1065,11 @@
                 if (!response.ok) throw new Error("TXT dosyası okunamadı.");
                 const rawText = await response.text();
 
-                // Paragrafları temizle ve şık tipografi ile oluştur
                 const paragraphs = rawText
                     .split(/\r?\n/)
                     .map(line => line.trim())
                     .filter(line => line.length > 0)
                     .map(line => {
-                        // Kısa ve büyük harfli satırları alt başlık olarak biçimlendir
                         if (line.length < 70 && (line === line.toUpperCase() || /^(BÖLÜM|GİRİŞ|SONUÇ|ÖNSÖZ|\d+[\.\-\)])/i.test(line))) {
                             return `<h4 class="font-serif font-bold text-xl sm:text-2xl mt-8 mb-4 pb-2 border-b border-current/15">${line}</h4>`;
                         }
@@ -1041,12 +1097,80 @@
             }
         }
 
+        // 2. PDF OKUYUCU
+        async function loadPdfIntoReader(pdfUrl, title) {
+            currentReaderMode = 'pdf';
+            document.getElementById('readerFormatBadge').innerText = 'PDF OKUYUCU';
+            document.getElementById('zoomAndFontControls').style.display = 'flex';
+            updateFormatButtonsUI();
+
+            const viewer = document.getElementById('viewer');
+            if (rendition) { rendition.destroy(); rendition = null; }
+
+            viewer.innerHTML = `
+                <div class="max-w-4xl mx-auto px-2 sm:px-6 py-6 font-sans">
+                    <div id="pdfStatusHeader" class="text-center mb-4 text-xs font-bold opacity-75">
+                        PDF Sayfaları Yükleniyor...
+                    </div>
+                    <div id="pdfPagesContainer" class="flex flex-col items-center"></div>
+                </div>
+            `;
+
+            try {
+                if (!window.pdfjsLib) throw new Error("PDF kütüphanesi yüklenemedi.");
+                const loadingTask = window.pdfjsLib.getDocument(pdfUrl);
+                activePdfDoc = await loadingTask.promise;
+                const totalPages = activePdfDoc.numPages;
+
+                const statusHeader = document.getElementById('pdfStatusHeader');
+                statusHeader.innerHTML = `<span class="px-3 py-1 rounded-full bg-slate-900/15 border border-current/15">${title} — Toplam ${totalPages} Sayfa</span>`;
+
+                await renderAllPdfPages();
+                document.getElementById('readerScrollContainer').scrollTop = 0;
+            } catch (err) {
+                viewer.innerHTML = `<iframe src="${pdfUrl}" class="w-full h-screen border-0"></iframe>`;
+            }
+        }
+
+        async function renderAllPdfPages() {
+            if (!activePdfDoc) return;
+            const container = document.getElementById('pdfPagesContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const totalPages = activePdfDoc.numPages;
+            for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+                if (currentReaderMode !== 'pdf') break;
+                const page = await activePdfDoc.getPage(pageNum);
+                const viewport = page.getViewport({ scale: currentPdfScale });
+
+                const wrapper = document.createElement('div');
+                wrapper.className = "w-full flex flex-col items-center mb-4";
+
+                const canvas = document.createElement('canvas');
+                canvas.className = "pdf-page-canvas bg-white";
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const pageLabel = document.createElement('span');
+                pageLabel.className = "text-[10px] font-sans font-semibold opacity-60 mb-2";
+                pageLabel.innerText = `Sayfa ${pageNum} / ${totalPages}`;
+
+                wrapper.appendChild(canvas);
+                wrapper.appendChild(pageLabel);
+                container.appendChild(wrapper);
+
+                await page.render({ canvasContext: context, viewport: viewport }).promise;
+            }
+        }
+
+        // 3. EPUB OKUYUCU
         async function loadEpubIntoReader(epubUrl) {
             currentReaderMode = 'epub';
             document.getElementById('readerFormatBadge').innerText = 'EPUB OKUYUCU';
-            document.getElementById('txtControls').style.display = 'none';
-            const switchBtn = document.getElementById('switchFormatBtn');
-            if (activeTxtUrl) switchBtn.innerText = "TXT Görünümü";
+            document.getElementById('zoomAndFontControls').style.display = 'none';
+            updateFormatButtonsUI();
 
             const viewer = document.getElementById('viewer');
             viewer.innerHTML = '';
@@ -1064,18 +1188,25 @@
             }
         }
 
-        window.switchReaderFormat = () => {
-            if (currentReaderMode === 'txt' && activeEpubUrl) {
-                loadEpubIntoReader(activeEpubUrl);
-            } else if (currentReaderMode === 'epub' && activeTxtUrl) {
+        window.switchReaderFormat = (targetMode) => {
+            if (targetMode === 'txt' && activeTxtUrl) {
                 loadTxtIntoReader(activeTxtUrl, activeBookTitle);
+            } else if (targetMode === 'pdf' && activePdfUrl) {
+                loadPdfIntoReader(activePdfUrl, activeBookTitle);
+            } else if (targetMode === 'epub' && activeEpubUrl) {
+                loadEpubIntoReader(activeEpubUrl);
             }
         };
 
-        window.changeReaderFontSize = (delta) => {
-            currentReaderFontSize = Math.min(28, Math.max(14, currentReaderFontSize + delta));
-            const body = document.getElementById('txtContentBody');
-            if (body) body.style.fontSize = `${currentReaderFontSize}px`;
+        window.adjustReaderSize = (direction) => {
+            if (currentReaderMode === 'txt') {
+                currentReaderFontSize = Math.min(28, Math.max(14, currentReaderFontSize + (direction * 2)));
+                const body = document.getElementById('txtContentBody');
+                if (body) body.style.fontSize = `${currentReaderFontSize}px`;
+            } else if (currentReaderMode === 'pdf') {
+                currentPdfScale = Math.min(2.4, Math.max(0.8, +(currentPdfScale + (direction * 0.2)).toFixed(1)));
+                renderAllPdfPages();
+            }
         };
 
         window.setReaderTheme = (theme) => {
@@ -1094,6 +1225,7 @@
         
         window.closeReader = () => {
             document.getElementById('readerModal').classList.remove('modal-active');
+            activePdfDoc = null;
             if(rendition) {
                 rendition.destroy();
                 rendition = null;
@@ -1293,7 +1425,8 @@
                 allCategories = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 
                 catContainer.innerHTML = `<button onclick="filterCategory('Tümü', this)" class="cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-brand-500 bg-brand-500 text-slate-950 shadow-md shadow-brand-500/20">Tümü</button>`;
-                catSelect.innerHTML = ''; adminCatList.innerHTML = '';
+                catSelect.innerHTML = '<option value="Genel">Genel</option>';
+                adminCatList.innerHTML = '';
                 
                 allCategories.forEach(c => {
                     catContainer.innerHTML += `<button onclick="filterCategory('${c.ad}', this)" class="cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-slate-700/80 text-slate-400 hover:text-white bg-slate-900/50">${c.ad}</button>`;
@@ -1340,18 +1473,18 @@
         window.addNewBook = async (e) => {
             e.preventDefault();
             const newBook = {
-                baslik: document.getElementById('newBookTitle').value,
-                yazar: document.getElementById('newBookAuthor').value,
-                kategori: document.getElementById('newBookCategory').value,
-                dosyaAdi: document.getElementById('newBookFile').value,
-                kapakUrl: document.getElementById('newBookCover').value,
-                aciklama: document.getElementById('newBookDesc').value,
+                baslik: document.getElementById('newBookTitle').value.trim(),
+                yazar: document.getElementById('newBookAuthor').value.trim(),
+                kategori: document.getElementById('newBookCategory').value || 'Genel',
+                dosyaAdi: document.getElementById('newBookFile').value.trim(),
+                kapakUrl: document.getElementById('newBookCover').value.trim(),
+                aciklama: document.getElementById('newBookDesc').value.trim(),
                 indirmeSayisi: 0,
                 tarih: serverTimestamp()
             };
             try {
                 await addDoc(collection(db, "kitaplar"), newBook);
-                alert("Kitap eklendi!");
+                alert("Kitap başarıyla eklendi!");
                 document.getElementById('addBookForm').reset();
                 loadBooks(); loadAdminBooks(); 
             } catch(err) { alert(err.message); }
@@ -1529,8 +1662,8 @@
             let reply = "E-Kitap Deposu'na hoş geldiniz. Kitapları 'Oku' butonuna basarak hemen okuyabilir veya giriş yaparak indirebilirsiniz.";
             if (text.includes("fiyat") || text.includes("ücret") || text.includes("paralı") || text.includes("bağış")) {
                 reply = "Sitemiz tamamen <b>ücretsizdir</b>.";
-            } else if (text.includes("nasıl") || text.includes("açılır") || text.includes("epub") || text.includes("okunur") || text.includes("txt")) {
-                reply = "Kitap kartlarındaki <b>'Oku'</b> butonuna tıkladığınızda gelişmiş okuyucu açılır. Yazı boyutunu büyütüp küçültebilir, Sepya veya Gece modunda doğrudan tarayıcıda okuyabilirsiniz.";
+            } else if (text.includes("nasıl") || text.includes("açılır") || text.includes("epub") || text.includes("okunur") || text.includes("txt") || text.includes("pdf")) {
+                reply = "Kitap kartlarındaki <b>'Oku'</b> butonuna tıkladığınızda PDF, TXT ve EPUB destekli okuyucumuz doğrudan tarayıcıda açılır.";
             } else if (text.includes("favori")) {
                 reply = "Kitapların sağ üst köşesindeki kalp ikonuna tıklayarak favorilerinize ekleyebilirsiniz.";
             } else if (text.includes("sizden") || text.includes("alıntı") || text.includes("öneri") || text.includes("tavsiye")) {
@@ -1540,7 +1673,7 @@
             } else if (text.includes("qr")) {
                 reply = "Sitemizin QR kodunu sayfanın en altındaki <b>'Site QR Kodunu Göster'</b> butonuna tıklayarak görebilir ve indirebilirsiniz.";
             }
-            chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-brand-500 text-slate-900 flex-shrink-0 flex items-center justify-center mt-1"><i class="fa-solid fa-book text-[10px]"></i></div><div class="bg-slate-800 text-slate-300 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
+            chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-black border border-brand-500/40 flex-shrink-0 flex items-center justify-center mt-1 overflow-hidden p-0.5"><img src="Logom.png" class="w-full h-full object-contain"></div><div class="bg-slate-800 text-slate-300 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
