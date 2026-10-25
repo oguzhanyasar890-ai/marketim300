@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Marketim 3000 | Dijital Mağaza & Kütüphane</title>
   <link rel="manifest" href="manifest.json">
+  <link rel="assetlinks" href="/.well-known/assetlinks.json">
+
   <meta name="theme-color" content="#dc2626"/>
   <meta name="description" content="Ufkunuzu açacak rehberler ve kişisel gelişim eserleri. Satın alın; sesli dinleyin, okuyun ve indirin.">
-  <link rel="icon" href="1792945068177.jpg" type="image/jpeg">
+  <link rel="icon" href="1792945068177.jpg" type="image/png">
   <link rel="apple-touch-icon" href="1792945068177.jpg">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -96,7 +98,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center gap-3">
       <a href="#" class="flex items-center gap-3 group">
         <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-slate-950 border-2 border-brand-600 overflow-hidden flex items-center justify-center flex-shrink-0 shadow-md shadow-brand-600/20 group-hover:scale-105 transition">
-          <img src="./1792945068177.jpg" onerror="handleLogoError(this)" alt="Logo" class="w-full h-full object-contain p-0.5">
+          <img src="1792945068177.jpg" onerror="handleLogoError(this)" alt="Logo" class="w-full h-full object-contain p-0.5">
         </div>
         <div>
           <h1 class="text-lg md:text-2xl font-sans font-black tracking-wide text-slate-900 dark:text-white leading-none">Marketim 3000</h1>
@@ -115,6 +117,11 @@
         <button id="adminPanelBtn" onclick="openAdminModal()" style="display: none;" class="bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-md flex items-center gap-1.5">
           <i class="fa-solid fa-shield-halved text-brand-500"></i> <span class="hidden sm:inline">Admin</span>
         </button>
+        
+        <a href="marketim3000.apk" download="marketim3000.apk" class="bg-slate-900 hover:bg-slate-800 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition shadow-lg flex items-center gap-2">
+          <i class="fa-brands fa-android text-brand-400"></i> <span class="hidden sm:inline">Uygulamayı İndir</span>
+        </a>
+
         <button id="googleLoginBtn" onclick="openAuthModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition shadow-lg shadow-brand-600/25 flex items-center gap-2">
           <i class="fa-solid fa-right-to-bracket"></i> <span>Giriş Yap</span>
         </button>
@@ -134,7 +141,7 @@
         <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
             <div class="bg-white rounded-[2rem] p-7 sm:p-10 shadow-2xl border-2 border-white">
                 <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-5 rounded-3xl bg-slate-950 border-2 border-brand-600 shadow-xl shadow-brand-600/20 p-2 flex items-center justify-center">
-                    <img src="./1792945068177.jpg" onerror="handleLogoError(this)" alt="Logo" class="w-full h-full object-contain">
+                    <img src="1792945068177.jpg" onerror="handleLogoError(this)" alt="Logo" class="w-full h-full object-contain">
                 </div>
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-600 text-white text-[11px] font-black mb-5 tracking-wide">
                     <i class="fa-solid fa-headphones"></i> SESLİ KİTAP & DİJİTAL ARŞİV
@@ -144,7 +151,7 @@
                     <span class="text-brand-600">Dinleyerek Keşfedin!</span>
                 </h2>
                 <p class="text-slate-800 text-sm sm:text-[15px] max-w-xl mx-auto mb-8 leading-relaxed font-bold bg-slate-100 rounded-xl px-4 py-3">
-                    Seçkin e-kitap koleksiyonunu ister gözlerinizle okuyun, ister yapay zeka seslendirmesi ile kaldığınız yerden dinleyin.
+                    Aradığınız dijital e-kitaplar tek bir tık uzağınızda! Dijital mağazamızdan dilediğiniz eseri güvenle satın alın, anında cihazınıza indirin. Satın aldığınız kitapları ister modern okuyucumuzda okuyun, isterseniz akıllı seslendirme özelliğiyle kaldığınız yerden dinleyin.
                 </p>
                 <div class="flex flex-wrap justify-center gap-3">
                     <a href="#kitaplarBolumu" class="bg-brand-600 hover:bg-brand-700 text-white font-black px-7 py-3.5 rounded-xl text-sm transition shadow-lg shadow-brand-600/25 flex items-center gap-2 tracking-wide">
@@ -153,6 +160,10 @@
                     <a href="#sizdenGelenlerSection" class="bg-slate-900 hover:bg-black text-white font-black px-7 py-3.5 rounded-xl text-sm transition shadow-sm flex items-center gap-2 tracking-wide">
                         <i class="fa-solid fa-feather-pointed"></i> Sizden Gelenler
                     </a>
+                    <a href="marketim3000.apk" download="marketim3000.apk" class="bg-slate-900 hover:bg-black text-white font-black px-7 py-3.5 rounded-xl text-sm transition shadow-sm flex items-center gap-2 tracking-wide">
+                        <i class="fa-brands fa-android text-brand-400"></i> Android Uygulamasını İndir
+                    </a>
+
                 </div>
             </div>
         </div>
@@ -249,7 +260,7 @@
   <div id="authModal" class="fixed inset-0 z-[999999] items-center justify-center bg-slate-950/75 backdrop-blur-sm p-4">
     <div class="bg-white dark:bg-slate-800 border-2 border-red-100 dark:border-slate-700 rounded-3xl w-full max-w-md p-8 shadow-2xl relative">
       <button onclick="document.getElementById('authModal').classList.remove('modal-active')" class="absolute top-4 right-4 text-slate-400 hover:text-brand-600"><i class="fa-solid fa-xmark text-xl"></i></button>
-      <div class="text-center mb-6"><div class="w-16 h-16 mx-auto mb-3 bg-slate-950 border-2 border-brand-600 rounded-2xl flex items-center justify-center overflow-hidden p-1 shadow-lg"><img src="./1792945068177.jpg" onerror="handleLogoError(this)" alt="Logo" class="w-full h-full object-contain"></div><h3 class="text-2xl font-bold text-slate-900 dark:text-white" id="authTitle">Giriş Yap</h3></div>
+      <div class="text-center mb-6"><div class="w-16 h-16 mx-auto mb-3 bg-slate-950 border-2 border-brand-600 rounded-2xl flex items-center justify-center overflow-hidden p-1 shadow-lg"><img src="1792945068177.jpg" onerror="handleLogoError(this)" alt="Logo" class="w-full h-full object-contain"></div><h3 class="text-2xl font-bold text-slate-900 dark:text-white" id="authTitle">Giriş Yap</h3></div>
       <form id="emailAuthForm" onsubmit="handleEmailAuth(event)" class="flex flex-col gap-4 mb-4">
         <div id="nameField" style="display:none;"><label class="text-xs text-slate-600 dark:text-slate-400 font-bold mb-1 block">Adınız Soyadınız</label><input type="text" id="authNameInput" class="w-full bg-red-50/40 dark:bg-slate-900 border border-red-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-600"></div>
         <div><label class="text-xs text-slate-600 dark:text-slate-400 font-bold mb-1 block">E-Posta</label><input type="email" id="authEmailInput" required class="w-full bg-red-50/40 dark:bg-slate-900 border border-red-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-600"></div>
@@ -292,7 +303,7 @@
   <div id="readerModal" class="fixed inset-0 z-[9999999] bg-white flex-col">
     <div class="bg-brand-600 text-white px-3 sm:px-6 py-2.5 flex flex-wrap justify-between items-center gap-2 shadow-md">
       <div class="flex items-center gap-2.5 min-w-0">
-        <img src="./1792945068177.jpg" onerror="handleLogoError(this)" alt="Logo" class="w-7 h-7 rounded-lg object-contain bg-slate-950 border border-white/30 p-0.5">
+        <img src="1792945068177.jpg" onerror="handleLogoError(this)" alt="Logo" class="w-7 h-7 rounded-lg object-contain bg-slate-950 border border-white/30 p-0.5">
         <h3 id="readerTitle" class="text-white font-bold text-xs sm:text-sm truncate max-w-[130px] sm:max-w-xs">Kitap Okunuyor...</h3>
         <span id="readerFormatBadge" class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-white text-brand-600">AKILLI OKUYUCU</span>
         <span id="ttsProgressText" class="hidden sm:inline text-[10px] bg-black/20 px-2 py-0.5 rounded">Hazır</span>
@@ -372,8 +383,8 @@
 
   <div id="aiChatbot" style="z-index: 99999 !important;" class="fixed bottom-5 right-4 md:right-6 flex flex-col items-end">
     <div id="chatWindow" style="display: none;" class="w-80 sm:w-96 bg-white dark:bg-slate-800 border-2 border-red-200 dark:border-slate-700 rounded-2xl shadow-2xl mb-4 overflow-hidden flex-col">
-      <div class="bg-brand-600 px-4 py-3 flex justify-between items-center text-white"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-slate-950 flex items-center justify-center shadow-sm overflow-hidden p-0.5 border border-white/30"><img src="./1792945068177.jpg" onerror="handleLogoError(this)" alt="Asistan" class="w-full h-full object-contain"></div><div><h4 class="text-white text-sm font-bold tracking-wide">Depo Asistanı</h4><span class="text-[10px] text-red-100 flex items-center gap-1 font-bold"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Çevrimiçi</span></div></div><button onclick="toggleChat()" class="text-white/80 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button></div>
-      <div id="chatMessages" class="p-4 h-64 overflow-y-auto bg-red-50/30 dark:bg-slate-900 flex flex-col gap-3 text-sm"><div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-slate-950 border border-brand-600 flex-shrink-0 flex items-center justify-center mt-1 overflow-hidden p-0.5"><img src="./1792945068177.jpg" onerror="handleLogoError(this)" alt="Bot" class="w-full h-full object-contain"></div><div class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-red-100 dark:border-slate-700 shadow-sm leading-relaxed">Merhaba! Artık kitapları vurgulamalı olarak dinleyebilirsiniz. Oynat tuşuna basmanız yeterli.</div></div></div>
+      <div class="bg-brand-600 px-4 py-3 flex justify-between items-center text-white"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-slate-950 flex items-center justify-center shadow-sm overflow-hidden p-0.5 border border-white/30"><img src="1792945068177.jpg" onerror="handleLogoError(this)" alt="Asistan" class="w-full h-full object-contain"></div><div><h4 class="text-white text-sm font-bold tracking-wide">Depo Asistanı</h4><span class="text-[10px] text-red-100 flex items-center gap-1 font-bold"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Çevrimiçi</span></div></div><button onclick="toggleChat()" class="text-white/80 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button></div>
+      <div id="chatMessages" class="p-4 h-64 overflow-y-auto bg-red-50/30 dark:bg-slate-900 flex flex-col gap-3 text-sm"><div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-slate-950 border border-brand-600 flex-shrink-0 flex items-center justify-center mt-1 overflow-hidden p-0.5"><img src="1792945068177.jpg" onerror="handleLogoError(this)" alt="Bot" class="w-full h-full object-contain"></div><div class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-red-100 dark:border-slate-700 shadow-sm leading-relaxed">Merhaba! Artık kitapları vurgulamalı olarak dinleyebilirsiniz. Oynat tuşuna basmanız yeterli.</div></div></div>
       <div class="p-3 bg-white dark:bg-slate-800 border-t border-red-100 dark:border-slate-700 flex items-center gap-2"><input type="text" id="chatInput" placeholder="Bir soru sorun..." class="flex-grow bg-red-50/50 dark:bg-slate-900 text-slate-900 dark:text-white text-sm px-3 py-2 rounded-xl border border-red-200 dark:border-slate-700 focus:outline-none focus:border-brand-600 transition" onkeypress="handleKeyPress(event)"><button onclick="sendMessage()" class="bg-brand-600 hover:bg-brand-700 text-white w-10 h-10 rounded-xl flex items-center justify-center transition shadow"><i class="fa-regular fa-paper-plane text-sm"></i></button></div>
     </div>
     <button onclick="toggleChat()" class="w-14 h-14 bg-brand-600 hover:bg-brand-700 hover:scale-105 rounded-full flex items-center justify-center shadow-lg shadow-brand-600/35 transition duration-300 relative text-white"><i class="fa-solid fa-comments text-lg"></i><span class="absolute -top-1.5 -right-1 bg-white text-brand-600 text-[9px] font-black px-2 py-0.5 border border-brand-600 rounded-full tracking-wider shadow">ASİSTAN</span></button>
@@ -1593,7 +1604,7 @@ function botReply(text) {
   else if (text.includes("satın al") || text.includes("nasıl al")) reply = "Kitabın üzerindeki <b>Satın Al</b> butonuna bas, açılan ekrandaki IBAN'a ödemeni yap ve WhatsApp butonuyla dekontu gönder. Onaylandığında kitap kütüphanene eklenir.";
   else if (text.includes("ses") || text.includes("dinle")) reply = "Üstteki ses barından <b>▶</b> bas, hızını 1.5x yapabilir, ileri-geri atlayabilirsin. TXT kitaplar en iyi sonucu verir.";
   else if (text.includes("kaydet") || text.includes("kaldı")) reply = "Okuma ve dinleme konumun otomatik kaydediliyor. Kitabı kapatıp açtığında kaldığın yerden devam edersin.";
-  chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-slate-950 border border-brand-600 flex-shrink-0 flex items-center justify-center mt-1 overflow-hidden p-0.5"><img src="./1792945068177.jpg" onerror="handleLogoError(this)" class="w-full h-full object-contain"></div><div class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-red-100 dark:border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
+  chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-slate-950 border border-brand-600 flex-shrink-0 flex items-center justify-center mt-1 overflow-hidden p-0.5"><img src="1792945068177.jpg" onerror="handleLogoError(this)" class="w-full h-full object-contain"></div><div class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-red-100 dark:border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
