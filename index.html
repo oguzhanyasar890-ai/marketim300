@@ -6,7 +6,7 @@
   <title>E-Kitap Deposu | Dijital Mağaza & Kütüphane</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#dc2626"/>
-  <meta name="description" content="Ufkunuzu açacak rehberler, kişisel gelişim eserleri ve ücretsiz e-kitaplar. Sesli dinle, oku, indir.">
+  <meta name="description" content="Ufkunuzu açacak rehberler ve kişisel gelişim eserleri. Satın alın; sesli dinleyin, okuyun ve indirin.">
   <link rel="icon" href="Logom.png?v=2" type="image/png">
   <link rel="apple-touch-icon" href="Logom.png?v=2">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@
     .loader { border: 3px solid #fee2e2; border-top: 3px solid #dc2626; border-radius: 50%; width: 28px; height: 28px; animation: spin 0.8s linear infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     .scrollbar-hide::-webkit-scrollbar { display: none; }
-    #bookDetailModal, #adminModal, #authModal, #profileModal, #readerModal, #qrModal, #submissionModal { display: none; }
+    #bookDetailModal, #adminModal, #authModal, #profileModal, #readerModal, #qrModal, #submissionModal, #purchaseModal { display: none; }
     #viewer { width: 100%; height: 100%; }
     .epub-container { height: 100% !important; }
     .reader-theme-sepia { background-color: #f4ecd8 !important; color: #3b2f2f !important; }
@@ -70,12 +70,27 @@
             backdrop-filter: blur(2px);
         }
         .locked-book { position: relative; }
+        .priced-book::after {
+            content: '🔒 Satın Al';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 900;
+            border-radius: 1rem;
+            backdrop-filter: blur(2px);
+        }
+        .priced-book { position: relative; }
     </style>
 
 </head>
 <body class="font-sans min-h-screen flex flex-col relative selection:bg-brand-600 selection:text-white">
   <div class="bg-gradient-to-r from-brand-700 via-brand-600 to-brand-700 text-white text-[11px] font-semibold py-1.5 px-4 text-center shadow-sm">
-    <span><i class="fa-solid fa-book-open mr-1.5"></i> E-Kitap Deposu — Ücretsiz Dijital Okuma, Dinleme ve İndirme Platformu</span>
+    <span><i class="fa-solid fa-book-open mr-1.5"></i> E-Kitap Deposu — Dijital Kitap Satış Platformu | Satın Al, Oku, Dinle, İndir</span>
   </div>
   <header class="glass-nav sticky top-0 z-40 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center gap-3">
@@ -174,7 +189,7 @@
             <span class="w-9 h-9 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold shadow-md shadow-brand-600/20"><i class="fa-solid fa-layer-group"></i></span>
             <div>
               <h2 class="text-xl sm:text-2xl font-sans font-black text-slate-900 dark:text-white leading-none" id="listTitle">Kitaplar Koleksiyonu</h2>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Arşivdeki tüm dijital kitapları okuyun, dinleyin ve indirin.</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Arşivdeki dijital kitapları satın alın; okuyun, dinleyin ve indirin.</p>
             </div>
           </div>
         </div>
@@ -275,9 +290,12 @@
     <div class="bg-white dark:bg-slate-800 border-2 border-red-100 dark:border-slate-700 rounded-3xl w-full max-w-4xl shadow-2xl relative overflow-hidden flex flex-col md:flex-row max-h-[90vh]">
       <button onclick="closeBookModal()" class="absolute top-4 right-4 z-10 w-9 h-9 bg-brand-600 text-white rounded-full flex items-center justify-center hover:bg-brand-700 transition shadow"><i class="fa-solid fa-xmark"></i></button>
       <div class="w-full md:w-1/2 flex flex-col border-b md:border-b-0 md:border-r border-red-100 dark:border-slate-700 overflow-y-auto p-6">
-        <div class="flex gap-5 items-start mb-5"><img id="modalCover" src="" class="w-28 sm:w-36 aspect-[2/3] object-cover rounded-xl book-cover-shadow flex-shrink-0 bg-red-50"><div class="flex flex-col"><span id="modalCategory" class="text-[10px] font-extrabold text-white bg-brand-600 px-2.5 py-1 rounded-md uppercase tracking-wider w-fit mb-2"></span><h3 id="modalTitle" class="text-xl sm:text-2xl font-sans font-black text-slate-900 dark:text-white mb-1.5 leading-snug"></h3><p id="modalAuthor" class="text-xs font-bold text-brand-600 mb-3"><i class="fa-solid fa-feather mr-1"></i> <span></span></p></div></div>
+        <div class="flex gap-5 items-start mb-5"><img id="modalCover" src="" class="w-28 sm:w-36 aspect-[2/3] object-cover rounded-xl book-cover-shadow flex-shrink-0 bg-red-50"><div class="flex flex-col"><div class="flex items-center gap-2 mb-2"><span id="modalCategory" class="text-[10px] font-extrabold text-white bg-brand-600 px-2.5 py-1 rounded-md uppercase tracking-wider w-fit"></span><span id="modalPriceBadge" class="text-[10px] font-extrabold text-brand-600 bg-red-50 dark:bg-slate-800 border border-red-200 dark:border-slate-700 px-2.5 py-1 rounded-md w-fit"></span></div><h3 id="modalTitle" class="text-xl sm:text-2xl font-sans font-black text-slate-900 dark:text-white mb-1.5 leading-snug"></h3><p id="modalAuthor" class="text-xs font-bold text-brand-600 mb-3"><i class="fa-solid fa-feather mr-1"></i> <span></span></p></div></div>
         <p id="modalDesc" class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-6 flex-grow"></p>
-        <div class="mt-auto flex gap-2.5 pt-4 border-t border-red-100 dark:border-slate-700"><button id="modalReadBtn" class="flex-1 bg-white hover:bg-red-50 text-brand-600 border-2 border-brand-600 py-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2"><i class="fa-solid fa-book-open"></i> Oku & Dinle</button><button id="modalDownloadBtn" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl text-xs font-bold transition shadow-lg shadow-brand-600/25 flex items-center justify-center gap-2"><i class="fa-solid fa-download"></i> İndir</button></div>
+        <div class="mt-auto pt-4 border-t border-red-100 dark:border-slate-700">
+          <button id="modalBuyBtn" class="hidden w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl text-xs font-bold transition shadow-lg flex items-center justify-center gap-2"><i class="fa-solid fa-cart-shopping"></i> <span id="modalBuyBtnText">Satın Al</span></button>
+          <div id="modalReadDownloadRow" class="flex gap-2.5"><button id="modalReadBtn" class="flex-1 bg-white hover:bg-red-50 text-brand-600 border-2 border-brand-600 py-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2"><i class="fa-solid fa-book-open"></i> Oku & Dinle</button><button id="modalDownloadBtn" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white py-3 rounded-xl text-xs font-bold transition shadow-lg shadow-brand-600/25 flex items-center justify-center gap-2"><i class="fa-solid fa-download"></i> İndir</button></div>
+        </div>
       </div>
       <div class="w-full md:w-1/2 flex flex-col bg-red-50/30 dark:bg-slate-900/40 overflow-hidden">
         <div class="p-5 border-b border-red-100 dark:border-slate-700 bg-red-50/80 dark:bg-slate-800"><h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2"><i class="fa-solid fa-comments text-brand-600"></i> Okur Yorumları</h4></div>
@@ -317,12 +335,12 @@
   <div id="adminModal" class="fixed inset-0 z-[999999] items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
     <div class="bg-white dark:bg-slate-900 border-2 border-red-200 dark:border-slate-700 rounded-3xl w-full max-w-4xl shadow-2xl relative overflow-hidden flex flex-col h-[90vh]">
       <div class="bg-brand-600 p-4 flex justify-between items-center text-white"><h2 class="text-xl font-bold"><i class="fa-solid fa-user-shield mr-2"></i> Yönetici Paneli</h2><button onclick="document.getElementById('adminModal').classList.remove('modal-active')" class="text-red-100 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button></div>
-      <div class="flex border-b border-red-100 dark:border-slate-700 bg-red-50 dark:bg-slate-800 overflow-x-auto scrollbar-hide"><button onclick="switchAdminTab('books')" id="tabBtnBooks" class="flex-1 py-3 px-4 text-sm font-bold text-brand-600 border-b-2 border-brand-600 whitespace-nowrap">Kitaplar</button><button onclick="switchAdminTab('youtube')" id="tabBtnYoutube" class="flex-1 py-3 px-4 text-sm font-bold text-slate-500 hover:text-brand-600 border-b-2 border-transparent whitespace-nowrap"><i class="fa-brands fa-youtube mr-1"></i> YouTube</button><button onclick="switchAdminTab('categories')" id="tabBtnCategories" class="flex-1 py-3 px-4 text-sm font-bold text-slate-500 hover:text-brand-600 border-b-2 border-transparent whitespace-nowrap">Kategoriler</button><button onclick="switchAdminTab('comments')" id="tabBtnComments" class="flex-1 py-3 px-4 text-sm font-bold text-slate-500 hover:text-brand-600 border-b-2 border-transparent whitespace-nowrap">Yorumlar</button><button onclick="switchAdminTab('submissions')" id="tabBtnSubmissions" class="flex-1 py-3 px-4 text-sm font-bold text-slate-500 hover:text-brand-600 border-b-2 border-transparent whitespace-nowrap">Sizden Gelenler</button></div>
+      <div class="flex border-b border-red-100 dark:border-slate-700 bg-red-50 dark:bg-slate-800 overflow-x-auto scrollbar-hide"><button onclick="switchAdminTab('books')" id="tabBtnBooks" class="flex-1 py-3 px-4 text-sm font-bold text-brand-600 border-b-2 border-brand-600 whitespace-nowrap">Kitaplar</button><button onclick="switchAdminTab('youtube')" id="tabBtnYoutube" class="flex-1 py-3 px-4 text-sm font-bold text-slate-500 hover:text-brand-600 border-b-2 border-transparent whitespace-nowrap"><i class="fa-brands fa-youtube mr-1"></i> YouTube</button><button onclick="switchAdminTab('categories')" id="tabBtnCategories" class="flex-1 py-3 px-4 text-sm font-bold text-slate-500 hover:text-brand-600 border-b-2 border-transparent whitespace-nowrap">Kategoriler</button><button onclick="switchAdminTab('comments')" id="tabBtnComments" class="flex-1 py-3 px-4 text-sm font-bold text-slate-500 hover:text-brand-600 border-b-2 border-transparent whitespace-nowrap">Yorumlar</button><button onclick="switchAdminTab('submissions')" id="tabBtnSubmissions" class="flex-1 py-3 px-4 text-sm font-bold text-slate-500 hover:text-brand-600 border-b-2 border-transparent whitespace-nowrap">Sizden Gelenler</button><button onclick="switchAdminTab('orders')" id="tabBtnOrders" class="flex-1 py-3 px-4 text-sm font-bold text-slate-500 hover:text-brand-600 border-b-2 border-transparent whitespace-nowrap"><i class="fa-solid fa-receipt mr-1"></i> Siparişler</button></div>
       <div class="p-6 overflow-y-auto flex-grow">
         <div id="adminTabBooks">
           <form id="addBookForm" onsubmit="addNewBook(event)" class="bg-red-50/60 dark:bg-slate-800 p-4 rounded-2xl mb-8 border border-red-200 dark:border-slate-700 grid grid-cols-1 md:grid-cols-2 gap-4">
             <h3 class="col-span-full text-brand-600 font-bold mb-1">Yeni Kitap Ekle</h3><p class="col-span-full text-[11px] text-slate-500 mb-2">Sesli okuma için <b>TXT</b> eklemen önerilir. Aynı kitap için pdf, epub, txt dosyaları aynı isimde olmalı (ör: kitap.pdf, kitap.txt)</p>
-            <input type="text" id="newBookTitle" required placeholder="Kitap Adı" class="bg-white dark:bg-slate-900 border border-red-200 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg p-2.5 text-sm"><input type="text" id="newBookAuthor" required placeholder="Yazar" class="bg-white dark:bg-slate-900 border border-red-200 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg p-2.5 text-sm"><select id="newBookCategory" class="bg-white dark:bg-slate-900 border border-red-200 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg p-2.5 text-sm"></select><input type="text" id="newBookFile" required placeholder="Dosya Adı (ör: kitap.txt)" class="bg-white dark:bg-slate-900 border border-red-200 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg p-2.5 text-sm"><input type="text" id="newBookCover" required placeholder="Kapak Resmi URL" class="bg-white dark:bg-slate-900 border border-red-200 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg p-2.5 text-sm col-span-full"><textarea id="newBookDesc" required placeholder="Kitap Açıklaması" class="bg-white dark:bg-slate-900 border border-red-200 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg p-2.5 text-sm col-span-full" rows="2"></textarea><button type="submit" class="col-span-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-lg shadow">Kitabı Kaydet</button>
+            <input type="text" id="newBookTitle" required placeholder="Kitap Adı" class="bg-white dark:bg-slate-900 border border-red-200 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg p-2.5 text-sm"><input type="text" id="newBookAuthor" required placeholder="Yazar" class="bg-white dark:bg-slate-900 border border-red-200 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg p-2.5 text-sm"><select id="newBookCategory" class="bg-white dark:bg-slate-900 border border-red-200 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg p-2.5 text-sm"></select><input type="text" id="newBookFile" required placeholder="Dosya Adı (ör: kitap.txt)" class="bg-white dark:bg-slate-900 border border-red-200 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg p-2.5 text-sm"><input type="number" id="newBookPrice" min="0" step="0.01" placeholder="Fiyat (₺) — Ücretsiz için boş bırakın" class="bg-white dark:bg-slate-900 border border-red-200 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg p-2.5 text-sm"><input type="text" id="newBookCover" required placeholder="Kapak Resmi URL" class="bg-white dark:bg-slate-900 border border-red-200 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg p-2.5 text-sm col-span-full"><textarea id="newBookDesc" required placeholder="Kitap Açıklaması" class="bg-white dark:bg-slate-900 border border-red-200 dark:border-slate-600 text-slate-900 dark:text-white rounded-lg p-2.5 text-sm col-span-full" rows="2"></textarea><button type="submit" class="col-span-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-lg shadow">Kitabı Kaydet</button>
           </form>
           <h3 class="text-slate-900 dark:text-white font-bold mb-4">Mevcut Kitaplar</h3><div id="adminBookList" class="space-y-2"></div>
         </div>
@@ -342,7 +360,27 @@
                 <div id="adminTabCategories" class="hidden"><form id="addCategoryForm" onsubmit="addCategory(event)" class="flex gap-2 mb-6"><input type="text" id="newCategoryName" required placeholder="Yeni Kategori Adı" class="flex-grow bg-white dark:bg-slate-900 border border-red-200 text-slate-900 dark:text-white rounded-lg p-2.5 text-sm"><button type="submit" class="bg-brand-600 text-white font-bold px-5 rounded-lg text-sm">Ekle</button></form><div id="adminCategoryList" class="space-y-2"></div></div>
         <div id="adminTabComments" class="hidden"><h3 class="text-slate-900 dark:text-white font-bold mb-4">Onay Bekleyen Yorumlar</h3><div id="adminCommentList" class="space-y-4"></div></div>
         <div id="adminTabSubmissions" class="hidden"><h3 class="text-slate-900 dark:text-white font-bold mb-4">Sizden Gelenler</h3><div id="adminSubmissionList" class="space-y-4"></div></div>
+        <div id="adminTabOrders" class="hidden"><h3 class="text-slate-900 dark:text-white font-bold mb-4">Satın Alma Talepleri</h3><p class="text-[11px] text-slate-500 mb-4">Kullanıcı ödemeyi yapıp WhatsApp'tan dekont gönderdiğinde burada "Bekliyor" olarak görünür. Kontrol ettikten sonra "Onayla" butonuna basın; kitap otomatik olarak kullanıcının hesabına tanımlanır.</p><div id="adminOrderList" class="space-y-3"></div></div>
       </div>
+    </div>
+  </div>
+
+  <div id="purchaseModal" class="fixed inset-0 z-[999999] items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+    <div class="bg-white dark:bg-slate-800 border-2 border-red-100 dark:border-slate-700 rounded-3xl w-full max-w-md p-7 shadow-2xl relative">
+      <button onclick="closePurchaseModal()" class="absolute top-4 right-4 text-slate-400 hover:text-brand-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+      <div class="text-center mb-5">
+        <div class="w-14 h-14 mx-auto mb-3 bg-brand-600 text-white rounded-2xl flex items-center justify-center text-2xl shadow-md"><i class="fa-solid fa-cart-shopping"></i></div>
+        <h3 class="text-xl font-black text-slate-900 dark:text-white">Kitabı Satın Al</h3>
+        <p id="purchaseBookTitle" class="text-brand-600 font-bold text-sm mt-1"></p>
+        <p id="purchaseBookPrice" class="text-3xl font-black text-slate-900 dark:text-white mt-2"></p>
+      </div>
+      <div class="bg-red-50/60 dark:bg-slate-900 border border-red-200 dark:border-slate-700 rounded-2xl p-4 mb-5 text-xs sm:text-sm space-y-2">
+        <p class="text-slate-700 dark:text-slate-300"><b>Banka:</b> <span id="bankAdi"></span></p>
+        <p class="text-slate-700 dark:text-slate-300"><b>Hesap Sahibi:</b> <span id="bankHesapSahibi"></span></p>
+        <p class="text-slate-700 dark:text-slate-300 flex items-center justify-between gap-2"><span><b>IBAN:</b> <span id="bankIban"></span></span><button onclick="copyIban()" title="IBAN'ı kopyala" class="text-brand-600 hover:text-brand-700"><i class="fa-regular fa-copy"></i></button></p>
+      </div>
+      <p class="text-[11px] text-slate-500 mb-5 leading-relaxed">Ücreti yukarıdaki hesaba gönderdikten sonra aşağıdaki butona basarak dekontu WhatsApp üzerinden bize iletin. Ödemeniz onaylandığında kitap hesabınıza otomatik olarak tanımlanır.</p>
+      <button onclick="confirmPurchaseRequest()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3.5 rounded-xl text-sm transition shadow-lg flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-lg"></i> Ödemeyi Yaptım, Bildir</button>
     </div>
   </div>
 
@@ -395,12 +433,30 @@ const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 const ADMIN_EMAIL = "oguzhanyasar890@gmail.com"; 
 
+// === ÖDEME / BANKA BİLGİLERİ — LÜTFEN KENDİ BİLGİLERİNİZLE DEĞİŞTİRİN ===
+const BANK_INFO = {
+  banka: "Kuveyt Türk",
+  hesapSahibi: "Oğuzhan Yaşar",
+  iban: "TR54 0020 5000 0965 2961 4000 01"
+};
+const WHATSAPP_NUMBER = "905542026620"; // Ödeme bildirimlerinin gideceği WhatsApp numarası
+
 let allBooks = [];
 let allCategories = [];
 let currentCategory = 'Tümü';
 let searchQuery = '';
 let userFavorites = [];
+let userPurchases = [];
 let currentBookForComments = null;
+let purchaseModalBookId = null;
+
+// Bir kitaba erişim var mı? (ücretsizse ya da satın alınmışsa true)
+function canAccessBook(book) {
+  const price = Number(book.fiyat) || 0;
+  if (price <= 0) return true;
+  return userPurchases.includes(book.id);
+}
+window.canAccessBook = canAccessBook;
 
 let rendition = null;
 let currentReaderFontSize = 18;
@@ -915,7 +971,28 @@ window.openBookModal = async (bookId) => {
   document.getElementById('modalCategory').innerText = book.kategori || 'Genel';
   document.getElementById('modalDesc').innerText = book.aciklama;
   document.getElementById('modalDownloadBtn').onclick = (e) => checkDownload(e, book.id, book.dosyaAdi);
-  document.getElementById('modalReadBtn').onclick = () => { if(!auth.currentUser){ openAuthWithMessage('Okumak için Google ile giriş yapmalısınız'); return; } openReader(book.dosyaAdi, book.baslik, book.id); };
+  document.getElementById('modalReadBtn').onclick = () => openReader(book.dosyaAdi, book.baslik, book.id);
+  const price = Number(book.fiyat) || 0;
+  const owned = canAccessBook(book);
+  const priceBadgeEl = document.getElementById('modalPriceBadge');
+  const buyBtn = document.getElementById('modalBuyBtn');
+  const readRow = document.getElementById('modalReadDownloadRow');
+  if (price > 0) {
+    priceBadgeEl.innerText = owned ? 'Satın Alındı ✓' : `₺${price.toLocaleString('tr-TR')}`;
+    if (!owned) {
+      buyBtn.classList.remove('hidden');
+      readRow.classList.add('hidden');
+      document.getElementById('modalBuyBtnText').innerText = `Satın Al — ₺${price.toLocaleString('tr-TR')}`;
+      buyBtn.onclick = () => openPurchaseModal(book.id);
+    } else {
+      buyBtn.classList.add('hidden');
+      readRow.classList.remove('hidden');
+    }
+  } else {
+    priceBadgeEl.innerText = 'Ücretsiz';
+    buyBtn.classList.add('hidden');
+    readRow.classList.remove('hidden');
+  }
   loadBookComments(bookId);
   document.getElementById('bookDetailModal').classList.add('modal-active');
 };
@@ -987,6 +1064,11 @@ function updateFormatButtonsUI() {
 window.openReader = async (fileName, title, bookId) => {
   if (!auth.currentUser) {
     openAuthWithMessage('Kitapları okumak ve dinlemek için Google ile giriş yapmalısınız');
+    return;
+  }
+  const bookForAccess = allBooks.find(b => b.id === bookId);
+  if (bookForAccess && !canAccessBook(bookForAccess)) {
+    openPurchaseModal(bookId);
     return;
   }
   activeBookTitle = title;
@@ -1257,8 +1339,19 @@ window.renderBooks = () => {
     const cover = book.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800';
     const safeTitle = book.baslik.replace(/'/g, "\\'");
     const safeFile = book.dosyaAdi.replace(/'/g, "\\'");
-    const isLocked = !auth.currentUser;
-    grid.innerHTML += `<article class="surface-card hover:border-brand-600 rounded-2xl sm:rounded-3xl p-3 sm:p-4 flex flex-col group transition duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[2/3] rounded-xl sm:rounded-2xl overflow-hidden relative bg-red-50 mb-3.5 cursor-pointer book-cover-shadow ${isLocked ? 'locked-book' : ''}"><img src="${cover}" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><span class="absolute top-2.5 left-2.5 bg-brand-600 text-white px-2.5 py-1 rounded-lg text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider shadow">${book.kategori || 'Genel'}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-2.5 right-2.5 w-7 h-7 sm:w-8 sm:h-8 bg-white/95 rounded-full flex items-center justify-center transition hover:scale-110 shadow"><i class="${heartClass} text-xs"></i></button><span class="absolute bottom-2.5 left-2.5 text-[10px] font-bold text-slate-900 bg-white/95 px-2.5 py-0.5 rounded-md flex items-center gap-1 shadow"><i class="fa-solid fa-download text-brand-600 text-[9px]"></i> ${book.indirmeSayisi || 0}</span></div><div class="flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="text-sm sm:text-base font-sans font-bold text-slate-900 dark:text-white mb-0.5 line-clamp-1 cursor-pointer group-hover:text-brand-600 transition">${book.baslik}</h4><p class="text-[11px] font-bold text-brand-600 mb-2 line-clamp-1">${book.yazar}</p><p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed mb-3.5 line-clamp-2 hidden sm:block">${book.aciklama || ''}</p><div class="mt-auto pt-2.5 border-t border-red-100 dark:border-slate-700/40 flex flex-col gap-1.5"><div class="grid grid-cols-2 gap-1.5"><button onclick="event.stopPropagation(); openReader('${safeFile}', '${safeTitle}', '${book.id}')" class="bg-white hover:bg-red-50 text-brand-600 border border-brand-600 py-2 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1"><i class="fa-solid fa-headphones"></i> Dinle & Oku</button><button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${safeFile}')" class="bg-brand-600 hover:bg-brand-700 text-white py-2 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1 shadow-sm"><i class="fa-solid fa-download"></i> İndir</button></div><button onclick="event.stopPropagation(); openBookModal('${book.id}')" class="w-full bg-red-50/70 dark:bg-slate-800 hover:bg-red-100 text-slate-700 dark:text-slate-300 py-1.5 rounded-lg text-[10px] font-bold transition flex items-center justify-center gap-1"><i class="fa-regular fa-comment-dots text-brand-600"></i> Detay & Yorumlar</button></div></div></article>`;
+    const price = Number(book.fiyat) || 0;
+    const owned = canAccessBook(book);
+    const isLocked = price > 0 ? !owned : !auth.currentUser;
+    const lockClass = isLocked ? (price > 0 ? 'priced-book' : 'locked-book') : '';
+    const priceBadge = price > 0
+      ? (owned
+          ? `<span class="absolute bottom-2.5 right-2.5 text-[10px] font-extrabold text-white bg-emerald-600 px-2.5 py-0.5 rounded-md flex items-center gap-1 shadow"><i class="fa-solid fa-check"></i> Alındı</span>`
+          : `<span class="absolute bottom-2.5 right-2.5 text-[10px] font-extrabold text-white bg-slate-950 px-2.5 py-0.5 rounded-md shadow">₺${price.toLocaleString('tr-TR')}</span>`)
+      : `<span class="absolute bottom-2.5 right-2.5 text-[10px] font-extrabold text-white bg-brand-600 px-2.5 py-0.5 rounded-md shadow">Ücretsiz</span>`;
+    const actionButtons = (price > 0 && !owned)
+      ? `<button onclick="event.stopPropagation(); openPurchaseModal('${book.id}')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1 shadow-sm"><i class="fa-solid fa-cart-shopping"></i> Satın Al — ₺${price.toLocaleString('tr-TR')}</button>`
+      : `<div class="grid grid-cols-2 gap-1.5"><button onclick="event.stopPropagation(); openReader('${safeFile}', '${safeTitle}', '${book.id}')" class="bg-white hover:bg-red-50 text-brand-600 border border-brand-600 py-2 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1"><i class="fa-solid fa-headphones"></i> Dinle & Oku</button><button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${safeFile}')" class="bg-brand-600 hover:bg-brand-700 text-white py-2 rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1 shadow-sm"><i class="fa-solid fa-download"></i> İndir</button></div>`;
+    grid.innerHTML += `<article class="surface-card hover:border-brand-600 rounded-2xl sm:rounded-3xl p-3 sm:p-4 flex flex-col group transition duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[2/3] rounded-xl sm:rounded-2xl overflow-hidden relative bg-red-50 mb-3.5 cursor-pointer book-cover-shadow ${lockClass}"><img src="${cover}" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><span class="absolute top-2.5 left-2.5 bg-brand-600 text-white px-2.5 py-1 rounded-lg text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider shadow">${book.kategori || 'Genel'}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-2.5 right-2.5 w-7 h-7 sm:w-8 sm:h-8 bg-white/95 rounded-full flex items-center justify-center transition hover:scale-110 shadow"><i class="${heartClass} text-xs"></i></button><span class="absolute bottom-2.5 left-2.5 text-[10px] font-bold text-slate-900 bg-white/95 px-2.5 py-0.5 rounded-md flex items-center gap-1 shadow"><i class="fa-solid fa-download text-brand-600 text-[9px]"></i> ${book.indirmeSayisi || 0}</span>${priceBadge}</div><div class="flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="text-sm sm:text-base font-sans font-bold text-slate-900 dark:text-white mb-0.5 line-clamp-1 cursor-pointer group-hover:text-brand-600 transition">${book.baslik}</h4><p class="text-[11px] font-bold text-brand-600 mb-2 line-clamp-1">${book.yazar}</p><p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed mb-3.5 line-clamp-2 hidden sm:block">${book.aciklama || ''}</p><div class="mt-auto pt-2.5 border-t border-red-100 dark:border-slate-700/40 flex flex-col gap-1.5">${actionButtons}<button onclick="event.stopPropagation(); openBookModal('${book.id}')" class="w-full bg-red-50/70 dark:bg-slate-800 hover:bg-red-100 text-slate-700 dark:text-slate-300 py-1.5 rounded-lg text-[10px] font-bold transition flex items-center justify-center gap-1"><i class="fa-regular fa-comment-dots text-brand-600"></i> Detay & Yorumlar</button></div></div></article>`;
   });
 };
 function renderHomeSections() {
@@ -1276,10 +1369,56 @@ window.toggleFavorite = async (bookId, btn) => {
   if (userFavorites.includes(bookId)) { await deleteDoc(favRef); userFavorites = userFavorites.filter(id => id !== bookId); icon.className = "fa-regular fa-heart text-slate-700 text-xs"; }
   else { await setDoc(favRef, { addedAt: serverTimestamp() }); userFavorites.push(bookId); icon.className = "fa-solid fa-heart text-brand-600 text-xs"; }
 };
+
+// === SATIN ALMA (HAVALE/EFT + WHATSAPP ONAYI) ===
+window.openPurchaseModal = (bookId) => {
+  const book = allBooks.find(b => b.id === bookId);
+  if (!book) return;
+  if (!auth.currentUser) { openAuthWithMessage('Satın almak için önce giriş yapmalısınız'); return; }
+  if (canAccessBook(book)) return;
+  purchaseModalBookId = bookId;
+  const price = Number(book.fiyat) || 0;
+  document.getElementById('purchaseBookTitle').innerText = book.baslik;
+  document.getElementById('purchaseBookPrice').innerText = `₺${price.toLocaleString('tr-TR')}`;
+  document.getElementById('bankAdi').innerText = BANK_INFO.banka;
+  document.getElementById('bankHesapSahibi').innerText = BANK_INFO.hesapSahibi;
+  document.getElementById('bankIban').innerText = BANK_INFO.iban;
+  document.getElementById('purchaseModal').classList.add('modal-active');
+};
+window.closePurchaseModal = () => { document.getElementById('purchaseModal').classList.remove('modal-active'); purchaseModalBookId = null; };
+window.copyIban = () => { navigator.clipboard.writeText(BANK_INFO.iban.replace(/\s/g, '')); alert('IBAN kopyalandı!'); };
+
+window.confirmPurchaseRequest = async () => {
+  if (!purchaseModalBookId || !auth.currentUser) return;
+  const book = allBooks.find(b => b.id === purchaseModalBookId);
+  if (!book) return;
+  const price = Number(book.fiyat) || 0;
+  try {
+    await addDoc(collection(db, "siparisler"), {
+      kitapId: book.id,
+      kitapAdi: book.baslik,
+      fiyat: price,
+      kullaniciId: auth.currentUser.uid,
+      kullaniciEmail: auth.currentUser.email,
+      kullaniciAd: auth.currentUser.displayName || auth.currentUser.email,
+      durum: "bekliyor",
+      tarih: serverTimestamp()
+    });
+  } catch (e) {}
+  const msg = encodeURIComponent(`Merhaba, "${book.baslik}" (₺${price}) kitabı için ödemeyi yaptım. Dekontu ekte gönderiyorum. E-posta: ${auth.currentUser.email}`);
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+  closePurchaseModal();
+  alert('Siparişiniz alındı! Dekontu WhatsApp üzerinden gönderdiğinizde, onayın ardından kitap hesabınıza tanımlanacaktır.');
+};
 window.checkDownload = async (event, bookId, fileName) => {
   if (event) event.preventDefault();
   if (!auth.currentUser) {
     openAuthWithMessage('Kitapları indirmek için Google ile giriş yapmalısınız');
+    return;
+  }
+  const bookForAccess = allBooks.find(b => b.id === bookId);
+  if (bookForAccess && !canAccessBook(bookForAccess)) {
+    openPurchaseModal(bookId);
     return;
   }
   try {
@@ -1321,10 +1460,11 @@ window.openAdminModal = () => {
   loadAdminComments();
   loadCategories();
   loadAdminSubmissions();
+  loadAdminOrders();
 };
 
 window.switchAdminTab = (tab) => {
-  ['Books', 'Youtube', 'Categories', 'Comments', 'Submissions'].forEach(t => {
+  ['Books', 'Youtube', 'Categories', 'Comments', 'Submissions', 'Orders'].forEach(t => {
     const tabEl = document.getElementById('adminTab' + t);
     const btnEl = document.getElementById('tabBtn' + t);
     if (tabEl) tabEl.classList.add('hidden');
@@ -1342,14 +1482,22 @@ window.switchAdminTab = (tab) => {
     activeBtnEl.classList.remove('border-transparent', 'text-slate-500');
   }
   if (tab === 'youtube') loadAdminYoutubeList();
+  if (tab === 'orders') loadAdminOrders();
 };
 
 window.addNewBook = async (e) => {
   e.preventDefault();
-  const newBook = { baslik: document.getElementById('newBookTitle').value.trim(), yazar: document.getElementById('newBookAuthor').value.trim(), kategori: document.getElementById('newBookCategory').value || 'Genel', dosyaAdi: document.getElementById('newBookFile').value.trim(), kapakUrl: document.getElementById('newBookCover').value.trim(), aciklama: document.getElementById('newBookDesc').value.trim(), indirmeSayisi: 0, tarih: serverTimestamp() };
+  const priceVal = Number(document.getElementById('newBookPrice').value) || 0;
+  const newBook = { baslik: document.getElementById('newBookTitle').value.trim(), yazar: document.getElementById('newBookAuthor').value.trim(), kategori: document.getElementById('newBookCategory').value || 'Genel', dosyaAdi: document.getElementById('newBookFile').value.trim(), kapakUrl: document.getElementById('newBookCover').value.trim(), aciklama: document.getElementById('newBookDesc').value.trim(), fiyat: priceVal, indirmeSayisi: 0, tarih: serverTimestamp() };
   try { await addDoc(collection(db, "kitaplar"), newBook); alert("Kitap eklendi!"); document.getElementById('addBookForm').reset(); loadBooks(); loadAdminBooks(); } catch(err) { alert(err.message); }
 };
 window.deleteBook = async (id) => { if(confirm("Kitabı sil?")) { await deleteDoc(doc(db, "kitaplar", id)); loadBooks(); loadAdminBooks(); } };
+window.editBookPrice = async (id, currentPrice) => {
+  const val = prompt("Yeni fiyat (₺) — ücretsiz yapmak için 0 girin:", currentPrice || 0);
+  if (val === null) return;
+  const price = Number(val) || 0;
+  try { await updateDoc(doc(db, "kitaplar", id), { fiyat: price }); loadBooks(); loadAdminBooks(); } catch(err) { alert(err.message); }
+};
 async function loadAdminBooks() {
   const list = document.getElementById('adminBookList');
   list.innerHTML = '<p class="text-slate-400 text-sm">Yükleniyor...</p>';
@@ -1357,9 +1505,39 @@ async function loadAdminBooks() {
   list.innerHTML = '';
   snap.forEach(doc => {
     const b = doc.data();
-    list.innerHTML += `<div class="flex justify-between items-center bg-red-50/50 dark:bg-slate-800 p-3 rounded-xl border border-red-100 dark:border-slate-700"><div class="flex items-center gap-3"><img src="${b.kapakUrl}" class="w-10 h-14 object-cover rounded"><div><p class="text-slate-900 dark:text-white text-sm font-bold line-clamp-1">${b.baslik}</p><p class="text-slate-500 text-xs">${b.yazar} — <span class="text-brand-600 font-semibold">${b.dosyaAdi}</span></p></div></div><button onclick="deleteBook('${doc.id}')" class="text-brand-600 p-2"><i class="fa-solid fa-trash"></i></button></div>`;
+    const priceLabel = (Number(b.fiyat) || 0) > 0 ? `₺${b.fiyat}` : 'Ücretsiz';
+    list.innerHTML += `<div class="flex justify-between items-center bg-red-50/50 dark:bg-slate-800 p-3 rounded-xl border border-red-100 dark:border-slate-700"><div class="flex items-center gap-3"><img src="${b.kapakUrl}" class="w-10 h-14 object-cover rounded"><div><p class="text-slate-900 dark:text-white text-sm font-bold line-clamp-1">${b.baslik}</p><p class="text-slate-500 text-xs">${b.yazar} — <span class="text-brand-600 font-semibold">${b.dosyaAdi}</span></p><span class="text-[10px] font-extrabold text-emerald-600">${priceLabel}</span></div></div><div class="flex items-center gap-1"><button onclick="editBookPrice('${doc.id}', ${Number(b.fiyat) || 0})" title="Fiyatı Düzenle" class="text-slate-500 hover:text-brand-600 p-2"><i class="fa-solid fa-tag"></i></button><button onclick="deleteBook('${doc.id}')" title="Sil" class="text-brand-600 p-2"><i class="fa-solid fa-trash"></i></button></div></div>`;
   });
 }
+async function loadAdminOrders() {
+  const list = document.getElementById('adminOrderList');
+  if (!list) return;
+  list.innerHTML = '<p class="text-slate-400 text-sm">Yükleniyor...</p>';
+  try {
+    const snap = await getDocs(collection(db, "siparisler"));
+    list.innerHTML = '';
+    if (snap.empty) return list.innerHTML = '<p class="text-slate-400 text-sm">Henüz sipariş yok.</p>';
+    const orders = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => {
+      const ta = a.tarih && a.tarih.toMillis ? a.tarih.toMillis() : 0;
+      const tb = b.tarih && b.tarih.toMillis ? b.tarih.toMillis() : 0;
+      return tb - ta;
+    });
+    orders.forEach(o => {
+      const isPending = o.durum === 'bekliyor';
+      const badge = isPending ? '<span class="bg-amber-500/20 text-amber-600 text-[10px] px-2 py-0.5 rounded font-bold">Bekliyor</span>' : '<span class="bg-emerald-500/20 text-emerald-600 text-[10px] px-2 py-0.5 rounded font-bold">Onaylandı</span>';
+      list.innerHTML += `<div class="bg-red-50/50 dark:bg-slate-800 p-4 rounded-xl border border-red-100 dark:border-slate-700 flex flex-col md:flex-row justify-between items-start md:items-center gap-3"><div><div class="flex items-center gap-2 mb-1">${badge}<span class="text-brand-600 font-black text-sm">₺${o.fiyat}</span></div><p class="text-slate-900 dark:text-white text-sm font-bold">${o.kitapAdi || ''}</p><p class="text-slate-500 text-xs">${o.kullaniciAd || ''} — ${o.kullaniciEmail || ''}</p></div><div class="flex gap-2">${isPending ? `<button onclick="approveOrder('${o.id}','${o.kullaniciId}','${o.kitapId}')" class="bg-emerald-600 hover:bg-emerald-700 px-3 py-1.5 rounded text-xs font-bold text-white">Onayla</button>` : ''}<button onclick="deleteOrder('${o.id}')" class="bg-brand-600 hover:bg-brand-700 px-3 py-1.5 rounded text-xs font-bold text-white">Sil</button></div></div>`;
+    });
+  } catch(e) { list.innerHTML = '<p class="text-brand-600 text-xs">Hata.</p>'; }
+}
+window.approveOrder = async (orderId, uid, bookId) => {
+  try {
+    await setDoc(doc(db, "kullanicilar", uid, "satinAlinanlar", bookId), { tarih: serverTimestamp() });
+    await updateDoc(doc(db, "siparisler", orderId), { durum: "onaylandı" });
+    alert("Sipariş onaylandı, kitap kullanıcıya tanımlandı!");
+    loadAdminOrders();
+  } catch(err) { alert(err.message); }
+};
+window.deleteOrder = async (orderId) => { if (confirm("Siparişi silmek istiyor musunuz?")) { await deleteDoc(doc(db, "siparisler", orderId)); loadAdminOrders(); } };
 window.approveComment = async (id) => { await updateDoc(doc(db, "yorumlar", id), { durum: "approved" }); loadAdminComments(); };
 window.deleteComment = async (id) => { if(confirm("Sil?")) { await deleteDoc(doc(db, "yorumlar", id)); loadAdminComments(); } };
 async function loadAdminComments() {
@@ -1420,8 +1598,9 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById('subName').value = user.displayName || '';
     if (user.email === ADMIN_EMAIL) adminBtn.style.display = 'flex'; else adminBtn.style.display = 'none';
     try { const favSnapshot = await getDocs(collection(db, "kullanicilar", user.uid, "favoriler")); userFavorites = favSnapshot.docs.map(doc => doc.id); } catch (e) {}
+    try { const purSnapshot = await getDocs(collection(db, "kullanicilar", user.uid, "satinAlinanlar")); userPurchases = purSnapshot.docs.map(doc => doc.id); } catch (e) {}
   } else {
-    loginBtn.style.display = 'flex'; profileArea.style.display = 'none'; adminBtn.style.display = 'none'; userFavorites = [];
+    loginBtn.style.display = 'flex'; profileArea.style.display = 'none'; adminBtn.style.display = 'none'; userFavorites = []; userPurchases = [];
   }
   renderBooks();
 });
@@ -1444,7 +1623,8 @@ window.sendMessage = () => {
 };
 function botReply(text) {
   let reply = "Artık kitapları sarı vurgu ile takip ederek dinleyebilirsin. Oynat tuşuna basman yeterli, kaldığın yerden devam eder.";
-  if (text.includes("fiyat") || text.includes("ücret")) reply = "Sitemiz tamamen <b>ücretsizdir</b>.";
+  if (text.includes("fiyat") || text.includes("ücret") || text.includes("öde")) reply = "Her kitabın fiyatı kapağında ve detay sayfasında yazar. <b>Satın Al</b> butonuna basıp havale/EFT bilgilerinden ödeme yaptıktan sonra WhatsApp'tan dekontu iletmen yeterli — onay sonrası kitap hemen hesabına tanımlanır.";
+  else if (text.includes("satın al") || text.includes("nasıl al")) reply = "Kitabın üzerindeki <b>Satın Al</b> butonuna bas, açılan ekrandaki IBAN'a ödemeni yap ve WhatsApp butonuyla dekontu gönder. Onaylandığında kitap kütüphanene eklenir.";
   else if (text.includes("ses") || text.includes("dinle")) reply = "Üstteki ses barından <b>▶</b> bas, hızını 1.5x yapabilir, ileri-geri atlayabilirsin. TXT kitaplar en iyi sonucu verir.";
   else if (text.includes("kaydet") || text.includes("kaldı")) reply = "Okuma ve dinleme konumun otomatik kaydediliyor. Kitabı kapatıp açtığında kaldığın yerden devam edersin.";
   chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-slate-950 border border-brand-600 flex-shrink-0 flex items-center justify-center mt-1 overflow-hidden p-0.5"><img src="./Logom.png?v=2" onerror="handleLogoError(this)" class="w-full h-full object-contain"></div><div class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-red-100 dark:border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
