@@ -1,0 +1,10 @@
+Keep this file and signing.keystore in a safe place. You'll need these files if you want to upload future versions of your PWA to the Google Play Store.
+
+Key store file: signing.keystore
+Key store password: nufZkn8yGLIq
+Key alias: my-key-alias
+Key password: nufZkn8yGLIq
+Signer's full name: E-Kitap Admin
+Signer's organization: E-Kitap Deposu
+Signer's organizational unit: Engineering
+Signer's country code: US

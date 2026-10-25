@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "online.marketim3000.online",
+        "sha256_cert_fingerprints": ["C3:F6:34:50:7B:B0:C2:79:57:47:C4:C4:A7:95:78:81:4E:F9:87:97:EE:E9:7F:C3:0D:BD:5B:1D:A8:7F:BD:7B"]
+      }
+    }]
