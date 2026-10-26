@@ -84,6 +84,21 @@
         <a href="#youtubeBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 transition">YouTube</a>
       </nav>
 
+      <!-- Atatürk Köşesi - sağ üst -->
+      <div class="hidden lg:flex items-center gap-3 pl-5 ml-1 border-l border-zinc-200 dark:border-zinc-800">
+        <div class="relative">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Atat%C3%BCrk_1930.jpg/400px-Atat%C3%BCrk_1930.jpg" 
+               alt="Mustafa Kemal Atatürk" 
+               class="w-10 h-10 rounded-full object-cover border border-zinc-200 dark:border-zinc-700 shadow-sm"
+               loading="lazy">
+          <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-red-600 rounded-full border-2 border-white dark:border-zinc-900"></span>
+        </div>
+        <div class="hidden xl:block leading-none">
+          <div class="text-[11px] font-bold tracking-[0.12em] uppercase text-zinc-900 dark:text-white">Mustafa Kemal</div>
+          <div class="text-[11px] font-bold tracking-[0.14em] uppercase text-red-600">Atatürk</div>
+        </div>
+      </div>
+
       <div class="flex items-center gap-2">
         <button onclick="toggleTheme()" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition">
           <i id="themeIcon" class="fa-solid fa-moon text-[13px]"></i>
@@ -1163,38 +1178,134 @@ async function renderAllPdfPages() {
     } catch(e){ console.error(e); }
   }
 }
+// === GELİŞMİŞ EPUB OKUYUCU - PROFESYONEL ===
+let epubBook = null;
 async function loadEpubIntoReader(epubUrl, title) {
   currentReaderMode = 'epub';
   document.getElementById('readerFormatBadge').innerText = 'EPUB';
-  document.getElementById('zoomAndFontControls').style.display = 'none';
+  document.getElementById('zoomAndFontControls').style.display = 'flex';
   updateFormatButtonsUI();
   const viewer = document.getElementById('viewer');
-  viewer.innerHTML = '<div id="epubViewer" style="width:100%;height:100%;"></div><div id="epubLoader" class="text-center p-4 text-xs">EPUB Yükleniyor ve ses metni çıkarılıyor...</div>';
+  viewer.innerHTML = `
+    <div class="flex h-full bg-white dark:bg-zinc-950">
+      <div id="epubToc" class="hidden lg:flex flex-col w-[260px] border-r border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50">
+        <div class="p-4 border-b border-zinc-200 dark:border-zinc-800">
+          <h4 class="text-[11px] font-bold tracking-[0.14em] uppercase text-zinc-500">İçindekiler</h4>
+          <p class="text-[12px] font-semibold mt-1 truncate">${title}</p>
+        </div>
+        <div id="epubTocList" class="flex-1 overflow-y-auto p-2 space-y-1 text-[12.5px]"></div>
+        <div class="p-3 border-t border-zinc-200 dark:border-zinc-800 flex gap-2">
+          <button onclick="adjustReaderSize(-1)" class="flex-1 h-8 rounded-full bg-white dark:bg-zinc-800 border text-[11px] font-medium">A-</button>
+          <button onclick="adjustReaderSize(1)" class="flex-1 h-8 rounded-full bg-white dark:bg-zinc-800 border text-[11px] font-medium">A+</button>
+        </div>
+      </div>
+      <div class="flex-1 flex flex-col relative min-w-0">
+        <div id="epubViewer" class="flex-1 w-full"></div>
+        <div id="epubLoader" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-zinc-900 text-white px-5 py-3 rounded-full text-[12px] font-medium flex items-center gap-3 shadow-xl">
+          <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> EPUB açılıyor...
+        </div>
+        <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-zinc-900/90 dark:bg-white/95 backdrop-blur text-white dark:text-zinc-900 rounded-full p-1.5 shadow-[0_12px_24px_-8px_rgba(0,0,0,.3)] border border-zinc-700/50">
+          <button onclick="prevEpubPage()" class="w-9 h-9 rounded-full hover:bg-white/10 dark:hover:bg-zinc-900/10 flex items-center justify-center transition"><i class="fa-solid fa-chevron-left text-[12px]"></i></button>
+          <span id="epubPageInfo" class="text-[11px] font-semibold px-3 min-w-[80px] text-center">...</span>
+          <button onclick="nextEpubPage()" class="w-9 h-9 rounded-full hover:bg-white/10 dark:hover:bg-zinc-900/10 flex items-center justify-center transition"><i class="fa-solid fa-chevron-right text-[12px]"></i></button>
+          <div class="w-px h-5 bg-white/20 dark:bg-zinc-300 mx-1"></div>
+          <button onclick="toggleEpubToc()" class="lg:hidden w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center"><i class="fa-solid fa-list text-[12px]"></i></button>
+        </div>
+      </div>
+    </div>`;
+
   try {
-    const book = ePub(epubUrl);
-    rendition = book.renderTo("epubViewer", { width: "100%", height: "100%" });
+    if(rendition){ try{ rendition.destroy(); }catch(e){} }
+    epubBook = ePub(epubUrl);
+    rendition = epubBook.renderTo("epubViewer", { 
+      width: "100%", 
+      height: "100%",
+      flow: "paginated",
+      manager: "default",
+      spread: "auto"
+    });
+
+    rendition.themes.register("light", { body: { background: "#ffffff !important", color: "#18181b !important", "font-family": "Inter, sans-serif !important", "line-height": "1.7 !important", padding: "0 20px" }});
+    rendition.themes.register("sepia", { body: { background: "#fdf6e3 !important", color: "#3b2f2f !important", "font-family": "Fraunces, serif !important", "line-height": "1.8 !important" }});
+    rendition.themes.register("dark", { body: { background: "#09090b !important", color: "#fafafa !important", "font-family": "Inter, sans-serif !important" }});
+    
+    const savedTheme = localStorage.getItem('reader_theme') || 'light';
+    rendition.themes.select(savedTheme);
+    rendition.themes.fontSize(`${currentReaderFontSize}px`);
+
     await rendition.display();
+
+    try {
+      await epubBook.ready;
+      const navigation = epubBook.navigation;
+      const tocList = document.getElementById('epubTocList');
+      if(navigation && navigation.toc && navigation.toc.length > 0){
+        tocList.innerHTML = navigation.toc.map(item => `
+          <button onclick="rendition.display('${item.href}')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-[12px] leading-snug transition truncate">${item.label}</button>
+        `).join('');
+      } else {
+        tocList.innerHTML = epubBook.spine.spineItems.map((item, idx) => `
+          <button onclick="rendition.display(epubBook.spine.get(${idx}).href)" class="w-full text-left px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-[12px]">Bölüm ${idx+1}</button>
+        `).join('');
+      }
+    } catch(e){}
+
     let epubText = "";
     try {
-      await book.ready;
-      for(let i=0; i<Math.min(book.spine.length, 10); i++) {
+      await epubBook.ready;
+      for(let i=0; i< epubBook.spine.length; i++) {
         try {
-          const section = book.spine.get(i);
-          const contents = await section.load(book.load.bind(book));
+          const section = epubBook.spine.get(i);
+          const contents = await section.load(epubBook.load.bind(epubBook));
           const text = contents.documentElement.textContent || "";
-          epubText += text.substring(0, 3000) + " ";
+          if(text.trim().length > 50){
+            epubText += text.substring(0, 5000) + " \n";
+          }
           section.unload();
+          if(epubText.length > 80000) break;
         } catch(e){}
       }
     } catch(e){ epubText = title; }
-    fullBookTextContent = epubText || title + " e-kitabı.";
+    fullBookTextContent = epubText || title + " e-kitabı. İçerik sesli dinleme için hazırlandı.";
+    
     document.getElementById('epubLoader').style.display = 'none';
-    document.getElementById('ttsProgressText').innerText = "EPUB Sesli Hazır";
-    rendition.on("keyup", (e) => { if (e.key === "ArrowRight") rendition.next(); if (e.key === "ArrowLeft") rendition.prev(); });
+    document.getElementById('ttsProgressText').innerText = `EPUB Hazır • ${Math.round(fullBookTextContent.length/1000)}k karakter`;
+    document.getElementById('epubPageInfo').innerText = "1 / " + (epubBook.spine.length || "?");
+
+    rendition.on("relocated", (location) => {
+      const current = location.start.displayed.page;
+      const total = location.start.displayed.total;
+      document.getElementById('epubPageInfo').innerText = `${current} / ${total}`;
+      const percent = Math.round((location.start.percentage || 0)*100);
+      document.getElementById('readingProgressBar').style.width = percent + "%";
+      if(activeBookId) localStorage.setItem('epub_loc_' + activeBookId, location.start.cfi);
+    });
+
+    rendition.on("keyup", (e) => { 
+      if (e.key === "ArrowRight") rendition.next(); 
+      if (e.key === "ArrowLeft") rendition.prev(); 
+    });
+
+    const savedLoc = activeBookId ? localStorage.getItem('epub_loc_' + activeBookId) : null;
+    if(savedLoc){ try{ rendition.display(savedLoc); }catch(e){} }
+
   } catch (err) {
-    viewer.innerHTML = `<div class="p-8 text-center text-brand-600 font-bold">EPUB yüklenemedi: ${err.message}</div>`;
+    viewer.innerHTML = `<div class="p-12 text-center"><div class="w-12 h-12 mx-auto mb-4 rounded-2xl bg-red-50 flex items-center justify-center text-red-600"><i class="fa-solid fa-triangle-exclamation"></i></div><p class="font-semibold">EPUB yüklenemedi</p><p class="text-[12px] text-zinc-500 mt-1">${err.message}</p><p class="text-[11px] text-zinc-400 mt-4">Dosya yolunu kontrol edin: ${epubUrl}</p></div>`;
   }
 }
+
+window.prevEpubPage = () => { if(rendition) rendition.prev(); };
+window.nextEpubPage = () => { if(rendition) rendition.next(); };
+window.toggleEpubToc = () => {
+  const toc = document.getElementById('epubToc');
+  toc.classList.toggle('hidden');
+  toc.classList.toggle('flex');
+  toc.classList.toggle('absolute');
+  toc.classList.toggle('inset-0');
+  toc.classList.toggle('z-10');
+  toc.classList.toggle('w-full');
+};
+
 
 window.switchReaderFormat = (targetMode) => {
   stopSpeech();
@@ -1210,6 +1321,9 @@ window.adjustReaderSize = (direction) => {
   } else if (currentReaderMode === 'pdf') {
     currentPdfScale = Math.min(2.4, Math.max(0.8, +(currentPdfScale + (direction * 0.2)).toFixed(1)));
     renderAllPdfPages();
+  } else if (currentReaderMode === 'epub' && rendition) {
+    currentReaderFontSize = Math.min(28, Math.max(14, currentReaderFontSize + (direction * 1)));
+    rendition.themes.fontSize(`${currentReaderFontSize}px`);
   }
 };
 window.setReaderTheme = (theme) => {
@@ -1217,6 +1331,9 @@ window.setReaderTheme = (theme) => {
   container.classList.remove('reader-theme-sepia', 'reader-theme-dark', 'reader-theme-light');
   container.classList.add(`reader-theme-${theme}`);
   localStorage.setItem('reader_theme', theme);
+  if(currentReaderMode === 'epub' && rendition && rendition.themes){
+    try{ rendition.themes.select(theme); }catch(e){}
+  }
 };
 window.updateReadingProgress = () => {
   const container = document.getElementById('readerScrollContainer');
