@@ -53,10 +53,9 @@
     .chat-open{ display:flex !important; animation:slideUp .25s ease-out forwards }
     .tts-highlight{ background:#fde047; color:#000; border-radius:4px; padding:0 3px }
     html.dark .tts-highlight{ background:#facc15 }
-    .locked-book::after{ content:'Giriş yap'; position:absolute; inset:0; background:rgba(0,0,0,.45); backdrop-filter:blur(4px); color:white; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; letter-spacing:.02em; border-radius:14px }
-    .locked-book{ position:relative }
-    .priced-book::after{ content:'Kilitli — Satın Al'; position:absolute; inset:0; background:rgba(0,0,0,.45); backdrop-filter:blur(4px); color:white; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; border-radius:14px }
-    .priced-book{ position:relative }
+    /* Kilitli buzlu overlay KALDIRILDI - kapaklar tam görünsün */
+    .locked-book, .priced-book{ position:relative }
+    .locked-book::after, .priced-book::after{ display:none !important; content:none !important }
     .cat-pill{ transition:all .2s cubic-bezier(.2,.8,.2,1) }
     .cat-pill.active{ background:#18181b; color:#fff; border-color:#18181b }
     html.dark .cat-pill.active{ background:#fafafa; color:#09090b; border-color:#fafafa }
@@ -140,20 +139,64 @@
           </div>
         </div>
 
-        <div class="relative lg:h-[520px]">
-          <div class="absolute -inset-8 bg-gradient-to-tr from-zinc-100 to-zinc-50 dark:from-zinc-900 dark:to-zinc-900 rounded-[32px] -z-10"></div>
-          <div class="grid grid-cols-3 gap-4 rotate-[-2deg]">
-            <div class="space-y-4 translate-y-8">
-              <div class="aspect-[3/4] rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-2 shadow-sm"><div class="w-full h-full rounded-[12px] bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700"></div></div>
-              <div class="aspect-[3/4] rounded-[18px] bg-zinc-900 dark:bg-white p-3 text-white dark:text-zinc-900 flex flex-col justify-between"><span class="text-[10px] font-bold tracking-widest uppercase opacity-60">Sesli</span><span class="font-serif text-[18px] leading-tight">Dinle<br>ve<br>öğren</span></div>
+        <div class="relative lg:h-[560px] select-none">
+          <!-- arka plan glow -->
+          <div class="absolute -inset-10 bg-gradient-to-tr from-zinc-100 via-white to-zinc-50 dark:from-zinc-900 dark:via-zinc-900 dark:to-zinc-800 rounded-[36px] -z-10 blur-[1px]"></div>
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] bg-gradient-to-br from-zinc-200/60 to-transparent dark:from-zinc-700/20 rounded-full blur-3xl -z-10"></div>
+          
+          <!-- Premium 3x2 collage - senin attığın görselin profesyonel hali -->
+          <div class="grid grid-cols-3 gap-4 [transform:rotate(-2deg)]">
+            <!-- COL 1 -->
+            <div class="space-y-4 translate-y-10">
+              <!-- boş / soft kart - kitap önizleme -->
+              <div class="aspect-[3/4.2] rounded-[20px] bg-white dark:bg-zinc-900 border border-zinc-200/70 dark:border-zinc-800 p-2 shadow-[0_8px_24px_-12px_rgba(0,0,0,.15)]">
+                <div class="w-full h-full rounded-[14px] bg-zinc-50 dark:bg-zinc-800 flex flex-col items-center justify-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-book-open text-[14px]"></i></div>
+                  <div class="text-[11px] font-semibold tracking-wide text-zinc-500">KOLEKSİYON</div>
+                </div>
+              </div>
+              <!-- Sesli kart - siyah premium -->
+              <div class="aspect-[3/4.1] rounded-[20px] bg-zinc-900 dark:bg-white p-5 text-white dark:text-zinc-900 flex flex-col justify-between shadow-[0_12px_30px_-10px_rgba(0,0,0,.4)] group">
+                <span class="text-[10px] font-bold tracking-[0.18em] uppercase opacity-50">SESLİ</span>
+                <div>
+                  <p class="font-serif font-bold text-[22px] leading-[0.95]">Dinle<br>ve<br>öğren</p>
+                  <div class="mt-3 flex items-center gap-1.5 text-[11px] opacity-70"><span class="w-5 h-5 rounded-full bg-white/15 dark:bg-zinc-900/10 flex items-center justify-center"><i class="fa-solid fa-play text-[8px]"></i></span> Vurgulu takip</div>
+                </div>
+              </div>
             </div>
+
+            <!-- COL 2 - ORTA - LOGO HERO -->
             <div class="space-y-4">
-              <div class="aspect-[3/4.4] rounded-[18px] overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-[0_20px_40px_-16px_rgba(0,0,0,.3)]"><img src="1792945068177.jpg" class="w-full h-full object-cover"></div>
-              <div class="aspect-[3/2] rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 flex flex-col justify-center"><div class="text-[11px] font-semibold text-zinc-500 uppercase tracking-widest">İndir & Oku</div><div class="mt-1 text-[13px] font-semibold">Çevrimdışı erişim</div></div>
+              <!-- Ana logo kartı - tam görünür, kilitsiz -->
+              <div class="aspect-[3/4.6] rounded-[22px] overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-[0_24px_48px_-16px_rgba(0,0,0,.35)] bg-zinc-950 relative group hover:scale-[1.01] transition duration-500">
+                <img src="1792945068177.jpg" onerror="this.src='https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=800&auto=format&fit=crop'" alt="Marketim 3000" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+                <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center">
+                  <span class="text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full bg-white/90 backdrop-blur text-zinc-900">DİJİTAL MAĞAZA</span>
+                  <span class="w-7 h-7 rounded-full bg-white text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i></span>
+                </div>
+              </div>
+              <!-- İndir & Oku kartı -->
+              <div class="aspect-[3/2.2] rounded-[20px] bg-white dark:bg-zinc-900 border border-zinc-200/70 dark:border-zinc-800 p-5 shadow-[0_8px_24px_-12px_rgba(0,0,0,.12)] flex flex-col justify-center">
+                <div class="text-[10px] font-bold tracking-[0.16em] uppercase text-zinc-500">İNDİR & OKU</div>
+                <div class="mt-1.5 font-semibold text-[14px] leading-tight text-zinc-900 dark:text-white">Çevrimdışı erişim</div>
+                <div class="mt-2 flex items-center gap-2 text-[11px] text-zinc-500"><i class="fa-solid fa-check text-emerald-500"></i> Tek tıkla cihazında</div>
+              </div>
             </div>
-            <div class="space-y-4 translate-y-12">
-              <div class="aspect-[3/3.5] rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 flex flex-col"><div class="w-8 h-8 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-quote-left text-[12px]"></i></div><p class="mt-3 text-[12px] leading-5 font-medium">“Bilgi paylaştıkça çoğalır.”</p></div>
-              <div class="aspect-[3/4] rounded-[18px] bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800"></div>
+
+            <!-- COL 3 -->
+            <div class="space-y-4 translate-y-14">
+              <!-- Alıntı kartı - senin görseldeki sağ üst -->
+              <div class="aspect-[3/3.6] rounded-[20px] bg-white dark:bg-zinc-900 border border-zinc-200/70 dark:border-zinc-800 p-5 shadow-[0_8px_24px_-12px_rgba(0,0,0,.12)] flex flex-col">
+                <div class="w-8 h-8 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center shrink-0"><i class="fa-solid fa-quote-left text-[12px]"></i></div>
+                <p class="mt-4 font-serif font-medium text-[14px] leading-[1.4] text-zinc-800 dark:text-zinc-100">“Bilgi paylaştıkça çoğalır.”</p>
+                <div class="mt-auto pt-4 flex items-center gap-2 text-[11px] text-zinc-500"><span class="w-5 h-0.5 bg-zinc-300 dark:bg-zinc-700"></span> Topluluk</div>
+              </div>
+              <!-- boş / keşfet kartı -->
+              <div class="aspect-[3/4.1] rounded-[20px] bg-zinc-100 dark:bg-zinc-800/60 border border-zinc-200/60 dark:border-zinc-700/50 p-4 flex flex-col justify-end">
+                <div class="w-8 h-8 rounded-full bg-white dark:bg-zinc-900 border shadow-sm flex items-center justify-center"><i class="fa-solid fa-sparkles text-[12px]"></i></div>
+                <p class="mt-3 text-[12px] font-semibold leading-tight">Her gün<br>yeni içerik</p>
+              </div>
             </div>
           </div>
         </div>
@@ -1291,8 +1334,6 @@ window.renderBooks = () => {
     const safeFile = book.dosyaAdi.replace(/'/g, "\\'");
     const price = Number(book.fiyat) || 0;
     const owned = canAccessBook(book);
-    const isLocked = price > 0 ? !owned : !auth.currentUser;
-    const lockClass = isLocked ? (price > 0 ? 'priced-book' : 'locked-book') : '';
     const priceBadge = price > 0
       ? (owned
           ? `<span class="absolute bottom-3 right-3 text-[11px] font-bold text-white bg-emerald-600 px-3 py-1 rounded-full shadow-sm flex items-center gap-1"><i class="fa-solid fa-check text-[10px]"></i> Erişim var</span>`
@@ -1301,7 +1342,7 @@ window.renderBooks = () => {
     const primaryAction = (price > 0 && !owned)
       ? `<button onclick="event.stopPropagation(); openPurchaseModal('${book.id}')" class="w-full h-[40px] bg-zinc-900 hover:bg-black text-white rounded-full text-[12.5px] font-semibold tracking-wide transition flex items-center justify-center gap-2"><i class="fa-solid fa-lock text-[11px]"></i> Satın Al — ₺${price.toLocaleString('tr-TR')}</button>`
       : `<div class="grid grid-cols-[1.1fr_0.9fr] gap-2"><button onclick="event.stopPropagation(); openReader('${safeFile}', '${safeTitle}', '${book.id}')" class="h-[40px] bg-zinc-900 hover:bg-black text-white rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-play text-[10px]"></i> Oku</button><button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${safeFile}')" class="h-[40px] bg-white hover:bg-zinc-50 text-zinc-900 border border-zinc-200 rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-arrow-down text-[11px]"></i> İndir</button></div>`;
-    grid.innerHTML += `<article class="group bg-white dark:bg-zinc-900 border border-zinc-200/70 dark:border-zinc-800 rounded-[20px] p-3 flex flex-col hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.15)] transition-all duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[3/4.2] rounded-[14px] overflow-hidden relative bg-zinc-100 dark:bg-zinc-800 cursor-pointer ${lockClass}"><img src="${cover}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div><span class="absolute top-3 left-3 bg-white/90 dark:bg-zinc-900/90 backdrop-blur text-zinc-900 dark:text-zinc-100 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide border border-zinc-200/50">${(book.kategori || 'Genel').toUpperCase()}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-3 right-3 w-8 h-8 bg-white/90 dark:bg-zinc-900/90 backdrop-blur rounded-full flex items-center justify-center transition hover:scale-105 shadow-sm border border-zinc-200/50"><i class="${heartClass} text-[13px]"></i></button>${priceBadge}</div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-900 dark:text-zinc-100 line-clamp-2 cursor-pointer group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition min-h-[38px]">${book.baslik}</h4><p class="text-[12.5px] font-medium text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">${book.yazar}</p><div class="mt-auto pt-3 flex flex-col gap-2">${primaryAction}</div></div></article>`;
+    grid.innerHTML += `<article class="group bg-white dark:bg-zinc-900 border border-zinc-200/70 dark:border-zinc-800 rounded-[20px] p-3 flex flex-col hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.15)] transition-all duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[3/4.2] rounded-[14px] overflow-hidden relative bg-zinc-100 dark:bg-zinc-800 cursor-pointer"><img src="${cover}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div><span class="absolute top-3 left-3 bg-white/90 dark:bg-zinc-900/90 backdrop-blur text-zinc-900 dark:text-zinc-100 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide border border-zinc-200/50">${(book.kategori || 'Genel').toUpperCase()}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-3 right-3 w-8 h-8 bg-white/90 dark:bg-zinc-900/90 backdrop-blur rounded-full flex items-center justify-center transition hover:scale-105 shadow-sm border border-zinc-200/50"><i class="${heartClass} text-[13px]"></i></button>${priceBadge}</div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-900 dark:text-zinc-100 line-clamp-2 cursor-pointer group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition min-h-[38px]">${book.baslik}</h4><p class="text-[12.5px] font-medium text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">${book.yazar}</p><div class="mt-auto pt-3 flex flex-col gap-2">${primaryAction}</div></div></article>`;
   });
 };
 function renderHomeSections() {
