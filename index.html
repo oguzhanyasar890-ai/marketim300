@@ -53,10 +53,8 @@
     .chat-open{ display:flex !important; animation:slideUp .25s ease-out forwards }
     .tts-highlight{ background:#fde047; color:#000; border-radius:4px; padding:0 3px }
     html.dark .tts-highlight{ background:#facc15 }
-    .locked-book::after{ content:'Giriş yap'; position:absolute; inset:0; background:rgba(0,0,0,.45); backdrop-filter:blur(4px); color:white; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; letter-spacing:.02em; border-radius:14px }
-    .locked-book{ position:relative }
-    .priced-book::after{ content:'Kilitli — Satın Al'; position:absolute; inset:0; background:rgba(0,0,0,.45); backdrop-filter:blur(4px); color:white; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; border-radius:14px }
-    .priced-book{ position:relative }
+    .locked-book, .priced-book{ position:relative }
+    .locked-book::after, .priced-book::after{ display:none !important; content:none !important }
     .cat-pill{ transition:all .2s cubic-bezier(.2,.8,.2,1) }
     .cat-pill.active{ background:#18181b; color:#fff; border-color:#18181b }
     html.dark .cat-pill.active{ background:#fafafa; color:#09090b; border-color:#fafafa }
@@ -86,7 +84,7 @@
         <a href="#youtubeBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 transition">YouTube</a>
       </nav>
 
-      <!-- Atatürk Köşesi - sağ üst boşluk -->
+      <!-- Atatürk Köşesi - sağ üst -->
       <div class="hidden lg:flex items-center gap-3 pl-5 ml-1 border-l border-zinc-200 dark:border-zinc-800">
         <div class="relative">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Atat%C3%BCrk_1930.jpg/400px-Atat%C3%BCrk_1930.jpg" 
@@ -155,21 +153,15 @@
           </div>
         </div>
 
-        <div class="relative lg:h-[520px]">
-          <div class="absolute -inset-8 bg-gradient-to-tr from-zinc-100 to-zinc-50 dark:from-zinc-900 dark:to-zinc-900 rounded-[32px] -z-10"></div>
-          <div class="grid grid-cols-3 gap-4 rotate-[-2deg]">
-            <div class="space-y-4 translate-y-8">
-              <div class="aspect-[3/4] rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-2 shadow-sm"><div class="w-full h-full rounded-[12px] bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700"></div></div>
-              <div class="aspect-[3/4] rounded-[18px] bg-zinc-900 dark:bg-white p-3 text-white dark:text-zinc-900 flex flex-col justify-between"><span class="text-[10px] font-bold tracking-widest uppercase opacity-60">Sesli</span><span class="font-serif text-[18px] leading-tight">Dinle<br>ve<br>öğren</span></div>
+        <div class="relative lg:h-[520px] flex items-center justify-center">
+          <div class="absolute -inset-8 bg-gradient-to-tr from-zinc-100 to-zinc-50 dark:from-zinc-900 dark:to-zinc-900 rounded-[36px] -z-10"></div>
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] bg-gradient-to-br from-zinc-200/40 to-transparent dark:from-zinc-700/20 rounded-full blur-3xl -z-10"></div>
+          <div class="relative">
+            <div class="absolute -inset-5 bg-white dark:bg-zinc-900 rounded-[32px] shadow-[0_20px_60px_-16px_rgba(0,0,0,.25)] border border-zinc-200/60 dark:border-zinc-800 rotate-[-2deg] -z-10"></div>
+            <div class="w-[340px] sm:w-[400px] aspect-square rounded-[28px] overflow-hidden bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-[0_24px_48px_-16px_rgba(0,0,0,.4)]">
+              <img src="1792945068177.jpg" alt="Dijital Kitapçı" class="w-full h-full object-cover">
             </div>
-            <div class="space-y-4">
-              <div class="aspect-[3/4.4] rounded-[18px] overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-[0_20px_40px_-16px_rgba(0,0,0,.3)]"><img src="1792945068177.jpg" class="w-full h-full object-cover"></div>
-              <div class="aspect-[3/2] rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 flex flex-col justify-center"><div class="text-[11px] font-semibold text-zinc-500 uppercase tracking-widest">İndir & Oku</div><div class="mt-1 text-[13px] font-semibold">Çevrimdışı erişim</div></div>
-            </div>
-            <div class="space-y-4 translate-y-12">
-              <div class="aspect-[3/3.5] rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 flex flex-col"><div class="w-8 h-8 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-quote-left text-[12px]"></i></div><p class="mt-3 text-[12px] leading-5 font-medium">“Bilgi paylaştıkça çoğalır.”</p></div>
-              <div class="aspect-[3/4] rounded-[18px] bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800"></div>
-            </div>
+            <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 px-6 py-2 rounded-full text-[11px] font-bold tracking-[0.14em] uppercase shadow-lg whitespace-nowrap">DİJİTAL KİTAPÇI</div>
           </div>
         </div>
       </div>
@@ -433,10 +425,12 @@ let purchaseModalBookId = null;
 
 // Bir kitaba erişim var mı? (ücretsizse ya da satın alınmışsa true)
 function canAccessBook(book) {
+  if (auth.currentUser && auth.currentUser.email === ADMIN_EMAIL) return true;
   const price = Number(book.fiyat) || 0;
   if (price <= 0) return true;
   return userPurchases.includes(book.id);
 }
+window.isAdmin = () => auth.currentUser && auth.currentUser.email === ADMIN_EMAIL;
 window.canAccessBook = canAccessBook;
 
 let rendition = null;
@@ -1183,7 +1177,6 @@ async function renderAllPdfPages() {
     } catch(e){ console.error(e); }
   }
 }
-// === GELİŞMİŞ EPUB OKUYUCU - PROFESYONEL ===
 let epubBook = null;
 async function loadEpubIntoReader(epubUrl, title) {
   currentReaderMode = 'epub';
@@ -1210,51 +1203,35 @@ async function loadEpubIntoReader(epubUrl, title) {
           <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> EPUB açılıyor...
         </div>
         <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-zinc-900/90 dark:bg-white/95 backdrop-blur text-white dark:text-zinc-900 rounded-full p-1.5 shadow-[0_12px_24px_-8px_rgba(0,0,0,.3)] border border-zinc-700/50">
-          <button onclick="prevEpubPage()" class="w-9 h-9 rounded-full hover:bg-white/10 dark:hover:bg-zinc-900/10 flex items-center justify-center transition"><i class="fa-solid fa-chevron-left text-[12px]"></i></button>
+          <button onclick="prevEpubPage()" class="w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center"><i class="fa-solid fa-chevron-left text-[12px]"></i></button>
           <span id="epubPageInfo" class="text-[11px] font-semibold px-3 min-w-[80px] text-center">...</span>
-          <button onclick="nextEpubPage()" class="w-9 h-9 rounded-full hover:bg-white/10 dark:hover:bg-zinc-900/10 flex items-center justify-center transition"><i class="fa-solid fa-chevron-right text-[12px]"></i></button>
-          <div class="w-px h-5 bg-white/20 dark:bg-zinc-300 mx-1"></div>
+          <button onclick="nextEpubPage()" class="w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center"><i class="fa-solid fa-chevron-right text-[12px]"></i></button>
+          <div class="w-px h-5 bg-white/20 mx-1"></div>
           <button onclick="toggleEpubToc()" class="lg:hidden w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center"><i class="fa-solid fa-list text-[12px]"></i></button>
         </div>
       </div>
     </div>`;
-
   try {
     if(rendition){ try{ rendition.destroy(); }catch(e){} }
     epubBook = ePub(epubUrl);
-    rendition = epubBook.renderTo("epubViewer", { 
-      width: "100%", 
-      height: "100%",
-      flow: "paginated",
-      manager: "default",
-      spread: "auto"
-    });
-
+    rendition = epubBook.renderTo("epubViewer", { width: "100%", height: "100%", flow: "paginated", manager: "default", spread: "auto" });
     rendition.themes.register("light", { body: { background: "#ffffff !important", color: "#18181b !important", "font-family": "Inter, sans-serif !important", "line-height": "1.7 !important", padding: "0 20px" }});
     rendition.themes.register("sepia", { body: { background: "#fdf6e3 !important", color: "#3b2f2f !important", "font-family": "Fraunces, serif !important", "line-height": "1.8 !important" }});
-    rendition.themes.register("dark", { body: { background: "#09090b !important", color: "#fafafa !important", "font-family": "Inter, sans-serif !important" }});
-    
+    rendition.themes.register("dark", { body: { background: "#09090b !important", color: "#fafafa !important" }});
     const savedTheme = localStorage.getItem('reader_theme') || 'light';
     rendition.themes.select(savedTheme);
     rendition.themes.fontSize(`${currentReaderFontSize}px`);
-
     await rendition.display();
-
     try {
       await epubBook.ready;
       const navigation = epubBook.navigation;
       const tocList = document.getElementById('epubTocList');
       if(navigation && navigation.toc && navigation.toc.length > 0){
-        tocList.innerHTML = navigation.toc.map(item => `
-          <button onclick="rendition.display('${item.href}')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-[12px] leading-snug transition truncate">${item.label}</button>
-        `).join('');
+        tocList.innerHTML = navigation.toc.map(item => `<button onclick="rendition.display('${item.href}')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-[12px] truncate">${item.label}</button>`).join('');
       } else {
-        tocList.innerHTML = epubBook.spine.spineItems.map((item, idx) => `
-          <button onclick="rendition.display(epubBook.spine.get(${idx}).href)" class="w-full text-left px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-[12px]">Bölüm ${idx+1}</button>
-        `).join('');
+        tocList.innerHTML = epubBook.spine.spineItems.map((item, idx) => `<button onclick="rendition.display(epubBook.spine.get(${idx}).href)" class="w-full text-left px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-[12px]">Bölüm ${idx+1}</button>`).join('');
       }
     } catch(e){}
-
     let epubText = "";
     try {
       await epubBook.ready;
@@ -1263,52 +1240,33 @@ async function loadEpubIntoReader(epubUrl, title) {
           const section = epubBook.spine.get(i);
           const contents = await section.load(epubBook.load.bind(epubBook));
           const text = contents.documentElement.textContent || "";
-          if(text.trim().length > 50){
-            epubText += text.substring(0, 5000) + " \n";
-          }
+          if(text.trim().length > 50){ epubText += text.substring(0, 5000) + " \n"; }
           section.unload();
           if(epubText.length > 80000) break;
         } catch(e){}
       }
     } catch(e){ epubText = title; }
-    fullBookTextContent = epubText || title + " e-kitabı. İçerik sesli dinleme için hazırlandı.";
-    
+    fullBookTextContent = epubText || title + " e-kitabı.";
     document.getElementById('epubLoader').style.display = 'none';
     document.getElementById('ttsProgressText').innerText = `EPUB Hazır • ${Math.round(fullBookTextContent.length/1000)}k karakter`;
     document.getElementById('epubPageInfo').innerText = "1 / " + (epubBook.spine.length || "?");
-
     rendition.on("relocated", (location) => {
-      const current = location.start.displayed.page;
-      const total = location.start.displayed.total;
-      document.getElementById('epubPageInfo').innerText = `${current} / ${total}`;
-      const percent = Math.round((location.start.percentage || 0)*100);
-      document.getElementById('readingProgressBar').style.width = percent + "%";
+      document.getElementById('epubPageInfo').innerText = `${location.start.displayed.page} / ${location.start.displayed.total}`;
+      document.getElementById('readingProgressBar').style.width = Math.round((location.start.percentage||0)*100) + "%";
       if(activeBookId) localStorage.setItem('epub_loc_' + activeBookId, location.start.cfi);
     });
-
-    rendition.on("keyup", (e) => { 
-      if (e.key === "ArrowRight") rendition.next(); 
-      if (e.key === "ArrowLeft") rendition.prev(); 
-    });
-
+    rendition.on("keyup", (e) => { if (e.key === "ArrowRight") rendition.next(); if (e.key === "ArrowLeft") rendition.prev(); });
     const savedLoc = activeBookId ? localStorage.getItem('epub_loc_' + activeBookId) : null;
     if(savedLoc){ try{ rendition.display(savedLoc); }catch(e){} }
-
   } catch (err) {
-    viewer.innerHTML = `<div class="p-12 text-center"><div class="w-12 h-12 mx-auto mb-4 rounded-2xl bg-red-50 flex items-center justify-center text-red-600"><i class="fa-solid fa-triangle-exclamation"></i></div><p class="font-semibold">EPUB yüklenemedi</p><p class="text-[12px] text-zinc-500 mt-1">${err.message}</p><p class="text-[11px] text-zinc-400 mt-4">Dosya yolunu kontrol edin: ${epubUrl}</p></div>`;
+    viewer.innerHTML = `<div class="p-12 text-center"><div class="w-12 h-12 mx-auto mb-4 rounded-2xl bg-red-50 flex items-center justify-center text-red-600"><i class="fa-solid fa-triangle-exclamation"></i></div><p class="font-semibold">EPUB yüklenemedi</p><p class="text-[12px] text-zinc-500 mt-1">${err.message}</p></div>`;
   }
 }
-
 window.prevEpubPage = () => { if(rendition) rendition.prev(); };
 window.nextEpubPage = () => { if(rendition) rendition.next(); };
 window.toggleEpubToc = () => {
   const toc = document.getElementById('epubToc');
-  toc.classList.toggle('hidden');
-  toc.classList.toggle('flex');
-  toc.classList.toggle('absolute');
-  toc.classList.toggle('inset-0');
-  toc.classList.toggle('z-10');
-  toc.classList.toggle('w-full');
+  toc.classList.toggle('hidden'); toc.classList.toggle('flex'); toc.classList.toggle('absolute'); toc.classList.toggle('inset-0'); toc.classList.toggle('z-10'); toc.classList.toggle('w-full');
 };
 
 
@@ -1336,9 +1294,7 @@ window.setReaderTheme = (theme) => {
   container.classList.remove('reader-theme-sepia', 'reader-theme-dark', 'reader-theme-light');
   container.classList.add(`reader-theme-${theme}`);
   localStorage.setItem('reader_theme', theme);
-  if(currentReaderMode === 'epub' && rendition && rendition.themes){
-    try{ rendition.themes.select(theme); }catch(e){}
-  }
+  if(currentReaderMode === 'epub' && rendition && rendition.themes){ try{ rendition.themes.select(theme); }catch(e){} }
 };
 window.updateReadingProgress = () => {
   const container = document.getElementById('readerScrollContainer');
@@ -1408,8 +1364,6 @@ window.renderBooks = () => {
     const safeFile = book.dosyaAdi.replace(/'/g, "\\'");
     const price = Number(book.fiyat) || 0;
     const owned = canAccessBook(book);
-    const isLocked = price > 0 ? !owned : !auth.currentUser;
-    const lockClass = isLocked ? (price > 0 ? 'priced-book' : 'locked-book') : '';
     const priceBadge = price > 0
       ? (owned
           ? `<span class="absolute bottom-3 right-3 text-[11px] font-bold text-white bg-emerald-600 px-3 py-1 rounded-full shadow-sm flex items-center gap-1"><i class="fa-solid fa-check text-[10px]"></i> Erişim var</span>`
@@ -1418,7 +1372,7 @@ window.renderBooks = () => {
     const primaryAction = (price > 0 && !owned)
       ? `<button onclick="event.stopPropagation(); openPurchaseModal('${book.id}')" class="w-full h-[40px] bg-zinc-900 hover:bg-black text-white rounded-full text-[12.5px] font-semibold tracking-wide transition flex items-center justify-center gap-2"><i class="fa-solid fa-lock text-[11px]"></i> Satın Al — ₺${price.toLocaleString('tr-TR')}</button>`
       : `<div class="grid grid-cols-[1.1fr_0.9fr] gap-2"><button onclick="event.stopPropagation(); openReader('${safeFile}', '${safeTitle}', '${book.id}')" class="h-[40px] bg-zinc-900 hover:bg-black text-white rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-play text-[10px]"></i> Oku</button><button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${safeFile}')" class="h-[40px] bg-white hover:bg-zinc-50 text-zinc-900 border border-zinc-200 rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-arrow-down text-[11px]"></i> İndir</button></div>`;
-    grid.innerHTML += `<article class="group bg-white dark:bg-zinc-900 border border-zinc-200/70 dark:border-zinc-800 rounded-[20px] p-3 flex flex-col hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.15)] transition-all duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[3/4.2] rounded-[14px] overflow-hidden relative bg-zinc-100 dark:bg-zinc-800 cursor-pointer ${lockClass}"><img src="${cover}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div><span class="absolute top-3 left-3 bg-white/90 dark:bg-zinc-900/90 backdrop-blur text-zinc-900 dark:text-zinc-100 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide border border-zinc-200/50">${(book.kategori || 'Genel').toUpperCase()}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-3 right-3 w-8 h-8 bg-white/90 dark:bg-zinc-900/90 backdrop-blur rounded-full flex items-center justify-center transition hover:scale-105 shadow-sm border border-zinc-200/50"><i class="${heartClass} text-[13px]"></i></button>${priceBadge}</div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-900 dark:text-zinc-100 line-clamp-2 cursor-pointer group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition min-h-[38px]">${book.baslik}</h4><p class="text-[12.5px] font-medium text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">${book.yazar}</p><div class="mt-auto pt-3 flex flex-col gap-2">${primaryAction}</div></div></article>`;
+    grid.innerHTML += `<article class="group bg-white dark:bg-zinc-900 border border-zinc-200/70 dark:border-zinc-800 rounded-[20px] p-3 flex flex-col hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.15)] transition-all duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[3/4.2] rounded-[14px] overflow-hidden relative bg-zinc-100 dark:bg-zinc-800 cursor-pointer"><img src="${cover}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div><span class="absolute top-3 left-3 bg-white/90 dark:bg-zinc-900/90 backdrop-blur text-zinc-900 dark:text-zinc-100 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide border border-zinc-200/50">${(book.kategori || 'Genel').toUpperCase()}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-3 right-3 w-8 h-8 bg-white/90 dark:bg-zinc-900/90 backdrop-blur rounded-full flex items-center justify-center transition hover:scale-105 shadow-sm border border-zinc-200/50"><i class="${heartClass} text-[13px]"></i></button>${priceBadge}</div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-900 dark:text-zinc-100 line-clamp-2 cursor-pointer group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition min-h-[38px]">${book.baslik}</h4><p class="text-[12.5px] font-medium text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">${book.yazar}</p><div class="mt-auto pt-3 flex flex-col gap-2">${primaryAction}</div></div></article>`;
   });
 };
 function renderHomeSections() {
