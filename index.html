@@ -53,8 +53,10 @@
     .chat-open{ display:flex !important; animation:slideUp .25s ease-out forwards }
     .tts-highlight{ background:#fde047; color:#000; border-radius:4px; padding:0 3px }
     html.dark .tts-highlight{ background:#facc15 }
-    .locked-book, .priced-book{ position:relative }
-    .locked-book::after, .priced-book::after{ display:none !important; content:none !important }
+    .locked-book::after{ content:'Giriş yap'; position:absolute; inset:0; background:rgba(0,0,0,.45); backdrop-filter:blur(4px); color:white; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; letter-spacing:.02em; border-radius:14px }
+    .locked-book{ position:relative }
+    .priced-book::after{ content:'Kilitli — Satın Al'; position:absolute; inset:0; background:rgba(0,0,0,.45); backdrop-filter:blur(4px); color:white; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; border-radius:14px }
+    .priced-book{ position:relative }
     .cat-pill{ transition:all .2s cubic-bezier(.2,.8,.2,1) }
     .cat-pill.active{ background:#18181b; color:#fff; border-color:#18181b }
     html.dark .cat-pill.active{ background:#fafafa; color:#09090b; border-color:#fafafa }
@@ -84,18 +86,18 @@
         <a href="#youtubeBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 transition">YouTube</a>
       </nav>
 
-      <!-- Atatürk Köşesi - sağ üst -->
+      <!-- Atatürk Köşesi - sağ üst boşluk -->
       <div class="hidden lg:flex items-center gap-3 pl-5 ml-1 border-l border-zinc-200 dark:border-zinc-800">
         <div class="relative">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Atat%C3%BCrk_1930.jpg/400px-Atat%C3%BCrk_1930.jpg" 
                alt="Mustafa Kemal Atatürk" 
-               class="w-10 h-10 rounded-full object-cover border border-zinc-200 dark:border-zinc-700 shadow-sm"
+               class="w-10 h-10 rounded-full object-cover border-2 border-zinc-200 dark:border-zinc-700 shadow-sm"
                loading="lazy">
           <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-red-600 rounded-full border-2 border-white dark:border-zinc-900"></span>
         </div>
         <div class="hidden xl:block leading-none">
           <div class="text-[11px] font-bold tracking-[0.12em] uppercase text-zinc-900 dark:text-white">Mustafa Kemal</div>
-          <div class="text-[11px] font-bold tracking-[0.14em] uppercase text-red-600">Atatürk</div>
+          <div class="text-[11px] font-bold tracking-[0.14em] uppercase text-red-600">ATATÜRK</div>
         </div>
       </div>
 
@@ -153,15 +155,21 @@
           </div>
         </div>
 
-        <div class="relative lg:h-[520px] flex items-center justify-center">
-          <div class="absolute -inset-8 bg-gradient-to-tr from-zinc-100 to-zinc-50 dark:from-zinc-900 dark:to-zinc-900 rounded-[36px] -z-10"></div>
-          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] bg-gradient-to-br from-zinc-200/40 to-transparent dark:from-zinc-700/20 rounded-full blur-3xl -z-10"></div>
-          <div class="relative">
-            <div class="absolute -inset-5 bg-white dark:bg-zinc-900 rounded-[32px] shadow-[0_20px_60px_-16px_rgba(0,0,0,.25)] border border-zinc-200/60 dark:border-zinc-800 rotate-[-2deg] -z-10"></div>
-            <div class="w-[340px] sm:w-[400px] aspect-square rounded-[28px] overflow-hidden bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-[0_24px_48px_-16px_rgba(0,0,0,.4)]">
-              <img src="1792945068177.jpg" alt="Dijital Kitapçı" class="w-full h-full object-cover">
+        <div class="relative lg:h-[520px]">
+          <div class="absolute -inset-8 bg-gradient-to-tr from-zinc-100 to-zinc-50 dark:from-zinc-900 dark:to-zinc-900 rounded-[32px] -z-10"></div>
+          <div class="grid grid-cols-3 gap-4 rotate-[-2deg]">
+            <div class="space-y-4 translate-y-8">
+              <div class="aspect-[3/4] rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-2 shadow-sm"><div class="w-full h-full rounded-[12px] bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700"></div></div>
+              <div class="aspect-[3/4] rounded-[18px] bg-zinc-900 dark:bg-white p-3 text-white dark:text-zinc-900 flex flex-col justify-between"><span class="text-[10px] font-bold tracking-widest uppercase opacity-60">Sesli</span><span class="font-serif text-[18px] leading-tight">Dinle<br>ve<br>öğren</span></div>
             </div>
-            <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 px-6 py-2 rounded-full text-[11px] font-bold tracking-[0.14em] uppercase shadow-lg whitespace-nowrap">DİJİTAL KİTAPÇI</div>
+            <div class="space-y-4">
+              <div class="aspect-[3/4.4] rounded-[18px] overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-[0_20px_40px_-16px_rgba(0,0,0,.3)]"><img src="1792945068177.jpg" class="w-full h-full object-cover"></div>
+              <div class="aspect-[3/2] rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 flex flex-col justify-center"><div class="text-[11px] font-semibold text-zinc-500 uppercase tracking-widest">İndir & Oku</div><div class="mt-1 text-[13px] font-semibold">Çevrimdışı erişim</div></div>
+            </div>
+            <div class="space-y-4 translate-y-12">
+              <div class="aspect-[3/3.5] rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 flex flex-col"><div class="w-8 h-8 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-quote-left text-[12px]"></i></div><p class="mt-3 text-[12px] leading-5 font-medium">“Bilgi paylaştıkça çoğalır.”</p></div>
+              <div class="aspect-[3/4] rounded-[18px] bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -423,16 +431,13 @@ let userPurchases = [];
 let currentBookForComments = null;
 let purchaseModalBookId = null;
 
-// Bir kitaba erişim var mı? (ücretsizse, satın alınmışsa VEYA admin ise true)
+// Bir kitaba erişim var mı? (ücretsizse ya da satın alınmışsa true)
 function canAccessBook(book) {
-  // ADMIN HER ZAMAN AÇIK
-  if (auth.currentUser && auth.currentUser.email === ADMIN_EMAIL) return true;
   const price = Number(book.fiyat) || 0;
   if (price <= 0) return true;
   return userPurchases.includes(book.id);
 }
 window.canAccessBook = canAccessBook;
-window.isAdmin = () => auth.currentUser && auth.currentUser.email === ADMIN_EMAIL;
 
 let rendition = null;
 let currentReaderFontSize = 18;
@@ -1405,19 +1410,15 @@ window.renderBooks = () => {
     const owned = canAccessBook(book);
     const isLocked = price > 0 ? !owned : !auth.currentUser;
     const lockClass = isLocked ? (price > 0 ? 'priced-book' : 'locked-book') : '';
-    const isAdminUserBadge = auth.currentUser && auth.currentUser.email === ADMIN_EMAIL;
-    const priceBadge = isAdminUserBadge
-      ? `<span class="absolute bottom-3 right-3 text-[11px] font-bold text-white bg-amber-500 px-3 py-1 rounded-full shadow-sm flex items-center gap-1"><i class="fa-solid fa-crown text-[10px]"></i> Admin</span>`
-      : price > 0
-        ? (owned
-            ? `<span class="absolute bottom-3 right-3 text-[11px] font-bold text-white bg-emerald-600 px-3 py-1 rounded-full shadow-sm flex items-center gap-1"><i class="fa-solid fa-check text-[10px]"></i> Erişim var</span>`
-            : `<span class="absolute bottom-3 right-3 text-[11px] font-bold tracking-tight text-zinc-900 bg-white/95 backdrop-blur px-3 py-1 rounded-full shadow-sm border border-zinc-200">₺${price.toLocaleString('tr-TR')}</span>`)
-        : `<span class="absolute bottom-3 right-3 text-[11px] font-bold text-white bg-zinc-900 px-3 py-1 rounded-full shadow-sm">Ücretsiz</span>`;
-    const isAdminUser = auth.currentUser && auth.currentUser.email === ADMIN_EMAIL;
-    const primaryAction = (price > 0 && !owned && !isAdminUser)
+    const priceBadge = price > 0
+      ? (owned
+          ? `<span class="absolute bottom-3 right-3 text-[11px] font-bold text-white bg-emerald-600 px-3 py-1 rounded-full shadow-sm flex items-center gap-1"><i class="fa-solid fa-check text-[10px]"></i> Erişim var</span>`
+          : `<span class="absolute bottom-3 right-3 text-[11px] font-bold tracking-tight text-zinc-900 bg-white/95 backdrop-blur px-3 py-1 rounded-full shadow-sm border border-zinc-200">₺${price.toLocaleString('tr-TR')}</span>`)
+      : `<span class="absolute bottom-3 right-3 text-[11px] font-bold text-white bg-zinc-900 px-3 py-1 rounded-full shadow-sm">Ücretsiz</span>`;
+    const primaryAction = (price > 0 && !owned)
       ? `<button onclick="event.stopPropagation(); openPurchaseModal('${book.id}')" class="w-full h-[40px] bg-zinc-900 hover:bg-black text-white rounded-full text-[12.5px] font-semibold tracking-wide transition flex items-center justify-center gap-2"><i class="fa-solid fa-lock text-[11px]"></i> Satın Al — ₺${price.toLocaleString('tr-TR')}</button>`
-      : `<div class="grid grid-cols-[1.1fr_0.9fr] gap-2"><button onclick="event.stopPropagation(); openReader('${safeFile}', '${safeTitle}', '${book.id}')" class="h-[40px] ${isAdminUser ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-zinc-900 hover:bg-black'} text-white rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid ${isAdminUser ? 'fa-shield-halved' : 'fa-play'} text-[10px]"></i> ${isAdminUser ? 'Admin Oku' : 'Oku'}</button><button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${safeFile}')" class="h-[40px] bg-white hover:bg-zinc-50 text-zinc-900 border border-zinc-200 rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-arrow-down text-[11px]"></i> İndir</button></div>`;
-    grid.innerHTML += `<article class="group bg-white dark:bg-zinc-900 border border-zinc-200/70 dark:border-zinc-800 rounded-[20px] p-3 flex flex-col hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.15)] transition-all duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[3/4.2] rounded-[14px] overflow-hidden relative bg-zinc-100 dark:bg-zinc-800 cursor-pointer "><img src="${cover}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div><span class="absolute top-3 left-3 bg-white/90 dark:bg-zinc-900/90 backdrop-blur text-zinc-900 dark:text-zinc-100 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide border border-zinc-200/50">${(book.kategori || 'Genel').toUpperCase()}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-3 right-3 w-8 h-8 bg-white/90 dark:bg-zinc-900/90 backdrop-blur rounded-full flex items-center justify-center transition hover:scale-105 shadow-sm border border-zinc-200/50"><i class="${heartClass} text-[13px]"></i></button>${priceBadge}</div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-900 dark:text-zinc-100 line-clamp-2 cursor-pointer group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition min-h-[38px]">${book.baslik}</h4><p class="text-[12.5px] font-medium text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">${book.yazar}</p><div class="mt-auto pt-3 flex flex-col gap-2">${primaryAction}</div></div></article>`;
+      : `<div class="grid grid-cols-[1.1fr_0.9fr] gap-2"><button onclick="event.stopPropagation(); openReader('${safeFile}', '${safeTitle}', '${book.id}')" class="h-[40px] bg-zinc-900 hover:bg-black text-white rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-play text-[10px]"></i> Oku</button><button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${safeFile}')" class="h-[40px] bg-white hover:bg-zinc-50 text-zinc-900 border border-zinc-200 rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-arrow-down text-[11px]"></i> İndir</button></div>`;
+    grid.innerHTML += `<article class="group bg-white dark:bg-zinc-900 border border-zinc-200/70 dark:border-zinc-800 rounded-[20px] p-3 flex flex-col hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.15)] transition-all duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[3/4.2] rounded-[14px] overflow-hidden relative bg-zinc-100 dark:bg-zinc-800 cursor-pointer ${lockClass}"><img src="${cover}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div><span class="absolute top-3 left-3 bg-white/90 dark:bg-zinc-900/90 backdrop-blur text-zinc-900 dark:text-zinc-100 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide border border-zinc-200/50">${(book.kategori || 'Genel').toUpperCase()}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-3 right-3 w-8 h-8 bg-white/90 dark:bg-zinc-900/90 backdrop-blur rounded-full flex items-center justify-center transition hover:scale-105 shadow-sm border border-zinc-200/50"><i class="${heartClass} text-[13px]"></i></button>${priceBadge}</div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-900 dark:text-zinc-100 line-clamp-2 cursor-pointer group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition min-h-[38px]">${book.baslik}</h4><p class="text-[12.5px] font-medium text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">${book.yazar}</p><div class="mt-auto pt-3 flex flex-col gap-2">${primaryAction}</div></div></article>`;
   });
 };
 function renderHomeSections() {
