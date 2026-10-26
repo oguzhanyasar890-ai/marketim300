@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Marketim 3000 | Dijital Mağaza & Kütüphane</title>
+  <title>Dijital Kitapçı | Dijital Mağaza & Kütüphane</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#18181b"/>
   <meta name="description" content="Ufkunuzu açacak rehberler ve kişisel gelişim eserleri. Satın alın; sesli dinleyin, okuyun ve indirin.">
@@ -53,10 +53,8 @@
     .chat-open{ display:flex !important; animation:slideUp .25s ease-out forwards }
     .tts-highlight{ background:#fde047; color:#000; border-radius:4px; padding:0 3px }
     html.dark .tts-highlight{ background:#facc15 }
-    .locked-book::after{ content:'Giriş yap'; position:absolute; inset:0; background:rgba(0,0,0,.45); backdrop-filter:blur(4px); color:white; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; letter-spacing:.02em; border-radius:14px }
-    .locked-book{ position:relative }
-    .priced-book::after{ content:'Kilitli — Satın Al'; position:absolute; inset:0; background:rgba(0,0,0,.45); backdrop-filter:blur(4px); color:white; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; border-radius:14px }
-    .priced-book{ position:relative }
+    .locked-book, .priced-book{ position:relative }
+    .locked-book::after, .priced-book::after{ display:none !important; content:none !important }
     .cat-pill{ transition:all .2s cubic-bezier(.2,.8,.2,1) }
     .cat-pill.active{ background:#18181b; color:#fff; border-color:#18181b }
     html.dark .cat-pill.active{ background:#fafafa; color:#09090b; border-color:#fafafa }
@@ -74,7 +72,7 @@
       <a href="#" class="flex items-center gap-3.5 group">
         <div class="w-10 h-10 rounded-[12px] bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center font-serif font-black text-[18px] tracking-tighter shadow-sm group-hover:scale-[1.02] transition">M</div>
         <div class="leading-none">
-          <h1 class="font-serif font-bold text-[17px] tracking-tight text-zinc-900 dark:text-zinc-100">Marketim 3000</h1>
+          <h1 class="font-serif font-bold text-[17px] tracking-tight text-zinc-900 dark:text-zinc-100">Dijital Kitapçı</h1>
           <span class="text-[10px] font-semibold tracking-[0.14em] uppercase text-zinc-500">Dijital Mağaza</span>
         </div>
       </a>
@@ -140,21 +138,15 @@
           </div>
         </div>
 
-        <div class="relative lg:h-[520px]">
-          <div class="absolute -inset-8 bg-gradient-to-tr from-zinc-100 to-zinc-50 dark:from-zinc-900 dark:to-zinc-900 rounded-[32px] -z-10"></div>
-          <div class="grid grid-cols-3 gap-4 rotate-[-2deg]">
-            <div class="space-y-4 translate-y-8">
-              <div class="aspect-[3/4] rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-2 shadow-sm"><div class="w-full h-full rounded-[12px] bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700"></div></div>
-              <div class="aspect-[3/4] rounded-[18px] bg-zinc-900 dark:bg-white p-3 text-white dark:text-zinc-900 flex flex-col justify-between"><span class="text-[10px] font-bold tracking-widest uppercase opacity-60">Sesli</span><span class="font-serif text-[18px] leading-tight">Dinle<br>ve<br>öğren</span></div>
+        <div class="relative lg:h-[520px] flex items-center justify-center">
+          <div class="absolute -inset-8 bg-gradient-to-tr from-zinc-100 to-zinc-50 dark:from-zinc-900 dark:to-zinc-900 rounded-[36px] -z-10"></div>
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] bg-gradient-to-br from-zinc-200/40 to-transparent dark:from-zinc-700/20 rounded-full blur-3xl -z-10"></div>
+          <div class="relative">
+            <div class="absolute -inset-5 bg-white dark:bg-zinc-900 rounded-[32px] shadow-[0_20px_60px_-16px_rgba(0,0,0,.25)] border border-zinc-200/60 dark:border-zinc-800 rotate-[-2deg] -z-10"></div>
+            <div class="w-[340px] sm:w-[400px] aspect-square rounded-[28px] overflow-hidden bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-[0_24px_48px_-16px_rgba(0,0,0,.4)]">
+              <img src="1792945068177.jpg" alt="Dijital Kitapçı" class="w-full h-full object-cover">
             </div>
-            <div class="space-y-4">
-              <div class="aspect-[3/4.4] rounded-[18px] overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-[0_20px_40px_-16px_rgba(0,0,0,.3)]"><img src="1792945068177.jpg" class="w-full h-full object-cover"></div>
-              <div class="aspect-[3/2] rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 flex flex-col justify-center"><div class="text-[11px] font-semibold text-zinc-500 uppercase tracking-widest">İndir & Oku</div><div class="mt-1 text-[13px] font-semibold">Çevrimdışı erişim</div></div>
-            </div>
-            <div class="space-y-4 translate-y-12">
-              <div class="aspect-[3/3.5] rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 flex flex-col"><div class="w-8 h-8 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-quote-left text-[12px]"></i></div><p class="mt-3 text-[12px] leading-5 font-medium">“Bilgi paylaştıkça çoğalır.”</p></div>
-              <div class="aspect-[3/4] rounded-[18px] bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800"></div>
-            </div>
+            <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 px-6 py-2 rounded-full text-[11px] font-bold tracking-[0.14em] uppercase shadow-lg whitespace-nowrap">DİJİTAL KİTAPÇI</div>
           </div>
         </div>
       </div>
@@ -372,7 +364,7 @@
         <div><h4 class="font-semibold text-[13px]">Destek</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="https://wa.me/905542026620" target="_blank" class="hover:text-zinc-900">WhatsApp</a></li><li><button onclick="openSubmissionModal()" class="hover:text-zinc-900">Alıntı paylaş</button></li></ul></div>
         <div><h4 class="font-semibold text-[13px]">Uygulama</h4><p class="mt-4 text-[13px] text-zinc-500">Android uygulamasını indirin ve çevrimdışı okuyun.</p><a href="E-Kitap.apk" download class="mt-3 inline-flex h-9 px-4 rounded-full bg-zinc-900 text-white text-[12.5px] font-semibold items-center gap-2">APK İndir <i class="fa-solid fa-download text-[11px]"></i></a></div>
       </div>
-      <div class="mt-12 pt-8 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row justify-between gap-3 text-[12px] text-zinc-500"><span>© 2026 Marketim 3000 — Tüm hakları saklıdır.</span><span class="flex items-center gap-2"><i class="fa-solid fa-lock text-[10px]"></i> Güvenli · Hızlı · Sade</span></div>
+      <div class="mt-12 pt-8 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row justify-between gap-3 text-[12px] text-zinc-500"><span>© 2026 Dijital Kitapçı — Tüm hakları saklıdır.</span><span class="flex items-center gap-2"><i class="fa-solid fa-lock text-[10px]"></i> Güvenli · Hızlı · Sade</span></div>
     </div>
   </footer>
 
@@ -810,7 +802,7 @@ window.closeSubmissionModal = () => { document.getElementById('submissionModal')
 const defaultSubmissions = [
   { isim: "Oğuzhan Y.", tur: "Kitap Alıntısı", baslik: "Finansal Özgürlük", mesaj: "Zenginlik, harcadığınız parayla değil, biriktirdiğiniz ve yatırıma dönüştürdüğünüz değerle ölçülür.", tarihStr: "Öne Çıkan" },
   { isim: "Elif K.", tur: "Kitap Tavsiyesi", baslik: "Para ve Kripto", mesaj: "Finansal okuryazarlık ve kripto varlıkların mantığını anlamak isteyen herkesin mutlaka okuması gereken rehber.", tarihStr: "Okur Önerisi" },
-  { isim: "Mert D.", tur: "Okur Mesajı", baslik: "Marketim 3000", mesaj: "Kitapları sesli dinleyebilmek inanılmaz güzel olmuş! Artık kaldığım yerden devam ediyor.", tarihStr: "Yeni Özellik" }
+  { isim: "Mert D.", tur: "Okur Mesajı", baslik: "Dijital Kitapçı", mesaj: "Kitapları sesli dinleyebilmek inanılmaz güzel olmuş! Artık kaldığım yerden devam ediyor.", tarihStr: "Yeni Özellik" }
 ];
 
 function renderSubmissionCards(items) {
@@ -1095,7 +1087,7 @@ async function loadTxtIntoReaderDirect(rawText, title) {
     return `<p data-tts-id="${idx}" class="mb-5 leading-relaxed text-justify tts-paragraph">${line}</p>`;
   }).join('');
 
-  viewer.innerHTML = `<div class="max-w-3xl mx-auto px-5 sm:px-12 py-10 sm:py-14 font-reading"><div class="text-center mb-10 pb-8 border-b border-current/15"><span class="text-[10px] font-sans font-bold uppercase tracking-widest text-brand-600">Akıllı Okuyucu - Kaldığın Yerden Devam</span><h1 class="text-2xl sm:text-4xl font-sans font-black mt-2">${title}</h1><p class="text-xs text-slate-500 mt-2"><i class="fa-solid fa-volume-high text-brand-600 mr-1"></i> Oynat tuşuna bas, sarı vurgu ile takip et. Hız değiştirebilirsin.</p></div><div id="txtContentBody" style="font-size: ${currentReaderFontSize}px;">${paragraphs}</div><div class="mt-16 pt-8 border-t border-current/15 text-center opacity-60 text-xs font-sans"><i class="fa-solid fa-check-circle mr-1 text-brand-600"></i> Son — Marketim 3000</div></div>`;
+  viewer.innerHTML = `<div class="max-w-3xl mx-auto px-5 sm:px-12 py-10 sm:py-14 font-reading"><div class="text-center mb-10 pb-8 border-b border-current/15"><span class="text-[10px] font-sans font-bold uppercase tracking-widest text-brand-600">Akıllı Okuyucu - Kaldığın Yerden Devam</span><h1 class="text-2xl sm:text-4xl font-sans font-black mt-2">${title}</h1><p class="text-xs text-slate-500 mt-2"><i class="fa-solid fa-volume-high text-brand-600 mr-1"></i> Oynat tuşuna bas, sarı vurgu ile takip et. Hız değiştirebilirsin.</p></div><div id="txtContentBody" style="font-size: ${currentReaderFontSize}px;">${paragraphs}</div><div class="mt-16 pt-8 border-t border-current/15 text-center opacity-60 text-xs font-sans"><i class="fa-solid fa-check-circle mr-1 text-brand-600"></i> Son — Dijital Kitapçı</div></div>`;
   
   setTimeout(() => {
     highlightElements = Array.from(viewer.querySelectorAll('[data-tts-id]'));
@@ -1308,7 +1300,7 @@ window.renderBooks = () => {
     const primaryAction = (price > 0 && !owned && !isAdminUser)
       ? `<button onclick="event.stopPropagation(); openPurchaseModal('${book.id}')" class="w-full h-[40px] bg-zinc-900 hover:bg-black text-white rounded-full text-[12.5px] font-semibold tracking-wide transition flex items-center justify-center gap-2"><i class="fa-solid fa-lock text-[11px]"></i> Satın Al — ₺${price.toLocaleString('tr-TR')}</button>`
       : `<div class="grid grid-cols-[1.1fr_0.9fr] gap-2"><button onclick="event.stopPropagation(); openReader('${safeFile}', '${safeTitle}', '${book.id}')" class="h-[40px] ${isAdminUser ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-zinc-900 hover:bg-black'} text-white rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid ${isAdminUser ? 'fa-shield-halved' : 'fa-play'} text-[10px]"></i> ${isAdminUser ? 'Admin Oku' : 'Oku'}</button><button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${safeFile}')" class="h-[40px] bg-white hover:bg-zinc-50 text-zinc-900 border border-zinc-200 rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-arrow-down text-[11px]"></i> İndir</button></div>`;
-    grid.innerHTML += `<article class="group bg-white dark:bg-zinc-900 border border-zinc-200/70 dark:border-zinc-800 rounded-[20px] p-3 flex flex-col hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.15)] transition-all duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[3/4.2] rounded-[14px] overflow-hidden relative bg-zinc-100 dark:bg-zinc-800 cursor-pointer ${lockClass}"><img src="${cover}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div><span class="absolute top-3 left-3 bg-white/90 dark:bg-zinc-900/90 backdrop-blur text-zinc-900 dark:text-zinc-100 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide border border-zinc-200/50">${(book.kategori || 'Genel').toUpperCase()}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-3 right-3 w-8 h-8 bg-white/90 dark:bg-zinc-900/90 backdrop-blur rounded-full flex items-center justify-center transition hover:scale-105 shadow-sm border border-zinc-200/50"><i class="${heartClass} text-[13px]"></i></button>${priceBadge}</div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-900 dark:text-zinc-100 line-clamp-2 cursor-pointer group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition min-h-[38px]">${book.baslik}</h4><p class="text-[12.5px] font-medium text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">${book.yazar}</p><div class="mt-auto pt-3 flex flex-col gap-2">${primaryAction}</div></div></article>`;
+    grid.innerHTML += `<article class="group bg-white dark:bg-zinc-900 border border-zinc-200/70 dark:border-zinc-800 rounded-[20px] p-3 flex flex-col hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.15)] transition-all duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[3/4.2] rounded-[14px] overflow-hidden relative bg-zinc-100 dark:bg-zinc-800 cursor-pointer "><img src="${cover}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div><span class="absolute top-3 left-3 bg-white/90 dark:bg-zinc-900/90 backdrop-blur text-zinc-900 dark:text-zinc-100 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide border border-zinc-200/50">${(book.kategori || 'Genel').toUpperCase()}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-3 right-3 w-8 h-8 bg-white/90 dark:bg-zinc-900/90 backdrop-blur rounded-full flex items-center justify-center transition hover:scale-105 shadow-sm border border-zinc-200/50"><i class="${heartClass} text-[13px]"></i></button>${priceBadge}</div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-900 dark:text-zinc-100 line-clamp-2 cursor-pointer group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition min-h-[38px]">${book.baslik}</h4><p class="text-[12.5px] font-medium text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">${book.yazar}</p><div class="mt-auto pt-3 flex flex-col gap-2">${primaryAction}</div></div></article>`;
   });
 };
 function renderHomeSections() {
