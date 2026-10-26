@@ -58,6 +58,16 @@
     .cat-pill{ transition:all .2s cubic-bezier(.2,.8,.2,1) }
     .cat-pill.active{ background:#18181b; color:#fff; border-color:#18181b }
     html.dark .cat-pill.active{ background:#fafafa; color:#09090b; border-color:#fafafa }
+  
+    /* Yeni özellikler */
+    #cartModal,#giftModal,#quoteModal,#aiModal{ display:none }
+    .streak-fire{ animation: flicker 1.5s infinite alternate }
+    @keyframes flicker{ from{ transform: scale(1)} to{ transform: scale(1.15)} }
+    .package-card{ transition: all .3s cubic-bezier(.2,.8,.2,1) }
+    .package-card:hover{ transform: translateY(-4px); box-shadow:0 20px 40px -12px rgba(0,0,0,.15) }
+    .ai-bubble{ background: linear-gradient(135deg, #18181b 0%, #27272a 100%) }
+    html.dark .ai-bubble{ background: linear-gradient(135deg, #fafafa 0%, #e4e4e7 100%); color:#09090b }
+
   </style>
 </head>
 <body class="font-sans min-h-screen flex flex-col selection:bg-zinc-900 selection:text-white">
@@ -84,8 +94,8 @@
         <a href="#youtubeBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 transition">YouTube</a>
       </nav>
 
-      <!-- Atatürk Köşesi - sağ üst -->
-      <div class="hidden lg:flex items-center gap-3 pl-5 ml-1 border-l border-zinc-200 dark:border-zinc-800">
+      <!-- Atatürk Köşesi - sağ üst - TIKLANABİLİR -->
+      <a href="#ataturkKoleksiyonu" class="hidden lg:flex items-center gap-3 pl-5 ml-1 border-l border-zinc-200 dark:border-zinc-800 hover:opacity-80 transition group">
         <div class="relative">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Atat%C3%BCrk_1930.jpg/400px-Atat%C3%BCrk_1930.jpg" 
                alt="Mustafa Kemal Atatürk" 
@@ -98,6 +108,18 @@
           <div class="text-[11px] font-bold tracking-[0.14em] uppercase text-red-600">ATATÜRK</div>
         </div>
       </div>
+
+      
+      <!-- Streak -->
+      <div id="streakBadge" class="hidden lg:flex items-center gap-1.5 px-3 h-9 rounded-full bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800 text-orange-700 dark:text-orange-300 text-[11px] font-bold">
+        <i class="fa-solid fa-fire streak-fire"></i> <span id="streakCount">0</span> gün
+      </div>
+
+      <!-- Sepet -->
+      <button onclick="openCartModal()" class="relative w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white transition">
+        <i class="fa-solid fa-bag-shopping text-[13px]"></i>
+        <span id="cartCount" class="absolute -top-1 -right-1 w-4 h-4 bg-red-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center hidden">0</span>
+      </button>
 
       <div class="flex items-center gap-2">
         <button onclick="toggleTheme()" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition">
@@ -196,6 +218,101 @@
   </section>
 
   <!-- KOLEKSIYON -->
+  
+  <!-- PAKETLER -->
+  <section id="paketlerBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full">
+    <div class="flex items-end justify-between mb-6">
+      <div>
+        <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Avantajlı Paketler</div>
+        <h3 class="mt-2 font-serif text-[28px] font-bold tracking-tight">Çok al, az öde</h3>
+        <p class="text-[13px] text-zinc-500 mt-1">Seçili paketlerde %30'a varan indirim + hediye kitap</p>
+      </div>
+      <div class="hidden sm:flex items-center gap-2 text-[11px] font-medium px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200"><i class="fa-solid fa-bolt"></i> 3AL2ODE aktif</div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="package-card surface-card rounded-[24px] p-6 border-2 border-zinc-900 dark:border-white">
+        <div class="flex justify-between items-start mb-4">
+          <div class="w-10 h-10 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-rocket"></i></div>
+          <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-amber-400 text-zinc-900">EN ÇOK SATAN</span>
+        </div>
+        <h4 class="font-serif font-bold text-[18px]">Başlangıç Paketi</h4>
+        <p class="text-[12.5px] text-zinc-500 mt-1">Kişisel gelişim için ilk 3 kitap</p>
+        <div class="mt-4 flex items-baseline gap-2"><span class="text-[22px] font-bold">₺199</span><span class="text-[13px] line-through text-zinc-400">₺345</span></div>
+        <button onclick="addPackageToCart('baslangic')" class="mt-5 w-full h-10 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold hover:bg-black transition">Paketi Sepete Ekle</button>
+      </div>
+      <div class="package-card surface-card rounded-[24px] p-6">
+        <div class="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center mb-4"><i class="fa-solid fa-brain"></i></div>
+        <h4 class="font-serif font-bold text-[18px]">Odak & Üretkenlik</h4>
+        <p class="text-[12.5px] text-zinc-500 mt-1">5 kitap + Not alma şablonları</p>
+        <div class="mt-4 flex items-baseline gap-2"><span class="text-[22px] font-bold">₺349</span><span class="text-[13px] line-through text-zinc-400">₺520</span></div>
+        <button onclick="addPackageToCart('odak')" class="mt-5 w-full h-10 rounded-full bg-white border border-zinc-200 text-zinc-900 text-[12.5px] font-semibold hover:bg-zinc-50 transition">Paketi Sepete Ekle</button>
+      </div>
+      <div class="package-card surface-card rounded-[24px] p-6">
+        <div class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center mb-4"><i class="fa-solid fa-gift"></i></div>
+        <h4 class="font-serif font-bold text-[18px]">Hediye Paketi</h4>
+        <p class="text-[12.5px] text-zinc-500 mt-1">3 kitap + hediye kartı + özel not</p>
+        <div class="mt-4 flex items-baseline gap-2"><span class="text-[22px] font-bold">₺279</span><span class="text-[13px] text-zinc-500">+ kargo bedava</span></div>
+        <button onclick="addPackageToCart('hediye')" class="mt-5 w-full h-10 rounded-full bg-white border border-zinc-200 text-zinc-900 text-[12.5px] font-semibold hover:bg-zinc-50 transition">Hediye Paketi Oluştur</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATATÜRK KOLEKSİYONU -->
+  <section id="ataturkKoleksiyonu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full">
+    <div class="rounded-[28px] bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 p-7 sm:p-10 flex flex-col lg:flex-row gap-8 items-start relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-red-600/20 to-transparent rounded-full blur-3xl"></div>
+      <div class="relative z-10 flex-1">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 dark:bg-zinc-900/10 text-[11px] font-bold tracking-wide"><span class="w-2 h-2 bg-red-500 rounded-full"></span> ÖZEL KOLEKSİYON</div>
+        <h3 class="mt-4 font-serif font-bold text-[32px] leading-[0.95] tracking-tight">Atatürk'ün<br>okuduğu ve önerdiği<br>kitaplar</h3>
+        <p class="mt-4 text-[13.5px] leading-6 opacity-80 max-w-[48ch]">“Benim manevi mirasım bilim ve akıldır.” Atatürk'ün kütüphanesinden seçilmiş, düşünce dünyasını şekillendiren eserler.</p>
+        <div class="mt-6 flex gap-2">
+          <button onclick="filterCategory('Atatürk', null); document.getElementById('kitaplarBolumu').scrollIntoView({behavior:'smooth'})" class="h-10 px-5 rounded-full bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white text-[12.5px] font-semibold">Koleksiyonu Gör</button>
+          <span class="h-10 px-4 rounded-full bg-white/10 flex items-center text-[11px]">19 Mayıs • 10 Kasım özel</span>
+        </div>
+      </div>
+      <div class="relative z-10 lg:w-[320px] w-full">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Atat%C3%BCrk_1930.jpg/400px-Atat%C3%BCrk_1930.jpg" class="w-full h-[220px] object-cover rounded-[18px] border border-white/10" alt="Atatürk">
+        <div class="mt-3 text-[11px] opacity-60 italic">“Çalışmadan, öğrenmeden, yorulmadan rahat yaşamanın yollarını aramayı itiyat haline getirmiş milletler, evvela haysiyetlerini, sonra hürriyetlerini kaybetmeye mahkumdurlar.”</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG / SEO -->
+  <section id="blogBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full border-t border-zinc-200 dark:border-zinc-800 mt-4">
+    <div class="flex items-end justify-between mb-6">
+      <div>
+        <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Blog & Rehber</div>
+        <h3 class="mt-2 font-serif text-[26px] font-bold tracking-tight">Okuma rehberleri</h3>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <article class="surface-card rounded-[20px] p-5 hover:shadow-md transition">
+        <div class="text-[10px] font-bold tracking-widest uppercase text-zinc-500">REHBER • 4 dk</div>
+        <h4 class="mt-2 font-semibold text-[14px] leading-snug">EPUB nedir, nasıl okunur? Tüm cihazlarda rehber</h4>
+        <p class="mt-2 text-[12px] text-zinc-500 line-clamp-2">Telefon, tablet ve bilgisayarda EPUB dosyalarını en verimli nasıl okursunuz? Tema, font ve TTS ipuçları.</p>
+      </article>
+      <article class="surface-card rounded-[20px] p-5 hover:shadow-md transition">
+        <div class="text-[10px] font-bold tracking-widest uppercase text-zinc-500">ÖZET • 6 dk</div>
+        <h4 class="mt-2 font-semibold text-[14px] leading-snug">Her gün 20 dakika okuma alışkanlığı nasıl kazanılır?</h4>
+        <p class="mt-2 text-[12px] text-zinc-500 line-clamp-2">Streak sistemi, uyku zamanlayıcısı ve not alma ile kalıcı alışkanlık kurmanın bilimsel yolu.</p>
+      </article>
+      <article class="surface-card rounded-[20px] p-5 hover:shadow-md transition">
+        <div class="text-[10px] font-bold tracking-widest uppercase text-zinc-500">LİSTE • 5 dk</div>
+        <h4 class="mt-2 font-semibold text-[14px] leading-snug">2026'da mutlaka okuman gereken 7 kişisel gelişim kitabı</h4>
+        <p class="mt-2 text-[12px] text-zinc-500 line-clamp-2">Editörlerimizin seçtiği, Atatürk koleksiyonu dahil en çok okunanlar listesi.</p>
+      </article>
+    </div>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BookStore",
+      "name": "Dijital Kitapçı",
+      "description": "Dijital e-kitap, PDF ve EPUB satış platformu. Sesli okuma ve çevrimdışı erişim.",
+      "url": "https://marketim3000.online"
+    }
+    </script>
+  </section>
+
   <main id="kitaplarBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-8 w-full">
     <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-5 sm:p-6 mb-6">
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
@@ -1676,5 +1793,517 @@ if (document.readyState === "loading") {
 } else {
   initApp();
 }
+
+
+  <!-- SEPET MODAL -->
+  <div id="cartModal" class="fixed inset-0 z-[100] bg-zinc-950/60 backdrop-blur-[10px] p-4 items-center justify-center">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[480px] max-h-[85vh] flex flex-col shadow-2xl border border-zinc-200 dark:border-zinc-800">
+      <div class="p-6 border-b border-zinc-100 dark:border-zinc-800 flex justify-between items-center">
+        <div>
+          <h3 class="font-serif font-bold text-[18px]">Sepetin</h3>
+          <p class="text-[11px] text-zinc-500 mt-0.5"><span id="cartModalCount">0</span> ürün • Güvenli ödeme</p>
+        </div>
+        <button onclick="closeCartModal()" class="w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
+      </div>
+      <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+      <div class="p-5 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-b-[28px]">
+        <div class="flex gap-2 mb-3">
+          <input id="couponInput" placeholder="Kupon kodu (ILK10, OGRENCI15)" class="flex-1 h-10 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 px-4 text-[12.5px] focus:outline-none">
+          <button onclick="applyCoupon()" class="h-10 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12px] font-semibold">Uygula</button>
+        </div>
+        <div id="couponInfo" class="hidden text-[11px] mb-3 px-3 py-2 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200"></div>
+        <div class="space-y-1.5 text-[13px] mb-4">
+          <div class="flex justify-between"><span class="text-zinc-500">Ara toplam</span><span id="cartSubtotal" class="font-medium">₺0</span></div>
+          <div class="flex justify-between"><span class="text-zinc-500">İndirim</span><span id="cartDiscount" class="font-medium text-emerald-600">-₺0</span></div>
+          <div class="flex justify-between font-bold text-[15px] pt-2 border-t border-zinc-200 dark:border-zinc-700"><span>Toplam</span><span id="cartTotal">₺0</span></div>
+        </div>
+        <button onclick="checkoutCart()" class="w-full h-11 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-semibold text-[13px] flex items-center justify-center gap-2 hover:bg-black transition"><i class="fa-solid fa-lock text-[11px]"></i> Güvenli Öde • WhatsApp ile Onayla</button>
+        <p class="text-[10px] text-zinc-500 text-center mt-2">Ödemeden sonra kitaplar hesabına anında tanımlanır</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEDİYE MODAL -->
+  <div id="giftModal" class="fixed inset-0 z-[100] bg-zinc-950/60 backdrop-blur-[10px] p-4 items-center justify-center">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[420px] p-6 shadow-2xl border">
+      <div class="flex justify-between items-start mb-5">
+        <div>
+          <h3 class="font-serif font-bold text-[18px] flex items-center gap-2"><i class="fa-solid fa-gift text-red-500"></i> Hediye Et</h3>
+          <p class="text-[12px] text-zinc-500 mt-1">Bu kitabı bir arkadaşına hediye et. E-posta ile davet gider.</p>
+        </div>
+        <button onclick="closeGiftModal()" class="w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
+      </div>
+      <div class="space-y-3">
+        <input id="giftEmail" type="email" placeholder="Arkadaşının e-postası" class="w-full h-11 rounded-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 px-4 text-[13px]">
+        <textarea id="giftNote" placeholder="Kişisel not (isteğe bağlı): Bu kitap sana çok iyi gelecek..." class="w-full h-20 rounded-[16px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 p-3 text-[12.5px] resize-none"></textarea>
+        <div id="giftBookInfo" class="p-3 rounded-xl bg-zinc-50 dark:bg-zinc-800 text-[12px]"></div>
+        <button onclick="sendGift()" class="w-full h-11 rounded-full bg-red-600 hover:bg-red-700 text-white font-semibold text-[13px]">Hediye Linki Oluştur • Ücretsiz</button>
+        <div id="giftResult" class="hidden p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] text-emerald-800 break-all"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALINTI PAYLAŞ MODAL -->
+  <div id="quoteModal" class="fixed inset-0 z-[100] bg-zinc-950/70 backdrop-blur-[10px] p-4 items-center justify-center">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[380px] p-0 overflow-hidden shadow-2xl border">
+      <div class="p-5 flex justify-between items-center border-b">
+        <h3 class="font-bold text-[14px]">Alıntıyı Paylaş</h3>
+        <button onclick="closeQuoteModal()" class="w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <canvas id="quoteCanvas" width="1080" height="1920" class="w-full aspect-[9/16] bg-zinc-900 hidden"></canvas>
+      <div id="quotePreview" class="p-6 bg-zinc-900 text-white min-h-[320px] flex flex-col justify-center">
+        <i class="fa-solid fa-quote-left text-[28px] opacity-30 mb-4"></i>
+        <p id="quoteText" class="font-serif text-[18px] leading-[1.4]"></p>
+        <p id="quoteBook" class="mt-6 text-[11px] tracking-widest uppercase opacity-60"></p>
+        <div class="mt-8 flex items-center gap-2 text-[10px] opacity-50"><div class="w-6 h-6 rounded-full bg-white text-zinc-900 flex items-center justify-center font-black">D</div> Dijital Kitapçı</div>
+      </div>
+      <div class="p-4 flex gap-2">
+        <button onclick="downloadQuote()" class="flex-1 h-10 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12px] font-semibold">İndir (Story)</button>
+        <button onclick="navigator.share ? navigator.share({text: document.getElementById('quoteText').innerText}) : copyQuote()" class="flex-1 h-10 rounded-full bg-white border text-[12px] font-semibold">Paylaş</button>
+      </div>
+    </div>
+  </div>
+
+
+// ===== SÜPER ÖZELLİKLER - TÜMÜ =====
+let cart = JSON.parse(localStorage.getItem('dk_cart')||'[]');
+let appliedCoupon = JSON.parse(localStorage.getItem('dk_coupon')||'null');
+const COUPONS = {
+  'ILK10': { type:'percent', value:10, desc:'İlk siparişe %10' },
+  'OGRENCI15': { type:'percent', value:15, desc:'Öğrenci %15' },
+  'HOSGELDIN20': { type:'percent', value:20, desc:'Hoş geldin %20' },
+  '3AL2ODE': { type:'3al2ode', value:0, desc:'3 al 2 öde - en ucuz bedava' },
+  'ATATURK23': { type:'percent', value:23, desc:'Atatürk özel %23' }
+};
+
+function saveCart(){ localStorage.setItem('dk_cart', JSON.stringify(cart)); updateCartUI(); }
+function updateCartUI(){
+  const count = cart.length;
+  const badge = document.getElementById('cartCount');
+  const modalCount = document.getElementById('cartModalCount');
+  if(badge){ badge.innerText = count; badge.classList.toggle('hidden', count===0); }
+  if(modalCount) modalCount.innerText = count;
+  // calc totals
+  let subtotal = 0;
+  cart.forEach(item => {
+    const book = allBooks.find(b=>b.id===item.id);
+    if(book) subtotal += Number(book.fiyat||0);
+  });
+  let discount = 0;
+  if(appliedCoupon){
+    if(appliedCoupon.type==='percent') discount = subtotal * (appliedCoupon.value/100);
+    else if(appliedCoupon.type==='3al2ode' && cart.length>=3){
+      const prices = cart.map(i=> Number((allBooks.find(b=>b.id===i.id)||{}).fiyat||0)).sort((a,b)=>a-b);
+      discount = prices[0]||0;
+    }
+  }
+  const total = Math.max(0, subtotal - discount);
+  const elSub = document.getElementById('cartSubtotal');
+  const elDis = document.getElementById('cartDiscount');
+  const elTot = document.getElementById('cartTotal');
+  if(elSub) elSub.innerText = '₺' + subtotal.toLocaleString('tr-TR');
+  if(elDis) elDis.innerText = '-₺' + Math.round(discount).toLocaleString('tr-TR');
+  if(elTot) elTot.innerText = '₺' + Math.round(total).toLocaleString('tr-TR');
+
+  const itemsDiv = document.getElementById('cartItems');
+  if(itemsDiv){
+    if(cart.length===0) itemsDiv.innerHTML = '<div class="text-center py-12"><div class="w-12 h-12 mx-auto rounded-2xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center mb-3"><i class="fa-solid fa-bag-shopping text-zinc-400"></i></div><p class="text-[13px] font-medium">Sepetin boş</p><p class="text-[11px] text-zinc-500 mt-1">Kitap ekle, paketlerle daha karlı al</p></div>';
+    else itemsDiv.innerHTML = cart.map(item=>{
+      const book = allBooks.find(b=>b.id===item.id);
+      if(!book) return '';
+      return `<div class="flex gap-3 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800 border">
+        <img src="${book.kapakUrl||''}" class="w-12 h-16 object-cover rounded-xl">
+        <div class="flex-1 min-w-0">
+          <p class="text-[12.5px] font-semibold truncate">${book.baslik}</p>
+          <p class="text-[11px] text-zinc-500">${book.yazar||''}</p>
+          <p class="text-[11px] font-bold mt-1">₺${Number(book.fiyat||0).toLocaleString('tr-TR')}</p>
+        </div>
+        <button onclick="removeFromCart('${item.id}')" class="w-7 h-7 rounded-full bg-white dark:bg-zinc-900 border flex items-center justify-center"><i class="fa-solid fa-xmark text-[10px]"></i></button>
+      </div>`;
+    }).join('');
+  }
+}
+
+window.addToCart = (bookId) => {
+  if(cart.find(c=>c.id===bookId)){ openCartModal(); return; }
+  cart.push({id:bookId, addedAt: Date.now()});
+  saveCart();
+  // toast
+  const toast = document.createElement('div');
+  toast.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 bg-zinc-900 text-white px-4 py-2 rounded-full text-[12px] font-medium shadow-xl z-[9999]';
+  toast.innerText = 'Sepete eklendi ✓';
+  document.body.appendChild(toast);
+  setTimeout(()=>toast.remove(), 2000);
+};
+
+window.removeFromCart = (id) => { cart = cart.filter(c=>c.id!==id); saveCart(); };
+
+window.openCartModal = () => { document.getElementById('cartModal').style.display='flex'; document.getElementById('cartModal').classList.add('modal-active'); updateCartUI(); };
+window.closeCartModal = () => { document.getElementById('cartModal').style.display='none'; document.getElementById('cartModal').classList.remove('modal-active'); };
+
+window.applyCoupon = () => {
+  const code = (document.getElementById('couponInput').value||'').toUpperCase().trim();
+  const info = document.getElementById('couponInfo');
+  if(!COUPONS[code]){ info.classList.remove('hidden'); info.className='text-[11px] mb-3 px-3 py-2 rounded-xl bg-red-50 text-red-700 border border-red-200'; info.innerText='Kupon bulunamadı. Deneyin: ILK10, ATATURK23, 3AL2ODE'; return; }
+  appliedCoupon = { code, ...COUPONS[code] };
+  localStorage.setItem('dk_coupon', JSON.stringify(appliedCoupon));
+  info.classList.remove('hidden'); info.className='text-[11px] mb-3 px-3 py-2 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200';
+  info.innerText = '✓ ' + appliedCoupon.desc + ' uygulandı';
+  updateCartUI();
+};
+
+window.checkoutCart = () => {
+  if(cart.length===0) return;
+  let msg = 'Merhaba, Dijital Kitapçı siparişim:\n';
+  let total = 0;
+  cart.forEach(item=>{
+    const b = allBooks.find(x=>x.id===item.id);
+    if(b){ msg += `- ${b.baslik} (₺${b.fiyat||0})\n`; total += Number(b.fiyat||0); }
+  });
+  if(appliedCoupon) msg += `\nKupon: ${appliedCoupon.code} (${appliedCoupon.desc})\n`;
+  const elTot = document.getElementById('cartTotal');
+  if(elTot) msg += `Toplam: ${elTot.innerText}\n`;
+  msg += '\nDekontu gönderiyorum.';
+  const wa = `https://wa.me/905542026620?text=${encodeURIComponent(msg)}`;
+  window.open(wa, '_blank');
+  // Firebase'de sipariş oluştur (opsiyonel)
+  cart = []; appliedCoupon=null; localStorage.removeItem('dk_coupon'); saveCart(); closeCartModal();
+};
+
+// Paketler
+window.addPackageToCart = (type) => {
+  const packages = {
+    baslangic: allBooks.slice(0,3).map(b=>b.id),
+    odak: allBooks.slice(0,5).map(b=>b.id),
+    hediye: allBooks.slice(0,3).map(b=>b.id)
+  };
+  const ids = packages[type]||[];
+  ids.forEach(id=>{ if(!cart.find(c=>c.id===id)) cart.push({id, addedAt:Date.now()}); });
+  saveCart(); openCartModal();
+};
+
+// Hediye
+let giftBookId = null;
+window.openGiftModal = (bookId) => {
+  giftBookId = bookId;
+  const book = allBooks.find(b=>b.id===bookId);
+  document.getElementById('giftBookInfo').innerHTML = book ? `<b>${book.baslik}</b> — ${book.yazar||''}` : '';
+  document.getElementById('giftModal').style.display='flex';
+  document.getElementById('giftModal').classList.add('modal-active');
+};
+window.closeGiftModal = () => { document.getElementById('giftModal').style.display='none'; };
+window.sendGift = () => {
+  const email = document.getElementById('giftEmail').value.trim();
+  const note = document.getElementById('giftNote').value.trim();
+  if(!email || !email.includes('@')){ alert('Geçerli e-posta gir'); return; }
+  const code = 'HEDİYE-' + Math.random().toString(36).substring(2,8).toUpperCase();
+  const book = allBooks.find(b=>b.id===giftBookId);
+  const link = window.location.origin + window.location.pathname + '?hediye=' + code;
+  const result = document.getElementById('giftResult');
+  result.classList.remove('hidden');
+  result.innerHTML = `✓ Hediye linki oluşturuldu!<br><b>Kod:</b> ${code}<br><b>Kitap:</b> ${book?book.baslik:''}<br><b>Link:</b> ${link}<br><br>Bu linki ${email} adresine gönder. Alıcı linke tıklayınca kitap hesabına tanımlanır. Not: ${note||'—'}`;
+  // LocalStorage'da sakla
+  const gifts = JSON.parse(localStorage.getItem('dk_gifts')||'[]');
+  gifts.push({code, bookId:giftBookId, email, note, date:Date.now()});
+  localStorage.setItem('dk_gifts', JSON.stringify(gifts));
+};
+
+// Alıntı paylaş
+let selectedQuote = '';
+document.addEventListener('mouseup', () => {
+  const sel = window.getSelection().toString().trim();
+  if(sel && sel.length>20 && sel.length<300 && (currentReaderMode==='txt' || currentReaderMode==='epub')){
+    selectedQuote = sel;
+    // küçük tooltip göster
+    let tooltip = document.getElementById('quoteTooltip');
+    if(!tooltip){
+      tooltip = document.createElement('div');
+      tooltip.id='quoteTooltip';
+      tooltip.className='fixed bottom-24 left-1/2 -translate-x-1/2 bg-zinc-900 text-white px-4 py-2 rounded-full text-[11px] font-medium flex items-center gap-2 shadow-xl z-[999]';
+      tooltip.innerHTML = '<i class="fa-solid fa-quote-left"></i> Alıntıyı paylaş <button onclick="openQuoteModal()" class="ml-2 px-2.5 py-1 rounded-full bg-white text-zinc-900 text-[10px] font-bold">Paylaş</button>';
+      document.body.appendChild(tooltip);
+      setTimeout(()=>{ if(tooltip) tooltip.remove(); }, 4000);
+    }
+  }
+});
+window.openQuoteModal = () => {
+  if(!selectedQuote) selectedQuote = window.getSelection().toString().trim() || 'Bilgi paylaştıkça çoğalır.';
+  const bookTitle = activeBookTitle || 'Dijital Kitapçı';
+  document.getElementById('quoteText').innerText = '"' + selectedQuote + '"';
+  document.getElementById('quoteBook').innerText = bookTitle;
+  document.getElementById('quoteModal').style.display='flex';
+  document.getElementById('quoteModal').classList.add('modal-active');
+  // canvas çiz
+  setTimeout(drawQuoteCanvas, 100);
+};
+window.closeQuoteModal = () => { document.getElementById('quoteModal').style.display='none'; };
+window.drawQuoteCanvas = () => {
+  const canvas = document.getElementById('quoteCanvas');
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#18181b'; ctx.fillRect(0,0,1080,1920);
+  ctx.fillStyle = 'rgba(255,255,255,0.04)';
+  for(let i=0;i<1920;i+=40){ ctx.fillRect(0,i,1080,1); }
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 64px Fraunces, serif';
+  const quote = document.getElementById('quoteText').innerText;
+  const words = quote.split(' ');
+  let line='', y=700;
+  ctx.textAlign='center';
+  for(let n=0;n<words.length;n++){
+    let testLine = line + words[n] + ' ';
+    let metrics = ctx.measureText(testLine);
+    if(metrics.width > 800 && n>0){ ctx.fillText(line, 540, y); line=words[n]+' '; y+=80; }
+    else line=testLine;
+  }
+  ctx.fillText(line,540,y);
+  ctx.font = '12px Inter'; ctx.fillStyle='rgba(255,255,255,0.5)';
+  ctx.fillText((document.getElementById('quoteBook').innerText||'') + ' • Dijital Kitapçı', 540, 1600);
+};
+window.downloadQuote = () => {
+  drawQuoteCanvas();
+  const canvas = document.getElementById('quoteCanvas');
+  const link = document.createElement('a');
+  link.download = 'alinti-dijital-kitapci.png';
+  link.href = canvas.toDataURL();
+  link.click();
+};
+window.copyQuote = () => { navigator.clipboard.writeText(selectedQuote); alert('Alıntı kopyalandı!'); };
+
+// Streak
+function updateStreak(){
+  const today = new Date().toDateString();
+  let streakData = JSON.parse(localStorage.getItem('dk_streak')||'{"count":0,"lastDate":null}');
+  const last = streakData.lastDate;
+  const badge = document.getElementById('streakBadge');
+  const countEl = document.getElementById('streakCount');
+  if(badge && countEl){
+    countEl.innerText = streakData.count;
+    if(streakData.count>0) badge.classList.remove('hidden');
+  }
+}
+function markReadingDay(){
+  const today = new Date().toDateString();
+  let data = JSON.parse(localStorage.getItem('dk_streak')||'{"count":0,"lastDate":null}');
+  if(data.lastDate===today) return;
+  const yesterday = new Date(Date.now()-86400000).toDateString();
+  if(data.lastDate===yesterday) data.count++;
+  else if(data.lastDate!==today) data.count = data.count===0?1:data.count+1;
+  if(data.count===0) data.count=1;
+  data.lastDate=today;
+  localStorage.setItem('dk_streak', JSON.stringify(data));
+  updateStreak();
+}
+
+// Sleep timer
+let sleepTimer = null;
+let sleepRemaining = 0;
+window.setSleepTimer = (mins) => {
+  if(sleepTimer) clearInterval(sleepTimer);
+  if(mins===0){ document.getElementById('sleepInfo').innerText='Kapalı'; return; }
+  sleepRemaining = mins*60;
+  document.getElementById('sleepInfo').innerText = mins + ' dk sonra duracak';
+  sleepTimer = setInterval(()=>{
+    sleepRemaining--;
+    if(sleepRemaining<=0){
+      if(typeof stopSpeech==='function') stopSpeech();
+      clearInterval(sleepTimer);
+      document.getElementById('sleepInfo').innerText='Uyku modunda durdu';
+    } else {
+      document.getElementById('sleepInfo').innerText = Math.floor(sleepRemaining/60) + ':' + String(sleepRemaining%60).padStart(2,'0') + ' kaldı';
+    }
+  },1000);
+};
+
+// AI - Kitaba Sor
+window.toggleAiPanel = () => {
+  const panel = document.getElementById('aiPanel');
+  panel.classList.toggle('hidden');
+};
+window.askBookAI = () => {
+  const q = document.getElementById('aiQuestion').value.trim();
+  if(!q) return;
+  const chat = document.getElementById('aiChat');
+  const userMsg = `<div class="flex justify-end mb-2"><div class="bg-white dark:bg-zinc-800 border px-3 py-2 rounded-2xl rounded-tr-none text-[12px] max-w-[80%]">${q}</div></div>`;
+  chat.innerHTML += userMsg;
+  document.getElementById('aiQuestion').value='';
+  chat.scrollTop = chat.scrollHeight;
+  // Basit yerel arama - fullBookTextContent içinde en alakalı paragrafı bul
+  setTimeout(()=>{
+    const lowerQ = q.toLowerCase();
+    const keywords = lowerQ.split(' ').filter(w=>w.length>2);
+    let bestPara = '';
+    let bestScore=0;
+    const paras = (fullBookTextContent||'').split(/[.!?\n]/).filter(p=>p.trim().length>30);
+    paras.forEach(p=>{
+      let score=0;
+      keywords.forEach(k=>{ if(p.toLowerCase().includes(k)) score++; });
+      if(score>bestScore){ bestScore=score; bestPara=p; }
+    });
+    let answer = bestPara ? bestPara.trim().substring(0,400) + '...' : 'Bu soruya dair kitapta doğrudan bir bölüm bulamadım, ama kitabın ana fikri şöyle: ' + (fullBookTextContent||'').substring(0,300) + '...';
+    if(bestScore===0) answer = 'Kitapta "'+q+'" ile ilgili net bir bölüm yok. İstersen kitabın özetini çıkarayım: ' + (fullBookTextContent||'').substring(0,400);
+    const aiMsg = `<div class="flex gap-2 mb-3"><div class="w-6 h-6 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center text-[10px] font-bold flex-shrink-0">AI</div><div class="ai-bubble px-3 py-2 rounded-2xl rounded-tl-none text-[12px] leading-relaxed max-w-[85%]">${answer}</div></div>`;
+    chat.innerHTML += aiMsg;
+    chat.scrollTop = chat.scrollHeight;
+  }, 600);
+};
+
+// Not alma
+window.addNote = () => {
+  const sel = window.getSelection().toString().trim() || selectedQuote;
+  if(!sel){ alert('Önce metinden bir bölüm seç'); return; }
+  const noteText = prompt('Bu alıntı için notun:', '');
+  if(noteText===null) return;
+  const notes = JSON.parse(localStorage.getItem('dk_notes_'+activeBookId)||'[]');
+  notes.push({text: sel, note: noteText, date: Date.now()});
+  localStorage.setItem('dk_notes_'+activeBookId, JSON.stringify(notes));
+  alert('Not kaydedildi! Profilinde görebilirsin.');
+};
+
+// PWA offline - basit service worker
+if('serviceWorker' in navigator){
+  // inline SW blob
+  const swCode = `self.addEventListener('install', e=>{ self.skipWaiting(); }); self.addEventListener('fetch', e=>{ e.respondWith(fetch(e.request).catch(()=>caches.match(e.request))); });`;
+  const blob = new Blob([swCode], {type:'text/javascript'});
+  const swUrl = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(()=>{});
+}
+
+// Init
+updateCartUI();
+updateStreak();
+// openReader hook'una streak ekle
+const originalOpenReader = window.openReader;
+if(originalOpenReader){
+  window.openReader = async function(...args){
+    markReadingDay();
+    return originalOpenReader.apply(this, args);
+  };
+}
+
+// Yorum sistemi - kitap bazlı
+window.loadBookReviews = async (bookId) => {
+  const container = document.getElementById('bookReviews');
+  if(!container) return;
+  container.innerHTML = '<p class="text-[11px] text-zinc-500">Yorumlar yükleniyor...</p>';
+  try{
+    const q = await getDocs(collection(db, "kitaplar", bookId, "yorumlar"));
+    const reviews = q.docs.map(d=>d.data());
+    if(reviews.length===0) container.innerHTML = '<p class="text-[11px] text-zinc-500">Henüz yorum yok. İlk yorumu sen yap!</p>';
+    else container.innerHTML = reviews.map(r=>`
+      <div class="flex gap-2.5 p-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border">
+        <div class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center text-[10px] font-bold">${(r.isim||'A')[0]}</div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2"><span class="text-[12px] font-semibold">${r.isim||'Okur'}</span><span class="text-[10px] text-amber-500">${'★'.repeat(r.puan||5)}</span></div>
+          <p class="text-[12px] mt-1 leading-snug">${r.yorum||''}</p>
+        </div>
+      </div>
+    `).join('');
+  }catch(e){ container.innerHTML = '<p class="text-[11px] text-red-500">Yorumlar yüklenemedi</p>'; }
+};
+
+window.submitBookReview = async (bookId) => {
+  const isim = document.getElementById('reviewName')?.value || (auth.currentUser?.displayName||'Okur');
+  const yorum = document.getElementById('reviewText')?.value?.trim();
+  const puan = parseInt(document.getElementById('reviewStars')?.value||'5');
+  if(!yorum){ alert('Yorum yaz'); return; }
+  if(!auth.currentUser){ alert('Yorum için giriş yap'); return; }
+  try{
+    await addDoc(collection(db, "kitaplar", bookId, "yorumlar"), { isim, yorum, puan, tarih: serverTimestamp(), uid: auth.currentUser.uid });
+    document.getElementById('reviewText').value='';
+    loadBookReviews(bookId);
+  }catch(e){ alert('Hata: '+e.message); }
+};
+
+
+// Kitap detay modalını geliştir - sepet, hediye, yorum
+const originalOpenDetail = window.openBookDetail;
+if(typeof originalOpenDetail !== 'undefined'){
+  // override değil, hook
+}
+window.enhanceBookDetailUI = (book) => {
+  // detail modal içine ek butonlar ekle
+  const modal = document.getElementById('bookDetailModal');
+  if(!modal) return;
+  // Add extra actions after 500ms (modal açıldıktan sonra)
+  setTimeout(()=>{
+    const actions = modal.querySelector('.flex.gap-2.mt-4, .grid');
+    // Sepet ve hediye butonları zaten var mı kontrol et, yoksa ekle
+    if(!document.getElementById('extraDetailActions')){
+      const extra = document.createElement('div');
+      extra.id='extraDetailActions';
+      extra.className='mt-3 grid grid-cols-2 gap-2';
+      extra.innerHTML = `
+        <button onclick="addToCart('${book.id}')" class="h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 border text-[12px] font-semibold flex items-center justify-center gap-1.5"><i class="fa-solid fa-bag-shopping text-[11px]"></i> Sepete Ekle</button>
+        <button onclick="openGiftModal('${book.id}')" class="h-10 rounded-full bg-red-50 text-red-600 border border-red-200 text-[12px] font-semibold flex items-center justify-center gap-1.5"><i class="fa-solid fa-gift text-[11px]"></i> Hediye Et</button>
+        <div class="col-span-2 mt-4 border-t border-zinc-100 dark:border-zinc-800 pt-4">
+          <h4 class="text-[12px] font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-star text-amber-500"></i> Okur Yorumları</h4>
+          <div id="bookReviews" class="space-y-2 max-h-[180px] overflow-y-auto"></div>
+          <div class="mt-3 flex gap-2">
+            <select id="reviewStars" class="h-9 rounded-full bg-zinc-50 border px-3 text-[11px]"><option value="5">★★★★★</option><option value="4">★★★★</option><option value="3">★★★</option></select>
+            <input id="reviewText" placeholder="Yorumun..." class="flex-1 h-9 rounded-full bg-zinc-50 border px-4 text-[12px]">
+            <button onclick="submitBookReview('${book.id}')" class="h-9 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[11px] font-bold">Gönder</button>
+          </div>
+        </div>
+      `;
+      const content = modal.querySelector('.bg-white, .dark\:bg-zinc-900') || modal;
+      content.appendChild(extra);
+      loadBookReviews(book.id);
+    }
+  }, 600);
+};
+
+// Hook openBookDetail if exists
+if(window.openBookDetail){
+  const orig = window.openBookDetail;
+  window.openBookDetail = function(bookId){
+    orig(bookId);
+    const book = allBooks.find(b=>b.id===bookId);
+    if(book) enhanceBookDetailUI(book);
+  };
+}
+
+
+// Reader modal içine uyku zamanlayıcı ve AI panel ekle
+document.addEventListener('DOMContentLoaded', ()=>{
+  const readerHeader = document.querySelector('#readerModal .flex.justify-between');
+  if(readerHeader){
+    const extraControls = document.createElement('div');
+    extraControls.className='flex items-center gap-2 ml-2';
+    extraControls.innerHTML = `
+      <div class="relative">
+        <button onclick="document.getElementById('sleepMenu').classList.toggle('hidden')" class="h-8 px-3 rounded-full bg-zinc-800 text-white text-[11px] font-medium flex items-center gap-1.5"><i class="fa-solid fa-moon"></i> <span id="sleepInfo">Uyku</span></button>
+        <div id="sleepMenu" class="hidden absolute top-10 left-0 bg-white dark:bg-zinc-900 border rounded-2xl p-2 shadow-xl w-[160px] z-10">
+          <button onclick="setSleepTimer(15)" class="w-full text-left px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-[11px]">15 dakika</button>
+          <button onclick="setSleepTimer(30)" class="w-full text-left px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-[11px]">30 dakika</button>
+          <button onclick="setSleepTimer(60)" class="w-full text-left px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-[11px]">60 dakika</button>
+          <button onclick="setSleepTimer(0)" class="w-full text-left px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-[11px] text-red-600">Kapat</button>
+        </div>
+      </div>
+      <button onclick="toggleAiPanel()" class="h-8 px-3 rounded-full bg-amber-400 text-zinc-900 text-[11px] font-bold flex items-center gap-1"><i class="fa-solid fa-wand-magic-sparkles"></i> Kitaba Sor</button>
+      <button onclick="addNote()" class="h-8 w-8 rounded-full bg-zinc-100 dark:bg-zinc-800 border flex items-center justify-center"><i class="fa-solid fa-pen text-[11px]"></i></button>
+    `;
+    readerHeader.appendChild(extraControls);
+  }
+
+  // AI Panel
+  const readerModal = document.getElementById('readerModal');
+  if(readerModal){
+    const aiPanel = document.createElement('div');
+    aiPanel.id='aiPanel';
+    aiPanel.className='hidden absolute right-4 top-[72px] bottom-4 w-[320px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[20px] shadow-2xl flex flex-col z-20';
+    aiPanel.innerHTML = `
+      <div class="p-4 border-b flex justify-between items-center">
+        <h4 class="font-bold text-[13px] flex items-center gap-2"><i class="fa-solid fa-robot text-amber-500"></i> Kitaba Sor - AI</h4>
+        <button onclick="toggleAiPanel()" class="w-7 h-7 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[11px]"></i></button>
+      </div>
+      <div id="aiChat" class="flex-1 overflow-y-auto p-4 space-y-2 text-[12px]"></div>
+      <div class="p-3 border-t flex gap-2">
+        <input id="aiQuestion" placeholder="Bu bölüm ne anlatıyor?" class="flex-1 h-9 rounded-full bg-zinc-50 dark:bg-zinc-800 border px-4 text-[12px]" onkeydown="if(event.key==='Enter') askBookAI()">
+        <button onclick="askBookAI()" class="w-9 h-9 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-paper-plane text-[11px]"></i></button>
+      </div>
+    `;
+    readerModal.appendChild(aiPanel);
+  }
+});
 
 </script></body></html>
