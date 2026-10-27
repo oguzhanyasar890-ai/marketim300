@@ -58,6 +58,10 @@
     .cat-pill{ transition:all .2s cubic-bezier(.2,.8,.2,1) }
     .cat-pill.active{ background:#18181b; color:#fff; border-color:#18181b }
     html.dark .cat-pill.active{ background:#fafafa; color:#09090b; border-color:#fafafa }
+  
+    #cartModal,#giftModal,#quoteModal{ display:none }
+    .streak-fire{ animation: flicker 1.5s infinite alternate } @keyframes flicker{ from{ transform:scale(1)} to{ transform:scale(1.15)} }
+
   </style>
 </head>
 <body class="font-sans min-h-screen flex flex-col selection:bg-zinc-900 selection:text-white">
@@ -99,6 +103,11 @@
         </div>
       </div>
 
+      
+      <button onclick="openCartModal()" class="relative w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border flex items-center justify-center">
+        <i class="fa-solid fa-bag-shopping text-[13px]"></i>
+        <span id="cartCount" class="absolute -top-1 -right-1 w-4 h-4 bg-red-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center hidden">0</span>
+      </button>
       <div class="flex items-center gap-2">
         <button onclick="toggleTheme()" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition">
           <i id="themeIcon" class="fa-solid fa-moon text-[13px]"></i>
@@ -1677,4 +1686,96 @@ if (document.readyState === "loading") {
   initApp();
 }
 
-</script></body></html>
+</script>
+  <div id="cartModal" class="fixed inset-0 z-[100] bg-zinc-950/60 backdrop-blur-[10px] p-4 items-center justify-center" style="display:none">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[480px] max-h-[85vh] flex flex-col shadow-2xl border">
+      <div class="p-6 border-b flex justify-between items-center"><div><h3 class="font-bold">Sepetin</h3><p class="text-[11px]"><span id="cartModalCount">0</span> ürün</p></div><button onclick="closeCartModal()" class="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center">x</button></div>
+      <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+      <div class="p-5 border-t bg-zinc-50/50 rounded-b-[28px]">
+        <div class="flex gap-2 mb-3"><input id="couponInput" placeholder="Kupon: ILK10" class="flex-1 h-10 rounded-full border px-4 text-[12px]"><button onclick="applyCoupon()" class="h-10 px-4 rounded-full bg-zinc-900 text-white text-[12px]">Uygula</button></div>
+        <div id="couponInfo" class="hidden text-[11px] mb-3 px-3 py-2 rounded-xl bg-emerald-50 border"></div>
+        <div class="flex justify-between text-[13px] mb-2"><span>Ara toplam</span><span id="cartSubtotal">₺0</span></div>
+        <div class="flex justify-between text-[13px] mb-2"><span>İndirim</span><span id="cartDiscount">-₺0</span></div>
+        <div class="flex justify-between font-bold mb-4"><span>Toplam</span><span id="cartTotal">₺0</span></div>
+        <button onclick="checkoutCart()" class="w-full h-11 rounded-full bg-zinc-900 text-white font-semibold text-[13px]">WhatsApp ile Öde</button>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+// ===== SÜPER ÖZELLİKLER - AYRI SCRIPT (BOZMAZ) =====
+let cart = JSON.parse(localStorage.getItem('dk_cart')||'[]');
+let appliedCoupon = JSON.parse(localStorage.getItem('dk_coupon')||'null');
+const COUPONS = {
+  'ILK10': { type:'percent', value:10, desc:'İlk siparişe %10' },
+  'OGRENCI15': { type:'percent', value:15, desc:'Öğrenci %15' },
+  'HOSGELDIN20': { type:'percent', value:20, desc:'Hoş geldin %20' },
+  '3AL2ODE': { type:'3al2ode', value:0, desc:'3 al 2 öde' },
+  'ATATURK23': { type:'percent', value:23, desc:'Atatürk özel %23' }
+};
+
+function saveCart(){ localStorage.setItem('dk_cart', JSON.stringify(cart)); updateCartUI(); }
+function updateCartUI(){
+  const badge = document.getElementById('cartCount');
+  const modalCount = document.getElementById('cartModalCount');
+  if(badge){ badge.innerText = cart.length; badge.classList.toggle('hidden', cart.length===0); }
+  if(modalCount) modalCount.innerText = cart.length;
+  let subtotal = 0;
+  cart.forEach(item => {
+    const book = (typeof allBooks!=='undefined'? allBooks.find(b=>b.id===item.id): null);
+    if(book) subtotal += Number(book.fiyat||0);
+  });
+  let discount = 0;
+  if(appliedCoupon){
+    if(appliedCoupon.type==='percent') discount = subtotal * (appliedCoupon.value/100);
+    else if(appliedCoupon.type==='3al2ode' && cart.length>=3){
+      const prices = cart.map(i=> Number(((typeof allBooks!=='undefined'? allBooks.find(b=>b.id===i.id): {})?.fiyat||0))).sort((a,b)=>a-b);
+      discount = prices[0]||0;
+    }
+  }
+  const elSub = document.getElementById('cartSubtotal');
+  const elDis = document.getElementById('cartDiscount');
+  const elTot = document.getElementById('cartTotal');
+  if(elSub) elSub.innerText = '₺' + subtotal.toLocaleString('tr-TR');
+  if(elDis) elDis.innerText = '-₺' + Math.round(discount).toLocaleString('tr-TR');
+  if(elTot) elTot.innerText = '₺' + Math.round(Math.max(0, subtotal-discount)).toLocaleString('tr-TR');
+  const itemsDiv = document.getElementById('cartItems');
+  if(itemsDiv){
+    if(cart.length===0) itemsDiv.innerHTML = '<div class="text-center py-12 text-[13px]">Sepetin boş</div>';
+    else itemsDiv.innerHTML = cart.map(item=>{
+      const book = (typeof allBooks!=='undefined'? allBooks.find(b=>b.id===item.id): null);
+      if(!book) return '';
+      return '<div class="flex gap-3 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800 border"><img src="'+(book.kapakUrl||'')+'" class="w-12 h-16 object-cover rounded-xl"><div class="flex-1"><p class="text-[12.5px] font-semibold">'+book.baslik+'</p><p class="text-[11px]">₺'+(book.fiyat||0)+'</p></div><button onclick="removeFromCart(\''+item.id+'\')" class="w-7 h-7 rounded-full bg-white border flex items-center justify-center">x</button></div>';
+    }).join('');
+  }
+}
+window.addToCart = (id)=>{ if(cart.find(c=>c.id===id)){ openCartModal(); return; } cart.push({id, addedAt:Date.now()}); saveCart(); };
+window.removeFromCart = (id)=>{ cart = cart.filter(c=>c.id!==id); saveCart(); };
+window.openCartModal = ()=>{ const m=document.getElementById('cartModal'); if(m){ m.style.display='flex'; m.classList.add('modal-active'); updateCartUI(); } };
+window.closeCartModal = ()=>{ const m=document.getElementById('cartModal'); if(m){ m.style.display='none'; } };
+window.applyCoupon = ()=>{
+  const code = (document.getElementById('couponInput')?.value||'').toUpperCase().trim();
+  const info = document.getElementById('couponInfo');
+  if(!COUPONS[code]){ if(info){ info.classList.remove('hidden'); info.innerText='Kupon bulunamadı: ILK10, ATATURK23, 3AL2ODE'; } return; }
+  appliedCoupon = {code, ...COUPONS[code]}; localStorage.setItem('dk_coupon', JSON.stringify(appliedCoupon));
+  if(info){ info.classList.remove('hidden'); info.innerText='✓ '+appliedCoupon.desc; }
+  updateCartUI();
+};
+window.checkoutCart = ()=>{
+  if(cart.length===0) return;
+  let msg='Merhaba, siparişim:\n';
+  cart.forEach(i=>{ const b=(typeof allBooks!=='undefined'? allBooks.find(x=>x.id===i.id): null); if(b) msg+='- '+b.baslik+'\n'; });
+  window.open('https://wa.me/905542026620?text='+encodeURIComponent(msg), '_blank');
+  cart=[]; appliedCoupon=null; localStorage.removeItem('dk_coupon'); saveCart(); closeCartModal();
+};
+window.addPackageToCart = (type)=>{
+  const pkgs = { baslangic: (typeof allBooks!=='undefined'? allBooks.slice(0,3).map(b=>b.id): []), odak: allBooks.slice(0,5).map(b=>b.id), hediye: allBooks.slice(0,3).map(b=>b.id) };
+  (pkgs[type]||[]).forEach(id=>{ if(!cart.find(c=>c.id===id)) cart.push({id}); });
+  saveCart(); openCartModal();
+};
+
+setTimeout(()=>{ updateCartUI(); }, 800);
+</script>
+
+</body></html>
