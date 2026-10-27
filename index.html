@@ -388,6 +388,7 @@ body{ background:#FCFCFD; color:#0B1020; }
 
 <script type="module">
 
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc, addDoc, updateDoc, increment, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -407,6 +408,23 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 window.db = db;
+
+// --- HATA KONTROL & LOG EKLEME ---
+function showLibraryError(msg, err){
+  console.error("[KÜTÜPHANE HATASI]", msg, err||"");
+  const ind = document.getElementById('loadingIndicator');
+  if(ind){
+    ind.innerHTML = `<div class="flex flex-col items-center py-10 text-center max-w-[360px] mx-auto">
+      <div class="w-12 h-12 rounded-full bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-3"><i class="fa-solid fa-triangle-exclamation"></i></div>
+      <p class="font-display font-bold text-[14px] text-ink-900 dark:text-white">Kütüphane yüklenemedi</p>
+      <p class="mt-1 text-[12px] text-zinc-500 leading-[1.5]">${msg}</p>
+      <p class="mt-1 text-[10px] text-zinc-400">Konsola bak: F12 > Console</p>
+      <button onclick="loadBooks()" class="mt-4 h-9 px-5 rounded-full bg-ink-900 text-white text-[12px] font-semibold">Tekrar Dene</button>
+    </div>`;
+    ind.style.display = 'flex';
+  }
+}
+
 window._firestore = { collection, getDocs, addDoc, getDoc, doc, serverTimestamp, query, where, orderBy };
 
 const provider = new GoogleAuthProvider();
@@ -1328,9 +1346,16 @@ window.filterCategory = (cat, btnEl) => {
 };
 
 async function loadBooks() {
+  const loadingEl = document.getElementById("loadingIndicator");
+  const gridEl = document.getElementById("bookGrid");
+  try {
   try {
     const querySnapshot = await getDocs(collection(db, "kitaplar"));
     allBooks = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); window.allBooks = allBooks;
+    console.log("[KÜTÜPHANE] Yüklenen kitap sayısı:", allBooks.length);
+    if(allBooks.length===0){ showLibraryError("Firestore \"kitaplar\" koleksiyonu boş. Admin panelden kitap ekleyin."); }
+    if(loadingEl) loadingEl.style.display="none";
+    if(gridEl) gridEl.style.display="grid";
     document.getElementById('loadingIndicator').style.display = 'none';
     renderBooks();
     renderHomeSections();
@@ -1459,23 +1484,27 @@ window.checkDownload = async (event, bookId, fileName) => {
   link.href = fileName; link.download = fileName;
   document.body.appendChild(link); link.click(); document.body.removeChild(link);
 };
+
 async function loadCategories() {
-  const catContainer = document.getElementById('categoryContainer');
-  const catSelect = document.getElementById('newBookCategory');
-  const adminCatList = document.getElementById('adminCategoryList');
   try {
-    const snap = await getDocs(collection(db, "kategoriler"));
-    allCategories = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    catContainer.innerHTML = `<button onclick="filterCategory('Tümü', this)" class="cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-brand-600 bg-brand-600 text-white shadow-md shadow-brand-600/20">Tümü</button>`;
-    catSelect.innerHTML = '<option value="Genel">Genel</option>';
-    adminCatList.innerHTML = '';
-    allCategories.forEach(c => {
-      catContainer.innerHTML += `<button onclick="filterCategory('${c.ad}', this)" class="cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-red-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-brand-600 hover:text-brand-600 bg-white dark:bg-slate-900">${c.ad}</button>`;
-      catSelect.innerHTML += `<option value="${c.ad}">${c.ad}</option>`;
-      adminCatList.innerHTML += `<div class="flex justify-between items-center bg-red-50/50 dark:bg-slate-800 p-3 rounded-lg border border-red-100 dark:border-slate-700"><span class="text-slate-900 dark:text-white text-sm font-bold">${c.ad}</span><button onclick="deleteCategory('${c.id}')" class="text-brand-600 hover:bg-red-100 p-2 rounded"><i class="fa-solid fa-trash"></i></button></div>`;
-    });
-  } catch(e) {}
+    console.log("[KATEGORİ] Kategoriler çekiliyor...");
+    const catSnap = await getDocs(collection(db, "kategoriler"));
+    const cats = catSnap.docs.map(d=>d.data().isim || d.id);
+    const container = document.getElementById("categoryContainer");
+    if(container){
+      container.innerHTML = '<button onclick="filterByCategory(\'all\')" class="cat-pill active px-4 h-8 rounded-full bg-white border text-[12px]">Tümü</button>' + cats.map(c=>`<button onclick="filterByCategory('${c}')" class="cat-pill px-4 h-8 rounded-full bg-white border text-[12px]">${c}</button>`).join('');
+    }
+    console.log("[KATEGORİ] Yüklendi:", cats);
+  } catch(e){
+    console.error("[KATEGORİ HATASI]", e);
+    // Kategoriler opsiyonel, kitapları engelleme
+    const container = document.getElementById("categoryContainer");
+    if(container){
+      container.innerHTML = '<button class="cat-pill active px-4 h-8 rounded-full bg-white border text-[12px]">Tümü</button>';
+    }
+  }
 }
+
 window.addCategory = async (e) => { e.preventDefault(); const name = document.getElementById('newCategoryName').value; await addDoc(collection(db, "kategoriler"), { ad: name }); document.getElementById('newCategoryName').value = ''; loadCategories(); };
 window.deleteCategory = async (id) => { if(confirm("Kategoriyi silmek istiyor musunuz?")) { await deleteDoc(doc(db, "kategoriler", id)); loadCategories(); } };
 
@@ -1682,6 +1711,7 @@ if (document.readyState === "loading") {
 } else {
   initApp();
 }
+
 
 </script>
   <!-- PREMIUM MODALLAR -->
