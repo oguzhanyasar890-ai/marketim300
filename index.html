@@ -94,42 +94,8 @@
         <a href="#youtubeBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 transition">YouTube</a>
       </nav>
 
-      <!-- Atatürk Köşesi - sağ üst -->
-      <a href="#ataturkKoleksiyonu" class="hidden lg:flex items-center gap-3 pl-5 ml-1 border-l border-zinc-200 dark:border-zinc-800 hover:opacity-80 transition group">
-        <div class="relative">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Atat%C3%BCrk_1930.jpg/400px-Atat%C3%BCrk_1930.jpg" 
-               alt="Mustafa Kemal Atatürk" 
-               class="w-10 h-10 rounded-full object-cover border-2 border-zinc-200 dark:border-zinc-700 shadow-sm"
-               loading="lazy">
-          <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-red-600 rounded-full border-2 border-white dark:border-zinc-900"></span>
-        </div>
-        <div class="hidden xl:block leading-none">
-          <div class="text-[11px] font-bold tracking-[0.12em] uppercase text-zinc-900 dark:text-white">Mustafa Kemal</div>
-          <div class="text-[11px] font-bold tracking-[0.14em] uppercase text-red-600">ATATÜRK</div>
-        </div>
-      </div>
-
       
-      <!-- Streak -->
-      <div id="streakBadge" class="hidden lg:flex items-center gap-1.5 px-3 h-9 rounded-full bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800 text-orange-700 dark:text-orange-300 text-[11px] font-bold">
-        <i class="fa-solid fa-fire streak-fire"></i> <span id="streakCount">0</span> gün
-      </div>
-      <!-- Sepet -->
-      <button onclick="openCartModal()" class="relative w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white transition">
-        <i class="fa-solid fa-bag-shopping text-[13px]"></i>
-        <span id="cartCount" class="absolute -top-1 -right-1 w-4 h-4 bg-red-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center hidden">0</span>
-      </button>
-      <div class="flex items-center gap-2">
-        <button onclick="toggleTheme()" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition">
-          <i id="themeIcon" class="fa-solid fa-moon text-[13px]"></i>
-        </button>
-        <button id="adminPanelBtn" onclick="openAdminModal()" style="display:none" class="hidden sm:flex h-9 px-3.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold items-center gap-1.5">
-          <i class="fa-solid fa-shield-halved text-[11px]"></i> Admin
-        </button>
-        <a href="E-Kitap.apk" download class="hidden md:flex h-9 px-3.5 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 text-[12.5px] font-semibold items-center gap-1.5 hover:bg-zinc-50 transition">
-          <i class="fa-brands fa-android"></i> Uygulama
-        </a>
-        <button id="googleLoginBtn" onclick="openAuthModal()" class="h-9 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold hover:bg-black dark:hover:bg-zinc-100 transition">Giriş Yap</button>
+      <button id="googleLoginBtn" onclick="openAuthModal()" class="h-9 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold hover:bg-black dark:hover:bg-zinc-100 transition">Giriş Yap</button>
         <div id="userProfileArea" style="display:none" class="h-9 items-center gap-2 pl-1 pr-3 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 cursor-pointer" onclick="openProfileModal()">
           <img id="userAvatarImg" style="display:none" class="w-7 h-7 rounded-full object-cover">
           <div id="userAvatarText" class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold text-[12px] flex items-center justify-center">U</div>
@@ -255,25 +221,104 @@
     </div>
   </section>
 
-  <!-- ATATÜRK KOLEKSİYONU -->
-  <section id="ataturkKoleksiyonu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full">
-    <div class="rounded-[28px] bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 p-7 sm:p-10 flex flex-col lg:flex-row gap-8 items-start relative overflow-hidden">
-      <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-red-600/20 to-transparent rounded-full blur-3xl"></div>
-      <div class="relative z-10 flex-1">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 dark:bg-zinc-900/10 text-[11px] font-bold tracking-wide"><span class="w-2 h-2 bg-red-500 rounded-full"></span> ÖZEL KOLEKSİYON</div>
-        <h3 class="mt-4 font-serif font-bold text-[32px] leading-[0.95] tracking-tight">Atatürk'ün<br>okuduğu ve önerdiği<br>kitaplar</h3>
-        <p class="mt-4 text-[13.5px] leading-6 opacity-80 max-w-[48ch]">"Benim manevi mirasım bilim ve akıldır." Atatürk'ün kütüphanesinden seçilmiş, düşünce dünyasını şekillendiren eserler.</p>
-        <div class="mt-6 flex gap-2">
-          <button onclick="filterCategory('Atatürk', null); document.getElementById('kitaplarBolumu').scrollIntoView({behavior:'smooth'})" class="h-10 px-5 rounded-full bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white text-[12.5px] font-semibold">Koleksiyonu Gör</button>
-          <span class="h-10 px-4 rounded-full bg-white/10 flex items-center text-[11px]">19 Mayıs • 10 Kasım özel</span>
+  
+  <!-- KİTAP OKUMANIN ÖNEMİ -->
+  <section id="kitapOkumaninOnemi" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-16 w-full">
+    <div class="rounded-[32px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 sm:p-12 lg:p-14 relative overflow-hidden">
+      <!-- Dekoratif blur -->
+      <div class="absolute -top-24 -right-24 w-[500px] h-[500px] bg-gradient-to-br from-amber-200/30 via-orange-100/20 to-transparent dark:from-amber-900/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -left-24 w-[400px] h-[400px] bg-gradient-to-tr from-zinc-100 to-zinc-50 dark:from-zinc-800/20 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10">
+        <div class="flex flex-wrap items-center gap-3 mb-8">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[11px] font-bold tracking-[0.14em] uppercase"><span class="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse"></span> Okuma Kültürü</span>
+          <span class="px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300 text-[11px] font-medium">Editörün Seçimi • 5 dk okuma</span>
         </div>
-      </div>
-      <div class="relative z-10 lg:w-[320px] w-full">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Atat%C3%BCrk_1930.jpg/400px-Atat%C3%BCrk_1930.jpg" class="w-full h-[220px] object-cover rounded-[18px] border border-white/10" alt="Atatürk">
-        <div class="mt-3 text-[11px] opacity-60 italic">"Çalışmadan, öğrenmeden, yorulmadan rahat yaşamanın yollarını aramayı itiyat haline getirmiş milletler, evvela haysiyetlerini, sonra hürriyetlerini kaybetmeye mahkumdurlar."</div>
+
+        <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16 items-start">
+          <!-- Sol: Metin -->
+          <div>
+            <h2 class="font-serif font-black text-[34px] sm:text-[44px] leading-[0.9] tracking-[-0.03em] text-zinc-900 dark:text-white">
+              Bir sayfa açarsın,<br>
+              <span class="font-display italic font-normal text-zinc-500 dark:text-zinc-400">bir dünya kapanır</span><br>
+              ve yenisi açılır.
+            </h2>
+            
+            <div class="mt-8 prose prose-zinc dark:prose-invert max-w-none">
+              <p class="text-[15px] leading-[1.8] text-zinc-600 dark:text-zinc-300">
+                Kitap okumak, sadece kelimeleri takip etmek değildir. <strong class="text-zinc-900 dark:text-white font-semibold">Zihninle sessiz bir diyaloğa girmek,</strong> başkasının gözünden dünyayı ödünç almak ve kendi düşüncelerinin sınırlarını yeniden çizmektir. Ekranların saniyeler içinde tükettiği çağda, kitap bize unuttuğumuz bir lüksü hatırlatır: <em>yavaşlamayı</em>.
+              </p>
+
+              <h3 class="mt-10 font-serif font-bold text-[18px] tracking-tight text-zinc-900 dark:text-white flex items-center gap-3">
+                <span class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center text-[12px]">1</span>
+                Zihinsel Gelişim: Düşüncenin Kasları
+              </h3>
+              <p class="mt-3 text-[14.5px] leading-[1.75] text-zinc-600 dark:text-zinc-300">
+                Her kitap, beynin için bir antrenmandır. Yeni bir kavramla karşılaştığında nöronların yeni yollar arar, kelime haznen genişler, odaklanma süren uzar. Araştırmalar, düzenli okuyan bireylerde <strong>eleştirel düşünme ve problem çözme becerilerinin %35 daha güçlü</strong> olduğunu gösteriyor. Okumak, bilgiyi ezberlemek değil; bilgiyi dönüştürmeyi öğrenmektir.
+              </p>
+
+              <h3 class="mt-8 font-serif font-bold text-[18px] tracking-tight text-zinc-900 dark:text-white flex items-center gap-3">
+                <span class="w-7 h-7 rounded-full bg-zinc-100 dark:bg-zinc-800 border flex items-center justify-center text-[12px]">2</span>
+                Empati: Başkasının Kalbinde Misafir Olmak
+              </h3>
+              <p class="mt-3 text-[14.5px] leading-[1.75] text-zinc-600 dark:text-zinc-300">
+                Bir romanın ortasında, hiç yaşamadığın bir acıyı hissedersin. İşte o an empati doğar. Kitaplar bize şunu öğretir: <strong>Dünya sadece benim hikayemden ibaret değil.</strong> Farklı hayatlar, inançlar ve acılarla temas ettikçe, yargılamak yerine anlamaya başlarız. Bu, sadece daha iyi bir okur değil, daha iyi bir insan yapar bizi.
+              </p>
+
+              <h3 class="mt-8 font-serif font-bold text-[18px] tracking-tight text-zinc-900 dark:text-white flex items-center gap-3">
+                <span class="w-7 h-7 rounded-full bg-amber-400 text-zinc-900 flex items-center justify-center text-[12px]"><i class="fa-solid fa-eye text-[11px]"></i></span>
+                Bakış Açısı: Kendine Dışarıdan Bakabilmek
+              </h3>
+              <p class="mt-3 text-[14.5px] leading-[1.75] text-zinc-600 dark:text-zinc-300">
+                En değerli kitaplar, sana yeni cevaplar vermez; sana yeni sorular sordurur. Bir deneme, yerleşik bir inancını sarsar. Bir biyografi, başarının tanımını değiştirir. Okudukça fark edersin ki, hakikat tek bir pencereden görülecek kadar küçük değildir. Kitap, sana kendi hayatına yukarıdan bakabileceğin bir balkon verir.
+              </p>
+
+              <blockquote class="mt-10 border-l-[3px] border-zinc-900 dark:border-white pl-6 py-2 bg-zinc-50 dark:bg-zinc-800/50 rounded-r-2xl">
+                <p class="font-serif text-[18px] leading-[1.5] italic text-zinc-900 dark:text-white">
+                  "Okumak, bir başkasının zihniyle düşünmek için tutulan en sessiz randevudur. Ve insan, ancak başkasının düşüncesine misafir olduğunda kendi düşüncesini bulur."
+                </p>
+                <footer class="mt-3 text-[11px] font-bold tracking-[0.14em] uppercase text-zinc-500">— Jorge Luis Borges'den ilhamla</footer>
+              </blockquote>
+
+              <div class="mt-10 p-[1px] rounded-[20px] bg-gradient-to-br from-zinc-200 to-zinc-100 dark:from-zinc-700 dark:to-zinc-800">
+                <div class="rounded-[19px] bg-amber-50/70 dark:bg-amber-950/20 p-6">
+                  <h4 class="font-bold text-[14px] text-zinc-900 dark:text-white">Vurucu Sonuç: Okumayan Kaybeder mi?</h4>
+                  <p class="mt-2 text-[14px] leading-[1.7] text-zinc-700 dark:text-zinc-300">
+                    Hayır, hemen kaybetmez. Ama yavaş yavaş küçülür. Dünyası daralır, cümleleri kısalır, merakları söner. <strong>Okumak, bir lüks değil; zihinsel bir hayatta kalma biçimidir.</strong> Bugün bir sayfa aç. Yarın o sayfa, senin hayatını açsın. Çünkü sonunda şunu anlarsın: Kitaplar sana ne okuman gerektiğini değil, <em>nasıl yaşamak istediğini</em> hatırlatır.
+                  </p>
+                  <div class="mt-4 flex items-center gap-2 text-[11px] font-medium text-zinc-600 dark:text-zinc-400">
+                    <i class="fa-solid fa-book-open"></i> Şimdi kütüphaneden bir kitap seç ve 20 dakikalık okuma serini başlat.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sağ: Görsel Kartlar -->
+          <div class="lg:sticky lg:top-28 space-y-4">
+            <div class="rounded-[24px] bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 p-7">
+              <div class="w-10 h-10 rounded-xl bg-white/10 dark:bg-zinc-900/10 flex items-center justify-center mb-5"><i class="fa-solid fa-brain"></i></div>
+              <h4 class="font-serif font-bold text-[18px] leading-tight">Zihin, okudukça genişleyen tek kas.</h4>
+              <p class="mt-3 text-[13px] leading-[1.6] opacity-70">Günde 20 dakika okuma, 1 yılda 15+ kitap demek. Bu, 15 farklı hayat demek.</p>
+              <div class="mt-6 grid grid-cols-3 gap-3 text-center">
+                <div class="rounded-xl bg-white/10 dark:bg-zinc-900/10 p-3"><div class="text-[18px] font-bold">%35</div><div class="text-[10px] opacity-60">Odak artışı</div></div>
+                <div class="rounded-xl bg-white/10 dark:bg-zinc-900/10 p-3"><div class="text-[18px] font-bold">%68</div><div class="text-[10px] opacity-60">Empati</div></div>
+                <div class="rounded-xl bg-white/10 dark:bg-zinc-900/10 p-3"><div class="text-[18px] font-bold">2x</div><div class="text-[10px] opacity-60">Kelime haznesi</div></div>
+              </div>
+            </div>
+            
+            <div class="rounded-[24px] surface-card p-6 border">
+              <div class="flex items-center gap-2 mb-3"><i class="fa-solid fa-quote-left text-amber-500"></i><span class="text-[11px] font-bold tracking-widest uppercase text-zinc-500">Editörün Alıntısı</span></div>
+              <p class="font-serif text-[15px] leading-[1.6] italic">"Bir kitap okuyup bitirdiğinde, artık o kitabı okumadan önceki sen değilsindir."</p>
+              <p class="mt-3 text-[11px] text-zinc-500">— Dijital Kitapçı Notu</p>
+              <button onclick="document.getElementById('kitaplarBolumu').scrollIntoView({behavior:'smooth'})" class="mt-5 w-full h-10 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12px] font-semibold">Koleksiyona Git →</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
 
   <!-- BLOG / SEO -->
   <section id="blogBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full border-t border-zinc-200 dark:border-zinc-800 mt-4">
