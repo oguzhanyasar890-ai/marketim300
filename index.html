@@ -1,499 +1,321 @@
 <!DOCTYPE html>
-<html lang="tr" class="light scroll-smooth">
+<html lang="tr" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dijital Kitapçı | Dijital Mağaza & Kütüphane</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#18181b"/>
-  <meta name="description" content="Ufkunuzu açacak rehberler ve kişisel gelişim eserleri. Satın alın; sesli dinleyin, okuyun ve indirin.">
-  <link rel="icon" href="1792945068177.jpg" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.2/dist/jszip.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: { 
-        extend: { 
-          fontFamily: { sans: ['Inter','sans-serif'], serif: ['Fraunces','serif'], display: ['Instrument Serif','serif'] }, 
-          colors: { brand: { 50:'#fff1f2',100:'#ffe4e6',500:'#e11d48',600:'#be123c',700:'#9f1239',900:'#881337' } } 
-        } 
-      }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dijital Kitapçı | Yapay Zeka için E-Kitaplar</title>
+<meta name="description" content="Yapay zekayı öğrenmek isteyenler için modern, temiz, anlaşılır dijital kitaplar. Satın al, anında oku, dinle, not al.">
+<link rel="icon" href="1792945068177.jpg" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.2/dist/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: { sans: ['Inter','system-ui','sans-serif'], display: ['Plus Jakarta Sans','sans-serif'], mono: ['JetBrains Mono','monospace'] },
+      colors: {
+        ink: { 900:'#0B1020', 800:'#121A2F', 700:'#1A2440', 600:'#243156' },
+        accent: { 500:'#7C3AED', 600:'#6D28D9', 50:'#F5F3FF' },
+      },
+      borderRadius: { '2xl':'16px', '3xl':'24px', '4xl':'32px' },
+      boxShadow: { 'soft':'0 8px 30px rgba(11,16,32,0.06)', 'soft-lg':'0 20px 50px rgba(11,16,32,0.08)' }
     }
-  </script>
-  <style>
-    *{ -webkit-font-smoothing:antialiased }
-    body{ background:#fcfcfc; color:#18181b; transition: background-color .3s, color .3s }
-    html.dark body{ background:#09090b; color:#fafafa }
-    .glass-nav{ background:rgba(255,255,255,.8); backdrop-filter:blur(20px) saturate(180%); border-bottom:1px solid rgba(0,0,0,.06) }
-    html.dark .glass-nav{ background:rgba(9,9,11,.8); border-bottom:1px solid rgba(255,255,255,.08) }
-    .surface-card{ background:#ffffff; border:1px solid rgba(0,0,0,.06); box-shadow:0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.03) }
-    html.dark .surface-card{ background:#18181b; border:1px solid rgba(255,255,255,.08) }
-    .hero-grid{ background-image: linear-gradient(rgba(0,0,0,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.03) 1px, transparent 1px); background-size:32px 32px }
-    html.dark .hero-grid{ background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px) }
-    .text-balance{ text-wrap:balance }
-    .book-cover-shadow{ box-shadow:0 8px 20px -6px rgba(0,0,0,.25) }
-    .modal-active{ display:flex !important; animation:fadeIn .22s cubic-bezier(.2,.8,.2,1) forwards }
-    @keyframes fadeIn{ from{opacity:0; transform:translateY(8px) scale(.98)} to{opacity:1; transform:translateY(0) scale(1)} }
-    .loader{ border:2px solid #e4e4e7; border-top:2px solid #18181b; border-radius:50%; width:22px; height:22px; animation:spin .7s linear infinite }
-    @keyframes spin{ to{transform:rotate(360deg)} }
-    .scrollbar-hide::-webkit-scrollbar{ display:none }
-    #bookDetailModal,#adminModal,#authModal,#profileModal,#readerModal,#qrModal,#submissionModal,#purchaseModal{ display:none }
-    #viewer{ width:100%; height:100% }
-    .epub-container{ height:100% !important }
-    .reader-theme-sepia{ background:#fdf6e3 !important; color:#3b2f2f !important }
-    .reader-theme-dark{ background:#09090b !important; color:#fafafa !important }
-    .reader-theme-light{ background:#ffffff !important; color:#18181b !important }
-    .pdf-page-canvas{ max-width:100%; height:auto !important; margin:0 auto 1.25rem auto; display:block; border-radius:12px; box-shadow:0 10px 25px -5px rgba(0,0,0,.15) }
-    @keyframes slideUp{ from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:translateY(0)} }
-    .chat-open{ display:flex !important; animation:slideUp .25s ease-out forwards }
-    .tts-highlight{ background:#fde047; color:#000; border-radius:4px; padding:0 3px }
-    html.dark .tts-highlight{ background:#facc15 }
-    .locked-book, .priced-book{ position:relative }
-    .locked-book::after, .priced-book::after{ display:none !important; content:none !important }
-    .cat-pill{ transition:all .2s cubic-bezier(.2,.8,.2,1) }
-    .cat-pill.active{ background:#18181b; color:#fff; border-color:#18181b }
-    html.dark .cat-pill.active{ background:#fafafa; color:#09090b; border-color:#fafafa }
-  
-    #cartModal,#giftModal,#quoteModal{ display:none }
-    .streak-fire{ animation: flicker 1.5s infinite alternate } @keyframes flicker{ from{ transform:scale(1)} to{ transform:scale(1.15)} }
-
-  </style>
+  }
+}
+</script>
+<style>
+*{-webkit-font-smoothing:antialiased}
+body{ background:#FCFCFD; color:#0B1020; }
+.dark body{ background:#0B1020; color:#F8FAFC; }
+.glass-nav{ background:rgba(255,255,255,0.82); backdrop-filter: blur(18px) saturate(180%); border-bottom:1px solid rgba(11,16,32,0.06); }
+.dark .glass-nav{ background:rgba(11,16,32,0.8); border-bottom:1px solid rgba(255,255,255,0.06); }
+.surface-card{ background:#FFFFFF; border:1px solid rgba(11,16,32,0.06); box-shadow:0 1px 2px rgba(11,16,32,0.04), 0 8px 24px rgba(11,16,32,0.04); }
+.dark .surface-card{ background:#121A2F; border-color:rgba(255,255,255,0.07); }
+.cat-pill{ transition: all .2s; }
+.cat-pill.active{ background:#0B1020; color:#fff; border-color:#0B1020; }
+.dark .cat-pill.active{ background:#fff; color:#0B1020; }
+.modal-active{ display:flex !important; animation:fadeIn .22s ease-out forwards; }
+@keyframes fadeIn{ from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:translateY(0)} }
+.loader{ border:2px solid #E9E9EF; border-top:2px solid #0B1020; border-radius:50%; width:22px; height:22px; animation:spin .7s linear infinite; }
+@keyframes spin{ to{transform:rotate(360deg)} }
+#bookDetailModal,#adminModal,#authModal,#profileModal,#readerModal,#qrModal,#submissionModal,#purchaseModal,#cartModal,#giftModal,#quoteModal{ display:none; }
+#viewer{ width:100%; height:100%; }
+.tts-highlight{ background:#E9D5FF; color:#000; border-radius:4px; padding:0 3px; }
+.streak-fire{ animation:flicker 1.5s infinite alternate; }
+@keyframes flicker{ from{transform:scale(1)} to{transform:scale(1.15)} }
+</style>
 </head>
-<body class="font-sans min-h-screen flex flex-col selection:bg-zinc-900 selection:text-white">
-  <!-- Top bar -->
-  <div class="h-8 bg-zinc-900 text-zinc-100 text-[11px] font-medium tracking-wide flex items-center justify-center gap-6 px-4">
-    <span class="hidden sm:flex items-center gap-2"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Canlı kütüphane — Anında erişim</span>
-    <span class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-[11px] opacity-70"></i> Güvenli ödeme · Hızlı teslimat</span>
-  </div>
+<body class="font-sans min-h-screen flex flex-col selection:bg-ink-900 selection:text-white">
 
-  <header class="glass-nav sticky top-0 z-40">
-    <div class="max-w-[1280px] mx-auto px-5 sm:px-8 h-[68px] flex items-center justify-between gap-6">
-      <a href="#" class="flex items-center gap-3.5 group">
-        <div class="w-10 h-10 rounded-[12px] bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center font-serif font-black text-[18px] tracking-tighter shadow-sm group-hover:scale-[1.02] transition">M</div>
-        <div class="leading-none">
-          <h1 class="font-serif font-bold text-[17px] tracking-tight text-zinc-900 dark:text-zinc-100">Dijital Kitapçı</h1>
-          <span class="text-[10px] font-semibold tracking-[0.14em] uppercase text-zinc-500">Dijital Mağaza</span>
-        </div>
-      </a>
+<div class="h-8 bg-ink-900 text-white/90 text-[11px] font-medium tracking-wide flex items-center justify-center gap-6 px-4">
+  <span class="hidden sm:flex items-center gap-2"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Yapay Zeka Kütüphanesi — Anında erişim</span>
+  <span class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-[11px] opacity-60"></i> Güvenli ödeme · Hızlı teslimat</span>
+</div>
 
-            <nav class="hidden lg:flex items-center gap-1 p-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200/60 dark:border-zinc-700">
-        <a href="#vitrin" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition">Vitrin</a>
-        <a href="#kitaplarBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium bg-white dark:bg-zinc-900 shadow-sm border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white">Koleksiyon</a>
-        <a href="#okumaKosesi" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 transition">Okuma Köşesi</a>
-        <a href="#sizdenGelenlerSection" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 transition">Topluluk</a>
-        <a href="#youtubeBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 transition">YouTube</a>
-      </nav>
-
-      
-      <div class="hidden lg:flex items-center gap-3 pl-5 ml-1 border-l border-zinc-200 dark:border-zinc-800">
-        <div class="relative">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Atat%C3%BCrk_1930.jpg/400px-Atat%C3%BCrk_1930.jpg" 
-               alt="Mustafa Kemal Atatürk" 
-               class="w-10 h-10 rounded-full object-cover border-2 border-zinc-200 dark:border-zinc-700 shadow-sm"
-               loading="lazy">
-          <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-red-600 rounded-full border-2 border-white dark:border-zinc-900"></span>
-        </div>
-        <div class="hidden xl:block leading-none">
-          <div class="text-[11px] font-bold tracking-[0.12em] uppercase text-zinc-900 dark:text-white">Mustafa Kemal</div>
-          <div class="text-[11px] font-bold tracking-[0.14em] uppercase text-red-600">ATATÜRK</div>
-        </div>
+<header class="glass-nav sticky top-0 z-40">
+  <div class="max-w-[1280px] mx-auto px-5 sm:px-8 h-[72px] flex items-center justify-between gap-6">
+    <a href="#" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-[12px] bg-ink-900 dark:bg-white text-white dark:text-ink-900 flex items-center justify-center font-display font-extrabold text-[18px] tracking-tighter shadow-sm group-hover:scale-[1.03] transition">D</div>
+      <div class="leading-none">
+        <div class="font-display font-bold text-[17px] tracking-tight">Dijital Kitapçı</div>
+        <div class="text-[10px] font-semibold tracking-[0.14em] uppercase text-zinc-500">Yapay Zeka • E-Kitap</div>
       </div>
-
-      
-      <div id="streakBadge" class="hidden lg:flex items-center gap-1.5 px-3 h-9 rounded-full bg-orange-50 dark:bg-orange-950/30 border border-orange-200 text-orange-700 text-[11px] font-bold">
+    </a>
+    <nav class="hidden lg:flex items-center gap-1 p-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200/60">
+      <a href="#vitrin" class="px-4 py-1.5 rounded-full text-[13px] font-medium">Vitrin</a>
+      <a href="#kitaplarBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium bg-white dark:bg-zinc-900 shadow-sm border">Koleksiyon</a>
+      <a href="#kitabinIcerigi" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600">İçerik</a>
+      <a href="#okumaKosesi" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600">Okuma Köşesi</a>
+      <a href="#premiumOzellikler" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600">Özellikler</a>
+    </nav>
+    <div class="flex items-center gap-2.5">
+      <div id="streakBadge" class="hidden lg:flex items-center gap-1.5 px-3 h-9 rounded-full bg-orange-50 border border-orange-200 text-orange-700 text-[11px] font-bold">
         <i class="fa-solid fa-fire streak-fire"></i> <span id="streakCount">0</span> gün
       </div>
-      <button onclick="openCartModal()" class="relative w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border flex items-center justify-center">
+      <button onclick="openCartModal()" class="relative w-10 h-10 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center hover:bg-ink-900 hover:text-white transition">
         <i class="fa-solid fa-bag-shopping text-[13px]"></i>
-        <span id="cartCount" class="absolute -top-1 -right-1 w-4 h-4 bg-red-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center hidden">0</span>
+        <span id="cartCount" class="absolute -top-1 -right-1 w-5 h-5 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center hidden">0</span>
       </button>
       <div class="flex items-center gap-2">
-        <button onclick="toggleTheme()" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition">
-          <i id="themeIcon" class="fa-solid fa-moon text-[13px]"></i>
-        </button>
-        <button id="adminPanelBtn" onclick="openAdminModal()" style="display:none" class="hidden sm:flex h-9 px-3.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold items-center gap-1.5">
-          <i class="fa-solid fa-shield-halved text-[11px]"></i> Admin
-        </button>
-        <a href="E-Kitap.apk" download class="hidden md:flex h-9 px-3.5 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 text-[12.5px] font-semibold items-center gap-1.5 hover:bg-zinc-50 transition">
-          <i class="fa-brands fa-android"></i> Uygulama
-        </a>
-        <button id="googleLoginBtn" onclick="openAuthModal()" class="h-9 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold hover:bg-black dark:hover:bg-zinc-100 transition">Giriş Yap</button>
-        <div id="userProfileArea" style="display:none" class="h-9 items-center gap-2 pl-1 pr-3 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 cursor-pointer" onclick="openProfileModal()">
-          <img id="userAvatarImg" style="display:none" class="w-7 h-7 rounded-full object-cover">
-          <div id="userAvatarText" class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold text-[12px] flex items-center justify-center">U</div>
-          <span id="userNameDisplay" class="text-[12.5px] font-medium max-w-[80px] truncate">Okur</span>
+        <button id="themeToggleBtn" class="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 border flex items-center justify-center"><i class="fa-solid fa-moon text-[12px]"></i></button>
+        <button id="googleLoginBtn" class="hidden sm:flex h-10 px-4 rounded-full bg-ink-900 dark:bg-white text-white dark:text-ink-900 text-[12.5px] font-semibold items-center gap-2"><i class="fa-brands fa-google text-[11px]"></i> Giriş</button>
+        <div id="userProfileArea" style="display:none" class="items-center gap-2">
+          <div class="w-9 h-9 rounded-full bg-zinc-100 flex items-center justify-center overflow-hidden"><img id="userAvatarImg" class="w-full h-full object-cover hidden"><span id="userAvatarText" class="text-[12px] font-bold"></span></div>
         </div>
       </div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- HERO -->
-  <section class="relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
-    <div class="absolute inset-0 hero-grid opacity-[0.6]"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-white via-white/80 to-[#fcfcfc] dark:from-zinc-950 dark:via-zinc-950/80 dark:to-[#09090b]"></div>
-    <div class="relative max-w-[1280px] mx-auto px-5 sm:px-8 py-12 sm:py-20">
-      <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center">
-        <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-[11px] font-semibold tracking-wide">
-            <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span> YENİ · Sesli okuma & vurgulu takip
-          </div>
-          <h2 class="mt-6 font-serif font-[700] text-[40px] sm:text-[58px] leading-[0.95] tracking-[-0.03em] text-zinc-900 dark:text-white text-balance">
-            Bilgiyi okumak değil,<br>
-            <span class="font-display italic font-normal tracking-normal">yaşamak için</span><br>
-            tasarlandı.
-          </h2>
-          <p class="mt-5 text-[15px] sm:text-[16px] leading-7 text-zinc-600 dark:text-zinc-400 max-w-[48ch] text-balance">
-            Seçili rehberler, kişisel gelişim ve pratik bilgi arşivi. Satın al, kaldığın yerden dinle, vurgulu takip et ve tek tıkla indir.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a href="#kitaplarBolumu" class="h-11 px-6 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[13.5px] font-semibold inline-flex items-center gap-2 hover:bg-black transition">Koleksiyonu Keşfet <i class="fa-solid fa-arrow-right text-[11px]"></i></a>
-            <a href="#sizdenGelenlerSection" class="h-11 px-6 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 text-[13.5px] font-semibold inline-flex items-center gap-2 hover:bg-zinc-50 transition">Topluluktan oku</a>
-          </div>
-          <div class="mt-10 flex items-center gap-6">
-            <div class="flex -space-x-2">
-              <div class="w-8 h-8 rounded-full bg-zinc-200 border-2 border-white dark:border-zinc-900 flex items-center justify-center text-[11px] font-bold">A</div>
-              <div class="w-8 h-8 rounded-full bg-zinc-900 text-white border-2 border-white dark:border-zinc-900 flex items-center justify-center text-[11px] font-bold">Y</div>
-              <div class="w-8 h-8 rounded-full bg-white border-2 border-white dark:border-zinc-900 shadow flex items-center justify-center text-[10px] font-bold">+1k</div>
-            </div>
-            <div class="text-[12.5px] leading-tight"><span class="font-semibold text-zinc-900 dark:text-white">1000+ okur</span><br><span class="text-zinc-500">topluluğa katıldı</span></div>
-            <div class="h-8 w-px bg-zinc-200 dark:bg-zinc-800"></div>
-            <div class="text-[12.5px] leading-tight"><span class="font-semibold text-zinc-900 dark:text-white flex items-center gap-1"><i class="fa-solid fa-star text-amber-500 text-[11px]"></i> 4.9/5</span><span class="text-zinc-500">ortalama memnuniyet</span></div>
-          </div>
-        </div>
-
-        <div class="relative lg:h-[520px] flex items-center justify-center">
-          <div class="absolute -inset-8 bg-gradient-to-tr from-zinc-100 to-zinc-50 dark:from-zinc-900 dark:to-zinc-900 rounded-[36px] -z-10"></div>
-          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] bg-gradient-to-br from-zinc-200/40 to-transparent dark:from-zinc-700/20 rounded-full blur-3xl -z-10"></div>
+<section id="vitrin" class="max-w-[1280px] mx-auto px-5 sm:px-8 pt-10 sm:pt-16 pb-12 w-full">
+  <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-center">
+    <div>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-50 border border-violet-200 text-violet-700 text-[11px] font-bold tracking-wide"><span class="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></span> Yapay zeka konulu dijital kitaplar</div>
+      <h1 class="mt-5 font-display font-extrabold text-[40px] sm:text-[56px] leading-[0.9] tracking-[-0.04em] text-balance">
+        Yapay zekayı<br>
+        <span class="text-zinc-400 font-display font-extrabold">ezberlemeden,</span><br>
+        anlayarak öğren.
+      </h1>
+      <p class="mt-5 text-[16px] leading-[1.7] text-zinc-600 max-w-[52ch]">
+        Teknolojiye meraklı Türkçe okurlar için: sıfırdan başlayan, örnekli, uygulamalı e-kitaplar. Satın al, <strong>anında oku, dinle ve not al</strong>. Kredi kartı, havale, güvenli teslimat.
+      </p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <a href="#kitaplarBolumu" class="h-12 px-7 rounded-full bg-ink-900 text-white dark:bg-white dark:text-ink-900 font-semibold text-[14px] flex items-center gap-2 hover:opacity-90 transition shadow-soft"><i class="fa-solid fa-bolt text-[12px] text-amber-300"></i> Koleksiyonu Gör — Satın Al</a>
+        <a href="#okumaKosesi" class="h-12 px-6 rounded-full bg-white border border-zinc-200 font-medium text-[14px] flex items-center gap-2 hover:bg-zinc-50 transition"><i class="fa-solid fa-book-open text-[12px]"></i> Okuma Köşesi</a>
+      </div>
+      <div class="mt-6 flex flex-wrap items-center gap-4 text-[12px] text-zinc-500">
+        <span class="flex items-center gap-1.5"><i class="fa-solid fa-check text-emerald-600"></i> Anında erişim</span>
+        <span class="flex items-center gap-1.5"><i class="fa-solid fa-check text-emerald-600"></i> EPUB • PDF • Sesli</span>
+        <span class="flex items-center gap-1.5"><i class="fa-solid fa-check text-emerald-600"></i> 7 gün iade</span>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="absolute -top-10 -right-10 w-[360px] h-[360px] bg-accent-500/20 rounded-full blur-[60px]"></div>
+      <div class="relative surface-card rounded-[32px] p-5 sm:p-7 shadow-soft-lg">
+        <div class="rounded-[20px] overflow-hidden bg-gradient-to-br from-ink-900 to-ink-700 p-6 sm:p-8 text-white relative">
+          <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
           <div class="relative">
-            <div class="absolute -inset-5 bg-white dark:bg-zinc-900 rounded-[32px] shadow-[0_20px_60px_-16px_rgba(0,0,0,.25)] border border-zinc-200/60 dark:border-zinc-800 rotate-[-2deg] -z-10"></div>
-            <div class="w-[340px] sm:w-[400px] aspect-square rounded-[28px] overflow-hidden bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-[0_24px_48px_-16px_rgba(0,0,0,.4)]">
-              <img src="1792945068177.jpg" alt="Dijital Kitapçı" class="w-full h-full object-cover">
+            <div class="text-[10px] tracking-[0.16em] uppercase opacity-60 font-bold">Öne Çıkan E-Kitap</div>
+            <h3 class="mt-3 font-display font-bold text-[24px] leading-[1.1]">Yapay Zeka ile Üretkenlik — Pratik Rehber</h3>
+            <p class="mt-3 text-[13px] leading-[1.6] opacity-80">Prompt mühendisliğinden otomasyona, Türkçe örneklerle 120 sayfa.</p>
+            <div class="mt-6 flex items-center gap-3">
+              <img src="1792945068177.jpg" class="w-14 h-20 object-cover rounded-[10px] border border-white/20 shadow" alt="kapak">
+              <div class="text-[11px] leading-[1.5] opacity-70">✓ EPUB<br>✓ Sesli dinle<br>✓ Not al & paylaş</div>
             </div>
-            <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 px-6 py-2 rounded-full text-[11px] font-bold tracking-[0.14em] uppercase shadow-lg whitespace-nowrap">DİJİTAL KİTAPÇI</div>
+            <button onclick="document.getElementById('kitaplarBolumu').scrollIntoView({behavior:'smooth'})" class="mt-6 w-full h-11 rounded-full bg-white text-ink-900 font-semibold text-[13px]">Hemen İncele</button>
           </div>
+        </div>
+        <div class="mt-4 grid grid-cols-3 gap-3 text-center">
+          <div class="rounded-[14px] bg-zinc-50 border p-3"><div class="font-display font-bold text-[16px]">4.9/5</div><div class="text-[10px] text-zinc-500">Okur puanı</div></div>
+          <div class="rounded-[14px] bg-zinc-50 border p-3"><div class="font-display font-bold text-[16px]">1.200+</div><div class="text-[10px] text-zinc-500">Okur</div></div>
+          <div class="rounded-[14px] bg-zinc-50 border p-3"><div class="font-display font-bold text-[16px]">Anında</div><div class="text-[10px] text-zinc-500">Teslimat</div></div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- VITRIN -->
-  <section id="vitrin" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full">
-    <div class="flex items-end justify-between mb-6">
+<section class="max-w-[1280px] mx-auto px-5 sm:px-8 w-full">
+  <div class="flex flex-col sm:flex-row gap-3 sm:items-center justify-between py-4 border-y border-zinc-100 dark:border-zinc-800">
+    <div class="flex items-center gap-3 overflow-x-auto scrollbar-hide">
+      <span class="text-[11px] font-bold tracking-widest uppercase text-zinc-400">Filtre:</span>
+      <div id="categoryContainer" class="flex items-center gap-2"></div>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="relative"><i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-[11px] text-zinc-400"></i><input id="searchInput" placeholder="Kitap ara..." class="h-9 w-[200px] sm:w-[260px] rounded-full bg-zinc-100 dark:bg-zinc-800 border border-transparent pl-9 pr-4 text-[13px] focus:bg-white focus:border-zinc-300 focus:outline-none"></div>
+      <select id="sortSelect" class="h-9 rounded-full bg-white border border-zinc-200 px-3 text-[12px]"><option value="newest">En yeni</option><option value="popular">Popüler</option><option value="priceLow">Fiyat ↑</option><option value="priceHigh">Fiyat ↓</option></select>
+      <span id="bookCount" class="hidden sm:flex text-[11px] font-semibold px-3 py-1.5 rounded-full bg-ink-900 text-white">0 eser</span>
+    </div>
+  </div>
+</section>
+
+<main id="kitaplarBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-8 w-full">
+  <div id="loadingIndicator" class="flex flex-col items-center justify-center py-24"><div class="loader mb-3"></div><p class="text-zinc-500 text-[13px] font-medium">Kütüphane yükleniyor...</p></div>
+  <div id="bookGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"></div>
+</main>
+
+<section id="kitabinIcerigi" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-14 w-full">
+  <div class="flex items-end justify-between mb-6">
+    <div><div class="text-[11px] font-bold tracking-[0.16em] uppercase text-zinc-400">Kitabın İçeriği</div><h3 class="mt-2 font-display font-bold text-[28px] tracking-tight">6 bölümde yapay zeka</h3><p class="mt-1 text-[13px] text-zinc-500">Sıfırdan başlayanlar için, örnekli ve uygulamalı.</p></div>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="surface-card rounded-[20px] p-6 hover:shadow-soft transition"><div class="w-10 h-10 rounded-[12px] bg-ink-900 text-white flex items-center justify-center"><i class="fa-solid fa-lightbulb"></i></div><h4 class="mt-4 font-display font-bold text-[15px]">1. Yapay Zeka Nedir?</h4><p class="mt-2 text-[12.5px] leading-[1.6] text-zinc-600">Temel kavramlar, tarihçe, nerede kullanıyoruz? Jargonsuz giriş.</p></div>
+    <div class="surface-card rounded-[20px] p-6 hover:shadow-soft transition"><div class="w-10 h-10 rounded-[12px] bg-violet-600 text-white flex items-center justify-center"><i class="fa-solid fa-wand-magic-sparkles"></i></div><h4 class="mt-4 font-display font-bold text-[15px]">2. Prompt Mühendisliği</h4><p class="mt-2 text-[12.5px] leading-[1.6] text-zinc-600">Doğru soruyu sorma sanatı. Türkçe örnek promptlar.</p></div>
+    <div class="surface-card rounded-[20px] p-6 hover:shadow-soft transition"><div class="w-10 h-10 rounded-[12px] bg-zinc-900 text-white flex items-center justify-center"><i class="fa-solid fa-robot"></i></div><h4 class="mt-4 font-display font-bold text-[15px]">3. Üretken Yapay Zeka</h4><p class="mt-2 text-[12.5px] leading-[1.6] text-zinc-600">Metin, görsel, ses üretimi — pratik araçlar.</p></div>
+    <div class="surface-card rounded-[20px] p-6 hover:shadow-soft transition"><div class="w-10 h-10 rounded-[12px] bg-emerald-600 text-white flex items-center justify-center"><i class="fa-solid fa-scale-balanced"></i></div><h4 class="mt-4 font-display font-bold text-[15px]">4. Etik & Güvenlik</h4><p class="mt-2 text-[12.5px] leading-[1.6] text-zinc-600">Önyargı, gizlilik, doğru kullanım.</p></div>
+    <div class="surface-card rounded-[20px] p-6 hover:shadow-soft transition"><div class="w-10 h-10 rounded-[12px] bg-orange-500 text-white flex items-center justify-center"><i class="fa-solid fa-gears"></i></div><h4 class="mt-4 font-display font-bold text-[15px]">5. Günlük Uygulamalar</h4><p class="mt-2 text-[12.5px] leading-[1.6] text-zinc-600">İş, eğitim, içerik üretiminde otomasyon.</p></div>
+    <div class="surface-card rounded-[20px] p-6 hover:shadow-soft transition"><div class="w-10 h-10 rounded-[12px] bg-ink-900 text-white flex items-center justify-center"><i class="fa-solid fa-rocket"></i></div><h4 class="mt-4 font-display font-bold text-[15px]">6. Gelecek & Kariyer</h4><p class="mt-2 text-[12.5px] leading-[1.6] text-zinc-600">AI ile çalışmak, yeni roller, yol haritası.</p></div>
+  </div>
+</section>
+
+<section id="premiumOzellikler" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full">
+  <div class="rounded-[32px] bg-white dark:bg-ink-800 border border-zinc-200 dark:border-white/10 p-7 sm:p-10">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+      <div><div class="text-[11px] font-bold tracking-[0.16em] uppercase text-zinc-400">Premium Deneyim</div><h3 class="mt-2 font-display font-bold text-[26px] tracking-tight">Okumak değil, yaşamak için</h3></div>
+      <div class="text-[12px] text-zinc-500">EPUB • PDF • Sesli • Offline</div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="rounded-[18px] bg-zinc-50 dark:bg-white/5 border p-5"><div class="w-9 h-9 rounded-full bg-ink-900 text-white flex items-center justify-center text-[13px]"><i class="fa-solid fa-bag-shopping"></i></div><h4 class="mt-3 font-semibold text-[13px]">Sepete Ekle</h4><p class="mt-1 text-[12px] text-zinc-600">Çoklu kitap, kupon ILK10, 3AL2ODE.</p></div>
+      <div class="rounded-[18px] bg-zinc-50 dark:bg-white/5 border p-5"><div class="w-9 h-9 rounded-full bg-violet-600 text-white flex items-center justify-center text-[13px]"><i class="fa-solid fa-gift"></i></div><h4 class="mt-3 font-semibold text-[13px]">Hediye Et</h4><p class="mt-1 text-[12px] text-zinc-600">Arkadaşına link ile hediye gönder.</p></div>
+      <div class="rounded-[18px] bg-zinc-50 dark:bg-white/5 border p-5"><div class="w-9 h-9 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[13px]"><i class="fa-solid fa-moon"></i></div><h4 class="mt-3 font-semibold text-[13px]">Uyku Zamanlayıcı</h4><p class="mt-1 text-[12px] text-zinc-600">15/30/60 dk sonra otomatik durur.</p></div>
+      <div class="rounded-[18px] bg-zinc-50 dark:bg-white/5 border p-5"><div class="w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[13px]"><i class="fa-solid fa-quote-left"></i></div><h4 class="mt-3 font-semibold text-[13px]">Alıntı Paylaş</h4><p class="mt-1 text-[12px] text-zinc-600">Seç, Story görseli yap, paylaş.</p></div>
+      <div class="rounded-[18px] bg-zinc-50 dark:bg-white/5 border p-5"><div class="w-9 h-9 rounded-full bg-amber-400 text-zinc-900 flex items-center justify-center text-[13px]"><i class="fa-solid fa-fire"></i></div><h4 class="mt-3 font-semibold text-[13px]">Okuma Serisi</h4><p class="mt-1 text-[12px] text-zinc-600">Her gün oku, streak kazan.</p></div>
+      <div class="rounded-[18px] bg-zinc-50 dark:bg-white/5 border p-5"><div class="w-9 h-9 rounded-full bg-ink-900 text-white flex items-center justify-center text-[13px]"><i class="fa-solid fa-robot"></i></div><h4 class="mt-3 font-semibold text-[13px]">Kitaba Sor AI</h4><p class="mt-1 text-[12px] text-zinc-600">Bölüm özeti, soru-cevap.</p></div>
+      <div class="rounded-[18px] bg-zinc-50 dark:bg-white/5 border p-5"><div class="w-9 h-9 rounded-full bg-zinc-100 border flex items-center justify-center text-[13px]"><i class="fa-solid fa-pen"></i></div><h4 class="mt-3 font-semibold text-[13px]">Not Al</h4><p class="mt-1 text-[12px] text-zinc-600">Seçili metne not ekle, sakla.</p></div>
+      <div class="rounded-[18px] bg-zinc-50 dark:bg-white/5 border p-5"><div class="w-9 h-9 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[13px]"><i class="fa-solid fa-star"></i></div><h4 class="mt-3 font-semibold text-[13px]">Yorum & Puan</h4><p class="mt-1 text-[12px] text-zinc-600">Kitap bazlı gerçek okur yorumları.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="okumaKosesi" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-14 w-full">
+  <div class="rounded-[32px] bg-ink-900 text-white p-8 sm:p-12 relative overflow-hidden">
+    <div class="absolute -top-24 -right-24 w-[500px] h-[500px] bg-accent-500/20 rounded-full blur-3xl"></div>
+    <div class="relative z-10 grid lg:grid-cols-[1.1fr_0.9fr] gap-10">
       <div>
-        <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Vitrin</div>
-        <h3 class="mt-2 font-serif text-[28px] font-bold tracking-tight">Öne çıkanlar</h3>
-      </div>
-      <a href="#kitaplarBolumu" class="text-[13px] font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">Tümünü gör →</a>
-    </div>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-6">
-        <div class="flex items-center justify-between mb-5">
-          <h4 class="font-semibold text-[14px] flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center text-[11px]"><i class="fa-solid fa-fire"></i></span> En çok okunanlar</h4>
-          <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">Popüler</span>
-        </div>
-        <div id="popularBooks" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-      </div>
-      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-6">
-        <div class="flex items-center justify-between mb-5">
-          <h4 class="font-semibold text-[14px] flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-[11px]">✦</span> Yeni eklenenler</h4>
-          <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">Taze</span>
-        </div>
-        <div id="newBooks" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- KOLEKSIYON -->
-  
-  <!-- OKUMA KÖŞESİ - YENİ (Atatürk yerine) -->
-  <section id="okumaKosesi" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-16 w-full">
-    <div class="rounded-[32px] bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 p-8 sm:p-12 lg:p-14 relative overflow-hidden">
-      <div class="absolute -top-24 -right-24 w-[600px] h-[600px] bg-gradient-to-br from-amber-400/20 via-orange-200/10 to-transparent rounded-full blur-3xl pointer-events-none"></div>
-      <div class="relative z-10">
-        <div class="flex flex-wrap items-center gap-3 mb-6">
-          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/10 text-[11px] font-bold tracking-[0.14em] uppercase">OKUMA KÖŞESİ</span>
-          <span class="px-3 py-1 rounded-full bg-amber-400 text-zinc-900 text-[11px] font-bold">Yeni</span>
-        </div>
-        <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-start">
-          <div>
-            <h2 class="font-serif font-black text-[36px] sm:text-[48px] leading-[0.9] tracking-[-0.03em]">
-              Okumak için<br>
-              <span class="font-display italic font-normal opacity-60">biraz cesaret,</span><br>
-              biraz merak yeter.
-            </h2>
-            <!-- Samimi tanıtım paragrafı -->
-            <p class="mt-6 text-[15px] leading-[1.8] opacity-80 max-w-[52ch]">
-              Burada hız yok, yarış yok. Sadece sen ve iyi bir kitap var. <strong>Okuma Köşesi'ni, her gün birkaç sayfayla kafa dağıtman, yeni fikirler keşfetmen için kurduk.</strong> Gel, bir paket seç, bir alıntı paylaş, kaldığın yerden devam et — gerisini kitaplar halleder.
-            </p>
-            <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <a href="#kitapOkumaninOnemi" class="rounded-[16px] bg-white/10 border border-white/10 p-4 hover:bg-white/15 transition">
-                <div class="w-8 h-8 rounded-full bg-white text-zinc-900 flex items-center justify-center text-[12px] mb-3"><i class="fa-solid fa-brain"></i></div>
-                <div class="text-[13px] font-bold">Neden Okumalıyız?</div>
-                <div class="text-[11px] opacity-60 mt-1">Zihin, empati, bakış açısı →</div>
-              </a>
-              <a href="#paketlerBolumu" class="rounded-[16px] bg-white/10 border border-white/10 p-4 hover:bg-white/15 transition">
-                <div class="w-8 h-8 rounded-full bg-amber-400 text-zinc-900 flex items-center justify-center text-[12px] mb-3"><i class="fa-solid fa-box-open"></i></div>
-                <div class="text-[13px] font-bold">Avantajlı Paketler</div>
-                <div class="text-[11px] opacity-60 mt-1">3 al 2 öde, hediye →</div>
-              </a>
-              <a href="#blogBolumu" class="rounded-[16px] bg-white/10 border border-white/10 p-4 hover:bg-white/15 transition">
-                <div class="w-8 h-8 rounded-full bg-white/10 border flex items-center justify-center text-[12px] mb-3"><i class="fa-solid fa-book-open"></i></div>
-                <div class="text-[13px] font-bold">Rehberler & Özetler</div>
-                <div class="text-[11px] opacity-60 mt-1">5 dk'lık okumalar →</div>
-              </a>
-            </div>
-            <div class="mt-8 flex flex-wrap gap-2 text-[11px]">
-              <a href="#kitaplarBolumu" class="px-4 h-9 rounded-full bg-white text-zinc-900 font-semibold flex items-center gap-2">Koleksiyona Git <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
-              <a href="#kitapOkumaninOnemi" class="px-4 h-9 rounded-full bg-white/10 border border-white/20 font-medium flex items-center">Kitap Okumanın Önemi</a>
-            </div>
-          </div>
-          <div class="space-y-4">
-            <div class="rounded-[20px] bg-white/10 backdrop-blur border border-white/10 p-5">
-              <div class="text-[11px] font-bold tracking-widest uppercase opacity-50 mb-3">Bu hafta Okuma Köşesi'nde</div>
-              <ul class="space-y-3 text-[13px]">
-                <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-amber-400 text-zinc-900 flex items-center justify-center text-[10px] font-bold">1</span> <span><b>Uyku Zamanlayıcısı</b> ile dinle, 30 dk sonra otomatik dursun</span></li>
-                <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-white text-zinc-900 flex items-center justify-center text-[10px] font-bold">2</span> <span><b>Alıntı Paylaş</b> — seçili metni Story görseli yap</span></li>
-                <li class="flex gap-3"><span class="w-6 h-6 rounded-full bg-white/10 border flex items-center justify-center text-[10px] font-bold">3</span> <span><b>Kitaba Sor</b> — AI ile bölüm özeti al</span></li>
-              </ul>
-            </div>
-            <div class="rounded-[20px] bg-amber-400 text-zinc-900 p-5">
-              <div class="text-[11px] font-bold tracking-widest uppercase opacity-60">Günün Alıntısı</div>
-              <p class="mt-2 font-serif text-[16px] leading-[1.4] italic">"Bir kitap okuyup bitirdiğinde, artık o kitabı okumadan önceki sen değilsindir."</p>
-            </div>
-          </div>
+        <span class="inline-flex px-3 py-1 rounded-full bg-white/10 border border-white/10 text-[11px] font-bold tracking-widest uppercase">Okuma Köşesi</span>
+        <h3 class="mt-4 font-display font-extrabold text-[34px] leading-[0.95] tracking-tight">Okumak için<br><span class="font-display font-normal italic opacity-60">biraz merak yeter.</span></h3>
+        <p class="mt-5 text-[15px] leading-[1.8] opacity-80 max-w-[52ch]">Burada hız yok, yarış yok. Sadece sen ve iyi bir kitap var. <strong>Okuma Köşesi'ni, her gün birkaç sayfayla kafa dağıtman, yeni fikirler keşfetmen için kurduk.</strong> Gel, bir paket seç, bir alıntı paylaş, kaldığın yerden devam et — gerisini kitaplar halleder.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="#kitapOkumaninOnemi" class="px-4 h-10 rounded-full bg-white text-ink-900 font-semibold text-[13px] flex items-center gap-2">Neden okumalıyız?</a>
+          <a href="#paketlerBolumu" class="px-4 h-10 rounded-full bg-white/10 border border-white/20 font-medium text-[13px] flex items-center">Paketler</a>
+          <a href="#kitaplarBolumu" class="px-4 h-10 rounded-full bg-white/10 border border-white/20 font-medium text-[13px] flex items-center">Koleksiyona git</a>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Kitap Okumanın Önemi -->
-  <section id="kitapOkumaninOnemi" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full">
-    <div class="rounded-[28px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 sm:p-10">
-      <h3 class="font-serif font-bold text-[26px] tracking-tight">Kitap Okumanın Önemi</h3>
-      <div class="mt-6 grid md:grid-cols-3 gap-6">
-        <div><h4 class="font-bold text-[14px]">1. Zihinsel Gelişim</h4><p class="mt-2 text-[13px] leading-[1.6] text-zinc-600 dark:text-zinc-400">Her kitap beynin için antrenmandır. Odaklanma ve eleştirel düşünme güçlenir.</p></div>
-        <div><h4 class="font-bold text-[14px]">2. Empati</h4><p class="mt-2 text-[13px] leading-[1.6] text-zinc-600 dark:text-zinc-400">Başkasının hikayesinde kendini bulursun. Anlamayı öğrenirsin.</p></div>
-        <div><h4 class="font-bold text-[14px]">3. Bakış Açısı</h4><p class="mt-2 text-[13px] leading-[1.6] text-zinc-600 dark:text-zinc-400">Sana yeni sorular sordurur. Kendi hayatına dışarıdan bakarsın.</p></div>
-      </div>
-      <blockquote class="mt-8 border-l-2 border-zinc-900 dark:border-white pl-5 py-2 bg-zinc-50 dark:bg-zinc-800/50 rounded-r-xl">
-        <p class="font-serif italic text-[16px]">"Okumak, bir başkasının zihniyle düşünmek için tutulan en sessiz randevudur."</p>
-        <footer class="text-[10px] font-bold uppercase opacity-50 mt-1">— Borges'den ilhamla</footer>
-      </blockquote>
-    </div>
-  </section>
-
-  <!-- Paketler -->
-  <section id="paketlerBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full">
-    <div class="flex items-end justify-between mb-6">
-      <div><div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Avantajlı Paketler</div><h3 class="mt-2 font-serif text-[28px] font-bold">Çok al, az öde</h3></div>
-      <div class="hidden sm:flex items-center gap-2 text-[11px] px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border"><i class="fa-solid fa-bolt"></i> 3AL2ODE aktif</div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-      <div class="surface-card rounded-[24px] p-6 border-2 border-zinc-900 dark:border-white">
-        <h4 class="font-serif font-bold text-[18px]">Başlangıç Paketi</h4><p class="text-[12.5px] text-zinc-500 mt-1">İlk 3 kitap</p><div class="mt-4 flex gap-2"><span class="text-[22px] font-bold">₺199</span><span class="line-through text-zinc-400 text-[13px]">₺345</span></div><button onclick="addPackageToCart('baslangic')" class="mt-5 w-full h-10 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold">Paketi Sepete Ekle</button>
-      </div>
-      <div class="surface-card rounded-[24px] p-6">
-        <h4 class="font-serif font-bold text-[18px]">Odak & Üretkenlik</h4><p class="text-[12.5px] text-zinc-500 mt-1">5 kitap + şablonlar</p><div class="mt-4 flex gap-2"><span class="text-[22px] font-bold">₺349</span><span class="line-through text-zinc-400 text-[13px]">₺520</span></div><button onclick="addPackageToCart('odak')" class="mt-5 w-full h-10 rounded-full bg-white border text-[12.5px] font-semibold">Paketi Sepete Ekle</button>
-      </div>
-      <div class="surface-card rounded-[24px] p-6">
-        <h4 class="font-serif font-bold text-[18px]">Hediye Paketi</h4><p class="text-[12.5px] text-zinc-500 mt-1">3 kitap + hediye kartı</p><div class="mt-4"><span class="text-[22px] font-bold">₺279</span></div><button onclick="addPackageToCart('hediye')" class="mt-5 w-full h-10 rounded-full bg-white border text-[12.5px] font-semibold">Hediye Paketi</button>
-      </div>
-    </div>
-  </section>
-
-  <main id="kitaplarBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-8 w-full">
-    <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-5 sm:p-6 mb-6">
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-        <div class="flex items-start gap-3.5">
-          <div class="w-10 h-10 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-layer-group text-[14px]"></i></div>
-          <div>
-            <h2 id="listTitle" class="font-serif font-bold text-[22px] leading-none tracking-tight">Koleksiyon</h2>
-            <p class="text-[13px] text-zinc-500 mt-1.5">Satın al, oku, dinle ve indir — tüm arşiv burada.</p>
-          </div>
+      <div class="space-y-4">
+        <div class="rounded-[20px] bg-white/10 border border-white/10 p-5">
+          <div class="text-[11px] font-bold uppercase opacity-50 mb-3">Bu hafta</div>
+          <ul class="space-y-2 text-[13px]">
+            <li class="flex gap-2"><span class="w-6 h-6 rounded-full bg-accent-500 flex items-center justify-center text-[10px] font-bold">1</span> Uyku zamanlayıcısı ile dinle</li>
+            <li class="flex gap-2"><span class="w-6 h-6 rounded-full bg-white text-ink-900 flex items-center justify-center text-[10px] font-bold">2</span> Alıntı paylaş, Story yap</li>
+            <li class="flex gap-2"><span class="w-6 h-6 rounded-full bg-white/10 border flex items-center justify-center text-[10px]">3</span> Kitaba Sor AI ile özet al</li>
+          </ul>
         </div>
-        <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-          <div class="relative flex-1 sm:w-[300px]">
-            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-[12px]"></i>
-            <input id="searchInput" onkeyup="filterBooks()" placeholder="Kitap, yazar ara..." class="w-full h-10 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full pl-10 pr-4 text-[13px] focus:outline-none focus:ring-2 focus:ring-zinc-900/10">
-          </div>
-          <select id="sortSelect" onchange="renderBooks()" class="h-10 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-4 text-[13px] font-medium focus:outline-none">
-            <option value="newest">En yeni</option>
-            <option value="popular">En popüler</option>
-            <option value="az">A → Z</option>
-          </select>
+        <div class="rounded-[20px] bg-accent-500 text-white p-5">
+          <div class="text-[11px] font-bold uppercase opacity-70">Günün Alıntısı</div>
+          <p class="mt-2 font-display text-[16px] italic leading-[1.4]">"Bir kitap okuyup bitirdiğinde, artık o kitabı okumadan önceki sen değilsindir."</p>
         </div>
-      </div>
-      <div class="mt-6 pt-5 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between gap-4">
-        <div id="categoryContainer" class="flex gap-2 overflow-x-auto scrollbar-hide"></div>
-        <span id="bookCount" class="flex-shrink-0 text-[11px] font-semibold px-3 py-1.5 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">0 eser</span>
-      </div>
-    </div>
-
-    <div id="loadingIndicator" class="flex flex-col items-center justify-center py-24">
-      <div class="loader mb-3"></div>
-      <p class="text-zinc-500 text-[13px] font-medium">Kütüphane yükleniyor...</p>
-    </div>
-    <div id="bookGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5"></div>
-  </main>
-
-  <section id="youtubeBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-14 border-t border-zinc-200 dark:border-zinc-800 w-full">
-    <div class="flex justify-between items-end mb-8">
-      <div>
-        <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Video</div>
-        <h3 class="mt-2 font-serif text-[28px] font-bold tracking-tight flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-red-600 text-white flex items-center justify-center text-[14px]"><i class="fa-brands fa-youtube"></i></span> YouTube'da dinle</h3>
-      </div>
-      <a href="https://www.youtube.com/@yasaroguzhan890" target="_blank" class="h-9 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[13px] font-medium">Kanala git</a>
-    </div>
-    <div id="youtubeGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-  </section>
-
-  <section id="sizdenGelenlerSection" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-14 border-t border-zinc-200 dark:border-zinc-800 w-full">
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-8">
-      <div>
-        <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Topluluk</div>
-        <h3 class="mt-2 font-serif text-[28px] font-bold tracking-tight">Sizden gelenler</h3>
-        <p class="text-[13px] text-zinc-500 mt-1">Okurlarımızın favori alıntıları ve mesajları.</p>
-      </div>
-      <button onclick="openSubmissionModal()" class="h-10 px-5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[13px] font-semibold">+ Paylaş</button>
-    </div>
-    <div id="sizdenGelenlerGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
-  </section>
-
-  <!-- MODALLAR - Profesyonel -->
-  <div id="authModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur-[12px] p-4">
-    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[420px] p-8 shadow-[0_20px_60px_-20px_rgba(0,0,0,.5)] border border-zinc-200 dark:border-zinc-800 relative">
-      <button onclick="document.getElementById('authModal').classList.remove('modal-active')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
-      <div class="text-center mb-6"><div class="w-12 h-12 mx-auto rounded-[14px] bg-zinc-900 text-white flex items-center justify-center font-serif font-black">M</div><h3 id="authTitle" class="mt-4 font-serif font-bold text-[22px]">Giriş yap</h3></div>
-      <form id="emailAuthForm" onsubmit="handleEmailAuth(event)" class="flex flex-col gap-3 mb-4">
-        <div id="nameField" style="display:none;"><input type="text" id="authNameInput" placeholder="Ad Soyad" class="w-full h-11 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-4 text-[13px]"></div>
-        <input type="email" id="authEmailInput" required placeholder="E-posta" class="w-full h-11 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-4 text-[13px]">
-        <input type="password" id="authPasswordInput" required placeholder="Şifre" class="w-full h-11 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-4 text-[13px]">
-        <button type="submit" id="authSubmitBtn" class="w-full h-11 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full font-semibold text-[13px] mt-2">Devam et</button>
-      </form>
-      <button onclick="loginWithGoogle()" class="w-full h-11 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full font-medium text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-google"></i> Google ile devam et</button>
-      <p class="text-center text-[12px] text-zinc-500 mt-6"><span id="authToggleText">Hesabın yok mu?</span><button onclick="toggleAuthMode()" id="authToggleBtn" class="font-semibold text-zinc-900 dark:text-white ml-1">Kayıt ol</button></p>
-    </div>
-  </div>
-
-  <div id="profileModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur-[12px] p-4">
-    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[560px] overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-xl flex flex-col max-h-[88vh]">
-      <div class="p-6 flex items-center gap-4 border-b border-zinc-100 dark:border-zinc-800"><img id="profileImg" class="w-12 h-12 rounded-full object-cover hidden"><div id="profileImgText" class="w-12 h-12 rounded-full bg-zinc-900 text-white flex items-center justify-center font-bold">U</div><div><h2 id="profileName" class="font-semibold">Kullanıcı</h2><p id="profileEmail" class="text-[12px] text-zinc-500"></p></div><button onclick="document.getElementById('profileModal').classList.remove('modal-active')" class="ml-auto w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button></div>
-      <div class="flex border-b border-zinc-100 dark:border-zinc-800"><button onclick="switchProfileTab('downloads')" id="tabBtnDownloads" class="flex-1 py-3 text-[13px] font-semibold border-b-2 border-zinc-900 dark:border-white">İndirdiklerim</button><button onclick="switchProfileTab('myComments')" id="tabBtnMyComments" class="flex-1 py-3 text-[13px] font-medium text-zinc-500">Yorumlarım</button></div>
-      <div class="p-6 overflow-y-auto flex-1"><div id="profileTabDownloads" class="space-y-3"></div><div id="profileTabMyComments" class="hidden space-y-3"></div></div>
-    </div>
-  </div>
-
-  <div id="bookDetailModal" class="fixed inset-0 z-[999] items-center justify-center bg-zinc-950/60 backdrop-blur-[12px] p-4">
-    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[900px] border border-zinc-200 dark:border-zinc-800 shadow-[0_20px_80px_-20px_rgba(0,0,0,.6)] overflow-hidden flex flex-col md:flex-row max-h-[90vh] relative">
-      <button onclick="closeBookModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
-      <div class="w-full md:w-[46%] p-7 border-b md:border-b-0 md:border-r border-zinc-100 dark:border-zinc-800 overflow-y-auto">
-        <div class="flex gap-5"><img id="modalCover" class="w-28 sm:w-32 aspect-[2/3] object-cover rounded-[12px] bg-zinc-100"><div><span id="modalCategory" class="text-[10px] font-semibold tracking-widest uppercase px-2.5 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"></span><span id="modalPriceBadge" class="ml-2 text-[10px] font-semibold px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border"></span><h3 id="modalTitle" class="mt-3 font-serif font-bold text-[22px] leading-tight"></h3><p id="modalAuthor" class="text-[13px] text-zinc-500 mt-1"></p></div></div>
-        <p id="modalDesc" class="mt-6 text-[13.5px] leading-6 text-zinc-600 dark:text-zinc-400"></p>
-        <div class="mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800">
-          <button id="modalBuyBtn" class="hidden w-full h-11 bg-emerald-600 text-white rounded-full font-semibold text-[13px]"><i class="fa-solid fa-cart-shopping mr-2"></i><span id="modalBuyBtnText">Satın Al</span></button>
-          <div id="modalReadDownloadRow" class="flex gap-2"><button id="modalReadBtn" class="flex-1 h-11 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full font-semibold text-[13px]"><i class="fa-solid fa-play mr-1.5"></i>Oku & Dinle</button><button id="modalDownloadBtn" class="flex-1 h-11 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full font-semibold text-[13px]"><i class="fa-solid fa-arrow-down mr-1.5"></i>İndir</button></div>
-        </div>
-      </div>
-      <div class="w-full md:w-[54%] flex flex-col bg-zinc-50/60 dark:bg-zinc-900/60">
-        <div class="p-5 border-b border-zinc-100 dark:border-zinc-800"><h4 class="font-semibold text-[13px]"><i class="fa-regular fa-comments mr-2"></i>Okur yorumları</h4></div>
-        <div id="modalCommentsList" class="flex-1 overflow-y-auto p-5 space-y-3"></div>
-        <div class="p-4 bg-white dark:bg-zinc-900 border-t border-zinc-100 dark:border-zinc-800"><form id="modalCommentForm" onsubmit="submitBookComment(event)" class="flex flex-col gap-2"><div class="flex gap-2"><input id="modalCommentName" required placeholder="Adınız" class="flex-1 h-9 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-3 text-[12px]"><select id="modalCommentRating" class="w-[110px] h-9 bg-zinc-50 dark:bg-zinc-800 border rounded-full px-2 text-[12px]"><option value="5">★★★★★</option><option value="4">★★★★</option><option value="3">★★★</option></select></div><textarea id="modalCommentMsg" required placeholder="Düşünceleriniz..." rows="2" class="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-[14px] px-3 py-2 text-[12px] resize-none"></textarea><button class="h-9 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full text-[12px] font-semibold">Gönder</button></form></div>
       </div>
     </div>
   </div>
+</section>
 
-  <div id="readerModal" class="fixed inset-0 z-[2000] bg-white dark:bg-zinc-950 flex-col">
-    <div class="h-14 bg-zinc-900 dark:bg-zinc-900 text-white px-4 flex justify-between items-center">
-      <div class="flex items-center gap-3"><div class="w-7 h-7 rounded-[8px] bg-white text-zinc-900 flex items-center justify-center font-bold text-[13px]">M</div><h3 id="readerTitle" class="font-semibold text-[13px] max-w-[180px] truncate">Okunuyor</h3><span id="readerFormatBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white text-zinc-900">OKUYUCU</span><span id="ttsProgressText" class="hidden sm:inline text-[11px] text-zinc-400">Hazır</span></div>
-      <div class="flex items-center gap-2">
-        <div class="flex items-center gap-1 bg-zinc-800 rounded-full px-2 py-1">
-          <button id="ttsPlayBtn" onclick="toggleSpeech()" class="w-7 h-7 rounded-full bg-white text-zinc-900 flex items-center justify-center"><i id="ttsIcon" class="fa-solid fa-play text-[11px]"></i></button>
-          <button onclick="stopSpeech()" class="w-7 h-7 rounded-full hover:bg-zinc-700 flex items-center justify-center"><i class="fa-solid fa-stop text-[11px]"></i></button>
-          <button onclick="skipSentence(-1)" class="w-7 h-7 rounded-full hover:bg-zinc-700 flex items-center justify-center"><i class="fa-solid fa-backward text-[11px]"></i></button>
-          <button onclick="skipSentence(1)" class="w-7 h-7 rounded-full hover:bg-zinc-700 flex items-center justify-center"><i class="fa-solid fa-forward text-[11px]"></i></button>
-          <select id="ttsSpeed" onchange="changeSpeechSpeed(this.value)" class="bg-zinc-800 text-white text-[11px] rounded-full px-1"><option value="1">1x</option><option value="1.25">1.25x</option><option value="1.5">1.5x</option></select>
-        </div>
-        <div id="formatButtonsContainer" class="hidden gap-1 bg-zinc-800 rounded-full p-1"><button id="btnModeTxt" onclick="switchReaderFormat('txt')" class="hidden px-2.5 py-1 text-[11px] rounded-full">TXT</button><button id="btnModePdf" onclick="switchReaderFormat('pdf')" class="hidden px-2.5 py-1 text-[11px] rounded-full">PDF</button><button id="btnModeEpub" onclick="switchReaderFormat('epub')" class="hidden px-2.5 py-1 text-[11px] rounded-full">EPUB</button></div>
-        <div id="zoomAndFontControls" class="flex bg-zinc-800 rounded-full p-1"><button onclick="adjustReaderSize(-1)" class="px-2 py-1 text-[11px]">A-</button><button onclick="adjustReaderSize(1)" class="px-2 py-1 text-[11px]">A+</button></div>
-        <div id="themeControls" class="flex gap-1 bg-zinc-800 rounded-full p-1"><button onclick="setReaderTheme('light')" class="w-5 h-5 rounded-full bg-white"></button><button onclick="setReaderTheme('sepia')" class="w-5 h-5 rounded-full bg-[#f4ecd8]"></button><button onclick="setReaderTheme('dark')" class="w-5 h-5 rounded-full bg-zinc-900 border border-zinc-600"></button></div>
-        <button onclick="closeReader()" class="h-8 px-3 rounded-full bg-zinc-800 hover:bg-zinc-700 text-[12px]">Kapat</button>
-      </div>
+<section id="kitapOkumaninOnemi" class="max-w-[1280px] mx-auto px-5 sm:px-8 w-full">
+  <div class="rounded-[28px] bg-white border p-8 sm:p-10">
+    <h3 class="font-display font-bold text-[22px]">Kitap Okumanın Önemi</h3>
+    <div class="mt-5 grid md:grid-cols-3 gap-6">
+      <div><h4 class="font-bold text-[13px]">1. Zihinsel Gelişim</h4><p class="mt-1 text-[12.5px] text-zinc-600 leading-[1.6]">Her kitap beynin için antrenman. Odak ve eleştirel düşünme güçlenir.</p></div>
+      <div><h4 class="font-bold text-[13px]">2. Empati</h4><p class="mt-1 text-[12.5px] text-zinc-600 leading-[1.6]">Başkasının hikayesinde kendini bulursun.</p></div>
+      <div><h4 class="font-bold text-[13px]">3. Bakış Açısı</h4><p class="mt-1 text-[12.5px] text-zinc-600 leading-[1.6]">Yeni sorular sorarsın, kendi hayatına dışarıdan bakarsın.</p></div>
     </div>
-    <div class="h-1 bg-zinc-100 dark:bg-zinc-800"><div id="readingProgressBar" class="h-full bg-zinc-900 dark:bg-white transition-all" style="width:0%"></div></div>
-    <div id="readerScrollContainer" onscroll="updateReadingProgress()" class="flex-1 overflow-y-auto reader-theme-light"><div id="viewer" class="min-h-full"></div></div>
+    <blockquote class="mt-6 border-l-2 border-ink-900 pl-4 py-2 bg-zinc-50 rounded-r-xl"><p class="font-display italic text-[15px]">"Okumak, bir başkasının zihniyle düşünmek için tutulan en sessiz randevudur."</p><footer class="text-[10px] font-bold uppercase opacity-50">— Borges'den ilhamla</footer></blockquote>
   </div>
+</section>
 
-  <div id="adminModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4">
-    <div class="bg-white dark:bg-zinc-900 rounded-[24px] w-full max-w-4xl border border-zinc-200 dark:border-zinc-800 shadow-xl flex flex-col h-[90vh] overflow-hidden">
-      <div class="h-14 px-6 flex items-center justify-between bg-zinc-900 text-white"><h2 class="font-semibold text-[14px]"><i class="fa-solid fa-shield-halved mr-2"></i>Yönetici</h2><button onclick="document.getElementById('adminModal').classList.remove('modal-active')"><i class="fa-solid fa-xmark"></i></button></div>
-      <div class="flex border-b border-zinc-100 dark:border-zinc-800 overflow-x-auto scrollbar-hide">
-        <button onclick="switchAdminTab('books')" id="tabBtnBooks" class="px-5 py-3 text-[13px] font-semibold border-b-2 border-zinc-900">Kitaplar</button>
-        <button onclick="switchAdminTab('youtube')" id="tabBtnYoutube" class="px-5 py-3 text-[13px] font-medium text-zinc-500">YouTube</button>
-        <button onclick="switchAdminTab('categories')" id="tabBtnCategories" class="px-5 py-3 text-[13px] font-medium text-zinc-500">Kategoriler</button>
-        <button onclick="switchAdminTab('comments')" id="tabBtnComments" class="px-5 py-3 text-[13px] font-medium text-zinc-500">Yorumlar</button>
-        <button onclick="switchAdminTab('submissions')" id="tabBtnSubmissions" class="px-5 py-3 text-[13px] font-medium text-zinc-500">Gelenler</button>
-        <button onclick="switchAdminTab('orders')" id="tabBtnOrders" class="px-5 py-3 text-[13px] font-medium text-zinc-500">Siparişler</button>
-      </div>
-      <div class="p-6 overflow-y-auto flex-1">
-        <div id="adminTabBooks">
-          <form id="addBookForm" onsubmit="addNewBook(event)" class="bg-zinc-50 dark:bg-zinc-800 p-4 rounded-[16px] border grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
-            <h3 class="col-span-full font-semibold text-[13px]">Yeni kitap ekle</h3>
-            <input id="newBookTitle" required placeholder="Kitap Adı" class="h-10 rounded-full border px-4 text-[13px]"><input id="newBookAuthor" required placeholder="Yazar" class="h-10 rounded-full border px-4 text-[13px]"><select id="newBookCategory" class="h-10 rounded-full border px-4 text-[13px]"></select><input id="newBookFile" required placeholder="Dosya adı (kitap.txt)" class="h-10 rounded-full border px-4 text-[13px]"><input id="newBookPrice" type="number" min="0" step="0.01" placeholder="Fiyat ₺ (boş=ücretsiz)" class="h-10 rounded-full border px-4 text-[13px]"><input id="newBookCover" required placeholder="Kapak URL" class="h-10 rounded-full border px-4 text-[13px] col-span-full"><textarea id="newBookDesc" required placeholder="Açıklama" rows="2" class="rounded-[16px] border p-3 text-[13px] col-span-full"></textarea><button class="col-span-full h-10 rounded-full bg-zinc-900 text-white font-semibold text-[13px]">Kaydet</button>
-          </form>
-          <div id="adminBookList" class="space-y-2"></div>
-        </div>
-        <div id="adminTabYoutube" class="hidden"><form id="addYoutubeForm" onsubmit="addYoutubeVideo(event)" class="grid gap-3 mb-6"><input id="ytTitle" required placeholder="Video Başlığı" class="h-10 rounded-full border px-4 text-[13px]"><input id="ytUrl" required placeholder="YouTube Linki" class="h-10 rounded-full border px-4 text-[13px]"><input id="ytDesc" placeholder="Açıklama" class="h-10 rounded-full border px-4 text-[13px]"><button class="h-10 rounded-full bg-red-600 text-white font-semibold text-[13px]">Ekle</button></form><div id="adminYoutubeList" class="space-y-2"></div></div>
-        <div id="adminTabCategories" class="hidden"><form id="addCategoryForm" onsubmit="addCategory(event)" class="flex gap-2 mb-4"><input id="newCategoryName" required placeholder="Kategori adı" class="flex-1 h-10 rounded-full border px-4 text-[13px]"><button class="h-10 px-5 rounded-full bg-zinc-900 text-white text-[13px]">Ekle</button></form><div id="adminCategoryList" class="space-y-2"></div></div>
-        <div id="adminTabComments" class="hidden"><div id="adminCommentList" class="space-y-3"></div></div>
-        <div id="adminTabSubmissions" class="hidden"><div id="adminSubmissionList" class="space-y-3"></div></div>
-        <div id="adminTabOrders" class="hidden"><div id="adminOrderList" class="space-y-3"></div></div>
-      </div>
+<section id="paketlerBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full">
+  <div class="flex items-end justify-between mb-6"><div><div class="text-[11px] font-bold uppercase text-zinc-400">Avantajlı Paketler</div><h3 class="mt-2 font-display font-bold text-[26px]">Çok al, az öde</h3></div><div class="hidden sm:flex text-[11px] px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border"><i class="fa-solid fa-bolt"></i> 3AL2ODE aktif</div></div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+    <div class="surface-card rounded-[24px] p-6 border-2 border-ink-900"><h4 class="font-display font-bold text-[18px]">Başlangıç Paketi</h4><p class="text-[12.5px] text-zinc-500 mt-1">İlk 3 kitap</p><div class="mt-4 flex gap-2"><span class="text-[22px] font-bold">₺199</span><span class="line-through text-zinc-400 text-[13px]">₺345</span></div><button onclick="addPackageToCart('baslangic')" class="mt-5 w-full h-10 rounded-full bg-ink-900 text-white text-[12.5px] font-semibold">Paketi Sepete Ekle</button></div>
+    <div class="surface-card rounded-[24px] p-6"><h4 class="font-display font-bold text-[18px]">Odak & Üretkenlik</h4><p class="text-[12.5px] text-zinc-500 mt-1">5 kitap + şablonlar</p><div class="mt-4 flex gap-2"><span class="text-[22px] font-bold">₺349</span><span class="line-through text-zinc-400 text-[13px]">₺520</span></div><button onclick="addPackageToCart('odak')" class="mt-5 w-full h-10 rounded-full bg-white border text-[12.5px] font-semibold">Paketi Sepete Ekle</button></div>
+    <div class="surface-card rounded-[24px] p-6"><h4 class="font-display font-bold text-[18px]">Hediye Paketi</h4><p class="text-[12.5px] text-zinc-500 mt-1">3 kitap + hediye kartı</p><div class="mt-4"><span class="text-[22px] font-bold">₺279</span></div><button onclick="addPackageToCart('hediye')" class="mt-5 w-full h-10 rounded-full bg-white border text-[12.5px] font-semibold">Hediye Paketi</button></div>
+  </div>
+</section>
+
+<section id="blogBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-8 w-full border-t border-zinc-100">
+  <div class="flex items-end justify-between mb-5"><div><div class="text-[11px] font-bold uppercase text-zinc-400">Rehberler</div><h3 class="mt-1 font-display font-bold text-[20px]">5 dakikada öğren</h3></div></div>
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="surface-card rounded-[18px] p-5"><div class="text-[10px] font-bold uppercase text-zinc-400">Rehber • 4 dk</div><h4 class="mt-2 font-semibold text-[13px]">EPUB nedir, nasıl okunur?</h4><p class="mt-1 text-[11px] text-zinc-500">Telefon ve bilgisayarda en verimli okuma ipuçları.</p></div>
+    <div class="surface-card rounded-[18px] p-5"><div class="text-[10px] font-bold uppercase text-zinc-400">Özet • 6 dk</div><h4 class="mt-2 font-semibold text-[13px]">Her gün 20 dakika alışkanlığı</h4><p class="mt-1 text-[11px] text-zinc-500">Streak ve uyku zamanlayıcısı ile kalıcı alışkanlık.</p></div>
+    <div class="surface-card rounded-[18px] p-5"><div class="text-[10px] font-bold uppercase text-zinc-400">Liste • 5 dk</div><h4 class="mt-2 font-semibold text-[13px]">2026'da okuman gereken 7 kitap</h4><p class="mt-1 text-[11px] text-zinc-500">Editörün seçtiği en çok okunanlar.</p></div>
+  </div>
+</section>
+
+<section id="sizdenGelenlerSection" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-10 w-full border-t border-zinc-100">
+  <h3 class="font-display font-bold text-[20px]">Topluluk</h3>
+  <div id="sizdenGelenlerList" class="mt-4 grid sm:grid-cols-2 gap-3"></div>
+</section>
+
+<section id="youtubeBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-10 w-full border-t border-zinc-100">
+  <h3 class="font-display font-bold text-[20px]">YouTube</h3>
+  <div id="youtubeBooksGrid" class="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+</section>
+
+<section class="max-w-[1280px] mx-auto px-5 sm:px-8 pb-16 w-full">
+  <div class="rounded-[28px] bg-ink-900 text-white p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+    <div><div class="text-[11px] font-bold tracking-widest uppercase opacity-50">Güvenli Ödeme</div><h3 class="mt-2 font-display font-bold text-[24px]">Sepetindekileri güvenle tamamla</h3><p class="mt-2 text-[13px] opacity-70">Kupon: ILK10, OKUMA23, 3AL2ODE • WhatsApp ile dekont onayı • Anında erişim</p></div>
+    <button onclick="openCartModal()" class="h-12 px-8 rounded-full bg-white text-ink-900 font-bold text-[14px] flex items-center gap-2 hover:bg-zinc-100 transition"><i class="fa-solid fa-bag-shopping"></i> Sepete Git <span id="cartCountBottom" class="ml-1 w-5 h-5 rounded-full bg-accent-500 text-white text-[10px] flex items-center justify-center">0</span></button>
+  </div>
+</section>
+
+<footer class="mt-auto border-t border-zinc-100 dark:border-white/10 bg-white dark:bg-ink-900">
+  <div class="max-w-[1280px] mx-auto px-5 sm:px-8 py-10 grid sm:grid-cols-3 gap-8 text-[12px]">
+    <div><div class="font-display font-bold text-[14px]">Dijital Kitapçı</div><p class="mt-2 text-zinc-500 leading-[1.6]">Yapay zeka konulu, Türkçe, anlaşılır e-kitaplar. Modern okuma deneyimi.</p></div>
+    <div><div class="font-bold text-[12px] uppercase tracking-widest">İletişim</div><p class="mt-2 text-zinc-500">WhatsApp: 0554 202 66 20<br>destek@dijitalkitapci.com</p></div>
+    <div><div class="font-bold text-[12px] uppercase tracking-widest">Güven</div><p class="mt-2 text-zinc-500">Gizlilik • İade • Mesafeli Satış<br>© 2026 Dijital Kitapçı</p><div class="mt-3 flex gap-3 text-[14px]"><i class="fa-brands fa-instagram"></i><i class="fa-brands fa-youtube"></i><i class="fa-brands fa-x-twitter"></i></div></div>
+  </div>
+</footer>
+
+<div id="bookDetailModal" class="fixed inset-0 z-[80] bg-zinc-950/60 backdrop-blur-[10px] p-4 items-center justify-center"></div>
+<div id="readerModal" class="fixed inset-0 z-[90] bg-white dark:bg-zinc-950 flex flex-col" style="display:none"></div>
+<div id="authModal" class="fixed inset-0 z-[80] bg-zinc-950/60 backdrop-blur-[10px] p-4 items-center justify-center"></div>
+<div id="profileModal" class="fixed inset-0 z-[80] bg-zinc-950/60 backdrop-blur-[10px] p-4 items-center justify-center"></div>
+<div id="adminModal" class="fixed inset-0 z-[80] bg-zinc-950/60 backdrop-blur-[10px] p-4 items-center justify-center"></div>
+<div id="purchaseModal" class="fixed inset-0 z-[80] bg-zinc-950/60 backdrop-blur-[10px] p-4 items-center justify-center"></div>
+<div id="qrModal" class="fixed inset-0 z-[80] bg-zinc-950/60 backdrop-blur-[10px] p-4 items-center justify-center"></div>
+<div id="submissionModal" class="fixed inset-0 z-[80] bg-zinc-950/60 backdrop-blur-[10px] p-4 items-center justify-center"></div>
+
+<div id="cartModal" class="fixed inset-0 z-[100] bg-zinc-950/60 backdrop-blur-[10px] p-4 items-center justify-center" style="display:none">
+  <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[480px] max-h-[85vh] flex flex-col shadow-2xl border">
+    <div class="p-6 border-b flex justify-between items-center"><div><h3 class="font-display font-bold text-[18px]">Sepetin</h3><p class="text-[11px] text-zinc-500"><span id="cartModalCount">0</span> ürün</p></div><button onclick="closeCartModal()" class="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button></div>
+    <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+    <div class="p-5 border-t bg-zinc-50/50 rounded-b-[28px]">
+      <div class="flex gap-2 mb-3"><input id="couponInput" placeholder="Kupon: ILK10, OKUMA23, 3AL2ODE" class="flex-1 h-10 rounded-full border px-4 text-[12px]"><button onclick="applyCoupon()" class="h-10 px-4 rounded-full bg-ink-900 text-white text-[12px]">Uygula</button></div>
+      <div id="couponInfo" class="hidden text-[11px] mb-3 px-3 py-2 rounded-xl bg-emerald-50 border"></div>
+      <div class="flex justify-between text-[13px] mb-2"><span>Ara toplam</span><span id="cartSubtotal">₺0</span></div>
+      <div class="flex justify-between text-[13px] mb-2"><span>İndirim</span><span id="cartDiscount">-₺0</span></div>
+      <div class="flex justify-between font-bold mb-4"><span>Toplam</span><span id="cartTotal">₺0</span></div>
+      <button onclick="checkoutCart()" class="w-full h-11 rounded-full bg-ink-900 text-white font-semibold text-[13px]">WhatsApp ile Onayla</button>
     </div>
   </div>
+</div>
+<div id="giftModal" class="fixed inset-0 z-[100] bg-zinc-950/60 backdrop-blur-[10px] p-4 items-center justify-center" style="display:none">
+  <div class="bg-white rounded-[28px] w-full max-w-[420px] p-6 shadow-2xl border"><div class="flex justify-between"><h3 class="font-bold">Hediye Et</h3><button onclick="closeGiftModal()">x</button></div><input id="giftEmail" placeholder="E-posta" class="w-full h-11 rounded-full border px-4 mt-4 text-[13px]"><textarea id="giftNote" placeholder="Not" class="w-full h-20 rounded-[16px] border p-3 mt-3 text-[12px]"></textarea><div id="giftBookInfo" class="mt-3 p-3 rounded-xl bg-zinc-50 text-[12px]"></div><button onclick="sendGift()" class="w-full h-11 rounded-full bg-accent-500 text-white mt-3 text-[13px]">Link Oluştur</button><div id="giftResult" class="hidden mt-3 p-3 rounded-xl bg-emerald-50 border text-[11px] break-all"></div></div>
+</div>
+<div id="quoteModal" class="fixed inset-0 z-[100] bg-zinc-950/70 backdrop-blur-[10px] p-4 items-center justify-center" style="display:none">
+  <div class="bg-white rounded-[28px] w-full max-w-[380px] overflow-hidden shadow-2xl"><div class="p-5 flex justify-between border-b"><h3 class="font-bold text-[14px]">Alıntı</h3><button onclick="closeQuoteModal()">x</button></div><canvas id="quoteCanvas" width="1080" height="1920" class="hidden"></canvas><div id="quotePreview" class="p-6 bg-ink-900 text-white min-h-[260px]"><p id="quoteText" class="font-display text-[18px]"></p><p id="quoteBook" class="mt-4 text-[11px] opacity-60"></p></div><div class="p-4 flex gap-2"><button onclick="downloadQuote()" class="flex-1 h-10 rounded-full bg-ink-900 text-white text-[12px]">İndir</button><button onclick="copyQuote()" class="flex-1 h-10 rounded-full border text-[12px]">Kopyala</button></div></div>
+</div>
 
-  <div id="purchaseModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4">
-    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[420px] p-7 border border-zinc-200 dark:border-zinc-800 shadow-xl relative">
-      <button onclick="closePurchaseModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
-      <div class="text-center mb-6"><div class="w-12 h-12 mx-auto rounded-[14px] bg-zinc-900 text-white flex items-center justify-center"><i class="fa-solid fa-cart-shopping"></i></div><h3 class="mt-4 font-bold text-[18px]">Satın al</h3><p id="purchaseBookTitle" class="text-[13px] text-zinc-500 mt-1"></p><p id="purchaseBookPrice" class="text-[28px] font-bold mt-2 tracking-tight"></p></div>
-      <div class="bg-zinc-50 dark:bg-zinc-800 rounded-[16px] p-4 border text-[13px] space-y-2"><p><b>Banka:</b> <span id="bankAdi"></span></p><p><b>Hesap:</b> <span id="bankHesapSahibi"></span></p><p class="flex justify-between"><span><b>IBAN:</b> <span id="bankIban"></span></span><button onclick="copyIban()" class="text-zinc-500"><i class="fa-regular fa-copy"></i></button></p></div>
-      <p class="text-[11px] text-zinc-500 mt-4 leading-5">Ödemeyi yaptıktan sonra dekontu WhatsApp ile gönderin. Onay sonrası erişiminiz açılacak.</p>
-      <button onclick="confirmPurchaseRequest()" class="w-full h-11 mt-5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-[16px]"></i> Ödemeyi yaptım, bildir</button>
-    </div>
-  </div>
-
-  <div id="qrModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4"><div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-sm p-8 border shadow-xl relative text-center"><button onclick="closeQRModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button><h3 class="font-bold text-[18px]">QR Kod</h3><p class="text-[12px] text-zinc-500 mt-1">Telefonla okut</p><div class="bg-white p-4 rounded-[16px] inline-block mt-6 border shadow-sm"><img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https://www.marketim3000.online&color=24,24,27" class="w-48 h-48"></div></div></div>
-
-  <div id="submissionModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4"><div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-lg p-8 border shadow-xl relative"><button onclick="closeSubmissionModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button><h3 class="font-bold text-[20px]">Sizden gelenler</h3><p class="text-[12px] text-zinc-500 mt-1">Alıntınızı paylaşın</p><form id="submissionForm" onsubmit="submitSizdenGelen(event)" class="mt-6 grid gap-4"><div class="grid grid-cols-2 gap-3"><input id="subName" required placeholder="Adınız" class="h-11 rounded-full border px-4 text-[13px]"><select id="subType" class="h-11 rounded-full border px-4 text-[13px]"><option>Kitap Alıntısı</option><option>Kitap Tavsiyesi</option><option>Okur Mesajı</option></select></div><input id="subTopic" required placeholder="Başlık" class="h-11 rounded-full border px-4 text-[13px]"><textarea id="subMessage" required rows="4" placeholder="Mesajınız..." class="rounded-[16px] border p-4 text-[13px] resize-none"></textarea><button id="subSubmitBtn" class="h-11 rounded-full bg-zinc-900 text-white font-semibold text-[13px]">Gönder</button></form></div></div>
-
-  <div id="aiChatbot" class="fixed bottom-5 right-5 z-50 flex flex-col items-end">
-    <div id="chatWindow" style="display:none" class="w-[360px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[20px] shadow-[0_20px_60px_-20px_rgba(0,0,0,.4)] mb-4 overflow-hidden flex-col">
-      <div class="h-14 px-4 bg-zinc-900 text-white flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-white text-zinc-900 flex items-center justify-center font-bold text-[12px]">M</div><div><h4 class="text-[13px] font-semibold">Depo Asistanı</h4><span class="text-[10px] text-zinc-400 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Çevrimiçi</span></div></div><button onclick="toggleChat()" class="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[11px]"></i></button></div>
-      <div id="chatMessages" class="p-4 h-[280px] overflow-y-auto bg-zinc-50 dark:bg-zinc-800/50 flex flex-col gap-3 text-[13px]"></div>
-      <div class="p-3 bg-white dark:bg-zinc-900 border-t flex gap-2"><input id="chatInput" placeholder="Bir soru sor..." class="flex-1 h-9 bg-zinc-100 dark:bg-zinc-800 rounded-full px-4 text-[13px] focus:outline-none" onkeypress="handleKeyPress(event)"><button onclick="sendMessage()" class="w-9 h-9 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-paper-plane text-[12px]"></i></button></div>
-    </div>
-    <button onclick="toggleChat()" class="w-14 h-14 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-[0_8px_24px_rgba(0,0,0,.2)] flex items-center justify-center hover:scale-[1.03] transition"><i class="fa-solid fa-comments"></i></button>
-  </div>
-
-  <a href="https://wa.me/905542026620?text=Merhaba%20E-Kitap%20Deposu%20Destek" target="_blank" id="whatsappSupport" class="fixed bottom-5 left-5 z-50 h-11 px-5 rounded-full bg-[#25D366] text-white shadow-lg flex items-center gap-2 font-semibold text-[13px] hover:scale-[1.02] transition"><i class="fa-brands fa-whatsapp text-[18px]"></i> Destek</a>
-
-  <footer class="mt-auto border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
-    <div class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12">
-      <div class="grid md:grid-cols-4 gap-10">
-        <div><div class="w-9 h-9 rounded-[10px] bg-zinc-900 text-white flex items-center justify-center font-serif font-black">M</div><p class="mt-4 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Bilginin gücünü dinleyerek keşfedin. Dijital kütüphane, sesli arşiv ve topluluk.</p></div>
-        <div><h4 class="font-semibold text-[13px]">Keşfet</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="#vitrin" class="hover:text-zinc-900 dark:hover:text-white">Vitrin</a></li><li><a href="#kitaplarBolumu" class="hover:text-zinc-900">Koleksiyon</a></li><li><a href="#sizdenGelenlerSection" class="hover:text-zinc-900">Topluluk</a></li></ul></div>
-        <div><h4 class="font-semibold text-[13px]">Destek</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="https://wa.me/905542026620" target="_blank" class="hover:text-zinc-900">WhatsApp</a></li><li><button onclick="openSubmissionModal()" class="hover:text-zinc-900">Alıntı paylaş</button></li></ul></div>
-        <div><h4 class="font-semibold text-[13px]">Uygulama</h4><p class="mt-4 text-[13px] text-zinc-500">Android uygulamasını indirin ve çevrimdışı okuyun.</p><a href="E-Kitap.apk" download class="mt-3 inline-flex h-9 px-4 rounded-full bg-zinc-900 text-white text-[12.5px] font-semibold items-center gap-2">APK İndir <i class="fa-solid fa-download text-[11px]"></i></a></div>
-      </div>
-      <div class="mt-12 pt-8 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row justify-between gap-3 text-[12px] text-zinc-500"><span>© 2026 Dijital Kitapçı — Tüm hakları saklıdır.</span><span class="flex items-center gap-2"><i class="fa-solid fa-lock text-[10px]"></i> Güvenli · Hızlı · Sade</span></div>
-    </div>
-  </footer>
+<div id="chatWindow" class="fixed bottom-24 right-5 w-[340px] max-h-[420px] bg-white dark:bg-zinc-900 border rounded-[20px] shadow-soft-lg flex-col hidden z-50"><div class="p-4 border-b flex justify-between"><span class="font-bold text-[13px]">Destek</span><button onclick="toggleChat()">x</button></div><div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 text-[12px]"></div><div class="p-3 border-t flex gap-2"><input id="chatInput" placeholder="Mesaj..." class="flex-1 h-9 rounded-full bg-zinc-100 px-4 text-[12px]" onkeypress="handleKeyPress(event)"><button onclick="sendMessage()" class="w-9 h-9 rounded-full bg-ink-900 text-white">></button></div></div>
+<button onclick="toggleChat()" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-ink-900 text-white shadow-soft flex items-center justify-center z-40"><i class="fa-solid fa-comment"></i></button>
 
 <script type="module">
+
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -1790,30 +1612,11 @@ if (document.readyState === "loading") {
   initApp();
 }
 
+
 </script>
-  <!-- PREMIUM MODALLAR -->
-  <div id="cartModal" class="fixed inset-0 z-[100] bg-zinc-950/60 backdrop-blur-[10px] p-4 items-center justify-center" style="display:none">
-    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[480px] max-h-[85vh] flex flex-col shadow-2xl border">
-      <div class="p-6 border-b flex justify-between items-center"><div><h3 class="font-serif font-bold text-[18px]">Sepetin</h3><p class="text-[11px] text-zinc-500"><span id="cartModalCount">0</span> ürün</p></div><button onclick="closeCartModal()" class="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center">x</button></div>
-      <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
-      <div class="p-5 border-t bg-zinc-50/50 rounded-b-[28px]">
-        <div class="flex gap-2 mb-3"><input id="couponInput" placeholder="Kupon: ILK10, OKUMA23, 3AL2ODE" class="flex-1 h-10 rounded-full border px-4 text-[12px]"><button onclick="applyCoupon()" class="h-10 px-4 rounded-full bg-zinc-900 text-white text-[12px]">Uygula</button></div>
-        <div id="couponInfo" class="hidden text-[11px] mb-3 px-3 py-2 rounded-xl bg-emerald-50 border"></div>
-        <div class="flex justify-between text-[13px] mb-2"><span>Ara toplam</span><span id="cartSubtotal">₺0</span></div>
-        <div class="flex justify-between text-[13px] mb-2"><span>İndirim</span><span id="cartDiscount">-₺0</span></div>
-        <div class="flex justify-between font-bold mb-4"><span>Toplam</span><span id="cartTotal">₺0</span></div>
-        <button onclick="checkoutCart()" class="w-full h-11 rounded-full bg-zinc-900 text-white font-semibold text-[13px]">WhatsApp ile Onayla</button>
-      </div>
-    </div>
-  </div>
-  <div id="giftModal" class="fixed inset-0 z-[100] bg-zinc-950/60 backdrop-blur-[10px] p-4 items-center justify-center" style="display:none">
-    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[420px] p-6 shadow-2xl border"><div class="flex justify-between"><h3 class="font-bold">Hediye Et</h3><button onclick="closeGiftModal()">x</button></div><input id="giftEmail" placeholder="E-posta" class="w-full h-11 rounded-full border px-4 mt-4 text-[13px]"><textarea id="giftNote" placeholder="Not" class="w-full h-20 rounded-[16px] border p-3 mt-3 text-[12px]"></textarea><div id="giftBookInfo" class="mt-3 p-3 rounded-xl bg-zinc-50 text-[12px]"></div><button onclick="sendGift()" class="w-full h-11 rounded-full bg-red-600 text-white mt-3 text-[13px]">Link Oluştur</button><div id="giftResult" class="hidden mt-3 p-3 rounded-xl bg-emerald-50 border text-[11px] break-all"></div></div>
-  </div>
-  <div id="quoteModal" class="fixed inset-0 z-[100] bg-zinc-950/70 backdrop-blur-[10px] p-4 items-center justify-center" style="display:none">
-    <div class="bg-white rounded-[28px] w-full max-w-[380px] overflow-hidden shadow-2xl"><div class="p-5 flex justify-between border-b"><h3 class="font-bold text-[14px]">Alıntı</h3><button onclick="closeQuoteModal()">x</button></div><canvas id="quoteCanvas" width="1080" height="1920" class="hidden"></canvas><div id="quotePreview" class="p-6 bg-zinc-900 text-white min-h-[260px]"><p id="quoteText" class="font-serif text-[18px]"></p><p id="quoteBook" class="mt-4 text-[11px] opacity-60"></p></div><div class="p-4 flex gap-2"><button onclick="downloadQuote()" class="flex-1 h-10 rounded-full bg-zinc-900 text-white text-[12px]">İndir</button><button onclick="copyQuote()" class="flex-1 h-10 rounded-full border text-[12px]">Kopyala</button></div></div>
-  </div>
 
 <script>
+
 // PREMIUM - AYRI SCRIPT (BOZMAZ)
 let cart = JSON.parse(localStorage.getItem('dk_cart')||'[]');
 let appliedCoupon = JSON.parse(localStorage.getItem('dk_coupon')||'null');
@@ -1872,6 +1675,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 window.loadBookReviews = async (bid)=>{ const c=document.getElementById('bookReviews'); if(!c) return; c.innerHTML='Yükleniyor...'; try{ const fs=window._firestore; const snap=await fs.getDocs(fs.collection(window.db, 'kitaplar', bid, 'yorumlar')); const r=snap.docs.map(d=>d.data()); c.innerHTML=r.length===0?'<p class="text-[11px] text-zinc-500">Henüz yorum yok</p>':r.map(x=>'<div class="p-2 rounded-xl bg-zinc-50 border text-[12px]"><b>'+(x.isim||'Okur')+'</b> '+x.yorum+'</div>').join(''); }catch(e){ c.innerHTML='Yüklenemedi'; } };
 window.submitBookReview = async (bid)=>{ const t=document.getElementById('reviewText')?.value.trim(); if(!t) return; try{ const fs=window._firestore; await fs.addDoc(fs.collection(window.db, 'kitaplar', bid, 'yorumlar'), {isim:'Okur', yorum:t, puan:5, tarih: fs.serverTimestamp()}); document.getElementById('reviewText').value=''; loadBookReviews(bid); }catch(e){ alert(e.message); } };
 if('serviceWorker' in navigator){ const code='self.addEventListener(\'install\',e=>self.skipWaiting()); self.addEventListener(\'fetch\',e=>e.respondWith(fetch(e.request).catch(()=>caches.match(e.request))));'; const blob=new Blob([code], {type:'text/javascript'}); const url=URL.createObjectURL(blob); navigator.serviceWorker.register(url).catch(()=>{}); }
+
 </script>
 
-</body></html>
+</body>
+</html>
