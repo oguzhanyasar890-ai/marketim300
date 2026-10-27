@@ -389,6 +389,7 @@ body{ background:#FCFCFD; color:#0B1020; }
 <script type="module">
 
 
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc, addDoc, updateDoc, increment, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -1707,11 +1708,133 @@ function initApp() {
   loadYoutubeBooks();
 }
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initApp);
+  document.addEventListener("DOMContentLoaded", initAppSafe);
 } else {
-  initApp();
+  initAppSafe();
 }
 
+
+
+
+// --- KESİN ÇÖZÜM: TIMEOUT + MOCK FALLBACK + MUTLAKA GİZLE ---
+async function loadBooksWithTimeout(){
+  const loadingEl = document.getElementById("loadingIndicator");
+  const gridEl = document.getElementById("bookGrid");
+  const countEl = document.getElementById("bookCount");
+  
+  // 8 saniye sonra zorla kapat
+  const forceTimeout = setTimeout(()=>{
+    console.warn("[KÜTÜPHANE] 8sn timeout - zorla kapatılıyor");
+    if(loadingEl && loadingEl.style.display !== "none"){
+      showLibraryError("Bağlantı çok yavaş veya Firestore kuralları engelliyor. Aşağıda örnek kitaplar gösteriliyor.", null);
+      // Mock kitaplar
+      const mockBooks = [
+        {id:"mock1", baslik:"Yapay Zeka ile Üretkenlik", yazar:"Dijital Kitapçı", fiyat:99, kategori:"Yapay Zeka", kapakUrl:"1792945068177.jpg", aciklama:"Örnek kitap - Firestore bağlantısı kontrol edilmeli"},
+        {id:"mock2", baslik:"Prompt Mühendisliği Rehberi", yazar:"Dijital Kitapçı", fiyat:79, kategori:"Prompt", kapakUrl:"1792945068177.jpg", aciklama:"Örnek kitap"},
+        {id:"mock3", baslik:"Gelecek ve Kariyer", yazar:"Dijital Kitapçı", fiyat:89, kategori:"Kariyer", kapakUrl:"1792945068177.jpg", aciklama:"Örnek kitap"}
+      ];
+      allBooks = mockBooks;
+      window.allBooks = mockBooks;
+      if(loadingEl) loadingEl.style.display="none";
+      if(gridEl) gridEl.style.display="grid";
+      if(countEl) countEl.innerText = mockBooks.length + " eser (örnek)";
+      try{ renderBooks(); }catch(e){ console.error("renderBooks mock hatası", e); }
+    }
+  }, 8000);
+
+  try{
+    await loadBooks();
+    clearTimeout(forceTimeout);
+  }catch(e){
+    clearTimeout(forceTimeout);
+    console.error("[KESİN ÇÖZÜM] loadBooks catch", e);
+    showLibraryError(e.message, e);
+  }
+}
+
+// Orijinal loadBooks'i koru ama geliştir
+const _originalLoadBooks = loadBooks;
+async function loadBooks(){
+  const loadingEl = document.getElementById("loadingIndicator");
+  const gridEl = document.getElementById("bookGrid");
+  const countEl = document.getElementById("bookCount");
+  try{
+    if(loadingEl){
+      loadingEl.style.display="flex";
+      loadingEl.innerHTML = '<div class="loader mb-3"></div><p class="text-zinc-500 text-[13px] font-medium">Kütüphane yükleniyor...</p>';
+    }
+    console.log("[KÜTÜPHANE] Firestore çekiliyor... db:", typeof db !== "undefined" ? "var" : "yok");
+    if(typeof db === "undefined" || !db){
+      throw new Error("Firebase db tanımlı değil - firebaseConfig veya getFirestore hatası");
+    }
+    const colRef = collection(db, "kitaplar");
+    console.log("[KÜTÜPHANE] collection ref alındı, getDocs bekleniyor...");
+    const snap = await Promise.race([
+      getDocs(colRef),
+      new Promise((_,rej)=>setTimeout(()=>rej(new Error("Firestore 6sn içinde cevap vermedi - kurallar veya internet")), 6000))
+    ]);
+    console.log("[KÜTÜPHANE] Snapshot geldi, doc sayısı:", snap.size);
+    const books = snap.docs.map(d=>({id:d.id, ...d.data()}));
+    console.log("[KÜTÜPHANE] Parse edilen kitaplar:", books);
+    allBooks = books;
+    window.allBooks = books;
+    
+    if(books.length===0){
+      console.warn("[KÜTÜPHANE] Koleksiyon boş");
+      if(loadingEl){
+        loadingEl.innerHTML = `<div class="py-10 text-center"><p class="font-bold text-[14px]">Koleksiyon boş</p><p class="text-[12px] text-zinc-500 mt-1">Firestore'da "kitaplar" koleksiyonu yok veya boş.<br>Admin panelden ekleyin veya Firestore Rules: allow read: if true yapın.</p><button onclick="loadBooksWithTimeout()" class="mt-3 h-9 px-4 rounded-full bg-ink-900 text-white text-[12px]">Tekrar Dene</button></div>`;
+      }
+      try{ renderBooks(); }catch(e){ console.error(e); }
+      return;
+    }
+    
+    if(loadingEl) loadingEl.style.display="none";
+    if(gridEl) gridEl.style.display="grid";
+    if(countEl) countEl.innerText = books.length + " eser";
+    renderBooks();
+    console.log("[KÜTÜPHANE] renderBooks çağrıldı");
+  }catch(e){
+    console.error("[KÜTÜPHANE HATASI] loadBooks:", e);
+    // Hata mesajını göster ve mock fallback
+    const loadingEl2 = document.getElementById("loadingIndicator");
+    if(loadingEl2){
+      loadingEl2.innerHTML = `<div class="flex flex-col items-center py-10 text-center max-w-[380px] mx-auto">
+        <div class="w-12 h-12 rounded-full bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-3"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <p class="font-display font-bold text-[14px]">Kütüphane yüklenemedi</p>
+        <p class="mt-1 text-[12px] text-zinc-500 leading-[1.5]">${e.message}</p>
+        <p class="mt-2 text-[10px] text-zinc-400">Çözüm: Firestore Rules > allow read: if true;<br>Konsol: F12 > Console</p>
+        <button onclick="loadBooksWithTimeout()" class="mt-4 h-9 px-5 rounded-full bg-ink-900 text-white text-[12px]">Tekrar Dene</button>
+      </div>`;
+      loadingEl2.style.display="flex";
+    }
+    // Log detaylı
+    console.log("[HATA DETAY] Firebase config:", typeof firebaseConfig !== "undefined" ? firebaseConfig.projectId : "yok");
+    throw e; // timeout wrapper için
+  }
+}
+
+// initApp'i de kesin çözümle değiştir
+function initAppSafe(){
+  console.log("[INIT] initAppSafe başlatılıyor");
+  window.addEventListener('error', (e)=>{ console.error("[GLOBAL ERROR]", e.error||e.message); showLibraryError("JS hatası: "+(e.error?.message||e.message), e.error); });
+  window.addEventListener('unhandledrejection', (e)=>{ console.error("[UNHANDLED REJECTION]", e.reason); showLibraryError("Promise hatası: "+(e.reason?.message||e.reason), e.reason); });
+  
+  loadCategories().then(()=>{
+    console.log("[INIT] Kategoriler tamam, kitaplar yükleniyor");
+    loadBooksWithTimeout();
+  }).catch(e=>{
+    console.error("[INIT] loadCategories hatası", e);
+    loadBooksWithTimeout();
+  });
+  
+  try{ loadSizdenGelenler(); }catch(e){ console.error(e); }
+  try{ loadYoutubeBooks(); }catch(e){ console.error(e); }
+}
+
+
+// Override initApp with safe version
+window.initApp = initAppSafe;
+function initApp(){ initAppSafe(); }
 
 </script>
   <!-- PREMIUM MODALLAR -->
