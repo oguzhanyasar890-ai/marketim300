@@ -11,7 +11,7 @@
 </script>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dijital Kitapçı | Dijital Mağaza & Kütüphane</title>
+  <title>Ebook Store | Dijital Kitap Mağazası</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#18181b"/>
   <meta name="description" content="Ufkunuzu açacak rehberler ve kişisel gelişim eserleri. Satın alın; sesli dinleyin, okuyun ve indirin.">
@@ -163,8 +163,8 @@
       <a href="#" class="flex items-center gap-3.5 group">
         <div class="w-10 h-10 rounded-[12px] bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center font-serif font-black text-[18px] tracking-tighter shadow-sm group-hover:scale-[1.02] transition">M</div>
         <div class="leading-none">
-          <h1 class="font-serif font-bold text-[17px] tracking-tight text-zinc-900 dark:text-zinc-100">Dijital Kitapçı</h1>
-          <span class="text-[10px] font-semibold tracking-[0.14em] uppercase text-zinc-500">Dijital Mağaza</span>
+          <h1 class="font-serif font-bold text-[17px] tracking-tight text-zinc-900 dark:text-zinc-100">Ebook Store</h1>
+          <span class="text-[10px] font-semibold tracking-[0.14em] uppercase text-zinc-500">Ebook Store</span>
         </div>
       </a>
 
@@ -212,6 +212,34 @@
     </div>
   </header>
 
+  <!-- VITRIN -->
+  <section id="vitrin" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full">
+    <div class="flex items-end justify-between mb-6">
+      <div>
+        <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Vitrin</div>
+        <h3 class="mt-2 font-serif text-[28px] font-bold tracking-tight">Öne çıkanlar</h3>
+      </div>
+      <a href="#kitaplarBolumu" class="text-[13px] font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">Tümünü gör →</a>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-6">
+        <div class="flex items-center justify-between mb-5">
+          <h4 class="font-semibold text-[14px] flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center text-[11px]"><i class="fa-solid fa-fire"></i></span> En çok okunanlar</h4>
+          <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">Popüler</span>
+        </div>
+        <div id="popularBooks" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+      </div>
+      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-6">
+        <div class="flex items-center justify-between mb-5">
+          <h4 class="font-semibold text-[14px] flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-[11px]">✦</span> Yeni eklenenler</h4>
+          <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">Taze</span>
+        </div>
+        <div id="newBooks" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+      </div>
+    </div>
+  </section>
+
+
   <!-- HERO: sıcak kitaplık atmosferi, lacivert ve altın tema -->
   <section class="market-hero relative overflow-hidden">
     <div class="market-hero-shade"></div>
@@ -255,33 +283,6 @@
   </section>
 
   <section class="max-w-[1280px] mx-auto px-5 sm:px-8 -mt-8 relative z-10 w-full"><div class="grid grid-cols-2 lg:grid-cols-4 gap-3"><div class="feat-card rounded-[20px] p-4 bg-white/80 dark:bg-zinc-900/80 border border-zinc-200/70 dark:border-zinc-800 shadow-sm"><div class="w-10 h-10 rounded-[12px] flex items-center justify-center text-white mb-3 bg-gradient-to-br from-amber-400 to-rose-500"><i class="fa-solid fa-headphones"></i></div><div class="text-[13.5px] font-semibold">Sesli okuma</div><div class="text-[12px] text-zinc-500 mt-0.5 leading-5">Kitabı dinle, cümle cümle takip et</div></div><div class="feat-card rounded-[20px] p-4 bg-white/80 dark:bg-zinc-900/80 border border-zinc-200/70 dark:border-zinc-800 shadow-sm"><div class="w-10 h-10 rounded-[12px] flex items-center justify-center text-white mb-3 bg-gradient-to-br from-indigo-500 to-violet-500"><i class="fa-solid fa-highlighter"></i></div><div class="text-[13.5px] font-semibold">Not ve vurgulama</div><div class="text-[12px] text-zinc-500 mt-0.5 leading-5">Önemli yerleri işaretle, geri dön</div></div><div class="feat-card rounded-[20px] p-4 bg-white/80 dark:bg-zinc-900/80 border border-zinc-200/70 dark:border-zinc-800 shadow-sm"><div class="w-10 h-10 rounded-[12px] flex items-center justify-center text-white mb-3 bg-gradient-to-br from-emerald-500 to-teal-500"><i class="fa-solid fa-bolt"></i></div><div class="text-[13.5px] font-semibold">Anında erişim</div><div class="text-[12px] text-zinc-500 mt-0.5 leading-5">Onaydan sonra hemen oku ve indir</div></div><div class="feat-card rounded-[20px] p-4 bg-white/80 dark:bg-zinc-900/80 border border-zinc-200/70 dark:border-zinc-800 shadow-sm"><div class="w-10 h-10 rounded-[12px] flex items-center justify-center text-white mb-3 bg-gradient-to-br from-rose-500 to-orange-400"><i class="fa-solid fa-crown"></i></div><div class="text-[13.5px] font-semibold">Premium üyelik</div><div class="text-[12px] text-zinc-500 mt-0.5 leading-5">Tek üyelikle tüm kitaplar</div></div></div></section>
-
-  <!-- VITRIN -->
-  <section id="vitrin" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full">
-    <div class="flex items-end justify-between mb-6">
-      <div>
-        <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Vitrin</div>
-        <h3 class="mt-2 font-serif text-[28px] font-bold tracking-tight">Öne çıkanlar</h3>
-      </div>
-      <a href="#kitaplarBolumu" class="text-[13px] font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">Tümünü gör →</a>
-    </div>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-6">
-        <div class="flex items-center justify-between mb-5">
-          <h4 class="font-semibold text-[14px] flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center text-[11px]"><i class="fa-solid fa-fire"></i></span> En çok okunanlar</h4>
-          <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">Popüler</span>
-        </div>
-        <div id="popularBooks" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-      </div>
-      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-6">
-        <div class="flex items-center justify-between mb-5">
-          <h4 class="font-semibold text-[14px] flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-[11px]">✦</span> Yeni eklenenler</h4>
-          <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">Taze</span>
-        </div>
-        <div id="newBooks" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-      </div>
-    </div>
-  </section>
 
   <!-- KOLEKSIYON -->
   <main id="kitaplarBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-8 w-full">
