@@ -14,7 +14,18 @@
   <title>Ebook Store | Dijital Kitap Mağazası</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#18181b"/>
-  <meta name="description" content="Ufkunuzu açacak rehberler ve kişisel gelişim eserleri. Satın alın; sesli dinleyin, okuyun ve indirin.">
+  <meta name="description" content="Ebook Store’da dijital kitapları keşfet, çevrim içi oku, sesli dinle ve desteklenen formatlarda indir. Yeni kitapları ve koleksiyonları keşfet.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://www.marketim3000.online/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:site_name" content="Ebook Store">
+  <meta property="og:title" content="Ebook Store | Dijital Kitap Mağazası">
+  <meta property="og:description" content="Dijital kitapları keşfet, çevrim içi oku, sesli dinle ve yeni koleksiyonlara göz at.">
+  <meta property="og:url" content="https://www.marketim3000.online/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Ebook Store | Dijital Kitap Mağazası">
+  <meta name="twitter:description" content="Dijital kitapları keşfet, çevrim içi oku ve sesli dinle.">
   <link rel="icon" href="1792945068177.jpg" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
@@ -150,8 +161,12 @@
     @media(max-width:560px){.market-brandline{gap:10px;margin-bottom:28px}.market-brand-icon{font-size:40px}.market-brand-tag{font-size:11px;gap:7px}.market-brand-tag span{width:22px}.market-copy h2{font-size:42px}.market-intro{font-size:13px;line-height:1.75}.market-benefits{grid-template-columns:1fr;gap:14px;margin-top:28px}.market-benefit-icon{width:40px;height:40px;flex-basis:40px;font-size:16px}.market-device-stage{min-height:330px;margin:0 -10px;padding:10px 0 28px}.market-laptop{width:calc(100% - 28px);margin-left:30px;transform:none}.market-laptop-screen{border-width:5px;border-bottom-width:8px;border-radius:12px 12px 4px 4px;min-height:0}.market-app-top{height:30px;padding:0 8px;gap:7px}.market-mini-brand{font-size:7px;gap:4px}.market-mini-brand i{font-size:13px}.market-login-label{font-size:7px;padding:4px 6px}.market-searchbar{height:27px;margin:7px 8px;font-size:7px}.market-screen-hero{min-height:128px;padding:13px 12px}.market-screen-hero h3{font-size:18px}.market-screen-hero p{font-size:7px;max-width:120px}.market-screen-hero a{font-size:7px;padding:5px 7px;margin-top:7px}.market-book-art{transform:scale(.65);transform-origin:right bottom;margin-left:-35px}.market-screen-bottom{padding:8px}.market-screen-bottom>b{font-size:8px}.market-category-row{gap:4px;margin-top:6px}.market-category-row span{min-height:43px;font-size:6px;padding:4px 1px}.market-category-row i{font-size:12px}.market-laptop-base{height:8px}.market-phone{width:100px;height:200px;border-width:3px;border-radius:18px;padding:8px 5px 5px;left:-1%;bottom:0}.market-phone-notch{width:32px;height:6px;top:2px}.market-phone-head{height:22px;font-size:6px}.market-phone-head b{font-size:5px}.market-phone-art{height:112px;padding:10px 7px}.market-phone-art>span{font-size:4px}.market-phone-art h3{font-size:13px;margin-top:6px}.market-phone-books{font-size:24px;margin-top:8px}.market-phone-cards{gap:3px;margin-top:5px}.market-phone-cards span{font-size:5px;padding:5px 1px;gap:3px}.market-phone-cards i{font-size:10px}.market-floating-note{right:0;bottom:14px;padding:8px 9px;gap:6px}.market-floating-note>i{font-size:15px}.market-floating-note b{font-size:8px}.market-floating-note small{font-size:7px}.market-url-line{margin-top:20px;font-size:16px}}
 
   </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"Ebook Store","url":"https://www.marketim3000.online/","inLanguage":"tr-TR","description":"Dijital kitapları keşfetme, çevrim içi okuma ve sesli dinleme platformu."}
+  </script>
 </head>
 <body class="font-sans min-h-screen flex flex-col selection:bg-zinc-900 selection:text-white">
+  <a href="#kitaplarBolumu" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[2000] focus:rounded-full focus:bg-white focus:px-4 focus:py-3 focus:text-zinc-900 focus:shadow-lg">İçeriğe geç</a>
   <!-- Top bar -->
   <div class="h-8 bg-zinc-900 text-zinc-100 text-[11px] font-medium tracking-wide flex items-center justify-center gap-6 px-4">
     <span class="hidden sm:flex items-center gap-2"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Canlı kütüphane — Anında erişim</span>
@@ -204,41 +219,13 @@
         </a>
         <button id="googleLoginBtn" onclick="openAuthModal()" class="h-9 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold hover:bg-black dark:hover:bg-zinc-100 transition">Giriş Yap</button>
         <div id="userProfileArea" style="display:none" class="h-9 items-center gap-2 pl-1 pr-3 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 cursor-pointer" onclick="openProfileModal()">
-          <img id="userAvatarImg" style="display:none" class="w-7 h-7 rounded-full object-cover">
+          <img alt="Kullanıcı profil fotoğrafı" id="userAvatarImg" style="display:none" class="w-7 h-7 rounded-full object-cover">
           <div id="userAvatarText" class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold text-[12px] flex items-center justify-center">U</div>
           <span id="userNameDisplay" class="text-[12.5px] font-medium max-w-[80px] truncate">Okur</span>
         </div>
       </div>
     </div>
   </header>
-
-  <!-- VITRIN -->
-  <section id="vitrin" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full">
-    <div class="flex items-end justify-between mb-6">
-      <div>
-        <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Vitrin</div>
-        <h3 class="mt-2 font-serif text-[28px] font-bold tracking-tight">Öne çıkanlar</h3>
-      </div>
-      <a href="#kitaplarBolumu" class="text-[13px] font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">Tümünü gör →</a>
-    </div>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-6">
-        <div class="flex items-center justify-between mb-5">
-          <h4 class="font-semibold text-[14px] flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center text-[11px]"><i class="fa-solid fa-fire"></i></span> En çok okunanlar</h4>
-          <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">Popüler</span>
-        </div>
-        <div id="popularBooks" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-      </div>
-      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-6">
-        <div class="flex items-center justify-between mb-5">
-          <h4 class="font-semibold text-[14px] flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-[11px]">✦</span> Yeni eklenenler</h4>
-          <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">Taze</span>
-        </div>
-        <div id="newBooks" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-      </div>
-    </div>
-  </section>
-
 
   <!-- HERO: sıcak kitaplık atmosferi, lacivert ve altın tema -->
   <section class="market-hero relative overflow-hidden">
@@ -298,9 +285,9 @@
         <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
           <div class="relative flex-1 sm:w-[300px]">
             <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-[12px]"></i>
-            <input id="searchInput" onkeyup="filterBooks()" placeholder="Kitap, yazar ara..." class="w-full h-10 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full pl-10 pr-4 text-[13px] focus:outline-none focus:ring-2 focus:ring-zinc-900/10">
+            <input id="searchInput" aria-label="Kitap veya yazar ara" autocomplete="off" onkeyup="filterBooks()" placeholder="Kitap, yazar ara..." class="w-full h-10 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full pl-10 pr-4 text-[13px] focus:outline-none focus:ring-2 focus:ring-zinc-900/10">
           </div>
-          <select id="sortSelect" onchange="renderBooks()" class="h-10 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-4 text-[13px] font-medium focus:outline-none">
+          <select id="sortSelect" aria-label="Kitapları sıralama ölçütü" onchange="renderBooks()" class="h-10 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-4 text-[13px] font-medium focus:outline-none">
             <option value="newest">En yeni</option>
             <option value="popular">En popüler</option>
             <option value="az">A → Z</option>
@@ -309,7 +296,7 @@
       </div>
       <div class="mt-6 pt-5 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between gap-4">
         <div id="categoryContainer" class="flex gap-2 overflow-x-auto scrollbar-hide"></div>
-        <span id="bookCount" class="flex-shrink-0 text-[11px] font-semibold px-3 py-1.5 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">0 eser</span>
+        <span id="bookCount" aria-live="polite" class="flex-shrink-0 text-[11px] font-semibold px-3 py-1.5 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">0 eser</span>
       </div>
     </div>
 
@@ -320,13 +307,40 @@
     <div id="bookGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5"></div>
   </main>
 
+  <!-- VITRIN -->
+  <section id="vitrin" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full">
+    <div class="flex items-end justify-between mb-6">
+      <div>
+        <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Vitrin</div>
+        <h3 class="mt-2 font-serif text-[28px] font-bold tracking-tight">Öne çıkanlar</h3>
+      </div>
+      <a href="#kitaplarBolumu" class="text-[13px] font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">Tümünü gör →</a>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-6">
+        <div class="flex items-center justify-between mb-5">
+          <h4 class="font-semibold text-[14px] flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center text-[11px]"><i class="fa-solid fa-fire"></i></span> En çok okunanlar</h4>
+          <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">Popüler</span>
+        </div>
+        <div id="popularBooks" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+      </div>
+      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-6">
+        <div class="flex items-center justify-between mb-5">
+          <h4 class="font-semibold text-[14px] flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-[11px]">✦</span> Yeni eklenenler</h4>
+          <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">Taze</span>
+        </div>
+        <div id="newBooks" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+      </div>
+    </div>
+  </section>
+
   <section id="youtubeBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-14 border-t border-zinc-200 dark:border-zinc-800 w-full">
     <div class="flex justify-between items-end mb-8">
       <div>
         <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Video</div>
         <h3 class="mt-2 font-serif text-[28px] font-bold tracking-tight flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-red-600 text-white flex items-center justify-center text-[14px]"><i class="fa-brands fa-youtube"></i></span> YouTube'da dinle</h3>
       </div>
-      <a href="https://www.youtube.com/@yasaroguzhan890" target="_blank" class="h-9 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[13px] font-medium">Kanala git</a>
+      <a href="https://www.youtube.com/@yasaroguzhan890" target="_blank" class="h-9 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[13px] font-medium" rel="noopener noreferrer">Kanala git</a>
     </div>
     <div id="youtubeGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
   </section>
@@ -361,7 +375,7 @@
 
   <div id="profileModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur-[12px] p-4">
     <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[560px] overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-xl flex flex-col max-h-[88vh]">
-      <div class="p-6 flex items-center gap-4 border-b border-zinc-100 dark:border-zinc-800"><img id="profileImg" class="w-12 h-12 rounded-full object-cover hidden"><div id="profileImgText" class="w-12 h-12 rounded-full bg-zinc-900 text-white flex items-center justify-center font-bold">U</div><div><h2 id="profileName" class="font-semibold">Kullanıcı</h2><p id="profileEmail" class="text-[12px] text-zinc-500"></p></div><button onclick="document.getElementById('profileModal').classList.remove('modal-active')" class="ml-auto w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button></div>
+      <div class="p-6 flex items-center gap-4 border-b border-zinc-100 dark:border-zinc-800"><img alt="Profil fotoğrafı" id="profileImg" class="w-12 h-12 rounded-full object-cover hidden"><div id="profileImgText" class="w-12 h-12 rounded-full bg-zinc-900 text-white flex items-center justify-center font-bold">U</div><div><h2 id="profileName" class="font-semibold">Kullanıcı</h2><p id="profileEmail" class="text-[12px] text-zinc-500"></p></div><button onclick="document.getElementById('profileModal').classList.remove('modal-active')" class="ml-auto w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button></div>
       <div class="flex overflow-x-auto scrollbar-hide border-b border-zinc-100 dark:border-zinc-800"><button onclick="switchProfileTab('downloads')" id="tabBtnDownloads" class="flex-1 py-3 text-[13px] font-semibold border-b-2 border-zinc-900 dark:border-white">İndirdiklerim</button><button onclick="switchProfileTab('myComments')" id="tabBtnMyComments" class="flex-1 py-3 text-[13px] font-medium text-zinc-500">Yorumlarım</button><button onclick="switchProfileTab('stats')" id="tabBtnStats" class="whitespace-nowrap px-3 flex-1 py-3 text-[13px] font-medium text-zinc-500">İstatistik</button><button onclick="switchProfileTab('notes')" id="tabBtnNotes" class="whitespace-nowrap px-3 flex-1 py-3 text-[13px] font-medium text-zinc-500">Notlarım</button></div>
       <div class="p-6 overflow-y-auto flex-1"><div id="profileTabDownloads" class="space-y-3"></div><div id="profileTabMyComments" class="hidden space-y-3"></div><div id="profileTabStats" class="hidden space-y-4"></div><div id="profileTabNotes" class="hidden space-y-5"></div></div>
     </div>
@@ -371,7 +385,7 @@
     <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[900px] border border-zinc-200 dark:border-zinc-800 shadow-[0_20px_80px_-20px_rgba(0,0,0,.6)] overflow-hidden flex flex-col md:flex-row max-h-[90vh] relative">
       <button onclick="closeBookModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
       <div class="w-full md:w-[46%] p-7 border-b md:border-b-0 md:border-r border-zinc-100 dark:border-zinc-800 overflow-y-auto">
-        <div class="flex gap-5"><img id="modalCover" class="w-28 sm:w-32 aspect-[2/3] object-cover rounded-[12px] bg-zinc-100"><div><span id="modalCategory" class="text-[10px] font-semibold tracking-widest uppercase px-2.5 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"></span><span id="modalPriceBadge" class="ml-2 text-[10px] font-semibold px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border"></span><h3 id="modalTitle" class="mt-3 font-serif font-bold text-[22px] leading-tight"></h3><p id="modalAuthor" class="text-[13px] text-zinc-500 mt-1"></p></div></div>
+        <div class="flex gap-5"><img alt="Seçilen kitabın kapak görseli" loading="lazy" id="modalCover" class="w-28 sm:w-32 aspect-[2/3] object-cover rounded-[12px] bg-zinc-100"><div><span id="modalCategory" class="text-[10px] font-semibold tracking-widest uppercase px-2.5 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"></span><span id="modalPriceBadge" class="ml-2 text-[10px] font-semibold px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border"></span><h3 id="modalTitle" class="mt-3 font-serif font-bold text-[22px] leading-tight"></h3><p id="modalAuthor" class="text-[13px] text-zinc-500 mt-1"></p></div></div>
         <p id="modalDesc" class="mt-6 text-[13.5px] leading-6 text-zinc-600 dark:text-zinc-400"></p>
         <div class="mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800">
           <button id="modalBuyBtn" class="hidden w-full h-11 bg-emerald-600 text-white rounded-full font-semibold text-[13px]"><i class="fa-solid fa-cart-shopping mr-2"></i><span id="modalBuyBtnText">Satın Al</span></button>
@@ -445,7 +459,7 @@
     </div>
   </div>
 
-  <div id="qrModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4"><div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-sm p-8 border shadow-xl relative text-center"><button onclick="closeQRModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button><h3 class="font-bold text-[18px]">QR Kod</h3><p class="text-[12px] text-zinc-500 mt-1">Telefonla okut</p><div class="bg-white p-4 rounded-[16px] inline-block mt-6 border shadow-sm"><img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https://www.marketim3000.online&color=24,24,27" class="w-48 h-48"></div></div></div>
+  <div id="qrModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4"><div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-sm p-8 border shadow-xl relative text-center"><button onclick="closeQRModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button><h3 class="font-bold text-[18px]">QR Kod</h3><p class="text-[12px] text-zinc-500 mt-1">Telefonla okut</p><div class="bg-white p-4 rounded-[16px] inline-block mt-6 border shadow-sm"><img alt="marketim3000.online adresine yönlendiren QR kodu" loading="lazy" width="192" height="192" src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https://www.marketim3000.online&color=24,24,27" class="w-48 h-48"></div></div></div>
 
   <div id="submissionModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4"><div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-lg p-8 border shadow-xl relative"><button onclick="closeSubmissionModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button><h3 class="font-bold text-[20px]">Sizden gelenler</h3><p class="text-[12px] text-zinc-500 mt-1">Alıntınızı paylaşın</p><form id="submissionForm" onsubmit="submitSizdenGelen(event)" class="mt-6 grid gap-4"><div class="grid grid-cols-2 gap-3"><input id="subName" required placeholder="Adınız" class="h-11 rounded-full border px-4 text-[13px]"><select id="subType" class="h-11 rounded-full border px-4 text-[13px]"><option>Kitap Alıntısı</option><option>Kitap Tavsiyesi</option><option>Okur Mesajı</option></select></div><input id="subTopic" required placeholder="Başlık" class="h-11 rounded-full border px-4 text-[13px]"><textarea id="subMessage" required rows="4" placeholder="Mesajınız..." class="rounded-[16px] border p-4 text-[13px] resize-none"></textarea><button id="subSubmitBtn" class="h-11 rounded-full bg-zinc-900 text-white font-semibold text-[13px]">Gönder</button></form></div></div>
 
@@ -453,22 +467,50 @@
     <div id="chatWindow" style="display:none" class="w-[360px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[20px] shadow-[0_20px_60px_-20px_rgba(0,0,0,.4)] mb-4 overflow-hidden flex-col">
       <div class="h-14 px-4 bg-zinc-900 text-white flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-white text-zinc-900 flex items-center justify-center font-bold text-[12px]">M</div><div><h4 class="text-[13px] font-semibold">Depo Asistanı</h4><span class="text-[10px] text-zinc-400 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Çevrimiçi</span></div></div><button onclick="toggleChat()" class="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[11px]"></i></button></div>
       <div id="chatMessages" class="p-4 h-[280px] overflow-y-auto bg-zinc-50 dark:bg-zinc-800/50 flex flex-col gap-3 text-[13px]"></div>
-      <div class="p-3 bg-white dark:bg-zinc-900 border-t flex gap-2"><input id="chatInput" placeholder="Bir soru sor..." class="flex-1 h-9 bg-zinc-100 dark:bg-zinc-800 rounded-full px-4 text-[13px] focus:outline-none" onkeypress="handleKeyPress(event)"><button onclick="sendMessage()" class="w-9 h-9 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-paper-plane text-[12px]"></i></button></div>
+      <div class="p-3 bg-white dark:bg-zinc-900 border-t flex gap-2"><input id="chatInput" aria-label="Depo Asistanına mesaj yaz" placeholder="Bir soru sor..." class="flex-1 h-9 bg-zinc-100 dark:bg-zinc-800 rounded-full px-4 text-[13px] focus:outline-none" onkeypress="handleKeyPress(event)"><button onclick="sendMessage()" class="w-9 h-9 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-paper-plane text-[12px]"></i></button></div>
     </div>
     <button onclick="toggleChat()" class="w-14 h-14 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-[0_8px_24px_rgba(0,0,0,.2)] flex items-center justify-center hover:scale-[1.03] transition"><i class="fa-solid fa-comments"></i></button>
   </div>
 
-  <a href="https://wa.me/905542026620?text=Merhaba%20E-Kitap%20Deposu%20Destek" target="_blank" id="whatsappSupport" class="fixed bottom-5 left-5 z-50 h-11 px-5 rounded-full bg-[#25D366] text-white shadow-lg flex items-center gap-2 font-semibold text-[13px] hover:scale-[1.02] transition"><i class="fa-brands fa-whatsapp text-[18px]"></i> Destek</a>
+  <a href="https://wa.me/905542026620?text=Merhaba%20E-Kitap%20Deposu%20Destek" target="_blank" id="whatsappSupport" class="fixed bottom-5 left-5 z-50 h-11 px-5 rounded-full bg-[#25D366] text-white shadow-lg flex items-center gap-2 font-semibold text-[13px] hover:scale-[1.02] transition" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp text-[18px]"></i> Destek</a>
+
+
+  <!-- SIK SORULAN SORULAR -->
+  <section id="sss" class="max-w-[1000px] mx-auto px-5 sm:px-8 py-12 w-full" aria-labelledby="sssBaslik">
+    <div class="max-w-2xl mb-6">
+      <p class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Yardım merkezi</p>
+      <h2 id="sssBaslik" class="mt-2 font-serif text-[28px] font-bold tracking-tight">Sık sorulan sorular</h2>
+      <p class="mt-2 text-[13px] leading-6 text-zinc-500">Kitapları keşfetme, okuma ve satın alma süreci hakkında kısa yanıtlar.</p>
+    </div>
+    <div class="space-y-3">
+      <details class="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
+        <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[14px]">Kitapları nasıl keşfedebilirim?<i class="fa-solid fa-chevron-down text-xs text-zinc-400 transition-transform group-open:rotate-180"></i></summary>
+        <p class="mt-3 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Koleksiyon bölümündeki arama alanını, kategori filtrelerini ve sıralama seçeneklerini kullanarak kitapları bulabilirsin.</p>
+      </details>
+      <details class="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
+        <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[14px]">Ücretsiz kitapları okuyabilir miyim?<i class="fa-solid fa-chevron-down text-xs text-zinc-400 transition-transform group-open:rotate-180"></i></summary>
+        <p class="mt-3 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Kitap kartında ücretsiz olarak belirtilen eserler için kitap detayındaki okuma ve indirme seçeneklerini kontrol edebilirsin. Bazı özellikler oturum açmanı gerektirebilir.</p>
+      </details>
+      <details class="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
+        <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[14px]">Satın alma işlemi nasıl tamamlanıyor?<i class="fa-solid fa-chevron-down text-xs text-zinc-400 transition-transform group-open:rotate-180"></i></summary>
+        <p class="mt-3 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Ücretli kitaplarda ekrandaki satın alma adımlarını takip et. Ödeme/dekont bildirimi istenirse verilen WhatsApp destek bağlantısı üzerinden iletişim kur; erişim onaydan sonra tanımlanabilir.</p>
+      </details>
+      <details class="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
+        <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[14px]">Yardım veya içerik önerisini nasıl iletebilirim?<i class="fa-solid fa-chevron-down text-xs text-zinc-400 transition-transform group-open:rotate-180"></i></summary>
+        <p class="mt-3 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Sayfadaki Destek bağlantısından WhatsApp üzerinden ulaşabilir veya “Alıntı paylaş” alanını kullanabilirsin.</p>
+      </details>
+    </div>
+  </section>
 
   <footer class="mt-auto border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
     <div class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12">
       <div class="grid md:grid-cols-4 gap-10">
         <div><div class="w-9 h-9 rounded-[10px] bg-zinc-900 text-white flex items-center justify-center font-serif font-black">M</div><p class="mt-4 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Bilginin gücünü dinleyerek keşfedin. Dijital kütüphane, sesli arşiv ve topluluk.</p></div>
-        <div><h4 class="font-semibold text-[13px]">Keşfet</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="#vitrin" class="hover:text-zinc-900 dark:hover:text-white">Vitrin</a></li><li><a href="#kitaplarBolumu" class="hover:text-zinc-900">Koleksiyon</a></li><li><a href="#sizdenGelenlerSection" class="hover:text-zinc-900">Topluluk</a></li></ul></div>
-        <div><h4 class="font-semibold text-[13px]">Destek</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="https://wa.me/905542026620" target="_blank" class="hover:text-zinc-900">WhatsApp</a></li><li><button onclick="openSubmissionModal()" class="hover:text-zinc-900">Alıntı paylaş</button></li></ul></div>
+        <div><h4 class="font-semibold text-[13px]">Keşfet</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="#vitrin" class="hover:text-zinc-900 dark:hover:text-white">Vitrin</a></li><li><a href="#kitaplarBolumu" class="hover:text-zinc-900">Koleksiyon</a></li><li><a href="#sizdenGelenlerSection" class="hover:text-zinc-900">Topluluk</a></li><li><a href="#sss" class="hover:text-zinc-900">Sık sorulan sorular</a></li></ul></div>
+        <div><h4 class="font-semibold text-[13px]">Destek</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="https://wa.me/905542026620" target="_blank" class="hover:text-zinc-900" rel="noopener noreferrer">WhatsApp</a></li><li><button onclick="openSubmissionModal()" class="hover:text-zinc-900">Alıntı paylaş</button></li></ul></div>
         <div><h4 class="font-semibold text-[13px]">Uygulama</h4><p class="mt-4 text-[13px] text-zinc-500">Android uygulamasını indirin ve çevrimdışı okuyun.</p><a href="E-Kitap.apk" download class="mt-3 inline-flex h-9 px-4 rounded-full bg-zinc-900 text-white text-[12.5px] font-semibold items-center gap-2">APK İndir <i class="fa-solid fa-download text-[11px]"></i></a></div>
       </div>
-      <div class="mt-12 pt-8 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row justify-between gap-3 text-[12px] text-zinc-500"><span>© 2026 Dijital Kitapçı — Tüm hakları saklıdır.</span><span class="flex items-center gap-2"><i class="fa-solid fa-lock text-[10px]"></i> Güvenli · Hızlı · Sade</span></div>
+      <div class="mt-12 pt-8 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row justify-between gap-3 text-[12px] text-zinc-500"><span>© 2026 Ebook Store — Tüm hakları saklıdır.</span><span class="flex items-center gap-2"><i class="fa-solid fa-lock text-[10px]"></i> Güvenli · Hızlı · Sade</span></div>
     </div>
   </footer>
 
@@ -634,7 +676,7 @@ async function loadYoutubeBooks() {
             <p class="text-[11px] text-slate-500 line-clamp-2 mt-1">${v.aciklama || ''}</p>
             <div class="flex gap-2 mt-3">
               <button onclick="openYoutubePlayer('${ytId}', '${safeTitle}')" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1"><i class="fa-solid fa-play"></i> İzle</button>
-              <a href="${v.youtubeUrl}" target="_blank" class="flex-1 bg-white border border-red-200 text-red-600 py-2 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1"><i class="fa-brands fa-youtube"></i> YouTube'da Aç</a>
+              <a href="${v.youtubeUrl}" target="_blank" class="flex-1 bg-white border border-red-200 text-red-600 py-2 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i> YouTube'da Aç</a>
             </div>
           </div>
         </div>`;
