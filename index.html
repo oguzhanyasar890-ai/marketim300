@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr" class="light scroll-smooth">
+<html lang="tr" class="dark scroll-smooth">
 <head>
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18534958430"></script>
@@ -208,9 +208,6 @@
       <div class="flex items-center gap-2">
         <button id="cartBtn" onclick="openCart()" title="Sepetim" class="relative w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition"><i class="fa-solid fa-cart-shopping text-[13px]"></i><span id="cartBadge" class="hidden absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-600 text-white text-[10px] font-bold items-center justify-center">0</span></button>
         <button id="premiumBtn" onclick="openPremiumModal()" class="h-9 px-3.5 rounded-full bg-amber-500 hover:bg-amber-600 text-zinc-950 text-[12.5px] font-semibold inline-flex items-center gap-1.5 transition"><i class="fa-solid fa-crown text-[11px]"></i><span id="premiumBtnText">Premium</span></button>
-        <button onclick="toggleTheme()" class="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition">
-          <i id="themeIcon" class="fa-solid fa-moon text-[13px]"></i>
-        </button>
         <button id="adminPanelBtn" onclick="openAdminModal()" style="display:none" class="hidden sm:flex h-9 px-3.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold items-center gap-1.5">
           <i class="fa-solid fa-shield-halved text-[11px]"></i> Admin
         </button>
@@ -968,15 +965,12 @@ function saveReadingProgress() {
   }
 }
 
-// === TEMA ===
+// === YALNIZCA KARANLIK TEMA ===
+// Tema seçici kaldırıldı; eski kullanıcı tercihi ne olursa olsun site karanlık açılır.
 const html = document.documentElement;
-const themeIcon = document.getElementById('themeIcon');
-function setTheme(isDark) {
-  if(isDark) { html.classList.add('dark'); html.classList.remove('light'); themeIcon.classList.replace('fa-moon', 'fa-sun'); localStorage.setItem('theme_red_white', 'dark'); }
-  else { html.classList.add('light'); html.classList.remove('dark'); themeIcon.classList.replace('fa-sun', 'fa-moon'); localStorage.setItem('theme_red_white', 'light'); }
-}
-window.toggleTheme = () => setTheme(!html.classList.contains('dark'));
-if(localStorage.getItem('theme_red_white') === 'dark') setTheme(true); else setTheme(false);
+html.classList.add('dark');
+html.classList.remove('light');
+try { localStorage.setItem('theme_red_white', 'dark'); } catch (e) {}
 
 window.openQRModal = () => { document.getElementById('qrModal').classList.add('modal-active'); };
 window.closeQRModal = () => { document.getElementById('qrModal').classList.remove('modal-active'); };
