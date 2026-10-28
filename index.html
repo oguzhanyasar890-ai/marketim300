@@ -97,6 +97,58 @@
     .cart-add{transition:transform .2s,background .2s} .cart-add:hover{transform:scale(1.08);background:#e11d48;color:#fff}
     #cartModal{display:none}
     @media (prefers-reduced-motion:reduce){.aurora,.grad-text,.hero-float,#bookGrid article{animation:none!important}}
+
+    /* ===== MARKETİM3000 / ALTIN-LACİVERT KİTAP DEPOSU TASARIMI ===== */
+    :root{--book-gold:#f4c653;--book-gold-light:#ffe08a;--book-navy:#061323;--book-ink:#07111f}
+    body{background:#f7f5ef;color:#172033}
+    html.dark body{background:#070d16;color:#f8fafc}
+    .glass-nav{background:rgba(5,15,29,.94)!important;color:#fff;border-bottom:1px solid rgba(244,198,83,.35)!important;backdrop-filter:blur(18px)}
+    .glass-nav h1,.glass-nav .text-zinc-900,.glass-nav .dark\:text-zinc-100{color:#fff!important}
+    .glass-nav .text-zinc-500{color:#c5cbd4!important}
+    .glass-nav nav{background:#101d2c!important;border-color:rgba(244,198,83,.18)!important}
+    .glass-nav nav a{color:#e5e7eb!important}
+    .glass-nav nav a:hover,.glass-nav nav a.bg-white{background:#f4c653!important;color:#081323!important}
+    .market-hero{isolation:isolate;background:radial-gradient(ellipse at 80% 15%,rgba(185,115,30,.22),transparent 35%),linear-gradient(120deg,#030912 0%,#071526 56%,#111b25 100%);color:#fff;border-bottom:1px solid rgba(244,198,83,.45);}
+    .market-hero:before{content:"";position:absolute;inset:0;opacity:.18;background-image:linear-gradient(90deg,transparent 0 9%,rgba(255,255,255,.1) 9.2%,transparent 9.5%),linear-gradient(0deg,transparent 0 92%,rgba(255,255,255,.1) 92.3%,transparent 92.5%);background-size:160px 100%,100% 110px;pointer-events:none}
+    .market-hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,8,16,.2),transparent 60%),radial-gradient(ellipse at bottom,rgba(125,69,26,.18),transparent 55%);z-index:-1}
+    .market-hero-glow{position:absolute;border-radius:50%;filter:blur(75px);pointer-events:none;opacity:.22}
+    .market-glow-one{width:340px;height:340px;background:#d69b2b;right:8%;top:10%}.market-glow-two{width:260px;height:260px;background:#1c5480;left:20%;bottom:0}
+    .market-brandline{display:flex;align-items:center;justify-content:center;gap:18px;margin:0 auto 44px;text-align:left}
+    .market-brand-icon{font-size:60px;line-height:1;color:var(--book-gold);filter:drop-shadow(0 8px 16px #0008)}
+    .market-brand-name{font-size:clamp(24px,3.4vw,43px);font-weight:800;letter-spacing:-.04em;line-height:1.1;color:#f8fafc}.market-brand-name span{color:var(--book-gold)}
+    .market-brand-tag{display:flex;align-items:center;justify-content:center;gap:13px;margin-top:8px;color:#e3e5e8;font-size:clamp(12px,1.5vw,17px);letter-spacing:.02em}.market-brand-tag span{width:38px;height:1px;background:var(--book-gold)}
+    .market-hero-grid{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);align-items:center;gap:34px}
+    .market-copy{padding:10px 0 20px;max-width:570px}.market-eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 13px;border:1px solid rgba(244,198,83,.35);border-radius:99px;background:rgba(244,198,83,.08);color:#ffe4a0;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+    .market-live-dot{width:7px;height:7px;border-radius:50%;background:#f4c653;box-shadow:0 0 12px #f4c653}
+    .market-copy h2{font-family:'Fraunces',Georgia,serif;font-size:clamp(39px,4.3vw,64px);font-weight:800;line-height:.99;letter-spacing:-.04em;margin:23px 0 0;color:#fff}
+    .market-copy h2 em{display:inline-block;color:var(--book-gold);font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:1.08em;letter-spacing:-.025em;margin-top:7px;text-shadow:0 4px 25px #e5a72c20}
+    .market-intro{max-width:460px;margin-top:22px;color:#d2d8e1;font-size:15px;line-height:1.8}
+    .market-hero-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:27px}
+    .market-primary-cta,.market-secondary-cta{display:inline-flex;align-items:center;justify-content:center;gap:11px;min-height:47px;padding:0 20px;border-radius:999px;font-size:13px;font-weight:800;transition:transform .2s,box-shadow .2s}
+    .market-primary-cta{background:linear-gradient(135deg,#ffe28c,#eab536);color:#111827;box-shadow:0 10px 28px #d79b2b30}.market-primary-cta:hover,.market-secondary-cta:hover{transform:translateY(-2px)}
+    .market-secondary-cta{border:1px solid rgba(244,198,83,.5);background:rgba(255,255,255,.04);color:#ffe08a}
+    .market-benefits{display:grid;grid-template-columns:1fr 1fr;gap:20px 16px;margin-top:35px}
+    .market-benefit{display:flex;align-items:center;gap:12px;min-width:0}.market-benefit-icon{flex:0 0 46px;width:46px;height:46px;border:1.5px solid var(--book-gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--book-gold);font-size:19px}
+    .market-benefit b{display:block;font-size:12.5px;color:#fff;line-height:1.35}.market-benefit small{display:block;color:#c4cbd5;font-size:11px;line-height:1.5;margin-top:3px}
+    .market-device-stage{position:relative;min-height:480px;display:flex;align-items:center;justify-content:center;padding:20px 0 35px}
+    .market-laptop{position:relative;width:min(100%,620px);transform:perspective(1100px) rotateY(-5deg) rotateX(2deg);filter:drop-shadow(0 25px 24px #0008)}
+    .market-laptop-screen{border:8px solid #111923;border-bottom-width:12px;border-radius:20px 20px 7px 7px;background:#f7f6f1;overflow:hidden;box-shadow:inset 0 0 0 1px #58616a;min-height:360px;color:#102033}
+    .market-app-top{height:42px;display:flex;align-items:center;gap:15px;padding:0 17px;background:#071526;color:white;font-size:10px}.market-mini-brand{display:flex;align-items:center;gap:6px;margin-right:auto;font-size:10px;font-weight:700;white-space:nowrap}.market-mini-brand i{color:var(--book-gold);font-size:18px}.market-mini-brand b{color:var(--book-gold)}.market-login-label{border:1px solid #d9b85c;border-radius:5px;padding:5px 12px}.market-app-top>i{font-size:14px}
+    .market-searchbar{height:35px;margin:10px 15px;border-radius:30px;background:#fff;border:1px solid #dce1e6;display:flex;align-items:center;justify-content:space-between;padding:0 13px;color:#6b7280;font-size:10px;box-shadow:0 3px 9px #0b172015}
+    .market-screen-hero{position:relative;display:flex;justify-content:space-between;align-items:center;min-height:190px;padding:24px 22px;background:linear-gradient(110deg,#061526 0%,#0c2940 57%,#183f4a 100%);color:white;overflow:hidden}
+    .market-screen-hero:after{content:"";position:absolute;width:200px;height:200px;right:-35px;top:-70px;border-radius:50%;background:radial-gradient(circle,#e0b75a55,transparent 68%)}
+    .market-screen-hero>div:first-child{position:relative;z-index:1}.market-screen-hero small{font-size:7px;letter-spacing:.16em;color:#f4cd6b}.market-screen-hero h3{font-family:'Fraunces',Georgia,serif;font-size:clamp(19px,2.4vw,30px);font-weight:700;line-height:1.05;margin:8px 0}.market-screen-hero p{font-size:9px;color:#d1dbe4;max-width:180px}.market-screen-hero a{display:inline-flex;gap:8px;align-items:center;margin-top:12px;border-radius:20px;background:#f4c653;color:#111827;padding:7px 12px;font-size:9px;font-weight:800}
+    .market-book-art{position:relative;z-index:1;width:140px;height:120px;align-self:flex-end}.market-book{position:absolute;right:10px;bottom:7px;width:100px;height:24px;border:1px solid #d8b765;border-radius:2px;background:linear-gradient(#a46c36,#57391f);box-shadow:0 5px 8px #0007}.market-book:after{content:"";position:absolute;left:8px;right:8px;top:5px;height:1px;background:#f4dca0}.book-a{transform:rotate(-7deg);bottom:62px;background:linear-gradient(#d5b56c,#7b4b26)}.book-b{transform:rotate(5deg);bottom:36px;background:linear-gradient(#274e58,#102b36)}.book-c{transform:rotate(-2deg);bottom:10px}.market-book-art>i{position:absolute;right:8px;top:0;font-size:38px;color:#f4c653;filter:drop-shadow(0 4px 5px #0008)}
+    .market-screen-bottom{padding:14px 15px 17px;background:#f8f7f2}.market-screen-bottom>b{font-size:11px;color:#182437}.market-category-row{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:9px}.market-category-row span{min-height:61px;padding:8px 4px;border:1px solid #e1e4e8;border-radius:8px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:8px;text-align:center;color:#27384b}.market-category-row i{font-size:17px;color:#b88b23}
+    .market-laptop-base{height:13px;width:110%;margin-left:-5%;background:linear-gradient(#d2d5d9,#6d747d 45%,#222b34 80%);border-radius:2px 2px 18px 18px;box-shadow:0 10px 15px #0006}.market-laptop-base:after{content:"";display:block;width:24%;height:4px;margin:auto;background:#515b65;border-radius:0 0 8px 8px}
+    .market-phone{position:absolute;z-index:3;left:-1%;bottom:0;width:155px;height:300px;padding:12px 7px 9px;border:4px solid #151a21;border-radius:27px;background:#f8f7f2;box-shadow:0 18px 35px #0009;transform:rotate(-4deg);color:#122033;overflow:hidden}.market-phone-notch{position:absolute;top:4px;left:50%;transform:translateX(-50%);width:50px;height:9px;border-radius:0 0 9px 9px;background:#151a21}.market-phone-head{height:29px;display:flex;align-items:center;justify-content:space-between;font-size:8px}.market-phone-head b{font-size:7px}.market-phone-head b i{color:#c29528}.market-phone-art{padding:16px 10px;height:170px;background:linear-gradient(150deg,#071526,#174454);color:white;border-radius:7px}.market-phone-art>span{font-size:6px;letter-spacing:.12em;color:#f4c653}.market-phone-art h3{font-family:'Fraunces',Georgia,serif;font-size:19px;line-height:1.05;margin-top:9px}.market-phone-books{margin-top:15px;text-align:right;color:#f4c653;font-size:38px}.market-phone-cards{display:flex;gap:6px;margin-top:8px}.market-phone-cards span{display:flex;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:5px;border:1px solid #e4e6e9;border-radius:6px;padding:8px 2px;font-size:7px}.market-phone-cards i{color:#bb9028;font-size:14px}
+    .market-floating-note{position:absolute;right:-4px;bottom:25px;z-index:4;display:flex;align-items:center;gap:10px;padding:12px 15px;border:1px solid #ffffff2b;border-radius:13px;background:rgba(5,17,31,.9);box-shadow:0 12px 25px #0005;backdrop-filter:blur(12px);color:#f4c653}.market-floating-note>i{font-size:22px}.market-floating-note b,.market-floating-note small{display:block}.market-floating-note b{font-size:11px;color:white}.market-floating-note small{font-size:9px;color:#cbd5e1;margin-top:3px}.market-url-line{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:30px;color:#fff;font-size:clamp(17px,2.2vw,26px);font-weight:700;letter-spacing:.01em}.market-url-line i{color:var(--book-gold)}
+    .feat-card{background:#fffdf8!important;border-color:#eadfc5!important}.feat-card .text-\[13\.5px\]{color:#142136}.feat-card .text-zinc-500{color:#667085}.feat-card:hover{box-shadow:0 20px 40px -18px rgba(157,117,28,.25)!important}
+    .cta-glow{background:linear-gradient(100deg,#ffe08a,#eab536)!important;color:#111827!important;box-shadow:0 12px 32px -10px rgba(196,145,32,.42),inset 0 1px 0 rgba(255,255,255,.35)!important}
+    #bookGrid article:hover{box-shadow:0 22px 42px -20px rgba(157,117,28,.3)!important;border-color:rgba(210,166,63,.6)!important}
+    @media(max-width:900px){.market-hero-grid{grid-template-columns:1fr;gap:12px}.market-copy{max-width:760px}.market-device-stage{min-height:430px;margin-top:5px}.market-laptop{width:min(100%,650px);margin-left:50px}.market-phone{left:0}.market-benefits{max-width:680px}.market-brandline{margin-bottom:28px}}
+    @media(max-width:560px){.market-brandline{gap:10px;margin-bottom:28px}.market-brand-icon{font-size:40px}.market-brand-tag{font-size:11px;gap:7px}.market-brand-tag span{width:22px}.market-copy h2{font-size:42px}.market-intro{font-size:13px;line-height:1.75}.market-benefits{grid-template-columns:1fr;gap:14px;margin-top:28px}.market-benefit-icon{width:40px;height:40px;flex-basis:40px;font-size:16px}.market-device-stage{min-height:330px;margin:0 -10px;padding:10px 0 28px}.market-laptop{width:calc(100% - 28px);margin-left:30px;transform:none}.market-laptop-screen{border-width:5px;border-bottom-width:8px;border-radius:12px 12px 4px 4px;min-height:0}.market-app-top{height:30px;padding:0 8px;gap:7px}.market-mini-brand{font-size:7px;gap:4px}.market-mini-brand i{font-size:13px}.market-login-label{font-size:7px;padding:4px 6px}.market-searchbar{height:27px;margin:7px 8px;font-size:7px}.market-screen-hero{min-height:128px;padding:13px 12px}.market-screen-hero h3{font-size:18px}.market-screen-hero p{font-size:7px;max-width:120px}.market-screen-hero a{font-size:7px;padding:5px 7px;margin-top:7px}.market-book-art{transform:scale(.65);transform-origin:right bottom;margin-left:-35px}.market-screen-bottom{padding:8px}.market-screen-bottom>b{font-size:8px}.market-category-row{gap:4px;margin-top:6px}.market-category-row span{min-height:43px;font-size:6px;padding:4px 1px}.market-category-row i{font-size:12px}.market-laptop-base{height:8px}.market-phone{width:100px;height:200px;border-width:3px;border-radius:18px;padding:8px 5px 5px;left:-1%;bottom:0}.market-phone-notch{width:32px;height:6px;top:2px}.market-phone-head{height:22px;font-size:6px}.market-phone-head b{font-size:5px}.market-phone-art{height:112px;padding:10px 7px}.market-phone-art>span{font-size:4px}.market-phone-art h3{font-size:13px;margin-top:6px}.market-phone-books{font-size:24px;margin-top:8px}.market-phone-cards{gap:3px;margin-top:5px}.market-phone-cards span{font-size:5px;padding:5px 1px;gap:3px}.market-phone-cards i{font-size:10px}.market-floating-note{right:0;bottom:14px;padding:8px 9px;gap:6px}.market-floating-note>i{font-size:15px}.market-floating-note b{font-size:8px}.market-floating-note small{font-size:7px}.market-url-line{margin-top:20px;font-size:16px}}
+
   </style>
 </head>
 <body class="font-sans min-h-screen flex flex-col selection:bg-zinc-900 selection:text-white">
@@ -160,51 +212,45 @@
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
-    <div class="absolute inset-0 hero-grid opacity-[0.6]"></div>
-    <div class="aurora aurora-1"></div><div class="aurora aurora-2"></div><div class="aurora aurora-3"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-white via-white/80 to-[#fcfcfc] dark:from-zinc-950 dark:via-zinc-950/80 dark:to-[#09090b]"></div>
-    <div class="relative max-w-[1280px] mx-auto px-5 sm:px-8 py-12 sm:py-20">
-      <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center">
-        <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 text-[11px] font-semibold tracking-wide">
-            <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span> YENİ · Sesli okuma, not alma ve Premium üyelik
+  <!-- HERO: sıcak kitaplık atmosferi, lacivert ve altın tema -->
+  <section class="market-hero relative overflow-hidden">
+    <div class="market-hero-shade"></div>
+    <div class="market-hero-glow market-glow-one"></div><div class="market-hero-glow market-glow-two"></div>
+    <div class="relative z-10 max-w-[1380px] mx-auto px-5 sm:px-8 py-10 sm:py-14 lg:py-16">
+      <div class="market-brandline">
+        <div class="market-brand-icon"><i class="fa-solid fa-book-open"></i></div>
+        <div><div class="market-brand-name">DİJİTAL <span>KİTAP DEPOSU</span></div><div class="market-brand-tag"><span></span> Kitaplar artık her yerde seninle <span></span></div></div>
+      </div>
+      <div class="market-hero-grid">
+        <div class="market-copy">
+          <div class="market-eyebrow"><span class="market-live-dot"></span> Dijital kütüphaneni keşfet</div>
+          <h2>Hayal ettiğin<br>tüm kitaplar<br><em>tek tık uzağında!</em></h2>
+          <p class="market-intro">Dijital kitap dünyasında yeni fikirlerle tanış. Sevdiğin kitapları keşfet, çevrim içi oku, desteklenen formatlarda indir ve kendi okuma yolculuğunu oluştur.</p>
+          <div class="market-hero-actions">
+            <a href="#kitaplarBolumu" class="market-primary-cta"><i class="fa-solid fa-book-open"></i> Şimdi keşfet <i class="fa-solid fa-arrow-right"></i></a>
+            <button onclick="openPremiumModal()" class="market-secondary-cta"><i class="fa-solid fa-crown"></i> Premium üyelik</button>
           </div>
-          <h2 class="mt-6 font-serif font-[700] text-[40px] sm:text-[58px] leading-[0.95] tracking-[-0.03em] text-zinc-900 dark:text-white text-balance">
-            Bir kitap,<br><span class="grad-text">bir fikir,</span><br>bir yeni sen.
-          </h2>
-          <p class="mt-5 text-[15px] sm:text-[16px] leading-7 text-zinc-600 dark:text-zinc-400 max-w-[48ch] text-balance">
-            Dijital Kitapçı'da özenle seçilmiş yapay zekâ rehberleri, kişisel gelişim ve pratik bilgi kitapları seni bekliyor. Anında satın al, kulaklığınla dinle, önemli yerleri vurgula, notlarını al. Hepsi tek yerde, her cihazda.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a href="#kitaplarBolumu" class="h-11 px-6 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[13.5px] font-semibold inline-flex items-center gap-2 transition cta-glow">Koleksiyonu Keşfet <i class="fa-solid fa-arrow-right text-[11px]"></i></a>
-            <button onclick="openPremiumModal()" class="h-11 px-6 rounded-full bg-amber-500 hover:bg-amber-600 text-zinc-950 text-[13.5px] font-semibold inline-flex items-center gap-2 transition shadow-lg shadow-amber-500/30"><i class="fa-solid fa-crown text-[12px]"></i> Premium'a göz at</button>
-          </div>
-          <div class="mt-10 flex items-center gap-6">
-            <div class="flex -space-x-2">
-              <div class="w-8 h-8 rounded-full bg-zinc-200 border-2 border-white dark:border-zinc-900 flex items-center justify-center text-[11px] font-bold">A</div>
-              <div class="w-8 h-8 rounded-full bg-zinc-900 text-white border-2 border-white dark:border-zinc-900 flex items-center justify-center text-[11px] font-bold">Y</div>
-              <div class="w-8 h-8 rounded-full bg-white border-2 border-white dark:border-zinc-900 shadow flex items-center justify-center text-[10px] font-bold">+1k</div>
-            </div>
-            <div class="text-[12.5px] leading-tight"><span class="font-semibold text-zinc-900 dark:text-white">1000+ okur</span><br><span class="text-zinc-500">topluluğa katıldı</span></div>
-            <div class="h-8 w-px bg-zinc-200 dark:bg-zinc-800"></div>
-            <div class="text-[12.5px] leading-tight"><span class="font-semibold text-zinc-900 dark:text-white flex items-center gap-1"><i class="fa-solid fa-star text-amber-500 text-[11px]"></i> 4.9/5</span><span class="text-zinc-500">ortalama memnuniyet</span></div>
+          <div class="market-benefits">
+            <div class="market-benefit"><span class="market-benefit-icon"><i class="fa-solid fa-book-open"></i></span><div><b>Geniş kitap koleksiyonu</b><small>Farklı konularda yeni eserler keşfet.</small></div></div>
+            <div class="market-benefit"><span class="market-benefit-icon"><i class="fa-solid fa-bolt"></i></span><div><b>Kolay ve hızlı erişim</b><small>Aradığın kitaba kolayca ulaş.</small></div></div>
+            <div class="market-benefit"><span class="market-benefit-icon"><i class="fa-solid fa-mobile-screen-button"></i></span><div><b>Tüm cihazlarda</b><small>Telefon, tablet ve bilgisayarında oku.</small></div></div>
+            <div class="market-benefit"><span class="market-benefit-icon"><i class="fa-solid fa-shield-halved"></i></span><div><b>Okur odaklı deneyim</b><small>Kitaplığını tek bir yerde düzenle.</small></div></div>
           </div>
         </div>
-
-        <div class="relative lg:h-[520px] flex items-center justify-center">
-          <div class="absolute -inset-8 bg-gradient-to-tr from-zinc-100 to-zinc-50 dark:from-zinc-900 dark:to-zinc-900 rounded-[36px] -z-10"></div>
-          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] bg-gradient-to-br from-zinc-200/40 to-transparent dark:from-zinc-700/20 rounded-full blur-3xl -z-10"></div>
-          <div class="relative hero-float">
-            <div class="absolute -inset-5 bg-white dark:bg-zinc-900 rounded-[32px] shadow-[0_20px_60px_-16px_rgba(0,0,0,.25)] border border-zinc-200/60 dark:border-zinc-800 rotate-[-2deg] -z-10"></div>
-            <div class="w-[340px] sm:w-[400px] aspect-square rounded-[28px] overflow-hidden bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-[0_24px_48px_-16px_rgba(0,0,0,.4)]">
-              <img src="1792945068177.jpg" alt="Dijital Kitapçı" class="w-full h-full object-cover">
-            </div>
-            <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 px-6 py-2 rounded-full text-[11px] font-bold tracking-[0.14em] uppercase shadow-lg whitespace-nowrap">DİJİTAL KİTAPÇI</div>
+        <div class="market-device-stage" aria-label="Dijital kitap deposu masaüstü ve telefon görünümü">
+          <div class="market-laptop">
+            <div class="market-laptop-screen">
+              <div class="market-app-top"><div class="market-mini-brand"><i class="fa-solid fa-book-open"></i> DİJİTAL <b>KİTAP DEPOSU</b></div><span class="market-login-label">Giriş Yap</span><i class="fa-solid fa-cart-shopping"></i></div>
+              <div class="market-searchbar"><span>Kitap, yazar veya kategori ara...</span><i class="fa-solid fa-magnifying-glass"></i></div>
+              <div class="market-screen-hero"><div><small>OKUMANIN YENİ ADRESİ</small><h3>Her kitap<br>yeni bir dünya</h3><p>Yeni fikirler keşfet, hayal gücünü büyüt.</p><a href="#kitaplarBolumu">Kitapları keşfet <i class="fa-solid fa-arrow-right"></i></a></div><div class="market-book-art"><div class="market-book book-a"></div><div class="market-book book-b"></div><div class="market-book book-c"></div><i class="fa-solid fa-book-open"></i></div></div>
+              <div class="market-screen-bottom"><b>Popüler kategoriler</b><div class="market-category-row"><span><i class="fa-solid fa-feather-pointed"></i> Roman</span><span><i class="fa-solid fa-brain"></i> Kişisel Gelişim</span><span><i class="fa-solid fa-landmark"></i> Tarih</span><span><i class="fa-solid fa-flask"></i> Bilim</span><span><i class="fa-solid fa-book"></i> Edebiyat</span></div></div>
+            </div><div class="market-laptop-base"></div>
           </div>
+          <div class="market-phone"><div class="market-phone-notch"></div><div class="market-phone-head"><i class="fa-solid fa-bars"></i><b><i class="fa-solid fa-book-open"></i> KİTAP DEPOSU</b><i class="fa-solid fa-magnifying-glass"></i></div><div class="market-phone-art"><span>OKUMAYA BAŞLA</span><h3>Her kitap<br>yeni bir dünya</h3><div class="market-phone-books"><i class="fa-solid fa-book-open"></i></div></div><div class="market-phone-cards"><span><i class="fa-solid fa-book"></i><b>Roman</b></span><span><i class="fa-solid fa-lightbulb"></i><b>Gelişim</b></span></div></div>
+          <div class="market-floating-note"><i class="fa-solid fa-bookmark"></i><span><b>Okuma keyfi</b><small>Her an, her yerde</small></span></div>
         </div>
       </div>
+      <div class="market-url-line"><i class="fa-solid fa-globe"></i> www.marketim3000.online</div>
     </div>
   </section>
 
