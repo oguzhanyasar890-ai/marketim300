@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr" class="dark scroll-smooth">
+<html lang="tr" class="light scroll-smooth">
 <head>
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18534958430"></script>
@@ -13,7 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ebook Store | Dijital Kitap Mağazası</title>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#18181b"/>
+  <meta name="theme-color" content="#fcfcfc"/>
   <meta name="description" content="Ebook Store’da dijital kitapları keşfet, çevrim içi oku, sesli dinle ve desteklenen formatlarda indir. Yeni kitapları ve koleksiyonları keşfet.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://www.marketim3000.online/">
@@ -965,12 +965,12 @@ function saveReadingProgress() {
   }
 }
 
-// === YALNIZCA KARANLIK TEMA ===
-// Tema seçici kaldırıldı; eski kullanıcı tercihi ne olursa olsun site karanlık açılır.
+// === YALNIZCA AYDINLIK TEMA ===
+// Tema seçici kaldırıldı; site her zaman aydınlık görünümde açılır.
 const html = document.documentElement;
-html.classList.add('dark');
-html.classList.remove('light');
-try { localStorage.setItem('theme_red_white', 'dark'); } catch (e) {}
+html.classList.add('light');
+html.classList.remove('dark');
+try { localStorage.setItem('theme_red_white', 'light'); } catch (e) {}
 
 window.openQRModal = () => { document.getElementById('qrModal').classList.add('modal-active'); };
 window.closeQRModal = () => { document.getElementById('qrModal').classList.remove('modal-active'); };
