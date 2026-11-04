@@ -1,0 +1,24 @@
+[
+  {
+    "id": "sql_2",
+    "baslik": "Sıfırdan Bütçe Yönetimi ve Finansal Özgürlük Rehberi",
+    "yazar": "Oğuzhan Yaşar",
+    "kategori": "Finans",
+    "dosyaAdi": "butce-yonetimi.pdf",
+    "kapakUrl": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800",
+    "aciklama": "Gelir-gider dengesi kurma, birikim ve finansal özgürlüğe ulaşma kılavuzu.",
+    "fiyat": 129.9,
+    "indirmeSayisi": 8
+  },
+  {
+    "id": "sql_1",
+    "baslik": "Sıfırdan Yapay Zeka Kullanım Rehberi",
+    "yazar": "Oğuzhan Yaşar",
+    "kategori": "Teknoloji",
+    "dosyaAdi": "yapay-zeka.pdf",
+    "kapakUrl": "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800",
+    "aciklama": "Adım adım yapay zeka araçlarını ve etkili komut yazma tekniklerini öğrenin.",
+    "fiyat": 149.9,
+    "indirmeSayisi": 12
+  }
+]
