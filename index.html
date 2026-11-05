@@ -1,0 +1,2315 @@
+<!DOCTYPE html>
+<html lang="tr" class="light scroll-smooth">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18534958430"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18534958430');
+</script>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ebook Store | Dijital Kitap Mağazası</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ffffff"/>
+  <meta name="description" content="Ebook Store’da dijital kitapları keşfet, çevrim içi oku, sesli dinle ve desteklenen formatlarda indir. Yeni kitapları ve koleksiyonları keşfet.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://www.marketim3000.online/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:site_name" content="Ebook Store">
+  <meta property="og:title" content="Ebook Store | Dijital Kitap Mağazası">
+  <meta property="og:description" content="Dijital kitapları keşfet, çevrim içi oku, sesli dinle ve yeni koleksiyonlara göz at.">
+  <meta property="og:url" content="https://www.marketim3000.online/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Ebook Store | Dijital Kitap Mağazası">
+  <meta name="twitter:description" content="Dijital kitapları keşfet, çevrim içi oku ve sesli dinle.">
+  <link rel="icon" href="1792945068177.jpg" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.2/dist/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { 
+        extend: { 
+          fontFamily: { sans: ['Inter','sans-serif'], serif: ['Fraunces','serif'], display: ['Instrument Serif','serif'] }, 
+          colors: { brand: { 50:'#fff1f2',100:'#ffe4e6',500:'#e11d48',600:'#be123c',700:'#9f1239',900:'#881337' } } 
+        } 
+      }
+    }
+  </script>
+  <style>
+    *{ -webkit-font-smoothing:antialiased }
+    body{ background:#fcfcfc; color:#18181b; transition: background-color .3s, color .3s }
+    html.dark body{ background:#09090b; color:#fafafa }
+    .glass-nav{ background:rgba(255,255,255,.8); backdrop-filter:blur(20px) saturate(180%); border-bottom:1px solid rgba(0,0,0,.06) }
+    html.dark .glass-nav{ background:rgba(9,9,11,.8); border-bottom:1px solid rgba(255,255,255,.08) }
+    .surface-card{ background:#ffffff; border:1px solid rgba(0,0,0,.06); box-shadow:0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.03) }
+    html.dark .surface-card{ background:#18181b; border:1px solid rgba(255,255,255,.08) }
+    .hero-grid{ background-image: linear-gradient(rgba(0,0,0,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.03) 1px, transparent 1px); background-size:32px 32px }
+    html.dark .hero-grid{ background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px) }
+    .text-balance{ text-wrap:balance }
+    .book-cover-shadow{ box-shadow:0 8px 20px -6px rgba(0,0,0,.25) }
+    .modal-active{ display:flex !important; animation:fadeIn .22s cubic-bezier(.2,.8,.2,1) forwards }
+    @keyframes fadeIn{ from{opacity:0; transform:translateY(8px) scale(.98)} to{opacity:1; transform:translateY(0) scale(1)} }
+    .loader{ border:2px solid #e4e4e7; border-top:2px solid #18181b; border-radius:50%; width:22px; height:22px; animation:spin .7s linear infinite }
+    @keyframes spin{ to{transform:rotate(360deg)} }
+    .scrollbar-hide::-webkit-scrollbar{ display:none }
+    #bookDetailModal,#adminModal,#authModal,#profileModal,#readerModal,#qrModal,#submissionModal,#purchaseModal{ display:none }
+    #viewer{ width:100%; height:100% }
+    .epub-container{ height:100% !important }
+    .reader-theme-sepia{ background:#fdf6e3 !important; color:#3b2f2f !important }
+    .reader-theme-dark{ background:#09090b !important; color:#fafafa !important }
+    .reader-theme-light{ background:#ffffff !important; color:#18181b !important }
+    .pdf-page-canvas{ max-width:100%; height:auto !important; margin:0 auto 1.25rem auto; display:block; border-radius:12px; box-shadow:0 10px 25px -5px rgba(0,0,0,.15) }
+    @keyframes slideUp{ from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:translateY(0)} }
+    .chat-open{ display:flex !important; animation:slideUp .25s ease-out forwards }
+    .tts-highlight{ background:#fde047; color:#000; border-radius:4px; padding:0 3px }
+    html.dark .tts-highlight{ background:#facc15 }
+    .locked-book, .priced-book{ position:relative }
+    .locked-book::after, .priced-book::after{ display:none !important; content:none !important }
+    .cat-pill{ transition:all .2s cubic-bezier(.2,.8,.2,1) }
+    .cat-pill.active{ background:#18181b; color:#fff; border-color:#18181b }
+    html.dark .cat-pill.active{ background:#fafafa; color:#09090b; border-color:#fafafa }
+    #premiumModal{ display:none }
+    .rt-btn{ width:44px; height:44px; border-radius:9999px; background:#18181b; color:#fff; border:1px solid rgba(255,255,255,.25); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px -4px rgba(0,0,0,.4) }
+    .hl{ border-radius:3px; padding:0 1px; color:inherit }
+    .hl-sari{ background:#fde68a } .hl-yesil{ background:#bbf7d0 } .hl-pembe{ background:#fbcfe8 }
+    .reader-theme-dark .hl-sari{ background:rgba(250,204,21,.35) } .reader-theme-dark .hl-yesil{ background:rgba(74,222,128,.3) } .reader-theme-dark .hl-pembe{ background:rgba(244,114,182,.3) }
+    .hl-note{ border-bottom:2px dotted #b45309; cursor:help }
+    #previewBar.preview-end{ background:#b45309 }
+    /* ===== GÖRSEL YÜKSELTME ===== */
+    @keyframes floaty{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(36px,-28px,0) scale(1.1)}}
+    @keyframes shine{to{background-position:200% center}}
+    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+    .aurora{position:absolute;border-radius:9999px;filter:blur(72px);opacity:.5;animation:floaty 14s ease-in-out infinite;pointer-events:none}
+    .aurora-1{width:520px;height:520px;left:-140px;top:-160px;background:radial-gradient(circle,#fbbf24,transparent 65%)}
+    .aurora-2{width:560px;height:560px;right:-170px;top:-70px;background:radial-gradient(circle,#818cf8,transparent 65%);animation-delay:-5s}
+    .aurora-3{width:460px;height:460px;left:38%;bottom:-240px;background:radial-gradient(circle,#fb7185,transparent 65%);animation-delay:-9s}
+    .dark .aurora{opacity:.26}
+    .grad-text{background:linear-gradient(100deg,#f59e0b,#e11d48 45%,#6366f1 80%,#f59e0b);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic;font-weight:400;animation:shine 7s linear infinite}
+    .cta-glow{background:linear-gradient(100deg,#18181b,#3f3f46)!important;box-shadow:0 12px 32px -10px rgba(225,29,72,.6),inset 0 1px 0 rgba(255,255,255,.18)}
+    .dark .cta-glow{background:linear-gradient(100deg,#fff,#e4e4e7)!important;color:#18181b!important}
+    .cta-glow:hover{transform:translateY(-2px)}
+    .hero-float{animation:bob 6s ease-in-out infinite}
+    .glass-nav{border-bottom:1px solid transparent!important;border-image:linear-gradient(90deg,transparent,#f59e0b,#e11d48,#6366f1,transparent) 1}
+    .feat-card{backdrop-filter:blur(12px);transition:transform .3s,box-shadow .3s}
+    .feat-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px -18px rgba(99,102,241,.4)}
+    #bookGrid article{animation:rise .6s cubic-bezier(.2,.8,.2,1) both;transition:transform .35s,box-shadow .35s,border-color .35s}
+    #bookGrid article:nth-child(4n+2){animation-delay:.06s} #bookGrid article:nth-child(4n+3){animation-delay:.12s} #bookGrid article:nth-child(4n+4){animation-delay:.18s}
+    #bookGrid article:hover{transform:translateY(-6px);box-shadow:0 26px 50px -20px rgba(99,102,241,.4);border-color:rgba(129,140,248,.6)}
+    .cart-add{transition:transform .2s,background .2s} .cart-add:hover{transform:scale(1.08);background:#e11d48;color:#fff}
+    #cartModal{display:none}
+    @media (prefers-reduced-motion:reduce){.aurora,.grad-text,.hero-float,#bookGrid article{animation:none!important}}
+
+    /* ===== MARKETİM3000 / ALTIN-LACİVERT KİTAP DEPOSU TASARIMI ===== */
+    :root{--book-gold:#f4c653;--book-gold-light:#ffe08a;--book-navy:#061323;--book-ink:#07111f}
+    body{background:#f7f5ef;color:#172033}
+    html.dark body{background:#070d16;color:#f8fafc}
+    .glass-nav{background:rgba(5,15,29,.94)!important;color:#fff;border-bottom:1px solid rgba(244,198,83,.35)!important;backdrop-filter:blur(18px)}
+    .glass-nav h1,.glass-nav .text-zinc-900,.glass-nav .dark\:text-zinc-100{color:#fff!important}
+    .glass-nav .text-zinc-500{color:#c5cbd4!important}
+    .glass-nav nav{background:#101d2c!important;border-color:rgba(244,198,83,.18)!important}
+    .glass-nav nav a{color:#e5e7eb!important}
+    .glass-nav nav a:hover,.glass-nav nav a.bg-white{background:#f4c653!important;color:#081323!important}
+    .market-hero{isolation:isolate;background:radial-gradient(ellipse at 80% 15%,rgba(185,115,30,.22),transparent 35%),linear-gradient(120deg,#030912 0%,#071526 56%,#111b25 100%);color:#fff;border-bottom:1px solid rgba(244,198,83,.45);}
+    .market-hero:before{content:"";position:absolute;inset:0;opacity:.18;background-image:linear-gradient(90deg,transparent 0 9%,rgba(255,255,255,.1) 9.2%,transparent 9.5%),linear-gradient(0deg,transparent 0 92%,rgba(255,255,255,.1) 92.3%,transparent 92.5%);background-size:160px 100%,100% 110px;pointer-events:none}
+    .market-hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,8,16,.2),transparent 60%),radial-gradient(ellipse at bottom,rgba(125,69,26,.18),transparent 55%);z-index:-1}
+    .market-hero-glow{position:absolute;border-radius:50%;filter:blur(75px);pointer-events:none;opacity:.22}
+    .market-glow-one{width:340px;height:340px;background:#d69b2b;right:8%;top:10%}.market-glow-two{width:260px;height:260px;background:#1c5480;left:20%;bottom:0}
+    .market-brandline{display:flex;align-items:center;justify-content:center;gap:18px;margin:0 auto 44px;text-align:left}
+    .market-brand-icon{font-size:60px;line-height:1;color:var(--book-gold);filter:drop-shadow(0 8px 16px #0008)}
+    .market-brand-name{font-size:clamp(24px,3.4vw,43px);font-weight:800;letter-spacing:-.04em;line-height:1.1;color:#f8fafc}.market-brand-name span{color:var(--book-gold)}
+    .market-brand-tag{display:flex;align-items:center;justify-content:center;gap:13px;margin-top:8px;color:#e3e5e8;font-size:clamp(12px,1.5vw,17px);letter-spacing:.02em}.market-brand-tag span{width:38px;height:1px;background:var(--book-gold)}
+    .market-hero-grid{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);align-items:center;gap:34px}
+    .market-copy{padding:10px 0 20px;max-width:570px}.market-eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 13px;border:1px solid rgba(244,198,83,.35);border-radius:99px;background:rgba(244,198,83,.08);color:#ffe4a0;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+    .market-live-dot{width:7px;height:7px;border-radius:50%;background:#f4c653;box-shadow:0 0 12px #f4c653}
+    .market-copy h2{font-family:'Fraunces',Georgia,serif;font-size:clamp(39px,4.3vw,64px);font-weight:800;line-height:.99;letter-spacing:-.04em;margin:23px 0 0;color:#fff}
+    .market-copy h2 em{display:inline-block;color:var(--book-gold);font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:1.08em;letter-spacing:-.025em;margin-top:7px;text-shadow:0 4px 25px #e5a72c20}
+    .market-intro{max-width:460px;margin-top:22px;color:#d2d8e1;font-size:15px;line-height:1.8}
+    .market-hero-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:27px}
+    .market-primary-cta,.market-secondary-cta{display:inline-flex;align-items:center;justify-content:center;gap:11px;min-height:47px;padding:0 20px;border-radius:999px;font-size:13px;font-weight:800;transition:transform .2s,box-shadow .2s}
+    .market-primary-cta{background:linear-gradient(135deg,#ffe28c,#eab536);color:#111827;box-shadow:0 10px 28px #d79b2b30}.market-primary-cta:hover,.market-secondary-cta:hover{transform:translateY(-2px)}
+    .market-secondary-cta{border:1px solid rgba(244,198,83,.5);background:rgba(255,255,255,.04);color:#ffe08a}
+    .market-benefits{display:grid;grid-template-columns:1fr 1fr;gap:20px 16px;margin-top:35px}
+    .market-benefit{display:flex;align-items:center;gap:12px;min-width:0}.market-benefit-icon{flex:0 0 46px;width:46px;height:46px;border:1.5px solid var(--book-gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--book-gold);font-size:19px}
+    .market-benefit b{display:block;font-size:12.5px;color:#fff;line-height:1.35}.market-benefit small{display:block;color:#c4cbd5;font-size:11px;line-height:1.5;margin-top:3px}
+    .market-device-stage{position:relative;min-height:480px;display:flex;align-items:center;justify-content:center;padding:20px 0 35px}
+    .market-laptop{position:relative;width:min(100%,620px);transform:perspective(1100px) rotateY(-5deg) rotateX(2deg);filter:drop-shadow(0 25px 24px #0008)}
+    .market-laptop-screen{border:8px solid #111923;border-bottom-width:12px;border-radius:20px 20px 7px 7px;background:#f7f6f1;overflow:hidden;box-shadow:inset 0 0 0 1px #58616a;min-height:360px;color:#102033}
+    .market-app-top{height:42px;display:flex;align-items:center;gap:15px;padding:0 17px;background:#071526;color:white;font-size:10px}.market-mini-brand{display:flex;align-items:center;gap:6px;margin-right:auto;font-size:10px;font-weight:700;white-space:nowrap}.market-mini-brand i{color:var(--book-gold);font-size:18px}.market-mini-brand b{color:var(--book-gold)}.market-login-label{border:1px solid #d9b85c;border-radius:5px;padding:5px 12px}.market-app-top>i{font-size:14px}
+    .market-searchbar{height:35px;margin:10px 15px;border-radius:30px;background:#fff;border:1px solid #dce1e6;display:flex;align-items:center;justify-content:space-between;padding:0 13px;color:#6b7280;font-size:10px;box-shadow:0 3px 9px #0b172015}
+    .market-screen-hero{position:relative;display:flex;justify-content:space-between;align-items:center;min-height:190px;padding:24px 22px;background:linear-gradient(110deg,#061526 0%,#0c2940 57%,#183f4a 100%);color:white;overflow:hidden}
+    .market-screen-hero:after{content:"";position:absolute;width:200px;height:200px;right:-35px;top:-70px;border-radius:50%;background:radial-gradient(circle,#e0b75a55,transparent 68%)}
+    .market-screen-hero>div:first-child{position:relative;z-index:1}.market-screen-hero small{font-size:7px;letter-spacing:.16em;color:#f4cd6b}.market-screen-hero h3{font-family:'Fraunces',Georgia,serif;font-size:clamp(19px,2.4vw,30px);font-weight:700;line-height:1.05;margin:8px 0}.market-screen-hero p{font-size:9px;color:#d1dbe4;max-width:180px}.market-screen-hero a{display:inline-flex;gap:8px;align-items:center;margin-top:12px;border-radius:20px;background:#f4c653;color:#111827;padding:7px 12px;font-size:9px;font-weight:800}
+    .market-book-art{position:relative;z-index:1;width:140px;height:120px;align-self:flex-end}.market-book{position:absolute;right:10px;bottom:7px;width:100px;height:24px;border:1px solid #d8b765;border-radius:2px;background:linear-gradient(#a46c36,#57391f);box-shadow:0 5px 8px #0007}.market-book:after{content:"";position:absolute;left:8px;right:8px;top:5px;height:1px;background:#f4dca0}.book-a{transform:rotate(-7deg);bottom:62px;background:linear-gradient(#d5b56c,#7b4b26)}.book-b{transform:rotate(5deg);bottom:36px;background:linear-gradient(#274e58,#102b36)}.book-c{transform:rotate(-2deg);bottom:10px}.market-book-art>i{position:absolute;right:8px;top:0;font-size:38px;color:#f4c653;filter:drop-shadow(0 4px 5px #0008)}
+    .market-screen-bottom{padding:14px 15px 17px;background:#f8f7f2}.market-screen-bottom>b{font-size:11px;color:#182437}.market-category-row{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:9px}.market-category-row span{min-height:61px;padding:8px 4px;border:1px solid #e1e4e8;border-radius:8px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:8px;text-align:center;color:#27384b}.market-category-row i{font-size:17px;color:#b88b23}
+    .market-laptop-base{height:13px;width:110%;margin-left:-5%;background:linear-gradient(#d2d5d9,#6d747d 45%,#222b34 80%);border-radius:2px 2px 18px 18px;box-shadow:0 10px 15px #0006}.market-laptop-base:after{content:"";display:block;width:24%;height:4px;margin:auto;background:#515b65;border-radius:0 0 8px 8px}
+    .market-phone{position:absolute;z-index:3;left:-1%;bottom:0;width:155px;height:300px;padding:12px 7px 9px;border:4px solid #151a21;border-radius:27px;background:#f8f7f2;box-shadow:0 18px 35px #0009;transform:rotate(-4deg);color:#122033;overflow:hidden}.market-phone-notch{position:absolute;top:4px;left:50%;transform:translateX(-50%);width:50px;height:9px;border-radius:0 0 9px 9px;background:#151a21}.market-phone-head{height:29px;display:flex;align-items:center;justify-content:space-between;font-size:8px}.market-phone-head b{font-size:7px}.market-phone-head b i{color:#c29528}.market-phone-art{padding:16px 10px;height:170px;background:linear-gradient(150deg,#071526,#174454);color:white;border-radius:7px}.market-phone-art>span{font-size:6px;letter-spacing:.12em;color:#f4c653}.market-phone-art h3{font-family:'Fraunces',Georgia,serif;font-size:19px;line-height:1.05;margin-top:9px}.market-phone-books{margin-top:15px;text-align:right;color:#f4c653;font-size:38px}.market-phone-cards{display:flex;gap:6px;margin-top:8px}.market-phone-cards span{display:flex;flex:1;align-items:center;justify-content:center;flex-direction:column;gap:5px;border:1px solid #e4e6e9;border-radius:6px;padding:8px 2px;font-size:7px}.market-phone-cards i{color:#bb9028;font-size:14px}
+    .market-floating-note{position:absolute;right:-4px;bottom:25px;z-index:4;display:flex;align-items:center;gap:10px;padding:12px 15px;border:1px solid #ffffff2b;border-radius:13px;background:rgba(5,17,31,.9);box-shadow:0 12px 25px #0005;backdrop-filter:blur(12px);color:#f4c653}.market-floating-note>i{font-size:22px}.market-floating-note b,.market-floating-note small{display:block}.market-floating-note b{font-size:11px;color:white}.market-floating-note small{font-size:9px;color:#cbd5e1;margin-top:3px}.market-url-line{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:30px;color:#fff;font-size:clamp(17px,2.2vw,26px);font-weight:700;letter-spacing:.01em}.market-url-line i{color:var(--book-gold)}
+    .feat-card{background:#fffdf8!important;border-color:#eadfc5!important}.feat-card .text-\[13\.5px\]{color:#142136}.feat-card .text-zinc-500{color:#667085}.feat-card:hover{box-shadow:0 20px 40px -18px rgba(157,117,28,.25)!important}
+    .cta-glow{background:linear-gradient(100deg,#ffe08a,#eab536)!important;color:#111827!important;box-shadow:0 12px 32px -10px rgba(196,145,32,.42),inset 0 1px 0 rgba(255,255,255,.35)!important}
+    #bookGrid article:hover{box-shadow:0 22px 42px -20px rgba(157,117,28,.3)!important;border-color:rgba(210,166,63,.6)!important}
+    @media(max-width:900px){.market-hero-grid{grid-template-columns:1fr;gap:12px}.market-copy{max-width:760px}.market-device-stage{min-height:430px;margin-top:5px}.market-laptop{width:min(100%,650px);margin-left:50px}.market-phone{left:0}.market-benefits{max-width:680px}.market-brandline{margin-bottom:28px}}
+    @media(max-width:560px){.market-brandline{gap:10px;margin-bottom:28px}.market-brand-icon{font-size:40px}.market-brand-tag{font-size:11px;gap:7px}.market-brand-tag span{width:22px}.market-copy h2{font-size:42px}.market-intro{font-size:13px;line-height:1.75}.market-benefits{grid-template-columns:1fr;gap:14px;margin-top:28px}.market-benefit-icon{width:40px;height:40px;flex-basis:40px;font-size:16px}.market-device-stage{min-height:330px;margin:0 -10px;padding:10px 0 28px}.market-laptop{width:calc(100% - 28px);margin-left:30px;transform:none}.market-laptop-screen{border-width:5px;border-bottom-width:8px;border-radius:12px 12px 4px 4px;min-height:0}.market-app-top{height:30px;padding:0 8px;gap:7px}.market-mini-brand{font-size:7px;gap:4px}.market-mini-brand i{font-size:13px}.market-login-label{font-size:7px;padding:4px 6px}.market-searchbar{height:27px;margin:7px 8px;font-size:7px}.market-screen-hero{min-height:128px;padding:13px 12px}.market-screen-hero h3{font-size:18px}.market-screen-hero p{font-size:7px;max-width:120px}.market-screen-hero a{font-size:7px;padding:5px 7px;margin-top:7px}.market-book-art{transform:scale(.65);transform-origin:right bottom;margin-left:-35px}.market-screen-bottom{padding:8px}.market-screen-bottom>b{font-size:8px}.market-category-row{gap:4px;margin-top:6px}.market-category-row span{min-height:43px;font-size:6px;padding:4px 1px}.market-category-row i{font-size:12px}.market-laptop-base{height:8px}.market-phone{width:100px;height:200px;border-width:3px;border-radius:18px;padding:8px 5px 5px;left:-1%;bottom:0}.market-phone-notch{width:32px;height:6px;top:2px}.market-phone-head{height:22px;font-size:6px}.market-phone-head b{font-size:5px}.market-phone-art{height:112px;padding:10px 7px}.market-phone-art>span{font-size:4px}.market-phone-art h3{font-size:13px;margin-top:6px}.market-phone-books{font-size:24px;margin-top:8px}.market-phone-cards{gap:3px;margin-top:5px}.market-phone-cards span{font-size:5px;padding:5px 1px;gap:3px}.market-phone-cards i{font-size:10px}.market-floating-note{right:0;bottom:14px;padding:8px 9px;gap:6px}.market-floating-note>i{font-size:15px}.market-floating-note b{font-size:8px}.market-floating-note small{font-size:7px}.market-url-line{margin-top:20px;font-size:16px}}
+
+  
+  /* MARKETIM3000 LIGHT DESIGN OVERRIDES */
+  html,html.dark{color-scheme:light!important;background:#f8fafc!important}
+  html.dark body,body{background:#f8fafc!important;color:#172033!important}
+  html.dark .glass-nav,.glass-nav{background:rgba(255,255,255,.94)!important;border-bottom:1px solid #e5eaf1!important}
+  html.dark .surface-card,.surface-card{background:#fff!important;border-color:#e7ebf1!important;color:#172033!important}
+  .m3000-hero{position:relative;overflow:hidden;background:linear-gradient(115deg,#fff 0%,#f4f7fb 58%,#fff7ed 100%);border-bottom:1px solid #e8edf3;color:#172033}
+  .m3000-hero:before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;right:-160px;top:-250px;background:radial-gradient(circle,rgba(245,139,45,.16),transparent 68%);pointer-events:none}
+  .m3000-hero-inner{position:relative;z-index:1;max-width:1280px;margin:auto;padding:68px 32px 62px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:44px;min-height:430px}
+  .m3000-kicker{display:flex;align-items:center;gap:9px;font:700 11px Inter,sans-serif;letter-spacing:.15em;color:#64748b;text-transform:uppercase}
+  .m3000-kicker span{width:8px;height:8px;border-radius:50%;background:#f28a32;box-shadow:0 0 0 5px #ffeddc}
+  .m3000-hero h2{font:800 clamp(38px,5vw,64px)/1.06 Inter,sans-serif;letter-spacing:-.055em;color:#10243e;margin:22px 0 18px}
+  .m3000-hero h2 em{font-family:Georgia,serif;font-weight:500;color:#e87924}
+  .m3000-hero-copy>p{max-width:590px;font:400 15px/1.85 Inter,sans-serif;color:#64748b;margin:0}
+  .m3000-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:27px}
+  .m3000-primary,.m3000-secondary{min-height:47px;padding:0 19px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;gap:10px;font:700 13px Inter,sans-serif;text-decoration:none;transition:.2s}
+  .m3000-primary{background:#102b4e;color:#fff;box-shadow:0 8px 18px rgba(16,43,78,.15)}.m3000-primary:hover{background:#183d68;transform:translateY(-1px)}
+  .m3000-secondary{background:#fff;color:#18304e;border:1px solid #dce4ed;cursor:pointer}.m3000-secondary:hover{border-color:#f0a15d;color:#d96d1c}
+  .m3000-trust-row{display:flex;flex-wrap:wrap;gap:19px;margin-top:30px;color:#64748b;font:600 11px Inter,sans-serif}.m3000-trust-row span{display:flex;align-items:center;gap:7px}.m3000-trust-row i{color:#e87924}
+  .m3000-visual{height:330px;position:relative;display:flex;align-items:center;justify-content:center;isolation:isolate}
+  .m3000-orbit{position:absolute;width:290px;height:290px;border:1px solid #dce5ef;border-radius:50%;box-shadow:0 0 0 35px rgba(226,234,243,.35),0 0 0 70px rgba(226,234,243,.2)}
+  .m3000-book{position:absolute;width:145px;height:220px;border-radius:7px 14px 14px 7px;box-shadow:12px 18px 30px rgba(15,35,60,.2);padding:20px 15px;display:flex;flex-direction:column;justify-content:space-between;color:white;border-left:7px solid rgba(0,0,0,.12)}
+  .m3000-book small{font:700 8px Inter,sans-serif;letter-spacing:.16em;opacity:.8}.m3000-book b{font:700 21px/1.2 Georgia,serif}.m3000-book span{font:700 7px Inter,sans-serif;letter-spacing:.1em;opacity:.7}
+  .m3000-book.book-one{background:linear-gradient(145deg,#244a70,#10243e);transform:translate(-92px,13px) rotate(-13deg)}
+  .m3000-book.book-two{background:linear-gradient(145deg,#e99a4e,#bd5c25);transform:translate(5px,-8px) rotate(7deg);z-index:2}
+  .m3000-book.book-three{background:linear-gradient(145deg,#607c72,#304c43);transform:translate(100px,22px) rotate(15deg);z-index:1}
+  .m3000-note{position:absolute;z-index:4;bottom:4px;right:2%;display:flex;align-items:center;gap:11px;padding:12px 16px;background:rgba(255,255,255,.94);border:1px solid #e5eaf1;border-radius:14px;box-shadow:0 12px 30px rgba(16,35,60,.1);color:#e87924}.m3000-note span{display:flex;flex-direction:column;gap:3px}.m3000-note b{font:700 11px Inter,sans-serif;color:#18304e}.m3000-note small{font:400 10px Inter,sans-serif;color:#7b8796}
+  @media(max-width:760px){.m3000-hero-inner{grid-template-columns:1fr;padding:48px 22px 35px;gap:18px}.m3000-hero h2{font-size:43px}.m3000-visual{height:280px;transform:scale(.88);transform-origin:center top;margin-bottom:-24px}.m3000-trust-row{gap:12px}.m3000-trust-row span{font-size:10px}}
+  @media(max-width:390px){.m3000-hero h2{font-size:37px}.m3000-visual{transform:scale(.76);margin-left:-20px;margin-right:-20px;margin-bottom:-55px}.m3000-actions>*{width:100%}}
+
+</style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"Ebook Store","url":"https://www.marketim3000.online/","inLanguage":"tr-TR","description":"Dijital kitapları keşfetme, çevrim içi okuma ve sesli dinleme platformu."}
+  </script>
+</head>
+<body class="font-sans min-h-screen flex flex-col selection:bg-zinc-900 selection:text-white">
+  <a href="#kitaplarBolumu" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[2000] focus:rounded-full focus:bg-white focus:px-4 focus:py-3 focus:text-zinc-900 focus:shadow-lg">İçeriğe geç</a>
+  <!-- Top bar -->
+  <div class="h-8 bg-zinc-900 text-zinc-100 text-[11px] font-medium tracking-wide flex items-center justify-center gap-6 px-4">
+    <span class="hidden sm:flex items-center gap-2"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Canlı kütüphane — Anında erişim</span>
+    <span class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-[11px] opacity-70"></i> Güvenli ödeme · Hızlı teslimat</span>
+  </div>
+
+  <header class="glass-nav sticky top-0 z-40">
+    <div class="max-w-[1280px] mx-auto px-5 sm:px-8 h-[68px] flex items-center justify-between gap-6">
+      <a href="#" class="flex items-center gap-3.5 group">
+        <div class="w-10 h-10 rounded-[12px] bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center font-serif font-black text-[18px] tracking-tighter shadow-sm group-hover:scale-[1.02] transition">M</div>
+        <div class="leading-none">
+          <h1 class="font-serif font-bold text-[17px] tracking-tight text-zinc-900 dark:text-zinc-100">Ebook Store</h1>
+          <span class="text-[10px] font-semibold tracking-[0.14em] uppercase text-zinc-500">Ebook Store</span>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-1 p-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200/60 dark:border-zinc-700">
+        <a href="#vitrin" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition">Vitrin</a>
+        <a href="#kitaplarBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium bg-white dark:bg-zinc-900 shadow-sm border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white">Koleksiyon</a>
+        <a href="#sizdenGelenlerSection" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 transition">Topluluk</a>
+        <a href="#youtubeBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 transition">YouTube</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button id="cartBtn" onclick="openCart()" title="Sepetim" class="relative w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition"><i class="fa-solid fa-cart-shopping text-[13px]"></i><span id="cartBadge" class="hidden absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-600 text-white text-[10px] font-bold items-center justify-center">0</span></button>
+        <button id="premiumBtn" onclick="openPremiumModal()" class="h-9 px-3.5 rounded-full bg-amber-500 hover:bg-amber-600 text-zinc-950 text-[12.5px] font-semibold inline-flex items-center gap-1.5 transition"><i class="fa-solid fa-crown text-[11px]"></i><span id="premiumBtnText">Premium</span></button>
+        <button id="adminPanelBtn" onclick="openAdminModal()" style="display:none" class="hidden sm:flex h-9 px-3.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold items-center gap-1.5">
+          <i class="fa-solid fa-shield-halved text-[11px]"></i> Admin
+        </button>
+        <a href="E-Kitap.apk" download class="hidden md:flex h-9 px-3.5 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 text-[12.5px] font-semibold items-center gap-1.5 hover:bg-zinc-50 transition">
+          <i class="fa-brands fa-android"></i> Uygulama
+        </a>
+        <button id="googleLoginBtn" onclick="openAuthModal()" class="h-9 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold hover:bg-black dark:hover:bg-zinc-100 transition">Giriş Yap</button>
+        <div id="userProfileArea" style="display:none" class="h-9 items-center gap-2 pl-1 pr-3 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 cursor-pointer" onclick="openProfileModal()">
+          <img alt="Kullanıcı profil fotoğrafı" id="userAvatarImg" style="display:none" class="w-7 h-7 rounded-full object-cover">
+          <div id="userAvatarText" class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold text-[12px] flex items-center justify-center">U</div>
+          <span id="userNameDisplay" class="text-[12.5px] font-medium max-w-[80px] truncate">Okur</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- YENI LIGHT HERO -->
+  <section class="m3000-hero">
+    <div class="m3000-hero-inner">
+      <div class="m3000-hero-copy">
+        <div class="m3000-kicker"><span></span> EBOOK STORE · DİJİTAL KİTAP MAĞAZASI</div>
+        <h2>Yeni dünyalar<br><em>bir kitap uzağında.</em></h2>
+        <p>Sevdiğin kitapları keşfet, çevrim içi oku, desteklenen formatlarda indir ve sesli kitaplarla okuma deneyimini her yerde sürdür.</p>
+        <div class="m3000-actions">
+          <a href="#kitaplarBolumu" class="m3000-primary"><i class="fa-solid fa-book-open"></i> Kitapları keşfet <i class="fa-solid fa-arrow-right"></i></a>
+          <button onclick="openPremiumModal()" class="m3000-secondary"><i class="fa-solid fa-crown"></i> Premium üyelik</button>
+        </div>
+        <div class="m3000-trust-row"><span><i class="fa-solid fa-book"></i> Zengin koleksiyon</span><span><i class="fa-solid fa-headphones"></i> Sesli dinleme</span><span><i class="fa-solid fa-mobile-screen"></i> Her cihazda</span></div>
+      </div>
+      <div class="m3000-visual" aria-label="Dijital kitap koleksiyonu illüstrasyonu">
+        <div class="m3000-orbit"></div>
+        <div class="m3000-book book-one"><small>FİKİRLER</small><b>Yeni<br>Başlangıçlar</b><span>EBOOK STORE</span></div>
+        <div class="m3000-book book-two"><small>KEŞFET</small><b>Bilginin<br>Yolculuğu</b><span>DİJİTAL KÜTÜPHANE</span></div>
+        <div class="m3000-book book-three"><small>OKU · DİNLE</small><b>Her Sayfada<br>Yeni Bir Dünya</b><span>MARKETIM3000</span></div>
+        <div class="m3000-note"><i class="fa-solid fa-book-open"></i><span><b>Okuma keyfi</b><small>Her an, her yerde</small></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KOLEKSIYON -->
+  <main id="kitaplarBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-8 w-full">
+    <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-5 sm:p-6 mb-6">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+        <div class="flex items-start gap-3.5">
+          <div class="w-10 h-10 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-layer-group text-[14px]"></i></div>
+          <div>
+            <h2 id="listTitle" class="font-serif font-bold text-[22px] leading-none tracking-tight">Koleksiyon</h2>
+            <p class="text-[13px] text-zinc-500 mt-1.5">Satın al, oku, dinle ve indir — tüm arşiv burada.</p>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+          <div class="relative flex-1 sm:w-[300px]">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-[12px]"></i>
+            <input id="searchInput" aria-label="Kitap veya yazar ara" autocomplete="off" onkeyup="filterBooks()" placeholder="Kitap, yazar ara..." class="w-full h-10 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full pl-10 pr-4 text-[13px] focus:outline-none focus:ring-2 focus:ring-zinc-900/10">
+          </div>
+          <select id="sortSelect" aria-label="Kitapları sıralama ölçütü" onchange="renderBooks()" class="h-10 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-4 text-[13px] font-medium focus:outline-none">
+            <option value="newest">En yeni</option>
+            <option value="popular">En popüler</option>
+            <option value="az">A → Z</option>
+          </select>
+        </div>
+      </div>
+      <div class="mt-6 pt-5 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between gap-4">
+        <div id="categoryContainer" class="flex gap-2 overflow-x-auto scrollbar-hide"></div>
+        <span id="bookCount" aria-live="polite" class="flex-shrink-0 text-[11px] font-semibold px-3 py-1.5 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">0 eser</span>
+      </div>
+    </div>
+
+    <div id="loadingIndicator" class="flex flex-col items-center justify-center py-24">
+      <div class="loader mb-3"></div>
+      <p class="text-zinc-500 text-[13px] font-medium">Kütüphane yükleniyor...</p>
+    </div>
+    <div id="bookGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5"></div>
+  </main>
+
+  <!-- VITRIN -->
+  <section id="vitrin" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12 w-full">
+    <div class="flex items-end justify-between mb-6">
+      <div>
+        <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Vitrin</div>
+        <h3 class="mt-2 font-serif text-[28px] font-bold tracking-tight">Öne çıkanlar</h3>
+      </div>
+      <a href="#kitaplarBolumu" class="text-[13px] font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">Tümünü gör →</a>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-6">
+        <div class="flex items-center justify-between mb-5">
+          <h4 class="font-semibold text-[14px] flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center text-[11px]"><i class="fa-solid fa-fire"></i></span> En çok okunanlar</h4>
+          <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">Popüler</span>
+        </div>
+        <div id="popularBooks" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+      </div>
+      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-6">
+        <div class="flex items-center justify-between mb-5">
+          <h4 class="font-semibold text-[14px] flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-[11px]">✦</span> Yeni eklenenler</h4>
+          <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">Taze</span>
+        </div>
+        <div id="newBooks" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="youtubeBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-14 border-t border-zinc-200 dark:border-zinc-800 w-full">
+    <div class="flex justify-between items-end mb-8">
+      <div>
+        <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Video</div>
+        <h3 class="mt-2 font-serif text-[28px] font-bold tracking-tight flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-red-600 text-white flex items-center justify-center text-[14px]"><i class="fa-brands fa-youtube"></i></span> YouTube'da dinle</h3>
+      </div>
+      <a href="https://www.youtube.com/@yasaroguzhan890" target="_blank" class="h-9 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[13px] font-medium" rel="noopener noreferrer">Kanala git</a>
+    </div>
+    <div id="youtubeGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+  </section>
+
+  <section id="sizdenGelenlerSection" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-14 border-t border-zinc-200 dark:border-zinc-800 w-full">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-8">
+      <div>
+        <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Topluluk</div>
+        <h3 class="mt-2 font-serif text-[28px] font-bold tracking-tight">Sizden gelenler</h3>
+        <p class="text-[13px] text-zinc-500 mt-1">Okurlarımızın favori alıntıları ve mesajları.</p>
+      </div>
+      <button onclick="openSubmissionModal()" class="h-10 px-5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[13px] font-semibold">+ Paylaş</button>
+    </div>
+    <div id="sizdenGelenlerGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+  </section>
+
+  <!-- MODALLAR - Profesyonel -->
+  <div id="authModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur-[12px] p-4">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[420px] p-8 shadow-[0_20px_60px_-20px_rgba(0,0,0,.5)] border border-zinc-200 dark:border-zinc-800 relative">
+      <button onclick="document.getElementById('authModal').classList.remove('modal-active')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
+      <div class="text-center mb-6"><div class="w-12 h-12 mx-auto rounded-[14px] bg-zinc-900 text-white flex items-center justify-center font-serif font-black">M</div><h3 id="authTitle" class="mt-4 font-serif font-bold text-[22px]">Giriş yap</h3></div>
+      <form id="emailAuthForm" onsubmit="handleEmailAuth(event)" class="flex flex-col gap-3 mb-4">
+        <div id="nameField" style="display:none;"><input type="text" id="authNameInput" placeholder="Ad Soyad" class="w-full h-11 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-4 text-[13px]"></div>
+        <input type="email" id="authEmailInput" required placeholder="E-posta" class="w-full h-11 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-4 text-[13px]">
+        <input type="password" id="authPasswordInput" required placeholder="Şifre" class="w-full h-11 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-4 text-[13px]">
+        <button type="submit" id="authSubmitBtn" class="w-full h-11 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full font-semibold text-[13px] mt-2">Devam et</button>
+      </form>
+      <button onclick="loginWithGoogle()" class="w-full h-11 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full font-medium text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-google"></i> Google ile devam et</button>
+      <p class="text-center text-[12px] text-zinc-500 mt-6"><span id="authToggleText">Hesabın yok mu?</span><button onclick="toggleAuthMode()" id="authToggleBtn" class="font-semibold text-zinc-900 dark:text-white ml-1">Kayıt ol</button></p>
+    </div>
+  </div>
+
+  <div id="profileModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur-[12px] p-4">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[560px] overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-xl flex flex-col max-h-[88vh]">
+      <div class="p-6 flex items-center gap-4 border-b border-zinc-100 dark:border-zinc-800"><img alt="Profil fotoğrafı" id="profileImg" class="w-12 h-12 rounded-full object-cover hidden"><div id="profileImgText" class="w-12 h-12 rounded-full bg-zinc-900 text-white flex items-center justify-center font-bold">U</div><div><h2 id="profileName" class="font-semibold">Kullanıcı</h2><p id="profileEmail" class="text-[12px] text-zinc-500"></p></div><button onclick="document.getElementById('profileModal').classList.remove('modal-active')" class="ml-auto w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button></div>
+      <div class="flex overflow-x-auto scrollbar-hide border-b border-zinc-100 dark:border-zinc-800"><button onclick="switchProfileTab('downloads')" id="tabBtnDownloads" class="flex-1 py-3 text-[13px] font-semibold border-b-2 border-zinc-900 dark:border-white">İndirdiklerim</button><button onclick="switchProfileTab('myComments')" id="tabBtnMyComments" class="flex-1 py-3 text-[13px] font-medium text-zinc-500">Yorumlarım</button><button onclick="switchProfileTab('stats')" id="tabBtnStats" class="whitespace-nowrap px-3 flex-1 py-3 text-[13px] font-medium text-zinc-500">İstatistik</button><button onclick="switchProfileTab('notes')" id="tabBtnNotes" class="whitespace-nowrap px-3 flex-1 py-3 text-[13px] font-medium text-zinc-500">Notlarım</button></div>
+      <div class="p-6 overflow-y-auto flex-1"><div id="profileTabDownloads" class="space-y-3"></div><div id="profileTabMyComments" class="hidden space-y-3"></div><div id="profileTabStats" class="hidden space-y-4"></div><div id="profileTabNotes" class="hidden space-y-5"></div></div>
+    </div>
+  </div>
+
+  <div id="bookDetailModal" class="fixed inset-0 z-[999] items-center justify-center bg-zinc-950/60 backdrop-blur-[12px] p-4">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[900px] border border-zinc-200 dark:border-zinc-800 shadow-[0_20px_80px_-20px_rgba(0,0,0,.6)] overflow-hidden flex flex-col md:flex-row max-h-[90vh] relative">
+      <button onclick="closeBookModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
+      <div class="w-full md:w-[46%] p-7 border-b md:border-b-0 md:border-r border-zinc-100 dark:border-zinc-800 overflow-y-auto">
+        <div class="flex gap-5"><img alt="Seçilen kitabın kapak görseli" loading="lazy" id="modalCover" class="w-28 sm:w-32 aspect-[2/3] object-cover rounded-[12px] bg-zinc-100"><div><span id="modalCategory" class="text-[10px] font-semibold tracking-widest uppercase px-2.5 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"></span><span id="modalPriceBadge" class="ml-2 text-[10px] font-semibold px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border"></span><h3 id="modalTitle" class="mt-3 font-serif font-bold text-[22px] leading-tight"></h3><p id="modalAuthor" class="text-[13px] text-zinc-500 mt-1"></p></div></div>
+        <p id="modalDesc" class="mt-6 text-[13.5px] leading-6 text-zinc-600 dark:text-zinc-400"></p>
+        <div class="mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800">
+          <button id="modalBuyBtn" class="hidden w-full h-11 bg-emerald-600 text-white rounded-full font-semibold text-[13px]"><i class="fa-solid fa-cart-shopping mr-2"></i><span id="modalBuyBtnText">Satın Al</span></button>
+          <div id="modalReadDownloadRow" class="flex gap-2"><button id="modalReadBtn" class="flex-1 h-11 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full font-semibold text-[13px]"><i class="fa-solid fa-play mr-1.5"></i>Oku & Dinle</button><button id="modalDownloadBtn" class="flex-1 h-11 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full font-semibold text-[13px]"><i class="fa-solid fa-arrow-down mr-1.5"></i>İndir</button></div>
+        </div>
+      </div>
+      <div class="w-full md:w-[54%] flex flex-col bg-zinc-50/60 dark:bg-zinc-900/60">
+        <div class="p-5 border-b border-zinc-100 dark:border-zinc-800"><h4 class="font-semibold text-[13px]"><i class="fa-regular fa-comments mr-2"></i>Okur yorumları</h4></div>
+        <div id="modalCommentsList" class="flex-1 overflow-y-auto p-5 space-y-3"></div>
+        <div class="p-4 bg-white dark:bg-zinc-900 border-t border-zinc-100 dark:border-zinc-800"><form id="modalCommentForm" onsubmit="submitBookComment(event)" class="flex flex-col gap-2"><div class="flex gap-2"><input id="modalCommentName" required placeholder="Adınız" class="flex-1 h-9 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-3 text-[12px]"><select id="modalCommentRating" class="w-[110px] h-9 bg-zinc-50 dark:bg-zinc-800 border rounded-full px-2 text-[12px]"><option value="5">★★★★★</option><option value="4">★★★★</option><option value="3">★★★</option></select></div><textarea id="modalCommentMsg" required placeholder="Düşünceleriniz..." rows="2" class="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-[14px] px-3 py-2 text-[12px] resize-none"></textarea><button class="h-9 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full text-[12px] font-semibold">Gönder</button></form></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="readerModal" class="fixed inset-0 z-[2000] bg-white dark:bg-zinc-950 flex-col">
+    <div class="h-14 bg-zinc-900 dark:bg-zinc-900 text-white px-4 flex justify-between items-center">
+      <div class="flex items-center gap-3"><div class="w-7 h-7 rounded-[8px] bg-white text-zinc-900 flex items-center justify-center font-bold text-[13px]">M</div><h3 id="readerTitle" class="font-semibold text-[13px] max-w-[180px] truncate">Okunuyor</h3><span id="readerFormatBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white text-zinc-900">OKUYUCU</span><span id="ttsProgressText" class="hidden sm:inline text-[11px] text-zinc-400">Hazır</span></div>
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1 bg-zinc-800 rounded-full px-2 py-1">
+          <button id="ttsPlayBtn" onclick="toggleSpeech()" class="w-7 h-7 rounded-full bg-white text-zinc-900 flex items-center justify-center"><i id="ttsIcon" class="fa-solid fa-play text-[11px]"></i></button>
+          <button onclick="stopSpeech()" class="w-7 h-7 rounded-full hover:bg-zinc-700 flex items-center justify-center"><i class="fa-solid fa-stop text-[11px]"></i></button>
+          <button onclick="skipSentence(-1)" class="w-7 h-7 rounded-full hover:bg-zinc-700 flex items-center justify-center"><i class="fa-solid fa-backward text-[11px]"></i></button>
+          <button onclick="skipSentence(1)" class="w-7 h-7 rounded-full hover:bg-zinc-700 flex items-center justify-center"><i class="fa-solid fa-forward text-[11px]"></i></button>
+          <select id="ttsSpeed" onchange="changeSpeechSpeed(this.value)" class="bg-zinc-800 text-white text-[11px] rounded-full px-1"><option value="1">1x</option><option value="1.25">1.25x</option><option value="1.5">1.5x</option></select>
+        </div>
+        <div id="formatButtonsContainer" class="hidden gap-1 bg-zinc-800 rounded-full p-1"><button id="btnModeTxt" onclick="switchReaderFormat('txt')" class="hidden px-2.5 py-1 text-[11px] rounded-full">TXT</button><button id="btnModePdf" onclick="switchReaderFormat('pdf')" class="hidden px-2.5 py-1 text-[11px] rounded-full">PDF</button><button id="btnModeEpub" onclick="switchReaderFormat('epub')" class="hidden px-2.5 py-1 text-[11px] rounded-full">EPUB</button></div>
+        <div id="zoomAndFontControls" class="flex bg-zinc-800 rounded-full p-1"><button onclick="adjustReaderSize(-1)" class="px-2 py-1 text-[11px]">A-</button><button onclick="adjustReaderSize(1)" class="px-2 py-1 text-[11px]">A+</button></div>
+        <div id="themeControls" class="flex gap-1 bg-zinc-800 rounded-full p-1"><button onclick="setReaderTheme('light')" class="w-5 h-5 rounded-full bg-white"></button><button onclick="setReaderTheme('sepia')" class="w-5 h-5 rounded-full bg-[#f4ecd8]"></button><button onclick="setReaderTheme('dark')" class="w-5 h-5 rounded-full bg-zinc-900 border border-zinc-600"></button></div>
+        <button onclick="closeReader()" class="h-8 px-3 rounded-full bg-zinc-800 hover:bg-zinc-700 text-[12px]">Kapat</button>
+      </div>
+    </div>
+    <div class="h-1 bg-zinc-100 dark:bg-zinc-800"><div id="readingProgressBar" class="h-full bg-zinc-900 dark:bg-white transition-all" style="width:0%"></div></div>
+    <div id="readerScrollContainer" onscroll="updateReadingProgress()" class="flex-1 overflow-y-auto reader-theme-light"><div id="viewer" class="min-h-full"></div></div>
+  </div>
+
+  <div id="adminModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4">
+    <div class="bg-white dark:bg-zinc-900 rounded-[24px] w-full max-w-4xl border border-zinc-200 dark:border-zinc-800 shadow-xl flex flex-col h-[90vh] overflow-hidden">
+      <div class="h-14 px-6 flex items-center justify-between bg-zinc-900 text-white"><h2 class="font-semibold text-[14px]"><i class="fa-solid fa-shield-halved mr-2"></i>Yönetici</h2><button onclick="document.getElementById('adminModal').classList.remove('modal-active')"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="flex border-b border-zinc-100 dark:border-zinc-800 overflow-x-auto scrollbar-hide">
+        <button onclick="switchAdminTab('books')" id="tabBtnBooks" class="px-5 py-3 text-[13px] font-semibold border-b-2 border-zinc-900">Kitaplar</button>
+        <button onclick="switchAdminTab('youtube')" id="tabBtnYoutube" class="px-5 py-3 text-[13px] font-medium text-zinc-500">YouTube</button>
+        <button onclick="switchAdminTab('categories')" id="tabBtnCategories" class="px-5 py-3 text-[13px] font-medium text-zinc-500">Kategoriler</button>
+        <button onclick="switchAdminTab('comments')" id="tabBtnComments" class="px-5 py-3 text-[13px] font-medium text-zinc-500">Yorumlar</button>
+        <button onclick="switchAdminTab('submissions')" id="tabBtnSubmissions" class="px-5 py-3 text-[13px] font-medium text-zinc-500">Gelenler</button>
+        <button onclick="switchAdminTab('orders')" id="tabBtnOrders" class="px-5 py-3 text-[13px] font-medium text-zinc-500">Siparişler</button>
+      </div>
+      <div class="p-6 overflow-y-auto flex-1">
+        <div id="adminTabBooks">
+          <form id="addBookForm" onsubmit="addNewBook(event)" class="bg-zinc-50 dark:bg-zinc-800 p-4 rounded-[16px] border grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+            <h3 class="col-span-full font-semibold text-[13px]">Yeni kitap ekle</h3>
+            <input id="newBookTitle" required placeholder="Kitap Adı" class="h-10 rounded-full border px-4 text-[13px]"><input id="newBookAuthor" required placeholder="Yazar" class="h-10 rounded-full border px-4 text-[13px]"><select id="newBookCategory" class="h-10 rounded-full border px-4 text-[13px]"></select><input id="newBookFile" required placeholder="Dosya adı (kitap.txt)" class="h-10 rounded-full border px-4 text-[13px]"><input id="newBookPrice" type="number" min="0" step="0.01" placeholder="Fiyat ₺ (boş=ücretsiz)" class="h-10 rounded-full border px-4 text-[13px]"><input id="newBookCover" required placeholder="Kapak URL" class="h-10 rounded-full border px-4 text-[13px] col-span-full"><textarea id="newBookDesc" required placeholder="Açıklama" rows="2" class="rounded-[16px] border p-3 text-[13px] col-span-full"></textarea><button class="col-span-full h-10 rounded-full bg-zinc-900 text-white font-semibold text-[13px]">Kaydet</button>
+          </form>
+          <div id="adminBookList" class="space-y-2"></div>
+        </div>
+        <div id="adminTabYoutube" class="hidden"><form id="addYoutubeForm" onsubmit="addYoutubeVideo(event)" class="grid gap-3 mb-6"><input id="ytTitle" required placeholder="Video Başlığı" class="h-10 rounded-full border px-4 text-[13px]"><input id="ytUrl" required placeholder="YouTube Linki" class="h-10 rounded-full border px-4 text-[13px]"><input id="ytDesc" placeholder="Açıklama" class="h-10 rounded-full border px-4 text-[13px]"><button class="h-10 rounded-full bg-red-600 text-white font-semibold text-[13px]">Ekle</button></form><div id="adminYoutubeList" class="space-y-2"></div></div>
+        <div id="adminTabCategories" class="hidden"><form id="addCategoryForm" onsubmit="addCategory(event)" class="flex gap-2 mb-4"><input id="newCategoryName" required placeholder="Kategori adı" class="flex-1 h-10 rounded-full border px-4 text-[13px]"><button class="h-10 px-5 rounded-full bg-zinc-900 text-white text-[13px]">Ekle</button></form><div id="adminCategoryList" class="space-y-2"></div></div>
+        <div id="adminTabComments" class="hidden"><div id="adminCommentList" class="space-y-3"></div></div>
+        <div id="adminTabSubmissions" class="hidden"><div id="adminSubmissionList" class="space-y-3"></div></div>
+        <div id="adminTabOrders" class="hidden"><div id="adminOrderList" class="space-y-3"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="purchaseModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[420px] p-7 border border-zinc-200 dark:border-zinc-800 shadow-xl relative">
+      <button onclick="closePurchaseModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
+      <div class="text-center mb-6"><div class="w-12 h-12 mx-auto rounded-[14px] bg-zinc-900 text-white flex items-center justify-center"><i class="fa-solid fa-cart-shopping"></i></div><h3 class="mt-4 font-bold text-[18px]">Satın al</h3><p id="purchaseBookTitle" class="text-[13px] text-zinc-500 mt-1"></p><p id="purchaseBookPrice" class="text-[28px] font-bold mt-2 tracking-tight"></p></div>
+      <div class="bg-zinc-50 dark:bg-zinc-800 rounded-[16px] p-4 border text-[13px] space-y-2"><p><b>Banka:</b> <span id="bankAdi"></span></p><p><b>Hesap:</b> <span id="bankHesapSahibi"></span></p><p class="flex justify-between"><span><b>IBAN:</b> <span id="bankIban"></span></span><button onclick="copyIban()" class="text-zinc-500"><i class="fa-regular fa-copy"></i></button></p></div>
+      <p class="text-[11px] text-zinc-500 mt-4 leading-5">Ödemeyi yaptıktan sonra dekontu WhatsApp ile gönderin. Onay sonrası erişiminiz açılacak.</p>
+      <button onclick="confirmPurchaseRequest()" class="w-full h-11 mt-5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-[16px]"></i> Ödemeyi yaptım, bildir</button>
+    </div>
+  </div>
+
+  <div id="qrModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4"><div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-sm p-8 border shadow-xl relative text-center"><button onclick="closeQRModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button><h3 class="font-bold text-[18px]">QR Kod</h3><p class="text-[12px] text-zinc-500 mt-1">Telefonla okut</p><div class="bg-white p-4 rounded-[16px] inline-block mt-6 border shadow-sm"><img alt="marketim3000.online adresine yönlendiren QR kodu" loading="lazy" width="192" height="192" src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https://www.marketim3000.online&color=24,24,27" class="w-48 h-48"></div></div></div>
+
+  <div id="submissionModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4"><div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-lg p-8 border shadow-xl relative"><button onclick="closeSubmissionModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button><h3 class="font-bold text-[20px]">Sizden gelenler</h3><p class="text-[12px] text-zinc-500 mt-1">Alıntınızı paylaşın</p><form id="submissionForm" onsubmit="submitSizdenGelen(event)" class="mt-6 grid gap-4"><div class="grid grid-cols-2 gap-3"><input id="subName" required placeholder="Adınız" class="h-11 rounded-full border px-4 text-[13px]"><select id="subType" class="h-11 rounded-full border px-4 text-[13px]"><option>Kitap Alıntısı</option><option>Kitap Tavsiyesi</option><option>Okur Mesajı</option></select></div><input id="subTopic" required placeholder="Başlık" class="h-11 rounded-full border px-4 text-[13px]"><textarea id="subMessage" required rows="4" placeholder="Mesajınız..." class="rounded-[16px] border p-4 text-[13px] resize-none"></textarea><button id="subSubmitBtn" class="h-11 rounded-full bg-zinc-900 text-white font-semibold text-[13px]">Gönder</button></form></div></div>
+
+  <div id="aiChatbot" class="fixed bottom-5 right-5 z-50 flex flex-col items-end">
+    <div id="chatWindow" style="display:none" class="w-[360px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[20px] shadow-[0_20px_60px_-20px_rgba(0,0,0,.4)] mb-4 overflow-hidden flex-col">
+      <div class="h-14 px-4 bg-zinc-900 text-white flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-white text-zinc-900 flex items-center justify-center font-bold text-[12px]">M</div><div><h4 class="text-[13px] font-semibold">Depo Asistanı</h4><span class="text-[10px] text-zinc-400 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Çevrimiçi</span></div></div><button onclick="toggleChat()" class="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[11px]"></i></button></div>
+      <div id="chatMessages" class="p-4 h-[280px] overflow-y-auto bg-zinc-50 dark:bg-zinc-800/50 flex flex-col gap-3 text-[13px]"></div>
+      <div class="p-3 bg-white dark:bg-zinc-900 border-t flex gap-2"><input id="chatInput" aria-label="Depo Asistanına mesaj yaz" placeholder="Bir soru sor..." class="flex-1 h-9 bg-zinc-100 dark:bg-zinc-800 rounded-full px-4 text-[13px] focus:outline-none" onkeypress="handleKeyPress(event)"><button onclick="sendMessage()" class="w-9 h-9 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-paper-plane text-[12px]"></i></button></div>
+    </div>
+    <button onclick="toggleChat()" class="w-14 h-14 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-[0_8px_24px_rgba(0,0,0,.2)] flex items-center justify-center hover:scale-[1.03] transition"><i class="fa-solid fa-comments"></i></button>
+  </div>
+
+  <a href="https://wa.me/905542026620?text=Merhaba%20E-Kitap%20Deposu%20Destek" target="_blank" id="whatsappSupport" class="fixed bottom-5 left-5 z-50 h-11 px-5 rounded-full bg-[#25D366] text-white shadow-lg flex items-center gap-2 font-semibold text-[13px] hover:scale-[1.02] transition" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp text-[18px]"></i> Destek</a>
+
+
+  <!-- SIK SORULAN SORULAR -->
+  <section id="sss" class="max-w-[1000px] mx-auto px-5 sm:px-8 py-12 w-full" aria-labelledby="sssBaslik">
+    <div class="max-w-2xl mb-6">
+      <p class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Yardım merkezi</p>
+      <h2 id="sssBaslik" class="mt-2 font-serif text-[28px] font-bold tracking-tight">Sık sorulan sorular</h2>
+      <p class="mt-2 text-[13px] leading-6 text-zinc-500">Kitapları keşfetme, okuma ve satın alma süreci hakkında kısa yanıtlar.</p>
+    </div>
+    <div class="space-y-3">
+      <details class="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
+        <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[14px]">Kitapları nasıl keşfedebilirim?<i class="fa-solid fa-chevron-down text-xs text-zinc-400 transition-transform group-open:rotate-180"></i></summary>
+        <p class="mt-3 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Koleksiyon bölümündeki arama alanını, kategori filtrelerini ve sıralama seçeneklerini kullanarak kitapları bulabilirsin.</p>
+      </details>
+      <details class="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
+        <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[14px]">Ücretsiz kitapları okuyabilir miyim?<i class="fa-solid fa-chevron-down text-xs text-zinc-400 transition-transform group-open:rotate-180"></i></summary>
+        <p class="mt-3 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Kitap kartında ücretsiz olarak belirtilen eserler için kitap detayındaki okuma ve indirme seçeneklerini kontrol edebilirsin. Bazı özellikler oturum açmanı gerektirebilir.</p>
+      </details>
+      <details class="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
+        <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[14px]">Satın alma işlemi nasıl tamamlanıyor?<i class="fa-solid fa-chevron-down text-xs text-zinc-400 transition-transform group-open:rotate-180"></i></summary>
+        <p class="mt-3 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Ücretli kitaplarda ekrandaki satın alma adımlarını takip et. Ödeme/dekont bildirimi istenirse verilen WhatsApp destek bağlantısı üzerinden iletişim kur; erişim onaydan sonra tanımlanabilir.</p>
+      </details>
+      <details class="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
+        <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[14px]">Yardım veya içerik önerisini nasıl iletebilirim?<i class="fa-solid fa-chevron-down text-xs text-zinc-400 transition-transform group-open:rotate-180"></i></summary>
+        <p class="mt-3 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Sayfadaki Destek bağlantısından WhatsApp üzerinden ulaşabilir veya “Alıntı paylaş” alanını kullanabilirsin.</p>
+      </details>
+    </div>
+  </section>
+
+  <footer class="mt-auto border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+    <div class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12">
+      <div class="grid md:grid-cols-4 gap-10">
+        <div><div class="w-9 h-9 rounded-[10px] bg-zinc-900 text-white flex items-center justify-center font-serif font-black">M</div><p class="mt-4 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Bilginin gücünü dinleyerek keşfedin. Dijital kütüphane, sesli arşiv ve topluluk.</p></div>
+        <div><h4 class="font-semibold text-[13px]">Keşfet</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="#vitrin" class="hover:text-zinc-900 dark:hover:text-white">Vitrin</a></li><li><a href="#kitaplarBolumu" class="hover:text-zinc-900">Koleksiyon</a></li><li><a href="#sizdenGelenlerSection" class="hover:text-zinc-900">Topluluk</a></li><li><a href="#sss" class="hover:text-zinc-900">Sık sorulan sorular</a></li></ul></div>
+        <div><h4 class="font-semibold text-[13px]">Destek</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="https://wa.me/905542026620" target="_blank" class="hover:text-zinc-900" rel="noopener noreferrer">WhatsApp</a></li><li><button onclick="openSubmissionModal()" class="hover:text-zinc-900">Alıntı paylaş</button></li></ul></div>
+        <div><h4 class="font-semibold text-[13px]">Uygulama</h4><p class="mt-4 text-[13px] text-zinc-500">Android uygulamasını indirin ve çevrimdışı okuyun.</p><a href="E-Kitap.apk" download class="mt-3 inline-flex h-9 px-4 rounded-full bg-zinc-900 text-white text-[12.5px] font-semibold items-center gap-2">APK İndir <i class="fa-solid fa-download text-[11px]"></i></a></div>
+      </div>
+      <div class="mt-12 pt-8 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row justify-between gap-3 text-[12px] text-zinc-500"><span>© 2026 Ebook Store — Tüm hakları saklıdır.</span><span class="flex items-center gap-2"><i class="fa-solid fa-lock text-[10px]"></i> Güvenli · Hızlı · Sade</span></div>
+    </div>
+  </footer>
+
+  <!-- SEPET -->
+  <div id="cartModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[460px] max-h-[92vh] overflow-y-auto p-7 border border-zinc-200 dark:border-zinc-800 shadow-xl relative">
+      <button onclick="closeCart()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
+      <h3 class="font-serif font-bold text-[24px] tracking-tight">Sepetim</h3>
+      <div id="cartList" class="mt-4 space-y-2.5"></div>
+      <div id="cartCoupon"></div>
+      <div id="cartTotals" class="mt-3"></div>
+      <div id="cartPay" class="hidden">
+        <div class="bg-zinc-50 dark:bg-zinc-800 rounded-[16px] p-4 border border-zinc-200 dark:border-zinc-700 text-[13px] space-y-1.5 mt-3">
+          <p><b>Banka:</b> <span id="cartBank"></span></p>
+          <p class="flex justify-between gap-2"><span><b>IBAN:</b> <span id="cartIban"></span></span><button onclick="copyPremIban()" class="text-zinc-500"><i class="fa-regular fa-copy"></i></button></p>
+        </div>
+        <p class="text-[11px] text-zinc-500 mt-3 leading-5">Ödemeyi yaptıktan sonra dekontu WhatsApp ile gönderin. Onaydan sonra kitaplar hesabınıza tanımlanır.</p>
+        <button onclick="checkoutCart()" class="w-full h-11 mt-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-[16px]"></i> Ödemeyi yaptım, bildir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREMIUM ÜYELİK -->
+  <div id="premiumModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[460px] max-h-[92vh] overflow-y-auto p-7 border border-zinc-200 dark:border-zinc-800 shadow-xl relative">
+      <button onclick="closePremiumModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
+      <div class="w-12 h-12 rounded-[14px] bg-amber-500 text-zinc-950 flex items-center justify-center"><i class="fa-solid fa-crown"></i></div>
+      <h3 class="mt-4 font-serif font-bold text-[24px] tracking-tight">Premium üyelik</h3>
+      <p class="text-[13px] text-zinc-500 mt-1 leading-6">Tüm kitapları tek üyelikle oku, dinle ve indir.</p>
+      <div id="premiumStatus"></div>
+      <div id="planList" class="mt-5 grid gap-2.5"></div>
+      <div id="planCoupon"></div>
+      <div class="bg-zinc-50 dark:bg-zinc-800 rounded-[16px] p-4 border border-zinc-200 dark:border-zinc-700 text-[13px] space-y-1.5 mt-3">
+        <p><b>Banka:</b> <span id="premBank"></span></p>
+        <p class="flex justify-between gap-2"><span><b>IBAN:</b> <span id="premIban"></span></span><button onclick="copyPremIban()" class="text-zinc-500"><i class="fa-regular fa-copy"></i></button></p>
+      </div>
+      <p class="text-[11px] text-zinc-500 mt-3 leading-5">Ödemeyi yaptıktan sonra dekontu WhatsApp ile gönderin. Onaydan sonra üyeliğiniz hesabınıza tanımlanır.</p>
+      <button onclick="confirmPlanRequest()" class="w-full h-11 mt-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-[16px]"></i> Ödemeyi yaptım, bildir</button>
+    </div>
+  </div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc, addDoc, updateDoc, increment, query, where, serverTimestamp, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+if (window.pdfjsLib) window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDt6huvLeiGj0KuO4P1oBiLkmYFA13-wEs",
+  authDomain: "marketim3000-e1806.firebaseapp.com",
+  projectId: "marketim3000-e1806",
+  storageBucket: "marketim3000-e1806.firebasestorage.app",
+  messagingSenderId: "1003242342277",
+  appId: "1:1003242342277:web:8f5e2a18820bf1d4fba6ec",
+  measurementId: "G-G3E1GQZDQK"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+const ADMIN_EMAIL = "oguzhanyasar890@gmail.com"; 
+
+// === ÖDEME / BANKA BİLGİLERİ — LÜTFEN KENDİ BİLGİLERİNİZLE DEĞİŞTİRİN ===
+const BANK_INFO = {
+  banka: "Kuveyt Türk",
+  hesapSahibi: "Oğuzhan Yaşar",
+  iban: "TR54 0020 5000 0965 2961 4000 01"
+};
+const WHATSAPP_NUMBER = "905542026620"; // Ödeme bildirimlerinin gideceği WhatsApp numarası
+
+let allBooks = [];
+let allCategories = [];
+let currentCategory = 'Tümü';
+let searchQuery = '';
+let userFavorites = [];
+let userPurchases = [];
+let currentBookForComments = null;
+let purchaseModalBookId = null;
+
+// Bir kitaba erişim var mı? (ücretsizse ya da satın alınmışsa true)
+function canAccessBook(book) {
+  if (auth.currentUser && auth.currentUser.email === ADMIN_EMAIL) return true;
+  if (window.__premiumActive || window.__previewGrant === book.id) return true;
+  const price = Number(book.fiyat) || 0;
+  if (price <= 0) return true;
+  return userPurchases.includes(book.id);
+}
+window.isAdmin = () => auth.currentUser && auth.currentUser.email === ADMIN_EMAIL;
+window.canAccessBook = canAccessBook;
+
+let rendition = null;
+let currentReaderFontSize = 18;
+let currentPdfScale = 1.3;
+let currentReaderMode = 'txt';
+let activeTxtUrl = null;
+let activePdfUrl = null;
+let activeEpubUrl = null;
+let activeBookTitle = '';
+let activePdfDoc = null;
+let fullBookTextContent = "";
+let activeBookId = null;
+
+// === GİRİŞ UYARI KİLİDİ ===
+function openAuthWithMessage(msg) {
+  const modal = document.getElementById('authModal');
+  if (modal) {
+    modal.classList.add('modal-active');
+    let warn = document.getElementById('authRequiredWarning');
+    if (!warn) {
+      warn = document.createElement('div');
+      warn.id = 'authRequiredWarning';
+      warn.className = 'bg-amber-50 border-2 border-amber-300 text-amber-900 text-xs font-black rounded-xl p-3 mb-4 flex items-center gap-2';
+      const form = document.getElementById('emailAuthForm');
+      if (form) form.parentNode.insertBefore(warn, form);
+    }
+    warn.innerHTML = `<i class="fa-solid fa-lock text-amber-600"></i> ${msg}`;
+    warn.style.display = 'flex';
+  }
+}
+window.openAuthWithMessage = openAuthWithMessage;
+
+// === YOUTUBE SİSTEMİ (SABİT + FIREBASE) ===
+function extractYoutubeId(url) {
+  if (!url) return null;
+  const regExp = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regExp);
+  return match ? match[1] : null;
+}
+
+async function loadYoutubeBooks() {
+  const grid = document.getElementById('youtubeGrid');
+  if (!grid) return;
+
+  
+
+  try {
+    const snap = await getDocs(collection(db, "youtubeKitaplar"));
+    let extraHtml = '';
+    const videos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    videos.sort((a, b) => {
+      const tA = a.tarih?.toMillis ? a.tarih.toMillis() : 0;
+      const tB = b.tarih?.toMillis ? b.tarih.toMillis() : 0;
+      return tB - tA;
+    });
+
+    videos.forEach(v => {
+      const ytId = v.youtubeId || extractYoutubeId(v.youtubeUrl) || '';
+      if (!ytId) return;
+      const safeTitle = (v.baslik || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+      extraHtml += `
+        <div class="surface-card rounded-3xl overflow-hidden group border-2 border-red-100">
+          <div class="relative aspect-video bg-black">
+            <img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+              <button onclick="openYoutubePlayer('${ytId}', '${safeTitle}')" class="w-14 h-14 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center shadow-xl transition hover:scale-110"><i class="fa-solid fa-play ml-1"></i></button>
+            </div>
+            <span class="absolute top-2 left-2 bg-red-600 text-white text-[9px] font-black px-2 py-1 rounded">YOUTUBE</span>
+          </div>
+          <div class="p-4">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white line-clamp-2">${v.baslik || ''}</h4>
+            <p class="text-[11px] text-slate-500 line-clamp-2 mt-1">${v.aciklama || ''}</p>
+            <div class="flex gap-2 mt-3">
+              <button onclick="openYoutubePlayer('${ytId}', '${safeTitle}')" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1"><i class="fa-solid fa-play"></i> İzle</button>
+              <a href="${v.youtubeUrl}" target="_blank" class="flex-1 bg-white border border-red-200 text-red-600 py-2 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i> YouTube'da Aç</a>
+            </div>
+          </div>
+        </div>`;
+    });
+    grid.innerHTML = extraHtml || '<p class="text-slate-500 text-sm col-span-full text-center py-6">Videolar yakında eklenecek.</p>';
+  } catch (e) {
+    console.error("YouTube videoları yüklenirken hata:", e);
+    grid.innerHTML = '<p class="text-slate-500 text-sm col-span-full text-center py-6">Videolar yakında eklenecek.</p>';
+  }
+}
+
+window.openYoutubePlayer = (ytId, title) => {
+  const modal = document.createElement('div');
+  modal.className = 'fixed inset-0 z-[9999999] bg-black/90 flex items-center justify-center p-4';
+  modal.innerHTML = `
+    <div class="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-4xl overflow-hidden">
+      <div class="flex justify-between items-center p-4 border-b dark:border-slate-700">
+        <h3 class="font-bold text-sm text-slate-900 dark:text-white">${title}</h3>
+        <button onclick="this.closest('.fixed').remove()" class="w-8 h-8 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-full flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="aspect-video bg-black">
+        <iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1" class="w-full h-full" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>`;
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+  document.body.appendChild(modal);
+};
+
+window.addYoutubeVideo = async (e) => {
+  e.preventDefault();
+  const title = document.getElementById('ytTitle').value.trim();
+  const url = document.getElementById('ytUrl').value.trim();
+  const desc = document.getElementById('ytDesc').value.trim();
+  const ytId = extractYoutubeId(url);
+
+  if (!ytId) {
+    alert('Lütfen geçerli bir YouTube linki girin! (Örn: https://youtu.be/... veya https://www.youtube.com/watch?v=...)');
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "youtubeKitaplar"), {
+      baslik: title,
+      youtubeUrl: url,
+      youtubeId: ytId,
+      aciklama: desc,
+      tarih: serverTimestamp()
+    });
+    alert('YouTube videosu başarıyla eklendi!');
+    document.getElementById('addYoutubeForm').reset();
+    await loadYoutubeBooks();
+    await loadAdminYoutubeList();
+  } catch (err) {
+    alert('Video eklenirken hata oluştu: ' + err.message);
+    console.error(err);
+  }
+};
+
+window.deleteYoutubeVideo = async (id) => {
+  if (confirm('Bu videoyu silmek istediğinize emin misiniz?')) {
+    try {
+      await deleteDoc(doc(db, "youtubeKitaplar", id));
+      await loadYoutubeBooks();
+      await loadAdminYoutubeList();
+    } catch (err) {
+      alert('Silme hatası: ' + err.message);
+    }
+  }
+};
+
+async function loadAdminYoutubeList() {
+  const list = document.getElementById('adminYoutubeList');
+  if (!list) return;
+  list.innerHTML = '<p class="text-xs text-slate-400">Yükleniyor...</p>';
+  try {
+    const snap = await getDocs(collection(db, "youtubeKitaplar"));
+    list.innerHTML = '';
+    if (snap.empty) {
+      list.innerHTML = '<p class="text-xs text-slate-400">Henüz Firebase\'de video yok.</p>';
+      return;
+    }
+    snap.forEach(d => {
+      const v = d.data();
+      list.innerHTML += `
+        <div class="flex justify-between items-center bg-red-50 dark:bg-slate-800 p-3 rounded-xl text-sm border border-red-100 dark:border-slate-700">
+          <div class="flex gap-3 items-center">
+            <img src="https://img.youtube.com/vi/${v.youtubeId}/mqdefault.jpg" class="w-14 h-10 object-cover rounded">
+            <span class="font-bold text-slate-900 dark:text-white">${v.baslik}</span>
+          </div>
+          <button onclick="deleteYoutubeVideo('${d.id}')" class="text-red-600 hover:bg-red-100 p-2 rounded"><i class="fa-solid fa-trash"></i></button>
+        </div>`;
+    });
+  } catch (e) {
+    list.innerHTML = '<p class="text-xs text-red-500">Hata: ' + e.message + '</p>';
+  }
+}
+
+// === YENİ NESİL TTS SİSTEMİ - FIXED ===
+let speechSynth = window.speechSynthesis;
+let currentUtterance = null;
+let isSpeaking = false;
+let isPaused = false;
+let speechRate = 1;
+let speechQueue = [];
+let queueIndex = 0;
+let turkishVoice = null;
+let highlightElements = [];
+
+function loadVoices() {
+  const voices = speechSynth.getVoices();
+  if(voices.length === 0) return;
+  turkishVoice = voices.find(v => v.lang === 'tr-TR') || voices.find(v => v.lang.startsWith('tr')) || voices.find(v => v.name.includes('Yelda') || v.name.includes('Turkish')) || voices[0];
+  console.log("Seçilen ses:", turkishVoice?.name, turkishVoice?.lang);
+}
+if (speechSynth.onvoiceschanged !== undefined) {
+  speechSynth.onvoiceschanged = loadVoices;
+}
+setTimeout(loadVoices, 500);
+
+function chunkTextSmart(text) {
+  const clean = text.replace(/\s+/g, ' ').trim();
+  const sentences = clean.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [clean];
+  let chunks = [];
+  let current = "";
+  for(let s of sentences) {
+    s = s.trim();
+    if(s.length < 5) continue;
+    if((current + " " + s).length > 180) {
+      if(current) chunks.push(current);
+      if(s.length > 180) {
+        let words = s.split(' ');
+        let part = "";
+        for(let w of words) {
+          if((part + " " + w).length > 180) { chunks.push(part); part = w; }
+          else part += " " + w;
+        }
+        if(part) chunks.push(part.trim());
+        current = "";
+      } else {
+        current = s;
+      }
+    } else {
+      current += (current ? " " : "") + s;
+    }
+  }
+  if(current) chunks.push(current);
+  return chunks.filter(c => c.length > 10);
+}
+
+function speakNextChunk() {
+  if (queueIndex >= speechQueue.length) { stopSpeechUI(); return; }
+  if (!isSpeaking || isPaused) return;
+  
+  const text = speechQueue[queueIndex];
+  currentUtterance = new SpeechSynthesisUtterance(text);
+  currentUtterance.lang = 'tr-TR';
+  if(turkishVoice) currentUtterance.voice = turkishVoice;
+  currentUtterance.rate = speechRate;
+  currentUtterance.pitch = 1;
+  currentUtterance.volume = 1;
+
+  currentUtterance.onstart = () => {
+    highlightCurrentSentence();
+  };
+  currentUtterance.onend = () => {
+    queueIndex++;
+    updateTTSProgress();
+    saveReadingProgress();
+    if (isSpeaking && !isPaused) {
+      setTimeout(() => speakNextChunk(), 150);
+    } else if (queueIndex >= speechQueue.length) {
+      stopSpeechUI();
+    }
+  };
+  currentUtterance.onerror = (e) => {
+    console.error("TTS hata", e);
+    queueIndex++;
+    if(isSpeaking && !isPaused) speakNextChunk();
+  };
+  try { speechSynth.speak(currentUtterance); } catch(e){ console.error(e); }
+}
+
+function highlightCurrentSentence() {
+  document.querySelectorAll('.tts-highlight').forEach(el => el.classList.remove('tts-highlight'));
+  if(highlightElements[queueIndex]) {
+    const el = highlightElements[queueIndex];
+    el.classList.add('tts-highlight');
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+function updateTTSProgress() {
+  const progress = document.getElementById('ttsProgressText');
+  const bar = document.getElementById('readingProgressBar');
+  if(speechQueue.length > 0) {
+    const pct = Math.round((queueIndex / speechQueue.length) * 100);
+    if(progress) progress.innerText = `${queueIndex+1} / ${speechQueue.length} - %${pct}`;
+    if(bar) bar.style.width = pct + '%';
+  }
+}
+
+function stopSpeechUI() {
+  isSpeaking = false;
+  isPaused = false;
+  const icon = document.getElementById('ttsIcon');
+  if(icon) icon.className = "fa-solid fa-play";
+  const prog = document.getElementById('ttsProgressText');
+  if(prog) prog.innerText = "Hazır";
+  document.querySelectorAll('.tts-highlight').forEach(el => el.classList.remove('tts-highlight'));
+}
+
+window.toggleSpeech = () => {
+  if (!speechSynth) { alert("Tarayıcınız sesli okumayı desteklemiyor."); return; }
+  const icon = document.getElementById('ttsIcon');
+  
+  if (isSpeaking && !isPaused) {
+    speechSynth.pause();
+    isPaused = true;
+    if(icon) icon.className = "fa-solid fa-play";
+    const prog = document.getElementById('ttsProgressText');
+    if(prog) prog.innerText = "Duraklatıldı";
+    return;
+  }
+  if (isPaused) {
+    speechSynth.resume();
+    isPaused = false;
+    if(icon) icon.className = "fa-solid fa-pause";
+    const prog = document.getElementById('ttsProgressText');
+    if(prog) prog.innerText = "Dinleniyor...";
+    return;
+  }
+  if (!fullBookTextContent || fullBookTextContent.trim().length < 10) {
+    alert("Seslendirilecek metin bulunamadı. Lütfen TXT formatlı kitap ekleyin, PDF'lerde taranmış kitaplar seslendirilemez.");
+    return;
+  }
+  loadVoices();
+  speechSynth.cancel();
+  speechQueue = chunkTextSmart(fullBookTextContent);
+  queueIndex = 0;
+  const saved = localStorage.getItem('tts_' + activeBookId);
+  if(saved) {
+    const idx = parseInt(saved);
+    if(idx > 0 && idx < speechQueue.length) {
+      if(confirm(`Kaldığınız yerden devam edilsin mi? (${idx}. cümle)`)) {
+        queueIndex = idx;
+      }
+    }
+  }
+  isSpeaking = true;
+  isPaused = false;
+  if(icon) icon.className = "fa-solid fa-pause";
+  const prog = document.getElementById('ttsProgressText');
+  if(prog) prog.innerText = "Dinleniyor...";
+  speakNextChunk();
+};
+
+window.stopSpeech = () => {
+  if(speechSynth) speechSynth.cancel();
+  queueIndex = 0;
+  stopSpeechUI();
+  updateTTSProgress();
+};
+
+window.skipSentence = (dir) => {
+  if(!isSpeaking) return;
+  speechSynth.cancel();
+  queueIndex += dir;
+  if(queueIndex < 0) queueIndex = 0;
+  if(queueIndex >= speechQueue.length) queueIndex = speechQueue.length - 1;
+  if(isSpeaking) {
+    setTimeout(() => speakNextChunk(), 100);
+  }
+  highlightCurrentSentence();
+  updateTTSProgress();
+};
+
+window.changeSpeechSpeed = (val) => {
+  speechRate = parseFloat(val);
+  if(isSpeaking && !isPaused) {
+    speechSynth.cancel();
+    setTimeout(() => speakNextChunk(), 100);
+  }
+};
+
+function saveReadingProgress() {
+  if(activeBookId && queueIndex > 0) {
+    localStorage.setItem('tts_' + activeBookId, queueIndex.toString());
+    localStorage.setItem('scroll_' + activeBookId, document.getElementById('readerScrollContainer').scrollTop.toString());
+  }
+}
+
+// === YALNIZCA AYDINLIK TEMA ===
+// Tema seçici kaldırıldı; site her zaman aydınlık görünümde açılır.
+const html = document.documentElement;
+html.classList.add('light');
+html.classList.remove('dark');
+try { localStorage.setItem('theme_red_white', 'light'); } catch (e) {}
+
+window.openQRModal = () => { document.getElementById('qrModal').classList.add('modal-active'); };
+window.closeQRModal = () => { document.getElementById('qrModal').classList.remove('modal-active'); };
+window.openSubmissionModal = () => { document.getElementById('submissionModal').classList.add('modal-active'); };
+window.closeSubmissionModal = () => { document.getElementById('submissionModal').classList.remove('modal-active'); };
+
+const defaultSubmissions = [
+  { isim: "Oğuzhan Y.", tur: "Kitap Alıntısı", baslik: "Finansal Özgürlük", mesaj: "Zenginlik, harcadığınız parayla değil, biriktirdiğiniz ve yatırıma dönüştürdüğünüz değerle ölçülür.", tarihStr: "Öne Çıkan" },
+  { isim: "Elif K.", tur: "Kitap Tavsiyesi", baslik: "Para ve Kripto", mesaj: "Finansal okuryazarlık ve kripto varlıkların mantığını anlamak isteyen herkesin mutlaka okuması gereken rehber.", tarihStr: "Okur Önerisi" },
+  { isim: "Mert D.", tur: "Okur Mesajı", baslik: "Dijital Kitapçı", mesaj: "Kitapları sesli dinleyebilmek inanılmaz güzel olmuş! Artık kaldığım yerden devam ediyor.", tarihStr: "Yeni Özellik" }
+];
+
+function renderSubmissionCards(items) {
+  const grid = document.getElementById('sizdenGelenlerGrid');
+  grid.innerHTML = items.map(item => {
+    let badgeStyle = "bg-red-50 text-brand-600 border-red-200 dark:bg-brand-500/10 dark:text-brand-400 dark:border-brand-500/30";
+    let icon = "fa-quote-right";
+    if (item.tur === "Kitap Tavsiyesi") { badgeStyle = "bg-rose-50 text-rose-600 border-rose-200 dark:bg-rose-500/10 dark:text-rose-400"; icon = "fa-lightbulb"; }
+    else if (item.tur === "Okur Mesajı") { badgeStyle = "bg-red-100/70 text-brand-700 border-red-200 dark:bg-red-500/10 dark:text-red-300"; icon = "fa-heart"; }
+    const dateStr = item.tarihStr || (item.tarih && item.tarih.toDate ? new Date(item.tarih.toDate()).toLocaleDateString('tr-TR') : '');
+    const initial = (item.isim || 'O').charAt(0).toUpperCase();
+    return `<div class="surface-card hover:border-brand-600 rounded-3xl p-6 flex flex-col justify-between transition group"><div><div class="flex justify-between items-center mb-4"><span class="text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full border ${badgeStyle}">${item.tur || 'Paylaşım'}</span><i class="fa-solid ${icon} text-red-200 dark:text-slate-600 group-hover:text-brand-600 transition"></i></div><h4 class="text-slate-900 dark:text-white font-sans font-bold text-base mb-2 line-clamp-1">${item.baslik || ''}</h4><p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm italic leading-relaxed mb-6">"${item.mesaj}"</p></div><div class="flex items-center justify-between pt-4 border-t border-red-100 dark:border-slate-700/40 mt-auto"><div class="flex items-center gap-2.5"><div class="w-7 h-7 rounded-lg bg-brand-600 text-white font-bold text-xs flex items-center justify-center shadow-sm">${initial}</div><span class="text-xs font-bold text-slate-800 dark:text-slate-200">${item.isim}</span></div><span class="text-[10px] text-brand-600 dark:text-slate-400 font-bold">${dateStr}</span></div></div>`;
+  }).join('');
+}
+async function loadSizdenGelenler() {
+  try {
+    const q = query(collection(db, "sizdenGelenler"), where("durum", "==", "approved"));
+    const snap = await getDocs(q);
+    if (snap.empty) { renderSubmissionCards(defaultSubmissions); return; }
+    const items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    items.sort((a, b) => { const tA = a.tarih ? (a.tarih.toMillis ? a.tarih.toMillis() : 0) : 0; const tB = b.tarih ? (b.tarih.toMillis ? b.tarih.toMillis() : 0) : 0; return tB - tA; });
+    renderSubmissionCards(items);
+  } catch (e) { renderSubmissionCards(defaultSubmissions); }
+}
+window.submitSizdenGelen = async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('subSubmitBtn');
+  btn.innerText = "Gönderiliyor..."; btn.disabled = true;
+  try {
+    await addDoc(collection(db, "sizdenGelenler"), { isim: document.getElementById('subName').value.trim(), tur: document.getElementById('subType').value, baslik: document.getElementById('subTopic').value.trim(), mesaj: document.getElementById('subMessage').value.trim(), durum: "pending", tarih: serverTimestamp(), userId: auth.currentUser ? auth.currentUser.uid : "anonim" });
+    alert("Paylaşımınız alındı! Onaydan sonra yayınlanacak."); document.getElementById('submissionForm').reset(); closeSubmissionModal();
+  } catch (err) { alert("Hata: " + err.message); } finally { btn.innerText = "Gönderiyi Paylaş"; btn.disabled = false; }
+};
+
+let isLoginMode = true;
+window.openAuthModal = () => { document.getElementById('authModal').classList.add('modal-active'); };
+window.toggleAuthMode = () => {
+  isLoginMode = !isLoginMode;
+  document.getElementById('authTitle').innerText = isLoginMode ? "Giriş Yap" : "Kayıt Ol";
+  document.getElementById('authSubmitBtn').innerText = isLoginMode ? "Giriş Yap" : "Hesap Oluştur";
+  document.getElementById('nameField').style.display = isLoginMode ? 'none' : 'block';
+  document.getElementById('authToggleText').innerText = isLoginMode ? "Hesabınız yok mu?" : "Zaten hesabınız var mı?";
+  document.getElementById('authToggleBtn').innerText = isLoginMode ? "Kayıt Olun" : "Giriş Yapın";
+};
+window.handleEmailAuth = async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('authEmailInput').value;
+  const pass = document.getElementById('authPasswordInput').value;
+  const name = document.getElementById('authNameInput').value;
+  const btn = document.getElementById('authSubmitBtn');
+  btn.innerText = "İşleniyor..."; btn.disabled = true;
+  try {
+    if (isLoginMode) { await signInWithEmailAndPassword(auth, email, pass); }
+    else { const res = await createUserWithEmailAndPassword(auth, email, pass); await updateProfile(res.user, { displayName: name }); }
+    document.getElementById('authModal').classList.remove('modal-active');
+  } catch (err) { alert("Hata: " + err.message); } finally { btn.innerText = isLoginMode ? "Giriş Yap" : "Hesap Oluştur"; btn.disabled = false; }
+};
+window.loginWithGoogle = () => signInWithPopup(auth, provider).then(() => { document.getElementById('authModal').classList.remove('modal-active'); }).catch(e => alert(e.message));
+window.logoutUser = () => signOut(auth);
+
+window.openProfileModal = () => { document.getElementById('profileModal').classList.add('modal-active'); loadProfileDownloads(); loadProfileComments(); };
+window.switchProfileTab = (tab) => {
+  document.getElementById('profileTabDownloads').classList.toggle('hidden', tab !== 'downloads');
+  document.getElementById('profileTabMyComments').classList.toggle('hidden', tab !== 'myComments');
+  document.getElementById('tabBtnDownloads').className = tab === 'downloads' ? "flex-1 py-3 text-sm font-bold text-brand-600 border-b-2 border-brand-600" : "flex-1 py-3 text-sm font-bold text-slate-500 hover:text-brand-600 border-b-2 border-transparent";
+  document.getElementById('tabBtnMyComments').className = tab === 'myComments' ? "flex-1 py-3 text-sm font-bold text-brand-600 border-b-2 border-brand-600" : "flex-1 py-3 text-sm font-bold text-slate-500 hover:text-brand-600 border-b-2 border-transparent";
+};
+async function loadProfileDownloads() {
+  const list = document.getElementById('profileTabDownloads');
+  list.innerHTML = '<p class="text-slate-400 text-sm text-center">Yükleniyor...</p>';
+  if(!auth.currentUser) return;
+  try {
+    const snap = await getDocs(collection(db, "kullanicilar", auth.currentUser.uid, "indirilenler"));
+    list.innerHTML = '';
+    if(snap.empty) return list.innerHTML = '<p class="text-slate-500 text-sm text-center">Henüz kitap indirmediniz.</p>';
+    for (const d of snap.docs) {
+      const data = d.data();
+      const bSnap = await getDocs(query(collection(db, "kitaplar"), where("__name__", "==", data.kitapId)));
+      if(!bSnap.empty) {
+        const book = bSnap.docs[0].data();
+        list.innerHTML += `<div class="flex items-center gap-3 bg-red-50/50 dark:bg-slate-800 p-3 rounded-xl border border-red-100 dark:border-slate-700"><img src="${book.kapakUrl}" class="w-10 h-14 object-cover rounded"><div><p class="text-slate-900 dark:text-white text-sm font-bold line-clamp-1">${book.baslik}</p><p class="text-slate-500 text-xs">${data.tarih ? new Date(data.tarih.toDate()).toLocaleDateString('tr-TR') : ''}</p></div></div>`;
+      }
+    }
+  } catch(e) { list.innerHTML = '<p class="text-brand-600 text-sm">Hata.</p>'; }
+}
+async function loadProfileComments() {
+  const list = document.getElementById('profileTabMyComments');
+  list.innerHTML = '<p class="text-slate-400 text-sm text-center">Yükleniyor...</p>';
+  if(!auth.currentUser) return;
+  try {
+    const q = query(collection(db, "yorumlar"), where("userId", "==", auth.currentUser.uid));
+    const snap = await getDocs(q);
+    list.innerHTML = '';
+    if(snap.empty) return list.innerHTML = '<p class="text-slate-500 text-sm text-center">Henüz yorum yapmadınız.</p>';
+    snap.forEach(d => {
+      const c = d.data();
+      const status = c.durum === 'approved' ? '<span class="text-emerald-600 font-bold text-[10px]">Onaylandı</span>' : '<span class="text-amber-600 font-bold text-[10px]">Onay Bekliyor</span>';
+      list.innerHTML += `<div class="bg-red-50/50 dark:bg-slate-800 p-3 rounded-xl border border-red-100 dark:border-slate-700"><div class="flex justify-between items-center mb-1"><span class="text-brand-600 font-bold text-xs">${c.kitapAdi || 'Kitap'}</span>${status}</div><p class="text-slate-700 dark:text-slate-300 text-xs italic">"${c.mesaj}"</p></div>`;
+    });
+  } catch(e) { list.innerHTML = '<p class="text-brand-600 text-sm">Hata.</p>'; }
+}
+
+window.openBookModal = async (bookId) => {
+  const book = allBooks.find(b => b.id === bookId);
+  if(!book) return;
+  currentBookForComments = book;
+  document.getElementById('modalCover').src = book.kapakUrl;
+  document.getElementById('modalTitle').innerText = book.baslik;
+  document.getElementById('modalAuthor').querySelector('span').innerText = book.yazar;
+  document.getElementById('modalCategory').innerText = book.kategori || 'Genel';
+  document.getElementById('modalDesc').innerText = book.aciklama;
+  document.getElementById('modalDownloadBtn').onclick = (e) => checkDownload(e, book.id, book.dosyaAdi);
+  document.getElementById('modalReadBtn').onclick = () => openReader(book.dosyaAdi, book.baslik, book.id);
+  const price = Number(book.fiyat) || 0;
+  const owned = canAccessBook(book);
+  const priceBadgeEl = document.getElementById('modalPriceBadge');
+  const buyBtn = document.getElementById('modalBuyBtn');
+  const readRow = document.getElementById('modalReadDownloadRow');
+  if (price > 0) {
+    priceBadgeEl.innerText = owned ? 'Satın Alındı ✓' : `₺${price.toLocaleString('tr-TR')}`;
+    if (!owned) {
+      buyBtn.classList.remove('hidden');
+      readRow.classList.add('hidden');
+      document.getElementById('modalBuyBtnText').innerText = `Satın Al — ₺${price.toLocaleString('tr-TR')}`;
+      buyBtn.onclick = () => openPurchaseModal(book.id);
+    } else {
+      buyBtn.classList.add('hidden');
+      readRow.classList.remove('hidden');
+    }
+  } else {
+    priceBadgeEl.innerText = 'Ücretsiz';
+    buyBtn.classList.add('hidden');
+    readRow.classList.remove('hidden');
+  }
+  loadBookComments(bookId);
+  document.getElementById('bookDetailModal').classList.add('modal-active');
+};
+window.closeBookModal = () => { document.getElementById('bookDetailModal').classList.remove('modal-active'); currentBookForComments = null; };
+
+async function loadBookComments(bookId) {
+  const list = document.getElementById('modalCommentsList');
+  list.innerHTML = '<div class="loader mx-auto mt-4"></div>';
+  try {
+    const q = query(collection(db, "yorumlar"), where("kitapId", "==", bookId), where("durum", "==", "approved"));
+    const snap = await getDocs(q);
+    list.innerHTML = '';
+    if(snap.empty) return list.innerHTML = '<p class="text-slate-500 text-xs text-center mt-4">Henüz yorum yok.</p>';
+    snap.forEach(d => {
+      const c = d.data();
+      let stars = '';
+      for(let i=0; i<5; i++) stars += `<i class="fa-solid fa-star ${i < c.puan ? 'text-brand-600' : 'text-slate-300'}"></i>`;
+      list.innerHTML += `<div class="bg-white dark:bg-slate-800 border border-red-100 dark:border-slate-700 rounded-xl p-3 shadow-sm"><div class="flex justify-between items-start mb-1"><span class="text-xs font-bold text-slate-900 dark:text-white">${c.isim}</span><div class="text-[10px]">${stars}</div></div><p class="text-slate-600 dark:text-slate-300 text-xs italic">"${c.mesaj}"</p></div>`;
+    });
+  } catch(e) { list.innerHTML = '<p class="text-brand-600 text-xs">Yorumlar yüklenemedi.</p>'; }
+}
+window.submitBookComment = async (e) => {
+  e.preventDefault();
+  if(!currentBookForComments) return;
+  const name = document.getElementById('modalCommentName').value;
+  const rating = document.getElementById('modalCommentRating').value;
+  const msg = document.getElementById('modalCommentMsg').value;
+  try {
+    await addDoc(collection(db, "yorumlar"), { kitapId: currentBookForComments.id, kitapAdi: currentBookForComments.baslik, isim: name, puan: Number(rating), mesaj: msg, durum: "pending", tarih: serverTimestamp(), userId: auth.currentUser ? auth.currentUser.uid : "anonim" });
+    alert("Yorumunuz onaya gönderildi!"); document.getElementById('modalCommentForm').reset();
+  } catch(err) { alert("Hata: " + err.message); }
+};
+
+// === MODERN OKUYUCU - FIXED ===
+async function tryFetchText(url) {
+  try {
+    const res = await fetch(url, { cache: 'no-store' });
+    if(!res.ok) throw new Error("Dosya yok");
+    const text = await res.text();
+    if(text.trim().startsWith('<!DOCTYPE') || text.trim().startsWith('<html')) throw new Error("HTML geldi");
+    return text;
+  } catch(e) { return null; }
+}
+async function tryFetchExists(url) {
+  try {
+    const res = await fetch(url, { method: 'HEAD', cache: 'no-store' });
+    return res.ok;
+  } catch { return true; }
+}
+
+function updateFormatButtonsUI() {
+  const container = document.getElementById('formatButtonsContainer');
+  const btnTxt = document.getElementById('btnModeTxt');
+  const btnPdf = document.getElementById('btnModePdf');
+  const btnEpub = document.getElementById('btnModeEpub');
+  const availableCount = [activeTxtUrl, activePdfUrl, activeEpubUrl].filter(Boolean).length;
+  if (availableCount > 1) { container.classList.remove('hidden'); container.classList.add('flex'); } else { container.classList.add('hidden'); container.classList.remove('flex'); }
+  const setBtnStyle = (btn, url, modeName) => {
+    if (!url) { btn.classList.add('hidden'); return; }
+    btn.classList.remove('hidden');
+    if (currentReaderMode === modeName) btn.className = "px-2.5 py-1 text-[10px] font-extrabold rounded-md bg-white text-brand-600 transition";
+    else btn.className = "px-2.5 py-1 text-[10px] font-bold rounded-md text-red-100 hover:text-white transition";
+  };
+  setBtnStyle(btnTxt, activeTxtUrl, 'txt');
+  setBtnStyle(btnPdf, activePdfUrl, 'pdf');
+  setBtnStyle(btnEpub, activeEpubUrl, 'epub');
+}
+
+window.openReader = async (fileName, title, bookId) => {
+  if (!auth.currentUser) {
+    openAuthWithMessage('Kitapları okumak ve dinlemek için Google ile giriş yapmalısınız');
+    return;
+  }
+  const bookForAccess = allBooks.find(b => b.id === bookId);
+  if (bookForAccess && !canAccessBook(bookForAccess)) {
+    openPurchaseModal(bookId);
+    return;
+  }
+  activeBookTitle = title;
+  activeBookId = bookId || fileName;
+  document.getElementById('readerTitle').innerText = title;
+  document.getElementById('readerModal').classList.add('modal-active');
+  document.getElementById('readingProgressBar').style.width = '0%';
+  document.getElementById('ttsProgressText').innerText = "Hazırlanıyor...";
+  stopSpeech();
+  const viewer = document.getElementById('viewer');
+  viewer.innerHTML = '<div class="flex flex-col items-center justify-center h-96 gap-3"><div class="loader"></div><p class="text-xs opacity-70 font-sans">Kitap ve Ses Asistanı Hazırlanıyor...</p></div>';
+  if (rendition) { rendition.destroy(); rendition = null; }
+  activePdfDoc = null;
+  fullBookTextContent = "";
+  highlightElements = [];
+
+  const cleanFile = (fileName || '').trim();
+  const ext = cleanFile.includes('.') ? cleanFile.substring(cleanFile.lastIndexOf('.')).toLowerCase() : '';
+  const baseName = cleanFile.includes('.') ? cleanFile.substring(0, cleanFile.lastIndexOf('.')) : cleanFile;
+
+  const candidateTxt = ext === '.txt' ? cleanFile : baseName + '.txt';
+  const candidatePdf = ext === '.pdf' ? cleanFile : baseName + '.pdf';
+  const candidateEpub = ext === '.epub' ? cleanFile : baseName + '.epub';
+
+  let txtContent = await tryFetchText(candidateTxt);
+  if(txtContent) {
+    activeTxtUrl = candidateTxt;
+    activePdfUrl = null; activeEpubUrl = null;
+    tryFetchExists(candidatePdf).then(exists => { if(exists) activePdfUrl = candidatePdf; updateFormatButtonsUI(); });
+    tryFetchExists(candidateEpub).then(exists => { if(exists) activeEpubUrl = candidateEpub; updateFormatButtonsUI(); });
+    await loadTxtIntoReaderDirect(txtContent, title);
+    return;
+  }
+
+  try {
+    const pdfExists = await tryFetchExists(candidatePdf);
+    if(pdfExists) {
+      activePdfUrl = candidatePdf;
+      activeTxtUrl = null; activeEpubUrl = null;
+      await loadPdfIntoReader(candidatePdf, title);
+      return;
+    }
+  } catch(e){}
+
+  try {
+    const epubExists = await tryFetchExists(candidateEpub);
+    if(epubExists) {
+      activeEpubUrl = candidateEpub;
+      await loadEpubIntoReader(candidateEpub, title);
+      return;
+    }
+  } catch(e){}
+
+  viewer.innerHTML = `<div class="p-8 text-center h-96 flex flex-col items-center justify-center font-sans"><i class="fa-solid fa-triangle-exclamation text-5xl text-brand-600 mb-4"></i><h3 class="text-xl font-bold mb-2">Dosya Bulunamadı</h3><p class="text-sm opacity-80 max-w-md mx-auto"><b>${cleanFile}</b> sunucuda bulunamadı. Dosya adını kontrol edin.</p><button onclick="closeReader()" class="mt-6 bg-brand-600 hover:bg-brand-700 text-white px-6 py-2 rounded-lg font-bold text-xs">Geri Dön</button></div>`;
+};
+
+async function loadTxtIntoReaderDirect(rawText, title) {
+  currentReaderMode = 'txt';
+  document.getElementById('readerFormatBadge').innerText = 'TXT & SESLİ';
+  document.getElementById('zoomAndFontControls').style.display = 'flex';
+  updateFormatButtonsUI();
+  const viewer = document.getElementById('viewer');
+  if (rendition) { rendition.destroy(); rendition = null; }
+  
+  fullBookTextContent = rawText;
+  highlightElements = [];
+  
+  const paragraphs = rawText.split(/\r?\n/).map(line => line.trim()).filter(line => line.length > 0).map((line, idx) => {
+    if (line.length < 80 && (line === line.toUpperCase() || /^(BÖLÜM|GİRİŞ|SONUÇ|ÖNSÖZ|KISIM|\d+[\.\-\)])/i.test(line))) {
+      return `<h4 data-tts-id="${idx}" class="font-sans font-bold text-xl sm:text-2xl mt-8 mb-4 pb-2 border-b border-current/15 text-brand-700">${line}</h4>`;
+    }
+    return `<p data-tts-id="${idx}" class="mb-5 leading-relaxed text-justify tts-paragraph">${line}</p>`;
+  }).join('');
+
+  viewer.innerHTML = `<div class="max-w-3xl mx-auto px-5 sm:px-12 py-10 sm:py-14 font-reading"><div class="text-center mb-10 pb-8 border-b border-current/15"><span class="text-[10px] font-sans font-bold uppercase tracking-widest text-brand-600">Akıllı Okuyucu - Kaldığın Yerden Devam</span><h1 class="text-2xl sm:text-4xl font-sans font-black mt-2">${title}</h1><p class="text-xs text-slate-500 mt-2"><i class="fa-solid fa-volume-high text-brand-600 mr-1"></i> Oynat tuşuna bas, sarı vurgu ile takip et. Hız değiştirebilirsin.</p></div><div id="txtContentBody" style="font-size: ${currentReaderFontSize}px;">${paragraphs}</div><div class="mt-16 pt-8 border-t border-current/15 text-center opacity-60 text-xs font-sans"><i class="fa-solid fa-check-circle mr-1 text-brand-600"></i> Son — Dijital Kitapçı</div></div>`;
+  
+  setTimeout(() => {
+    highlightElements = Array.from(viewer.querySelectorAll('[data-tts-id]'));
+    const savedScroll = localStorage.getItem('scroll_' + activeBookId);
+    if(savedScroll) {
+      document.getElementById('readerScrollContainer').scrollTop = parseInt(savedScroll);
+    } else {
+      document.getElementById('readerScrollContainer').scrollTop = 0;
+    }
+    document.getElementById('ttsProgressText').innerText = "Hazır - Dinlemek için Oynat'a bas";
+  }, 100);
+}
+
+async function loadPdfIntoReader(pdfUrl, title) {
+  currentReaderMode = 'pdf';
+  document.getElementById('readerFormatBadge').innerText = 'PDF';
+  document.getElementById('zoomAndFontControls').style.display = 'flex';
+  updateFormatButtonsUI();
+  const viewer = document.getElementById('viewer');
+  if (rendition) { rendition.destroy(); rendition = null; }
+  viewer.innerHTML = `<div class="max-w-4xl mx-auto px-2 sm:px-6 py-6 font-sans"><div id="pdfStatusHeader" class="text-center mb-4 text-xs font-bold opacity-75">PDF Yükleniyor...</div><div id="pdfPagesContainer" class="flex flex-col items-center"></div></div>`;
+  try {
+    if (!window.pdfjsLib) throw new Error("PDF kütüphanesi yok");
+    const loadingTask = window.pdfjsLib.getDocument(pdfUrl);
+    activePdfDoc = await loadingTask.promise;
+    const totalPages = activePdfDoc.numPages;
+    const statusHeader = document.getElementById('pdfStatusHeader');
+    if(statusHeader) statusHeader.innerHTML = `<span class="px-3.5 py-1 rounded-full bg-red-50 text-brand-600 border border-red-200">${title} — ${totalPages} Sayfa</span>`;
+    
+    let extracted = "";
+    const maxExtract = Math.min(totalPages, 25);
+    for(let i=1; i<=maxExtract; i++) {
+      try {
+        const page = await activePdfDoc.getPage(i);
+        const txt = await page.getTextContent();
+        extracted += txt.items.map(it => it.str).join(" ") + " ";
+      } catch(e){}
+    }
+    fullBookTextContent = extracted;
+    document.getElementById('ttsProgressText').innerText = extracted.length > 100 ? "PDF Sesli Hazır" : "Bu PDF taranmış olabilir";
+    
+    await renderAllPdfPages();
+  } catch (err) {
+    viewer.innerHTML = `<div class="p-4"><p class="text-xs text-center mb-2 text-brand-600">PDF önizleme yüklenemedi, doğrudan açılıyor...</p><iframe src="${pdfUrl}" class="w-full h-[80vh] border-0 rounded-xl"></iframe></div>`;
+    fullBookTextContent = title + ". PDF kitabı.";
+  }
+}
+async function renderAllPdfPages() {
+  if (!activePdfDoc) return;
+  const container = document.getElementById('pdfPagesContainer');
+  if (!container) return;
+  container.innerHTML = '';
+  const totalPages = activePdfDoc.numPages;
+  for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+    if (currentReaderMode !== 'pdf') break;
+    try {
+      const page = await activePdfDoc.getPage(pageNum);
+      const viewport = page.getViewport({ scale: currentPdfScale });
+      const wrapper = document.createElement('div');
+      wrapper.className = "w-full flex flex-col items-center mb-4";
+      const canvas = document.createElement('canvas');
+      canvas.className = "pdf-page-canvas bg-white";
+      const context = canvas.getContext('2d');
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      const pageLabel = document.createElement('span');
+      pageLabel.className = "text-[10px] font-sans font-bold text-brand-600 mb-2";
+      pageLabel.innerText = `Sayfa ${pageNum} / ${totalPages}`;
+      wrapper.appendChild(canvas);
+      wrapper.appendChild(pageLabel);
+      container.appendChild(wrapper);
+      await page.render({ canvasContext: context, viewport: viewport }).promise;
+    } catch(e){ console.error(e); }
+  }
+}
+let epubBook = null;
+async function loadEpubIntoReader(epubUrl, title) {
+  currentReaderMode = 'epub';
+  document.getElementById('readerFormatBadge').innerText = 'EPUB';
+  document.getElementById('zoomAndFontControls').style.display = 'flex';
+  updateFormatButtonsUI();
+  const viewer = document.getElementById('viewer');
+  viewer.innerHTML = `
+    <div class="flex h-full bg-white dark:bg-zinc-950">
+      <div id="epubToc" class="hidden lg:flex flex-col w-[260px] border-r border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50">
+        <div class="p-4 border-b border-zinc-200 dark:border-zinc-800">
+          <h4 class="text-[11px] font-bold tracking-[0.14em] uppercase text-zinc-500">İçindekiler</h4>
+          <p class="text-[12px] font-semibold mt-1 truncate">${title}</p>
+        </div>
+        <div id="epubTocList" class="flex-1 overflow-y-auto p-2 space-y-1 text-[12.5px]"></div>
+        <div class="p-3 border-t border-zinc-200 dark:border-zinc-800 flex gap-2">
+          <button onclick="adjustReaderSize(-1)" class="flex-1 h-8 rounded-full bg-white dark:bg-zinc-800 border text-[11px] font-medium">A-</button>
+          <button onclick="adjustReaderSize(1)" class="flex-1 h-8 rounded-full bg-white dark:bg-zinc-800 border text-[11px] font-medium">A+</button>
+        </div>
+      </div>
+      <div class="flex-1 flex flex-col relative min-w-0">
+        <div id="epubViewer" class="flex-1 w-full"></div>
+        <div id="epubLoader" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-zinc-900 text-white px-5 py-3 rounded-full text-[12px] font-medium flex items-center gap-3 shadow-xl">
+          <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> EPUB açılıyor...
+        </div>
+        <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-zinc-900/90 dark:bg-white/95 backdrop-blur text-white dark:text-zinc-900 rounded-full p-1.5 shadow-[0_12px_24px_-8px_rgba(0,0,0,.3)] border border-zinc-700/50">
+          <button onclick="prevEpubPage()" class="w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center"><i class="fa-solid fa-chevron-left text-[12px]"></i></button>
+          <span id="epubPageInfo" class="text-[11px] font-semibold px-3 min-w-[80px] text-center">...</span>
+          <button onclick="nextEpubPage()" class="w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center"><i class="fa-solid fa-chevron-right text-[12px]"></i></button>
+          <div class="w-px h-5 bg-white/20 mx-1"></div>
+          <button onclick="toggleEpubToc()" class="lg:hidden w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center"><i class="fa-solid fa-list text-[12px]"></i></button>
+        </div>
+      </div>
+    </div>`;
+  try {
+    if(rendition){ try{ rendition.destroy(); }catch(e){} }
+    epubBook = ePub(epubUrl);
+    rendition = epubBook.renderTo("epubViewer", { width: "100%", height: "100%", flow: "paginated", manager: "default", spread: "auto" });
+    rendition.themes.register("light", { body: { background: "#ffffff !important", color: "#18181b !important", "font-family": "Inter, sans-serif !important", "line-height": "1.7 !important", padding: "0 20px" }});
+    rendition.themes.register("sepia", { body: { background: "#fdf6e3 !important", color: "#3b2f2f !important", "font-family": "Fraunces, serif !important", "line-height": "1.8 !important" }});
+    rendition.themes.register("dark", { body: { background: "#09090b !important", color: "#fafafa !important" }});
+    const savedTheme = localStorage.getItem('reader_theme') || 'light';
+    rendition.themes.select(savedTheme);
+    rendition.themes.fontSize(`${currentReaderFontSize}px`);
+    await rendition.display();
+    try {
+      await epubBook.ready;
+      const navigation = epubBook.navigation;
+      const tocList = document.getElementById('epubTocList');
+      if(navigation && navigation.toc && navigation.toc.length > 0){
+        tocList.innerHTML = navigation.toc.map(item => `<button onclick="rendition.display('${item.href}')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-[12px] truncate">${item.label}</button>`).join('');
+      } else {
+        tocList.innerHTML = epubBook.spine.spineItems.map((item, idx) => `<button onclick="rendition.display(epubBook.spine.get(${idx}).href)" class="w-full text-left px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-[12px]">Bölüm ${idx+1}</button>`).join('');
+      }
+    } catch(e){}
+    let epubText = "";
+    try {
+      await epubBook.ready;
+      for(let i=0; i< epubBook.spine.length; i++) {
+        try {
+          const section = epubBook.spine.get(i);
+          const contents = await section.load(epubBook.load.bind(epubBook));
+          const text = contents.documentElement.textContent || "";
+          if(text.trim().length > 50){ epubText += text.substring(0, 5000) + " \n"; }
+          section.unload();
+          if(epubText.length > 80000) break;
+        } catch(e){}
+      }
+    } catch(e){ epubText = title; }
+    fullBookTextContent = epubText || title + " e-kitabı.";
+    document.getElementById('epubLoader').style.display = 'none';
+    document.getElementById('ttsProgressText').innerText = `EPUB Hazır • ${Math.round(fullBookTextContent.length/1000)}k karakter`;
+    document.getElementById('epubPageInfo').innerText = "1 / " + (epubBook.spine.length || "?");
+    rendition.on("relocated", (location) => {
+      document.getElementById('epubPageInfo').innerText = `${location.start.displayed.page} / ${location.start.displayed.total}`;
+      document.getElementById('readingProgressBar').style.width = Math.round((location.start.percentage||0)*100) + "%";
+      if(activeBookId) localStorage.setItem('epub_loc_' + activeBookId, location.start.cfi);
+    });
+    rendition.on("keyup", (e) => { if (e.key === "ArrowRight") rendition.next(); if (e.key === "ArrowLeft") rendition.prev(); });
+    const savedLoc = activeBookId ? localStorage.getItem('epub_loc_' + activeBookId) : null;
+    if(savedLoc){ try{ rendition.display(savedLoc); }catch(e){} }
+  } catch (err) {
+    viewer.innerHTML = `<div class="p-12 text-center"><div class="w-12 h-12 mx-auto mb-4 rounded-2xl bg-red-50 flex items-center justify-center text-red-600"><i class="fa-solid fa-triangle-exclamation"></i></div><p class="font-semibold">EPUB yüklenemedi</p><p class="text-[12px] text-zinc-500 mt-1">${err.message}</p></div>`;
+  }
+}
+window.prevEpubPage = () => { if(rendition) rendition.prev(); };
+window.nextEpubPage = () => { if(rendition) rendition.next(); };
+window.toggleEpubToc = () => {
+  const toc = document.getElementById('epubToc');
+  toc.classList.toggle('hidden'); toc.classList.toggle('flex'); toc.classList.toggle('absolute'); toc.classList.toggle('inset-0'); toc.classList.toggle('z-10'); toc.classList.toggle('w-full');
+};
+
+
+window.switchReaderFormat = (targetMode) => {
+  stopSpeech();
+  if (targetMode === 'txt' && activeTxtUrl) { tryFetchText(activeTxtUrl).then(txt => { if(txt) loadTxtIntoReaderDirect(txt, activeBookTitle); }); }
+  else if (targetMode === 'pdf' && activePdfUrl) { loadPdfIntoReader(activePdfUrl, activeBookTitle); }
+  else if (targetMode === 'epub' && activeEpubUrl) { loadEpubIntoReader(activeEpubUrl, activeBookTitle); }
+};
+window.adjustReaderSize = (direction) => {
+  if (currentReaderMode === 'txt') {
+    currentReaderFontSize = Math.min(28, Math.max(14, currentReaderFontSize + (direction * 2)));
+    const body = document.getElementById('txtContentBody');
+    if (body) body.style.fontSize = `${currentReaderFontSize}px`;
+  } else if (currentReaderMode === 'pdf') {
+    currentPdfScale = Math.min(2.4, Math.max(0.8, +(currentPdfScale + (direction * 0.2)).toFixed(1)));
+    renderAllPdfPages();
+  } else if (currentReaderMode === 'epub' && rendition) {
+    currentReaderFontSize = Math.min(28, Math.max(14, currentReaderFontSize + (direction * 1)));
+    rendition.themes.fontSize(`${currentReaderFontSize}px`);
+  }
+};
+window.setReaderTheme = (theme) => {
+  const container = document.getElementById('readerScrollContainer');
+  container.classList.remove('reader-theme-sepia', 'reader-theme-dark', 'reader-theme-light');
+  container.classList.add(`reader-theme-${theme}`);
+  localStorage.setItem('reader_theme', theme);
+  if(currentReaderMode === 'epub' && rendition && rendition.themes){ try{ rendition.themes.select(theme); }catch(e){} }
+};
+window.updateReadingProgress = () => {
+  const container = document.getElementById('readerScrollContainer');
+  const scrollTop = container.scrollTop;
+  const scrollHeight = container.scrollHeight - container.clientHeight;
+  const percent = scrollHeight > 0 ? Math.min(100, Math.round((scrollTop / scrollHeight) * 100)) : 0;
+  if(!isSpeaking) document.getElementById('readingProgressBar').style.width = `${percent}%`;
+  if(activeBookId) localStorage.setItem('scroll_' + activeBookId, scrollTop.toString());
+};
+window.closeReader = () => {
+  stopSpeech();
+  document.getElementById('readerModal').classList.remove('modal-active');
+  activePdfDoc = null;
+  if(rendition) { rendition.destroy(); rendition = null; }
+  saveReadingProgress();
+};
+
+window.filterBooks = () => { searchQuery = document.getElementById('searchInput').value.toLocaleLowerCase('tr-TR'); renderBooks(); };
+window.filterCategory = (cat, btnEl) => {
+  currentCategory = cat;
+  document.getElementById('listTitle').innerText = cat === 'Tümü' ? 'Kitaplar Koleksiyonu' : `${cat} Kitapları`;
+  document.querySelectorAll('.cat-btn').forEach(b => { b.className = "cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-red-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-brand-600 hover:text-brand-600 bg-white dark:bg-slate-900"; });
+  if(btnEl) { btnEl.className = "cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-brand-600 bg-brand-600 text-white shadow-md shadow-brand-600/20"; }
+  renderBooks();
+};
+
+async function loadBooks() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "kitaplar"));
+    allBooks = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    document.getElementById('loadingIndicator').style.display = 'none';
+    renderBooks();
+    renderHomeSections();
+  } catch (error) {
+    document.getElementById('loadingIndicator').innerHTML = `<p class="text-brand-600 text-xs font-bold">Kitaplar yüklenemedi: ${error.message}</p>`;
+  }
+}
+window.renderBooks = () => {
+  const grid = document.getElementById('bookGrid');
+  const sortVal = document.getElementById('sortSelect') ? document.getElementById('sortSelect').value : 'newest';
+  grid.innerHTML = '';
+  let filtered = allBooks.filter(book => {
+    const matchCat = currentCategory === 'Tümü' || book.kategori === currentCategory;
+    const bTitle = (book.baslik || "").toLocaleLowerCase('tr-TR');
+    const bAuthor = (book.yazar || "").toLocaleLowerCase('tr-TR');
+    const matchSearch = bTitle.includes(searchQuery) || bAuthor.includes(searchQuery);
+    return matchCat && matchSearch;
+  });
+  filtered.sort((a, b) => {
+    if (sortVal === 'popular') return (b.indirmeSayisi || 0) - (a.indirmeSayisi || 0);
+    if (sortVal === 'az') return (a.baslik || "").localeCompare(b.baslik || "", 'tr');
+    const dateA = a.tarih ? (a.tarih.toMillis ? a.tarih.toMillis() : 0) : 0;
+    const dateB = b.tarih ? (b.tarih.toMillis ? b.tarih.toMillis() : 0) : 0;
+    return dateB - dateA;
+  });
+  const countEl = document.getElementById('bookCount');
+  if(countEl) countEl.innerText = `${filtered.length} eser`;
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="col-span-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[24px] text-center py-20 px-6"><div class="w-12 h-12 mx-auto mb-4 rounded-2xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-book-open text-zinc-400"></i></div><p class="text-zinc-900 dark:text-zinc-100 text-[15px] font-semibold">Sonuç bulunamadı</p><p class="text-zinc-500 text-[13px] mt-1">Arama kriterlerinizi değiştirmeyi deneyin.</p></div>`;
+    return;
+  }
+  filtered.forEach(book => {
+    const isFav = userFavorites.includes(book.id);
+    const heartClass = isFav ? "fa-solid fa-heart text-rose-500" : "fa-regular fa-heart text-zinc-400";
+    const cover = book.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800';
+    const safeTitle = book.baslik.replace(/'/g, "\\'");
+    const safeFile = book.dosyaAdi.replace(/'/g, "\\'");
+    const price = Number(book.fiyat) || 0;
+    const owned = canAccessBook(book);
+    const priceBadge = price > 0
+      ? (owned
+          ? `<span class="absolute bottom-3 right-3 text-[11px] font-bold text-white bg-emerald-600 px-3 py-1 rounded-full shadow-sm flex items-center gap-1"><i class="fa-solid fa-check text-[10px]"></i> Erişim var</span>`
+          : `<span class="absolute bottom-3 right-3 text-[11px] font-bold tracking-tight text-zinc-900 bg-white/95 backdrop-blur px-3 py-1 rounded-full shadow-sm border border-zinc-200">₺${price.toLocaleString('tr-TR')}</span>`)
+      : `<span class="absolute bottom-3 right-3 text-[11px] font-bold text-white bg-zinc-900 px-3 py-1 rounded-full shadow-sm">Ücretsiz</span>`;
+    const primaryAction = (price > 0 && !owned)
+      ? `<div class="flex gap-2"><button onclick="event.stopPropagation(); openPurchaseModal('${book.id}')" class="flex-1 h-[40px] bg-zinc-900 hover:bg-black text-white rounded-full text-[12.5px] font-semibold tracking-wide transition flex items-center justify-center gap-2"><i class="fa-solid fa-lock text-[11px]"></i> Satın Al — ₺${price.toLocaleString('tr-TR')}</button><button onclick="event.stopPropagation(); addToCart('${book.id}')" title="Sepete ekle" class="cart-add w-[40px] h-[40px] shrink-0 rounded-full bg-white text-zinc-900 border border-zinc-200 flex items-center justify-center"><i class="fa-solid fa-cart-plus text-[13px]"></i></button></div>`
+      : `<div class="grid grid-cols-[1.1fr_0.9fr] gap-2"><button onclick="event.stopPropagation(); openReader('${safeFile}', '${safeTitle}', '${book.id}')" class="h-[40px] bg-zinc-900 hover:bg-black text-white rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-play text-[10px]"></i> Oku</button><button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${safeFile}')" class="h-[40px] bg-white hover:bg-zinc-50 text-zinc-900 border border-zinc-200 rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-arrow-down text-[11px]"></i> İndir</button></div>`;
+    grid.innerHTML += `<article class="group bg-white dark:bg-zinc-900 border border-zinc-200/70 dark:border-zinc-800 rounded-[20px] p-3 flex flex-col hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.15)] transition-all duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[3/4.2] rounded-[14px] overflow-hidden relative bg-zinc-100 dark:bg-zinc-800 cursor-pointer"><img src="${cover}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div><span class="absolute top-3 left-3 bg-white/90 dark:bg-zinc-900/90 backdrop-blur text-zinc-900 dark:text-zinc-100 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide border border-zinc-200/50">${(book.kategori || 'Genel').toUpperCase()}</span><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-3 right-3 w-8 h-8 bg-white/90 dark:bg-zinc-900/90 backdrop-blur rounded-full flex items-center justify-center transition hover:scale-105 shadow-sm border border-zinc-200/50"><i class="${heartClass} text-[13px]"></i></button>${priceBadge}</div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-900 dark:text-zinc-100 line-clamp-2 cursor-pointer group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition min-h-[38px]">${book.baslik}</h4><p class="text-[12.5px] font-medium text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">${book.yazar}</p><div class="mt-auto pt-3 flex flex-col gap-2">${primaryAction}</div></div></article>`;
+  });
+};
+function renderHomeSections() {
+  const popularGrid = document.getElementById('popularBooks');
+  const newGrid = document.getElementById('newBooks');
+  const popular = [...allBooks].sort((a,b) => (b.indirmeSayisi||0) - (a.indirmeSayisi||0)).slice(0, 4);
+  popularGrid.innerHTML = popular.map((b, idx) => `<div onclick="openBookModal('${b.id}')" class="flex items-center gap-3.5 p-2.5 rounded-2xl bg-red-50/40 dark:bg-slate-900/50 hover:bg-red-50 border border-red-100 dark:border-slate-800 hover:border-brand-600 cursor-pointer group transition"><div class="relative flex-shrink-0"><img src="${b.kapakUrl}" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-14 h-20 object-cover rounded-xl shadow-md group-hover:scale-105 transition"><span class="absolute -top-1.5 -left-1.5 w-5 h-5 rounded-md bg-brand-600 text-white font-black text-[10px] flex items-center justify-center shadow">#${idx + 1}</span></div><div class="min-w-0 flex-grow"><span class="text-[9px] font-extrabold uppercase text-brand-600 block mb-0.5">${b.kategori || 'Genel'}</span><h4 class="text-slate-900 dark:text-white text-xs sm:text-sm font-bold truncate group-hover:text-brand-600 transition">${b.baslik}</h4><p class="text-slate-500 text-[11px] truncate">${b.yazar}</p><span class="text-[10px] text-slate-600 dark:text-slate-400 mt-1 inline-flex items-center gap-1 font-semibold"><i class="fa-solid fa-download text-brand-600"></i> ${b.indirmeSayisi || 0} İndirme</span></div></div>`).join('');
+  const newB = [...allBooks].sort((a,b) => { const da = a.tarih ? (a.tarih.toMillis ? a.tarih.toMillis() : 0) : 0; const db = b.tarih ? (b.tarih.toMillis ? b.tarih.toMillis() : 0) : 0; return db-da; }).slice(0, 4);
+  newGrid.innerHTML = newB.map((b) => `<div onclick="openBookModal('${b.id}')" class="flex items-center gap-3.5 p-2.5 rounded-2xl bg-red-50/40 dark:bg-slate-900/50 hover:bg-red-50 border border-red-100 dark:border-slate-800 hover:border-brand-600 cursor-pointer group transition"><div class="relative flex-shrink-0"><img src="${b.kapakUrl}" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-14 h-20 object-cover rounded-xl shadow-md group-hover:scale-105 transition"><span class="absolute -top-1.5 -left-1.5 px-1.5 py-0.5 rounded bg-brand-600 text-white font-black text-[8px] uppercase shadow">YENİ</span></div><div class="min-w-0 flex-grow"><span class="text-[9px] font-extrabold uppercase text-brand-600 block mb-0.5">${b.kategori || 'Genel'}</span><h4 class="text-slate-900 dark:text-white text-xs sm:text-sm font-bold truncate group-hover:text-brand-600 transition">${b.baslik}</h4><p class="text-slate-500 text-[11px] truncate">${b.yazar}</p><span class="text-[10px] text-brand-600 mt-1 inline-flex items-center gap-1 font-bold">Hemen Dinle <i class="fa-solid fa-headphones text-[9px]"></i></span></div></div>`).join('');
+}
+window.toggleFavorite = async (bookId, btn) => {
+  if (!auth.currentUser) return openAuthWithMessage('Favorilere eklemek için Google ile giriş yapmalısınız');
+  const favRef = doc(db, "kullanicilar", auth.currentUser.uid, "favoriler", bookId);
+  const icon = btn.querySelector('i');
+  if (userFavorites.includes(bookId)) { await deleteDoc(favRef); userFavorites = userFavorites.filter(id => id !== bookId); icon.className = "fa-regular fa-heart text-slate-700 text-xs"; }
+  else { await setDoc(favRef, { addedAt: serverTimestamp() }); userFavorites.push(bookId); icon.className = "fa-solid fa-heart text-brand-600 text-xs"; }
+};
+
+// === SATIN ALMA (HAVALE/EFT + WHATSAPP ONAYI) ===
+window.openPurchaseModal = (bookId) => {
+  const book = allBooks.find(b => b.id === bookId);
+  if (!book) return;
+  if (!auth.currentUser) { openAuthWithMessage('Satın almak için önce giriş yapmalısınız'); return; }
+  if (canAccessBook(book)) return;
+  purchaseModalBookId = bookId;
+  const price = Number(book.fiyat) || 0;
+  document.getElementById('purchaseBookTitle').innerText = book.baslik;
+  document.getElementById('purchaseBookPrice').innerText = `₺${price.toLocaleString('tr-TR')}`;
+  document.getElementById('bankAdi').innerText = BANK_INFO.banka;
+  document.getElementById('bankHesapSahibi').innerText = BANK_INFO.hesapSahibi;
+  document.getElementById('bankIban').innerText = BANK_INFO.iban;
+  document.getElementById('purchaseModal').classList.add('modal-active');
+};
+window.closePurchaseModal = () => { document.getElementById('purchaseModal').classList.remove('modal-active'); purchaseModalBookId = null; };
+window.copyIban = () => { navigator.clipboard.writeText(BANK_INFO.iban.replace(/\s/g, '')); alert('IBAN kopyalandı!'); };
+
+window.confirmPurchaseRequest = async () => {
+  if (!purchaseModalBookId || !auth.currentUser) return;
+  const book = allBooks.find(b => b.id === purchaseModalBookId);
+  if (!book) return;
+  const listPrice = Number(book.fiyat) || 0;
+  const price = window.__couponPrice(listPrice);
+  try {
+    await addDoc(collection(db, "siparisler"), {
+      kupon: window.__activeCoupon ? window.__activeCoupon.kod : null,
+      listeFiyati: listPrice,
+      kitapId: book.id,
+      kitapAdi: book.baslik,
+      fiyat: price,
+      kullaniciId: auth.currentUser.uid,
+      kullaniciEmail: auth.currentUser.email,
+      kullaniciAd: auth.currentUser.displayName || auth.currentUser.email,
+      durum: "bekliyor",
+      tarih: serverTimestamp()
+    });
+  } catch (e) {}
+  const msg = encodeURIComponent(`Merhaba, "${book.baslik}" (₺${price}) kitabı için ödemeyi yaptım. Dekontu ekte gönderiyorum. E-posta: ${auth.currentUser.email}`);
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+  closePurchaseModal();
+  alert('Siparişiniz alındı! Dekontu WhatsApp üzerinden gönderdiğinizde, onayın ardından kitap hesabınıza tanımlanacaktır.');
+};
+window.checkDownload = async (event, bookId, fileName) => {
+  if (event) event.preventDefault();
+  if (!auth.currentUser) {
+    openAuthWithMessage('Kitapları indirmek için Google ile giriş yapmalısınız');
+    return;
+  }
+  const bookForAccess = allBooks.find(b => b.id === bookId);
+  if (bookForAccess && !canAccessBook(bookForAccess)) {
+    openPurchaseModal(bookId);
+    return;
+  }
+  try {
+    await updateDoc(doc(db, "kitaplar", bookId), { indirmeSayisi: increment(1) });
+    await setDoc(doc(db, "kullanicilar", auth.currentUser.uid, "indirilenler", bookId), { kitapId: bookId, tarih: serverTimestamp() });
+    const bIndex = allBooks.findIndex(b => b.id === bookId);
+    if(bIndex > -1) allBooks[bIndex].indirmeSayisi = (allBooks[bIndex].indirmeSayisi || 0) + 1;
+    renderBooks(); renderHomeSections();
+  } catch(e) {}
+  const link = document.createElement('a');
+  link.href = fileName; link.download = fileName;
+  document.body.appendChild(link); link.click(); document.body.removeChild(link);
+};
+async function loadCategories() {
+  const catContainer = document.getElementById('categoryContainer');
+  const catSelect = document.getElementById('newBookCategory');
+  const adminCatList = document.getElementById('adminCategoryList');
+  try {
+    const snap = await getDocs(collection(db, "kategoriler"));
+    allCategories = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    catContainer.innerHTML = `<button onclick="filterCategory('Tümü', this)" class="cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-brand-600 bg-brand-600 text-white shadow-md shadow-brand-600/20">Tümü</button>`;
+    catSelect.innerHTML = '<option value="Genel">Genel</option>';
+    adminCatList.innerHTML = '';
+    allCategories.forEach(c => {
+      catContainer.innerHTML += `<button onclick="filterCategory('${c.ad}', this)" class="cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-red-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-brand-600 hover:text-brand-600 bg-white dark:bg-slate-900">${c.ad}</button>`;
+      catSelect.innerHTML += `<option value="${c.ad}">${c.ad}</option>`;
+      adminCatList.innerHTML += `<div class="flex justify-between items-center bg-red-50/50 dark:bg-slate-800 p-3 rounded-lg border border-red-100 dark:border-slate-700"><span class="text-slate-900 dark:text-white text-sm font-bold">${c.ad}</span><button onclick="deleteCategory('${c.id}')" class="text-brand-600 hover:bg-red-100 p-2 rounded"><i class="fa-solid fa-trash"></i></button></div>`;
+    });
+  } catch(e) {}
+}
+window.addCategory = async (e) => { e.preventDefault(); const name = document.getElementById('newCategoryName').value; await addDoc(collection(db, "kategoriler"), { ad: name }); document.getElementById('newCategoryName').value = ''; loadCategories(); };
+window.deleteCategory = async (id) => { if(confirm("Kategoriyi silmek istiyor musunuz?")) { await deleteDoc(doc(db, "kategoriler", id)); loadCategories(); } };
+
+// === ADMİN PANELİ VE SEKME YÖNETİMİ (YOUTUBE DAHİL) ===
+window.openAdminModal = () => {
+  document.getElementById('adminModal').classList.add('modal-active');
+  loadAdminBooks();
+  loadAdminYoutubeList();
+  loadAdminComments();
+  loadCategories();
+  loadAdminSubmissions();
+  loadAdminOrders();
+};
+
+window.switchAdminTab = (tab) => {
+  ['Books', 'Youtube', 'Categories', 'Comments', 'Submissions', 'Orders'].forEach(t => {
+    const tabEl = document.getElementById('adminTab' + t);
+    const btnEl = document.getElementById('tabBtn' + t);
+    if (tabEl) tabEl.classList.add('hidden');
+    if (btnEl) {
+      btnEl.classList.remove('border-brand-600', 'text-brand-600');
+      btnEl.classList.add('border-transparent', 'text-slate-500');
+    }
+  });
+  const active = tab.charAt(0).toUpperCase() + tab.slice(1);
+  const activeTabEl = document.getElementById('adminTab' + active);
+  const activeBtnEl = document.getElementById('tabBtn' + active);
+  if (activeTabEl) activeTabEl.classList.remove('hidden');
+  if (activeBtnEl) {
+    activeBtnEl.classList.add('border-brand-600', 'text-brand-600');
+    activeBtnEl.classList.remove('border-transparent', 'text-slate-500');
+  }
+  if (tab === 'youtube') loadAdminYoutubeList();
+  if (tab === 'orders') loadAdminOrders();
+};
+
+window.addNewBook = async (e) => {
+  e.preventDefault();
+  const priceVal = Number(document.getElementById('newBookPrice').value) || 0;
+  const newBook = { baslik: document.getElementById('newBookTitle').value.trim(), yazar: document.getElementById('newBookAuthor').value.trim(), kategori: document.getElementById('newBookCategory').value || 'Genel', dosyaAdi: document.getElementById('newBookFile').value.trim(), kapakUrl: document.getElementById('newBookCover').value.trim(), aciklama: document.getElementById('newBookDesc').value.trim(), fiyat: priceVal, indirmeSayisi: 0, tarih: serverTimestamp() };
+  try { await addDoc(collection(db, "kitaplar"), newBook); alert("Kitap eklendi!"); document.getElementById('addBookForm').reset(); loadBooks(); loadAdminBooks(); } catch(err) { alert(err.message); }
+};
+window.deleteBook = async (id) => { if(confirm("Kitabı sil?")) { await deleteDoc(doc(db, "kitaplar", id)); loadBooks(); loadAdminBooks(); } };
+window.editBookPrice = async (id, currentPrice) => {
+  const val = prompt("Yeni fiyat (₺) — ücretsiz yapmak için 0 girin:", currentPrice || 0);
+  if (val === null) return;
+  const price = Number(val) || 0;
+  try { await updateDoc(doc(db, "kitaplar", id), { fiyat: price }); loadBooks(); loadAdminBooks(); } catch(err) { alert(err.message); }
+};
+async function loadAdminBooks() {
+  const list = document.getElementById('adminBookList');
+  list.innerHTML = '<p class="text-slate-400 text-sm">Yükleniyor...</p>';
+  const snap = await getDocs(collection(db, "kitaplar"));
+  list.innerHTML = '';
+  snap.forEach(doc => {
+    const b = doc.data();
+    const priceLabel = (Number(b.fiyat) || 0) > 0 ? `₺${b.fiyat}` : 'Ücretsiz';
+    list.innerHTML += `<div class="flex justify-between items-center bg-red-50/50 dark:bg-slate-800 p-3 rounded-xl border border-red-100 dark:border-slate-700"><div class="flex items-center gap-3"><img src="${b.kapakUrl}" class="w-10 h-14 object-cover rounded"><div><p class="text-slate-900 dark:text-white text-sm font-bold line-clamp-1">${b.baslik}</p><p class="text-slate-500 text-xs">${b.yazar} — <span class="text-brand-600 font-semibold">${b.dosyaAdi}</span></p><span class="text-[10px] font-extrabold text-emerald-600">${priceLabel}</span></div></div><div class="flex items-center gap-1"><button onclick="editBookPrice('${doc.id}', ${Number(b.fiyat) || 0})" title="Fiyatı Düzenle" class="text-slate-500 hover:text-brand-600 p-2"><i class="fa-solid fa-tag"></i></button><button onclick="deleteBook('${doc.id}')" title="Sil" class="text-brand-600 p-2"><i class="fa-solid fa-trash"></i></button></div></div>`;
+  });
+}
+async function loadAdminOrders() {
+  const list = document.getElementById('adminOrderList');
+  if (!list) return;
+  list.innerHTML = '<p class="text-slate-400 text-sm">Yükleniyor...</p>';
+  try {
+    const snap = await getDocs(collection(db, "siparisler"));
+    list.innerHTML = '';
+    if (snap.empty) return list.innerHTML = '<p class="text-slate-400 text-sm">Henüz sipariş yok.</p>';
+    const orders = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => {
+      const ta = a.tarih && a.tarih.toMillis ? a.tarih.toMillis() : 0;
+      const tb = b.tarih && b.tarih.toMillis ? b.tarih.toMillis() : 0;
+      return tb - ta;
+    });
+    orders.forEach(o => {
+      const isPending = o.durum === 'bekliyor';
+      const badge = isPending ? '<span class="bg-amber-500/20 text-amber-600 text-[10px] px-2 py-0.5 rounded font-bold">Bekliyor</span>' : '<span class="bg-emerald-500/20 text-emerald-600 text-[10px] px-2 py-0.5 rounded font-bold">Onaylandı</span>';
+      list.innerHTML += `<div class="bg-red-50/50 dark:bg-slate-800 p-4 rounded-xl border border-red-100 dark:border-slate-700 flex flex-col md:flex-row justify-between items-start md:items-center gap-3"><div><div class="flex items-center gap-2 mb-1">${badge}<span class="text-brand-600 font-black text-sm">₺${o.fiyat}</span></div><p class="text-slate-900 dark:text-white text-sm font-bold">${o.kitapAdi || ''}</p><p class="text-slate-500 text-xs">${o.kullaniciAd || ''} — ${o.kullaniciEmail || ''}</p></div><div class="flex gap-2">${isPending ? `<button onclick="approveOrder('${o.id}','${o.kullaniciId}','${o.kitapId}')" class="bg-emerald-600 hover:bg-emerald-700 px-3 py-1.5 rounded text-xs font-bold text-white">Onayla</button>` : ''}<button onclick="deleteOrder('${o.id}')" class="bg-brand-600 hover:bg-brand-700 px-3 py-1.5 rounded text-xs font-bold text-white">Sil</button></div></div>`;
+    });
+  } catch(e) { list.innerHTML = '<p class="text-brand-600 text-xs">Hata.</p>'; }
+}
+window.approveOrder = async (orderId, uid, bookId) => {
+  try {
+    await setDoc(doc(db, "kullanicilar", uid, "satinAlinanlar", bookId), { tarih: serverTimestamp() });
+    await updateDoc(doc(db, "siparisler", orderId), { durum: "onaylandı" });
+    alert("Sipariş onaylandı, kitap kullanıcıya tanımlandı!");
+    loadAdminOrders();
+  } catch(err) { alert(err.message); }
+};
+window.deleteOrder = async (orderId) => { if (confirm("Siparişi silmek istiyor musunuz?")) { await deleteDoc(doc(db, "siparisler", orderId)); loadAdminOrders(); } };
+window.approveComment = async (id) => { await updateDoc(doc(db, "yorumlar", id), { durum: "approved" }); loadAdminComments(); };
+window.deleteComment = async (id) => { if(confirm("Sil?")) { await deleteDoc(doc(db, "yorumlar", id)); loadAdminComments(); } };
+async function loadAdminComments() {
+  const list = document.getElementById('adminCommentList');
+  list.innerHTML = '<p class="text-slate-400 text-sm">Yükleniyor...</p>';
+  const q = query(collection(db, "yorumlar"), where("durum", "==", "pending"));
+  const snap = await getDocs(q);
+  list.innerHTML = '';
+  if(snap.empty) return list.innerHTML = '<p class="text-slate-400 text-sm">Bekleyen yorum yok.</p>';
+  snap.forEach(doc => {
+    const c = doc.data();
+    list.innerHTML += `<div class="bg-red-50/50 dark:bg-slate-800 p-4 rounded-xl border border-red-100 dark:border-slate-700 flex flex-col md:flex-row justify-between items-start md:items-center gap-4"><div><p class="text-brand-600 text-xs font-bold mb-1">Kitap: ${c.kitapAdi || 'Bilinmiyor'}</p><p class="text-slate-900 dark:text-white text-sm font-bold">${c.isim} <span class="text-amber-500 text-xs ml-2">${c.puan} Yıldız</span></p><p class="text-slate-600 dark:text-slate-300 text-xs mt-1">${c.mesaj}</p></div><div class="flex gap-2"><button onclick="approveComment('${doc.id}')" class="bg-emerald-600 px-3 py-1 rounded text-xs font-bold text-white">Onayla</button><button onclick="deleteComment('${doc.id}')" class="bg-brand-600 px-3 py-1 rounded text-xs font-bold text-white">Sil</button></div></div>`;
+  });
+}
+window.approveSubmission = async (id) => { await updateDoc(doc(db, "sizdenGelenler", id), { durum: "approved" }); loadAdminSubmissions(); loadSizdenGelenler(); };
+window.deleteSubmission = async (id) => { if(confirm("Sil?")) { await deleteDoc(doc(db, "sizdenGelenler", id)); loadAdminSubmissions(); loadSizdenGelenler(); } };
+async function loadAdminSubmissions() {
+  const list = document.getElementById('adminSubmissionList');
+  list.innerHTML = '<p class="text-slate-400 text-sm">Yükleniyor...</p>';
+  try {
+    const snap = await getDocs(collection(db, "sizdenGelenler"));
+    list.innerHTML = '';
+    if(snap.empty) return list.innerHTML = '<p class="text-slate-400 text-sm">Gönderi yok.</p>';
+    snap.forEach(d => {
+      const s = d.data();
+      const isPending = s.durum === "pending";
+      const statusBadge = isPending ? '<span class="bg-amber-500/20 text-amber-600 text-[10px] px-2 py-0.5 rounded font-bold">Bekliyor</span>' : '<span class="bg-emerald-500/20 text-emerald-600 text-[10px] px-2 py-0.5 rounded font-bold">Yayında</span>';
+      list.innerHTML += `<div class="bg-red-50/50 dark:bg-slate-800 p-4 rounded-xl border border-red-100 dark:border-slate-700 flex flex-col md:flex-row justify-between items-start md:items-center gap-4"><div><div class="flex items-center gap-2 mb-1"><span class="text-brand-600 text-xs font-bold">${s.tur || 'Paylaşım'}</span>${statusBadge}</div><p class="text-slate-900 dark:text-white text-sm font-bold">${s.baslik || ''} <span class="text-slate-500 font-normal text-xs">— ${s.isim}</span></p><p class="text-slate-600 dark:text-slate-300 text-xs mt-1 italic">"${s.mesaj}"</p></div><div class="flex gap-2">${isPending ? `<button onclick="approveSubmission('${d.id}')" class="bg-emerald-600 hover:bg-emerald-700 px-3 py-1 rounded text-xs font-bold text-white">Onayla</button>` : ''}<button onclick="deleteSubmission('${d.id}')" class="bg-brand-600 hover:bg-brand-700 px-3 py-1 rounded text-xs font-bold text-white">Sil</button></div></div>`;
+    });
+  } catch(e) { list.innerHTML = '<p class="text-brand-600 text-xs">Hata.</p>'; }
+}
+
+onAuthStateChanged(auth, async (user) => {
+  const loginBtn = document.getElementById('googleLoginBtn');
+  const profileArea = document.getElementById('userProfileArea');
+  const adminBtn = document.getElementById('adminPanelBtn');
+  const warn = document.getElementById('authRequiredWarning');
+  if (warn && user) warn.style.display = 'none';
+
+  if (user) {
+    loginBtn.style.display = 'none'; profileArea.style.display = 'flex';
+    document.getElementById('userNameDisplay').innerText = user.displayName || user.email.split('@')[0];
+    if(user.photoURL) {
+      document.getElementById('userAvatarImg').src = user.photoURL;
+      document.getElementById('userAvatarImg').style.display = 'block';
+      document.getElementById('userAvatarText').style.display = 'none';
+      document.getElementById('profileImg').src = user.photoURL; document.getElementById('profileImg').classList.remove('hidden');
+      document.getElementById('profileImgText').classList.add('hidden');
+    } else {
+      document.getElementById('userAvatarImg').style.display = 'none';
+      document.getElementById('userAvatarText').style.display = 'flex';
+      document.getElementById('userAvatarText').innerText = (user.displayName || user.email).charAt(0).toUpperCase();
+      document.getElementById('profileImgText').innerText = (user.displayName || user.email).charAt(0).toUpperCase();
+    }
+    document.getElementById('profileName').innerText = user.displayName || 'Okur';
+    document.getElementById('profileEmail').innerText = user.email;
+    document.getElementById('modalCommentName').value = user.displayName || '';
+    document.getElementById('subName').value = user.displayName || '';
+    if (user.email === ADMIN_EMAIL) adminBtn.style.display = 'flex'; else adminBtn.style.display = 'none';
+    try { const favSnapshot = await getDocs(collection(db, "kullanicilar", user.uid, "favoriler")); userFavorites = favSnapshot.docs.map(doc => doc.id); } catch (e) {}
+    try { const purSnapshot = await getDocs(collection(db, "kullanicilar", user.uid, "satinAlinanlar")); userPurchases = purSnapshot.docs.map(doc => doc.id); } catch (e) {}
+  } else {
+    loginBtn.style.display = 'flex'; profileArea.style.display = 'none'; adminBtn.style.display = 'none'; userFavorites = []; userPurchases = [];
+  }
+  renderBooks();
+});
+
+const chatWindow = document.getElementById('chatWindow');
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+window.toggleChat = () => {
+  if (chatWindow.style.display === 'none' || chatWindow.style.display === '') { chatWindow.style.display = 'flex'; chatWindow.classList.add('chat-open'); }
+  else { chatWindow.style.display = 'none'; chatWindow.classList.remove('chat-open'); }
+};
+window.handleKeyPress = (e) => { if (e.key === 'Enter') window.sendMessage(); };
+window.sendMessage = () => {
+  const userText = chatInput.value.trim();
+  if (!userText) return;
+  chatMessages.innerHTML += `<div class="flex gap-2 w-full justify-end"><div class="bg-brand-600 text-white px-3.5 py-2.5 rounded-2xl rounded-tr-none shadow-sm max-w-[85%]">${userText}</div></div>`;
+  chatInput.value = '';
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  setTimeout(() => { botReply(userText.toLowerCase()); }, 600);
+};
+function botReply(text) {
+  let reply = "Artık kitapları sarı vurgu ile takip ederek dinleyebilirsin. Oynat tuşuna basman yeterli, kaldığın yerden devam eder.";
+  if (text.includes("fiyat") || text.includes("ücret") || text.includes("öde")) reply = "Her kitabın fiyatı kapağında ve detay sayfasında yazar. <b>Satın Al</b> butonuna basıp havale/EFT bilgilerinden ödeme yaptıktan sonra WhatsApp'tan dekontu iletmen yeterli — onay sonrası kitap hemen hesabına tanımlanır.";
+  else if (text.includes("satın al") || text.includes("nasıl al")) reply = "Kitabın üzerindeki <b>Satın Al</b> butonuna bas, açılan ekrandaki IBAN'a ödemeni yap ve WhatsApp butonuyla dekontu gönder. Onaylandığında kitap kütüphanene eklenir.";
+  else if (text.includes("ses") || text.includes("dinle")) reply = "Üstteki ses barından <b>▶</b> bas, hızını 1.5x yapabilir, ileri-geri atlayabilirsin. TXT kitaplar en iyi sonucu verir.";
+  else if (text.includes("kaydet") || text.includes("kaldı")) reply = "Okuma ve dinleme konumun otomatik kaydediliyor. Kitabı kapatıp açtığında kaldığın yerden devam edersin.";
+  chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-slate-950 border border-brand-600 flex-shrink-0 flex items-center justify-center mt-1 overflow-hidden p-0.5"><img src="1792945068177.jpg" onerror="handleLogoError(this)" class="w-full h-full object-contain"></div><div class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-red-100 dark:border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Klavye kısayolları
+document.addEventListener('keydown', (e) => {
+  if(document.getElementById('readerModal').classList.contains('modal-active')) {
+    if(e.code === 'Space') { e.preventDefault(); toggleSpeech(); }
+    if(e.code === 'ArrowRight') { skipSentence(1); }
+    if(e.code === 'ArrowLeft') { skipSentence(-1); }
+    if(e.code === 'Escape') { closeReader(); }
+  }
+});
+
+// Tema kaydı
+const savedTheme = localStorage.getItem('reader_theme');
+if(savedTheme) setReaderTheme(savedTheme);
+
+function initApp() {
+  loadCategories().then(() => loadBooks());
+  loadSizdenGelenler();
+  loadYoutubeBooks();
+}
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initApp);
+} else {
+  initApp();
+}
+
+
+/* ================= PREMIUM ÖZELLİKLER =================
+   Kupon · Üyelik/Paket · Örnek bölüm · Okuma istatistiği · Rozetler · Not, yer imi, vurgulama
+   ---- AYARLAR: fiyatları ve kuponları buradan değiştirin ---- */
+const PLANLAR = [
+  { id: 'premium_aylik',  ad: 'Premium aylık',   fiyat: 149,  gun: 30,  not: 'Tüm kitaplara 30 gün erişim' },
+  { id: 'premium_yillik', ad: 'Premium yıllık',  fiyat: 1190, gun: 365, not: 'Tüm kitaplara 1 yıl erişim, aylığa göre %33 avantaj' },
+  { id: 'paket_omur',     ad: 'Ömür boyu paket', fiyat: 2490, gun: 0,   not: 'Tüm kitaplara süresiz erişim' }
+];
+const KUPONLAR = {
+  'HOSGELDIN10': { tip: 'yuzde', deger: 10 },   // %10 indirim
+  'OKUR50':      { tip: 'tutar', deger: 50 }    // 50 TL indirim
+};
+const ORNEK_ORAN = 0.12;       // Örnek okumada kitabın ilk %12'si açılır
+const ORNEK_EPUB_SAYFA = 6;    // EPUB örnek okumada en fazla bu kadar sayfa ileri gidilir
+/* ---- ayarların sonu ---- */
+
+const $ = (id) => document.getElementById(id);
+const TL = (n) => '₺' + Number(n).toLocaleString('tr-TR');
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const curUid = () => (auth.currentUser ? auth.currentUser.uid : 'anon');
+const jget = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
+const jset = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const bugun = () => new Date().toLocaleDateString('sv-SE');
+
+function toast(m) {
+  let t = $('ftToast');
+  if (!t) {
+    t = document.createElement('div'); t.id = 'ftToast';
+    t.className = 'fixed left-1/2 -translate-x-1/2 bottom-24 z-[3000] px-4 py-2.5 rounded-full bg-zinc-900 text-white text-[12.5px] font-medium shadow-xl transition-opacity opacity-0 pointer-events-none';
+    document.body.appendChild(t);
+  }
+  t.textContent = m; t.style.opacity = '1';
+  clearTimeout(t._h); t._h = setTimeout(() => { t.style.opacity = '0'; }, 2800);
+}
+
+/* ---------- KUPON ---------- */
+window.__activeCoupon = null;
+window.__couponPrice = (p) => {
+  const c = window.__activeCoupon; if (!c) return p;
+  const d = c.tip === 'yuzde' ? Math.round(p * c.deger / 100) : c.deger;
+  return Math.max(1, p - d);
+};
+function couponBox(ctx) {
+  return `<div class="mt-4 flex gap-2"><input id="${ctx}CouponInput" placeholder="Kupon kodu" class="flex-1 h-10 rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 text-[13px] uppercase"><button onclick="applyCoupon('${ctx}')" class="h-10 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold">Uygula</button></div><p id="${ctx}CouponMsg" class="text-[11.5px] mt-1.5 min-h-[16px]"></p>`;
+}
+window.applyCoupon = (ctx) => {
+  const kod = ($(ctx + 'CouponInput').value || '').trim().toUpperCase();
+  const c = KUPONLAR[kod] ? Object.assign({ kod }, KUPONLAR[kod]) : null;
+  const msg = $(ctx + 'CouponMsg');
+  window.__activeCoupon = c;
+  if (!c) { msg.className = 'text-[11.5px] mt-1.5 text-red-600'; msg.textContent = 'Kupon geçersiz.'; }
+  else { msg.className = 'text-[11.5px] mt-1.5 text-emerald-600'; msg.textContent = kod + ' uygulandı: ' + (c.tip === 'yuzde' ? '%' + c.deger : TL(c.deger)) + ' indirim'; }
+  if (ctx === 'book') refreshBookPrice(); else if (ctx === 'cart') renderCart(); else renderPlans();
+};
+function refreshBookPrice() {
+  const book = allBooks.find(b => b.id === purchaseModalBookId); if (!book) return;
+  const list = Number(book.fiyat) || 0, fin = window.__couponPrice(list);
+  $('purchaseBookPrice').innerHTML = fin < list ? `<span class="text-[16px] font-normal line-through text-zinc-400 mr-2">${TL(list)}</span>${TL(fin)}` : TL(list);
+}
+const _openPurchase = window.openPurchaseModal;
+window.openPurchaseModal = (id) => {
+  window.__activeCoupon = null;
+  _openPurchase(id);
+  if (!purchaseModalBookId) return;
+  let box = $('bookCouponWrap');
+  if (!box) { box = document.createElement('div'); box.id = 'bookCouponWrap'; box.className = 'mb-4'; $('purchaseBookPrice').parentElement.insertAdjacentElement('afterend', box); }
+  box.innerHTML = couponBox('book');
+  refreshBookPrice();
+};
+
+/* ---------- PREMIUM ÜYELİK / PAKET ---------- */
+window.__premiumActive = false; window.__premiumInfo = null;
+let selectedPlan = PLANLAR[1];
+async function loadPremium(user) {
+  let best = null;
+  if (user) {
+    for (const p of PLANLAR) {
+      try {
+        const s = await getDoc(doc(db, 'kullanicilar', user.uid, 'satinAlinanlar', p.id));
+        if (!s.exists()) continue;
+        const d = s.data(), t = d.tarih && d.tarih.toDate ? d.tarih.toDate() : new Date();
+        const bitis = p.gun ? new Date(t.getTime() + p.gun * 86400000) : null;
+        if (bitis && bitis < new Date()) continue;
+        const cand = { plan: p, bitis };
+        if (!best) best = cand;
+        else if (best.bitis && (!bitis || bitis > best.bitis)) best = cand;
+      } catch (e) {}
+    }
+  }
+  window.__premiumActive = !!best; window.__premiumInfo = best;
+  updatePremiumUI(); renderBooks();
+}
+function updatePremiumUI() {
+  const b = $('premiumBtn'), t = $('premiumBtnText'); if (!b) return;
+  t.textContent = window.__premiumActive ? 'Premium aktif' : 'Premium';
+  b.className = 'h-9 px-3.5 rounded-full text-[12.5px] font-semibold inline-flex items-center gap-1.5 transition ' + (window.__premiumActive ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : 'bg-amber-500 hover:bg-amber-600 text-zinc-950');
+}
+function renderPlans() {
+  $('planList').innerHTML = PLANLAR.map(p => {
+    const f = window.__couponPrice(p.fiyat), sel = p.id === selectedPlan.id;
+    return `<button onclick="selectPlan('${p.id}')" class="text-left rounded-[16px] border p-4 flex items-center justify-between gap-3 transition ${sel ? 'border-zinc-900 dark:border-white ring-1 ring-zinc-900 dark:ring-white' : 'border-zinc-200 dark:border-zinc-700'}"><span><span class="block font-semibold text-[14px]">${esc(p.ad)}</span><span class="block text-[12px] text-zinc-500 mt-0.5">${esc(p.not)}</span></span><span class="text-right font-bold text-[16px] whitespace-nowrap">${f < p.fiyat ? `<span class="block text-[11px] font-normal line-through text-zinc-400">${TL(p.fiyat)}</span>` : ''}${TL(f)}</span></button>`;
+  }).join('');
+}
+window.selectPlan = (id) => { selectedPlan = PLANLAR.find(p => p.id === id) || selectedPlan; renderPlans(); };
+window.openPremiumModal = () => {
+  window.__activeCoupon = null;
+  const pi = window.__premiumInfo;
+  $('premiumStatus').innerHTML = pi ? `<div class="mt-4 p-3 rounded-[14px] bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 text-[12.5px] text-emerald-800 dark:text-emerald-300"><i class="fa-solid fa-circle-check mr-1.5"></i>${esc(pi.plan.ad)} aktif — ${pi.bitis ? pi.bitis.toLocaleDateString('tr-TR') + ' tarihine kadar' : 'süresiz'}. Süreyi uzatmak için yeni plan alabilirsiniz.</div>` : '';
+  $('planCoupon').innerHTML = couponBox('plan');
+  $('premBank').textContent = BANK_INFO.banka + ' · ' + BANK_INFO.hesapSahibi;
+  $('premIban').textContent = BANK_INFO.iban;
+  renderPlans();
+  $('premiumModal').classList.add('modal-active');
+};
+window.closePremiumModal = () => $('premiumModal').classList.remove('modal-active');
+window.confirmPlanRequest = async () => {
+  if (!auth.currentUser) { closePremiumModal(); openAuthWithMessage('Premium için önce giriş yapmalısınız'); return; }
+  const p = selectedPlan, fiyat = window.__couponPrice(p.fiyat), u = auth.currentUser;
+  try {
+    await addDoc(collection(db, 'siparisler'), {
+      kitapId: p.id, kitapAdi: p.ad, fiyat, listeFiyati: p.fiyat, kupon: window.__activeCoupon ? window.__activeCoupon.kod : null,
+      kullaniciId: u.uid, kullaniciEmail: u.email, kullaniciAd: u.displayName || u.email, durum: 'bekliyor', tarih: serverTimestamp()
+    });
+  } catch (e) {}
+  const msg = encodeURIComponent(`Merhaba, "${p.ad}" (${TL(fiyat)}${window.__activeCoupon ? ', kupon: ' + window.__activeCoupon.kod : ''}) için ödemeyi yaptım. Dekontu ekte gönderiyorum. E-posta: ${u.email}`);
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+  closePremiumModal();
+  alert('Talebiniz alındı! Dekontu WhatsApp üzerinden gönderdiğinizde, onayın ardından üyeliğiniz hesabınıza tanımlanacaktır.');
+};
+window.copyPremIban = () => { navigator.clipboard.writeText(BANK_INFO.iban.replace(/\s/g, '')); toast('IBAN kopyalandı'); };
+onAuthStateChanged(auth, (u) => { live = null; loadPremium(u); });
+
+/* ---------- KİTAP DETAYI: örnek bölüm düğmesi ---------- */
+const _openBook = window.openBookModal;
+window.openBookModal = async (id) => {
+  await _openBook(id);
+  const b = allBooks.find(x => x.id === id); if (!b) return;
+  const price = Number(b.fiyat) || 0, owned = canAccessBook(b);
+  let row = $('modalExtraRow');
+  if (!row) { row = document.createElement('div'); row.id = 'modalExtraRow'; row.className = 'mt-2 flex gap-2'; $('modalBuyBtn').insertAdjacentElement('afterend', row); }
+  if (price > 0 && !owned) {
+    row.innerHTML = `<button onclick="startPreview('${b.id}')" class="flex-1 h-10 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 font-semibold text-[12.5px]"><i class="fa-regular fa-eye mr-1.5"></i>Örnek bölümü oku</button><button onclick="closeBookModal();openPremiumModal()" class="flex-1 h-10 rounded-full bg-amber-500 text-zinc-950 font-semibold text-[12.5px]"><i class="fa-solid fa-crown mr-1.5 text-[11px]"></i>Premium ile oku</button><button onclick="addToCart('${b.id}')" title="Sepete ekle" class="w-10 h-10 shrink-0 rounded-full bg-zinc-900 text-white flex items-center justify-center"><i class="fa-solid fa-cart-plus text-[13px]"></i></button>`;
+  } else {
+    row.innerHTML = '';
+    if (price > 0 && window.__premiumActive && !userPurchases.includes(b.id) && !(window.isAdmin && window.isAdmin())) $('modalPriceBadge').innerText = 'Premium ✓';
+  }
+};
+
+/* ---------- ÖRNEK BÖLÜM (önizleme) ---------- */
+window.__previewRequest = null; window.__isPreview = false; window.__epubCount = 0; window.__previewBookId = null;
+window.startPreview = (id) => {
+  const b = allBooks.find(x => x.id === id); if (!b) return;
+  window.__previewRequest = id; openReader(b.dosyaAdi, b.baslik, b.id);
+};
+const _openReader = window.openReader;
+window.openReader = (file, title, id) => {
+  const b = allBooks.find(x => x.id === id);
+  const prev = window.__previewRequest === id && !!b && !canAccessBook(b);
+  window.__previewRequest = null; window.__isPreview = prev; window.__epubCount = 0; window.__previewBookId = prev ? id : null;
+  if (prev) window.__previewGrant = id;
+  let p; try { p = _openReader(file, title, id); } finally { window.__previewGrant = null; }
+  $('previewBar').classList.toggle('hidden', !prev); $('previewBar').classList.remove('preview-end');
+  $('readerTools').style.display = prev ? 'none' : 'flex';
+  return p;
+};
+function previewEnd() {
+  if (!$('previewBar').classList.contains('preview-end')) toast('Örnek bölüm sona erdi');
+  $('previewBar').classList.add('preview-end');
+  try { stopSpeech(); } catch (e) {}
+}
+const _nextEpub = window.nextEpubPage;
+window.nextEpubPage = () => { if (window.__isPreview && ++window.__epubCount > ORNEK_EPUB_SAYFA) { previewEnd(); return; } _nextEpub(); };
+window.previewBuy = () => { const id = window.__previewBookId; closeReader(); openPurchaseModal(id); };
+window.previewPremium = () => { closeReader(); openPremiumModal(); };
+
+/* ---------- OKUMA İSTATİSTİĞİ & ROZETLER ---------- */
+let live = null, liveUid = null, ticks = 0;
+const sKey = () => 'okuma_stat_' + curUid();
+function getLive() {
+  if (!live || liveUid !== curUid()) { live = jget(sKey(), {}); liveUid = curUid(); }
+  live.gun = live.gun || {}; live.kitap = live.kitap || {}; live.bitenler = live.bitenler || []; live.rozet = live.rozet || []; live.hedef = live.hedef || 15;
+  return live;
+}
+function flushStats() { if (live) jset('okuma_stat_' + liveUid, live); }
+const toplamSn = (s) => Object.values(s.gun).reduce((a, b) => a + b, 0);
+function seri(s) {
+  let n = 0; const d = new Date();
+  if (!((s.gun[d.toLocaleDateString('sv-SE')] || 0) >= 60)) d.setDate(d.getDate() - 1);
+  while ((s.gun[d.toLocaleDateString('sv-SE')] || 0) >= 60) { n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+const ROZETLER = [
+  { id: 'ilk',   ad: 'İlk adım',      acik: '1 dakika oku',          ikon: 'fa-seedling',   ok: s => toplamSn(s) >= 60 },
+  { id: 's1',    ad: 'Bir saat',      acik: 'Toplam 1 saat oku',     ikon: 'fa-clock',      ok: s => toplamSn(s) >= 3600 },
+  { id: 's10',   ad: 'On saat',       acik: 'Toplam 10 saat oku',    ikon: 'fa-hourglass-half', ok: s => toplamSn(s) >= 36000 },
+  { id: 'seri3', ad: '3 günlük seri', acik: '3 gün üst üste oku',    ikon: 'fa-fire',       ok: s => seri(s) >= 3 },
+  { id: 'seri7', ad: '7 günlük seri', acik: '7 gün üst üste oku',    ikon: 'fa-fire-flame-curved', ok: s => seri(s) >= 7 },
+  { id: 'hedef', ad: 'Hedef tamam',   acik: 'Günlük hedefe ulaş',    ikon: 'fa-bullseye',   ok: s => Object.values(s.gun).some(v => v >= s.hedef * 60) },
+  { id: 'bit1',  ad: 'İlk kitap',     acik: 'Bir kitabı bitir',      ikon: 'fa-book-open',  ok: s => s.bitenler.length >= 1 },
+  { id: 'bit5',  ad: 'Kitap kurdu',   acik: '5 kitap bitir',         ikon: 'fa-book-bookmark', ok: s => s.bitenler.length >= 5 }
+];
+function checkBadges() {
+  const s = getLive();
+  ROZETLER.forEach(r => { if (!s.rozet.includes(r.id) && r.ok(s)) { s.rozet.push(r.id); toast('Yeni rozet: ' + r.ad); } });
+}
+setInterval(() => {
+  if (!$('readerModal').classList.contains('modal-active') || document.hidden || !auth.currentUser || window.__isPreview || !activeBookId) return;
+  const s = getLive(), g = bugun();
+  s.gun[g] = (s.gun[g] || 0) + 1;
+  const k = s.kitap[activeBookId] || (s.kitap[activeBookId] = { ad: activeBookTitle, sn: 0, pct: 0 });
+  k.sn++; k.ad = activeBookTitle;
+  if (k.pct >= 95 && k.sn >= 120 && !s.bitenler.includes(activeBookId)) { s.bitenler.push(activeBookId); toast('Kitabı bitirdin: ' + activeBookTitle); }
+  if (++ticks % 10 === 0) { checkBadges(); flushStats(); }
+}, 1000);
+document.addEventListener('visibilitychange', () => { if (document.hidden) flushStats(); });
+window.addEventListener('pagehide', flushStats);
+
+function onReaderScroll() {
+  const c = $('readerScrollContainer');
+  if (window.__isPreview) {
+    const max = Math.max(0, c.scrollHeight - c.clientHeight) * ORNEK_ORAN;
+    if (c.scrollTop > max + 2) { c.scrollTop = max; previewEnd(); }
+    return;
+  }
+  if (!auth.currentUser || !activeBookId || currentReaderMode === 'epub') return;
+  const max = c.scrollHeight - c.clientHeight; if (max <= 0) return;
+  const s = getLive(), k = s.kitap[activeBookId] || (s.kitap[activeBookId] = { ad: activeBookTitle, sn: 0, pct: 0 });
+  k.pct = Math.max(k.pct, Math.min(100, c.scrollTop / max * 100));
+}
+
+function fmtSure(sn) { const dk = Math.floor(sn / 60); return dk < 60 ? dk + ' dk' : Math.floor(dk / 60) + ' sa ' + (dk % 60) + ' dk'; }
+function renderStats() {
+  const el = $('profileTabStats'); if (!el) return;
+  const s = getLive(), hedefSn = s.hedef * 60, bsn = s.gun[bugun()] || 0, yuzde = Math.min(100, Math.round(bsn / hedefSn * 100));
+  const gunler = [];
+  for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); gunler.push({ k: d.toLocaleDateString('sv-SE'), ad: d.toLocaleDateString('tr-TR', { weekday: 'short' }) }); }
+  const maks = Math.max(hedefSn, ...gunler.map(x => s.gun[x.k] || 0));
+  const pi = window.__premiumInfo;
+  const prem = pi
+    ? `<div class="p-3 rounded-[14px] bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 text-[12.5px] text-emerald-800 dark:text-emerald-300"><i class="fa-solid fa-crown mr-1.5"></i>${esc(pi.plan.ad)} — ${pi.bitis ? pi.bitis.toLocaleDateString('tr-TR') + ' tarihine kadar' : 'süresiz'}</div>`
+    : `<button onclick="document.getElementById('profileModal').classList.remove('modal-active');openPremiumModal()" class="w-full p-3 rounded-[14px] bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900 text-[12.5px] text-amber-800 dark:text-amber-300 text-left"><i class="fa-solid fa-crown mr-1.5"></i>Premium ile tüm kitaplara eriş — planları gör</button>`;
+  const box = (v, l) => `<div class="p-3 rounded-[14px] border border-zinc-200 dark:border-zinc-700 text-center"><div class="font-bold text-[18px] tracking-tight">${v}</div><div class="text-[11px] text-zinc-500 mt-0.5">${l}</div></div>`;
+  el.innerHTML = `${prem}
+    <div class="p-4 rounded-[16px] border border-zinc-200 dark:border-zinc-700">
+      <div class="flex justify-between items-baseline"><span class="font-semibold text-[13px]">Bugün</span><span class="text-[12px] text-zinc-500">${Math.floor(bsn / 60)} / ${s.hedef} dk</span></div>
+      <div class="h-2 rounded-full bg-zinc-100 dark:bg-zinc-800 mt-2.5 overflow-hidden"><div class="h-full rounded-full bg-emerald-500" style="width:${yuzde}%"></div></div>
+      <button onclick="setGoal()" class="mt-2.5 text-[11.5px] text-zinc-500 underline">Günlük hedefi değiştir</button>
+    </div>
+    <div class="grid grid-cols-3 gap-2.5">${box(fmtSure(toplamSn(s)), 'Toplam süre')}${box(seri(s) + ' gün', 'Seri')}${box(s.bitenler.length, 'Bitirilen kitap')}</div>
+    <div class="p-4 rounded-[16px] border border-zinc-200 dark:border-zinc-700">
+      <div class="font-semibold text-[13px] mb-3">Son 7 gün</div>
+      <div class="flex items-end gap-2 h-24">${gunler.map(g => { const v = s.gun[g.k] || 0; return `<div class="flex-1 flex flex-col items-center justify-end h-full gap-1.5"><div class="w-full rounded-t-md ${g.k === bugun() ? 'bg-emerald-500' : 'bg-zinc-900 dark:bg-zinc-300'}" style="height:${Math.max(3, Math.round(v / maks * 100))}%" title="${Math.floor(v / 60)} dk"></div><span class="text-[10px] text-zinc-500">${g.ad}</span></div>`; }).join('')}</div>
+    </div>
+    <div>
+      <div class="font-semibold text-[13px] mb-2.5">Rozetler <span class="text-zinc-500 font-normal">${s.rozet.length}/${ROZETLER.length}</span></div>
+      <div class="grid grid-cols-2 gap-2.5">${ROZETLER.map(r => { const k = s.rozet.includes(r.id); return `<div class="flex items-center gap-3 p-3 rounded-[14px] border ${k ? 'border-amber-300 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-800' : 'border-zinc-200 dark:border-zinc-700 opacity-50'}"><div class="w-9 h-9 rounded-full flex items-center justify-center ${k ? 'bg-amber-500 text-zinc-950' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500'}"><i class="fa-solid ${r.ikon} text-[13px]"></i></div><div class="leading-tight"><div class="text-[12.5px] font-semibold">${r.ad}</div><div class="text-[10.5px] text-zinc-500 mt-0.5">${r.acik}</div></div></div>`; }).join('')}</div>
+    </div>
+    <p class="text-[11px] text-zinc-500">İstatistikler bu cihazda saklanır. Önizleme (örnek bölüm) okumaları sayılmaz.</p>`;
+}
+window.setGoal = () => {
+  const s = getLive(), v = parseInt(prompt('Günlük okuma hedefi (dakika):', s.hedef), 10);
+  if (v > 0 && v <= 600) { s.hedef = v; flushStats(); renderStats(); }
+};
+
+/* ---------- NOT · YER İMİ · VURGULAMA ---------- */
+const nKey = () => 'okuma_not_' + curUid();
+const getNotes = () => jget(nKey(), {});
+const bookNotes = (n) => n[activeBookId] || (n[activeBookId] = { ad: activeBookTitle, hl: [], ym: [] });
+const dot = (r) => ({ sari: '#facc15', yesil: '#4ade80', pembe: '#f472b6' }[r] || '#facc15');
+let pendingSel = null, selT = null;
+
+function applyHighlights() {
+  if (currentReaderMode !== 'txt') return;
+  const hl = (getNotes()[activeBookId] || {}).hl || [], byP = {};
+  hl.forEach(h => { (byP[h.pid] = byP[h.pid] || []).push(h); });
+  $('viewer').querySelectorAll('[data-tts-id]').forEach(p => {
+    const hs = byP[p.dataset.ttsId];
+    if (!hs && !p.dataset.orig) return;
+    if (!p.dataset.orig) p.dataset.orig = p.textContent;
+    const orig = p.dataset.orig;
+    if (!hs) { p.textContent = orig; return; }
+    hs.sort((a, b) => a.s - b.s);
+    let html = '', pos = 0;
+    hs.forEach(h => {
+      if (h.s < pos || h.e > orig.length) return;
+      html += esc(orig.slice(pos, h.s)) + `<mark class="hl hl-${h.renk}${h.not ? ' hl-note' : ''}" data-hid="${h.id}"${h.not ? ` title="${esc(h.not)}"` : ''}>${esc(orig.slice(h.s, h.e))}</mark>`;
+      pos = h.e;
+    });
+    p.innerHTML = html + esc(orig.slice(pos));
+  });
+}
+loadTxtIntoReaderDirect = (function (orig) {
+  return async function () { await orig.apply(this, arguments); setTimeout(applyHighlights, 300); };
+})(loadTxtIntoReaderDirect);
+
+function paraOf(node) { const el = node && (node.nodeType === 1 ? node : node.parentElement); return el ? el.closest('[data-tts-id]') : null; }
+function checkSel() {
+  const bar = $('selBar'), sel = window.getSelection();
+  pendingSel = null;
+  if (currentReaderMode === 'txt' && !window.__isPreview && sel && !sel.isCollapsed && sel.rangeCount && $('readerModal').classList.contains('modal-active')) {
+    const r = sel.getRangeAt(0).cloneRange(), p = paraOf(r.startContainer);
+    if (p && $('viewer').contains(p)) {
+      if (paraOf(r.endContainer) !== p) r.setEnd(p, p.childNodes.length);
+      const pre = document.createRange(); pre.selectNodeContents(p); pre.setEnd(r.startContainer, r.startOffset);
+      const s = pre.toString().length, metin = r.toString();
+      if (metin.trim().length > 1) pendingSel = { pid: p.dataset.ttsId, s, e: s + metin.length, metin };
+    }
+  }
+  bar.classList.toggle('hidden', !pendingSel); bar.classList.toggle('flex', !!pendingSel);
+}
+document.addEventListener('selectionchange', () => { clearTimeout(selT); selT = setTimeout(checkSel, 250); });
+window.addHighlight = (renk, withNote) => {
+  if (!pendingSel) return;
+  let not = '';
+  if (withNote) { not = prompt('Notunuz:', ''); if (not === null) return; }
+  const n = getNotes(), b = bookNotes(n);
+  b.hl.push({ id: Date.now().toString(36), pid: pendingSel.pid, s: pendingSel.s, e: pendingSel.e, metin: pendingSel.metin.slice(0, 300), renk, not: (not || '').trim(), t: Date.now() });
+  jset(nKey(), n);
+  window.getSelection().removeAllRanges(); pendingSel = null; checkSel();
+  applyHighlights(); renderNotesPanel();
+};
+window.addBookmark = () => {
+  const n = getNotes(), b = bookNotes(n); let y;
+  if (currentReaderMode === 'epub' && rendition) { try { y = { cfi: rendition.currentLocation().start.cfi }; } catch (e) { toast('Yer imi eklenemedi'); return; } }
+  else { const c = $('readerScrollContainer'), max = c.scrollHeight - c.clientHeight; y = { pct: max > 0 ? Math.round(c.scrollTop / max * 1000) / 10 : 0 }; }
+  b.ym.push(Object.assign({ id: Date.now().toString(36), t: Date.now() }, y));
+  jset(nKey(), n); toast('Yer imi eklendi'); renderNotesPanel();
+};
+window.gotoBookmark = (id) => {
+  const y = ((getNotes()[activeBookId] || {}).ym || []).find(x => x.id === id); if (!y) return;
+  if (y.cfi && rendition) { try { rendition.display(y.cfi); } catch (e) {} }
+  else { const c = $('readerScrollContainer'); c.scrollTop = (y.pct || 0) / 100 * (c.scrollHeight - c.clientHeight); }
+  toggleNotesPanel(false);
+};
+window.gotoHighlight = (id) => {
+  const el = $('viewer').querySelector('[data-hid="' + id + '"]');
+  if (el) { toggleNotesPanel(false); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } else toast('Vurguyu görmek için TXT modunda açın');
+};
+window.delNote = (bid, tur, id) => {
+  const n = getNotes(); if (!n[bid]) return;
+  n[bid][tur] = n[bid][tur].filter(x => x.id !== id); jset(nKey(), n);
+  if (bid === activeBookId && tur === 'hl') applyHighlights();
+  renderNotesPanel(); renderProfileNotes();
+};
+function noteItems(bid, b, jump) {
+  const btn = 'px-2.5 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[11px] font-semibold';
+  const del = (tur, id) => `<button onclick="delNote('${bid}','${tur}','${id}')" class="w-7 h-7 rounded-full text-zinc-500 hover:text-red-600" title="Sil"><i class="fa-regular fa-trash-can text-[12px]"></i></button>`;
+  const ym = (b.ym || []).map(y => `<div class="flex items-center justify-between gap-2 p-3 rounded-[12px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-[12.5px]"><span><i class="fa-solid fa-bookmark mr-2 text-amber-500"></i>${y.cfi ? 'EPUB konumu' : 'Konum %' + y.pct}</span><span class="flex gap-1">${jump ? `<button onclick="gotoBookmark('${y.id}')" class="${btn}">Git</button>` : ''}${del('ym', y.id)}</span></div>`).join('');
+  const hl = (b.hl || []).map(h => `<div class="p-3 rounded-[12px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-[12.5px]" style="border-left:4px solid ${dot(h.renk)}"><p class="leading-5 italic">${esc(h.metin)}</p>${h.not ? `<p class="mt-1.5 font-medium leading-5">${esc(h.not)}</p>` : ''}<div class="mt-2 flex gap-1">${jump ? `<button onclick="gotoHighlight('${h.id}')" class="${btn}">Git</button>` : ''}${del('hl', h.id)}</div></div>`).join('');
+  return ym + hl;
+}
+function renderNotesPanel() {
+  const el = $('notesList'); if (!el) return;
+  el.innerHTML = noteItems(activeBookId, getNotes()[activeBookId] || {}, true) || '<p class="text-[12.5px] text-zinc-500 text-center py-8 leading-6">Henüz not yok.<br>Metni seçip vurgulayın ya da yer imi ekleyin.</p>';
+}
+window.toggleNotesPanel = (force) => {
+  const p = $('notesPanel'), open = typeof force === 'boolean' ? force : p.classList.contains('hidden');
+  p.classList.toggle('hidden', !open); p.classList.toggle('flex', open);
+  if (open) renderNotesPanel();
+};
+function renderProfileNotes() {
+  const el = $('profileTabNotes'); if (!el) return;
+  const n = getNotes(), ids = Object.keys(n).filter(k => (n[k].hl || []).length + (n[k].ym || []).length);
+  if (!ids.length) { el.innerHTML = '<p class="text-zinc-500 text-[13px] text-center py-6">Henüz not, vurgu ya da yer imi yok.</p>'; return; }
+  el.innerHTML = ids.map(k => `<div><div class="font-semibold text-[13px] mb-2">${esc(n[k].ad || 'Kitap')} <span class="text-zinc-500 font-normal">${(n[k].hl || []).length} vurgu · ${(n[k].ym || []).length} yer imi</span></div><div class="space-y-2">${noteItems(k, n[k], false)}</div></div>`).join('')
+    + '<button onclick="exportNotes()" class="w-full h-10 rounded-full border border-zinc-200 dark:border-zinc-700 text-[12.5px] font-semibold"><i class="fa-regular fa-copy mr-1.5"></i>Tüm notları kopyala</button>';
+}
+window.exportNotes = () => {
+  const n = getNotes();
+  const t = Object.keys(n).map(k => n[k].ad + '\n' + (n[k].hl || []).map(h => '- "' + h.metin + '"' + (h.not ? ' → ' + h.not : '')).join('\n')).join('\n\n');
+  navigator.clipboard.writeText(t).then(() => toast('Notlar kopyalandı'));
+};
+
+/* ---------- OKUYUCU ARAYÜZÜ (araçlar, seçim çubuğu, not paneli, önizleme şeridi) ---------- */
+$('readerModal').insertAdjacentHTML('beforeend', `
+  <div id="readerTools" class="absolute bottom-5 right-4 z-20 flex flex-col gap-2">
+    <button onclick="addBookmark()" class="rt-btn" title="Yer imi ekle"><i class="fa-regular fa-bookmark"></i></button>
+    <button onclick="toggleNotesPanel()" class="rt-btn" title="Notlarım"><i class="fa-regular fa-note-sticky"></i></button>
+  </div>
+  <div id="selBar" onmousedown="event.preventDefault()" ontouchstart="event.preventDefault()" class="hidden absolute left-1/2 -translate-x-1/2 bottom-5 z-30 items-center gap-3 rounded-full bg-zinc-900 text-white pl-4 pr-3 py-2 shadow-xl border border-white/10">
+    <button onclick="addHighlight('sari')" class="w-6 h-6 rounded-full" style="background:#facc15" title="Sarı vurgu"></button>
+    <button onclick="addHighlight('yesil')" class="w-6 h-6 rounded-full" style="background:#4ade80" title="Yeşil vurgu"></button>
+    <button onclick="addHighlight('pembe')" class="w-6 h-6 rounded-full" style="background:#f472b6" title="Pembe vurgu"></button>
+    <button onclick="addHighlight('sari', true)" class="h-7 px-3 rounded-full bg-white text-zinc-900 text-[12px] font-semibold"><i class="fa-regular fa-pen-to-square mr-1"></i>Not</button>
+  </div>
+  <aside id="notesPanel" class="hidden absolute top-[60px] right-0 bottom-0 w-full sm:w-[360px] z-30 flex-col bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border-l border-zinc-200 dark:border-zinc-800 shadow-2xl">
+    <div class="p-4 flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800"><h4 class="font-semibold text-[14px]">Notlarım</h4><button onclick="toggleNotesPanel(false)" class="w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800"><i class="fa-solid fa-xmark text-[12px]"></i></button></div>
+    <div id="notesList" class="flex-1 overflow-y-auto p-4 space-y-2.5"></div>
+  </aside>
+  <div id="previewBar" class="hidden absolute bottom-0 inset-x-0 z-30 bg-zinc-900 text-white px-4 py-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[12.5px]">
+    <span id="previewMsg"><i class="fa-regular fa-eye mr-1.5"></i>Örnek bölüm — devamı için:</span>
+    <span class="flex gap-2"><button onclick="previewBuy()" class="h-8 px-4 rounded-full bg-white text-zinc-900 font-semibold">Satın al</button><button onclick="previewPremium()" class="h-8 px-4 rounded-full bg-amber-500 text-zinc-950 font-semibold"><i class="fa-solid fa-crown mr-1 text-[10px]"></i>Premium</button></span>
+  </div>`);
+$('readerScrollContainer').addEventListener('scroll', onReaderScroll);
+
+const _closeReader = window.closeReader;
+window.closeReader = () => {
+  flushStats(); checkBadges();
+  window.__isPreview = false; window.__previewBookId = null;
+  $('previewBar').classList.add('hidden'); toggleNotesPanel(false); pendingSel = null; checkSel();
+  _closeReader();
+};
+
+/* ---------- PROFİL SEKMELERİ ---------- */
+const _switchTab = window.switchProfileTab;
+window.switchProfileTab = (tab) => {
+  _switchTab(tab);
+  const on = 'whitespace-nowrap px-3 flex-1 py-3 text-[13px] font-semibold border-b-2 border-zinc-900 dark:border-white';
+  const off = 'whitespace-nowrap px-3 flex-1 py-3 text-[13px] font-medium text-zinc-500 border-b-2 border-transparent';
+  [['stats', 'Stats'], ['notes', 'Notes']].forEach(([t, C]) => {
+    $('profileTab' + C).classList.toggle('hidden', t !== tab);
+    $('tabBtn' + C).className = t === tab ? on : off;
+  });
+};
+const _openProfile = window.openProfileModal;
+window.openProfileModal = () => { _openProfile(); getLive(); renderStats(); renderProfileNotes(); };
+
+
+/* ---------- SEPET ---------- */
+const getCart = () => jget('sepet', []);
+const setCart = (a) => { jset('sepet', a); updateCartUI(); };
+function cartItems() { return getCart().map(id => allBooks.find(b => b.id === id)).filter(b => b && (Number(b.fiyat) || 0) > 0 && !canAccessBook(b)); }
+function cartTotals(items) {
+  const sum = items.reduce((a, b) => a + Number(b.fiyat), 0), c = window.__activeCoupon;
+  const d = c ? (c.tip === 'yuzde' ? Math.round(sum * c.deger / 100) : c.deger) : 0;
+  return { sum, final: Math.max(items.length ? 1 : 0, sum - d) };
+}
+function updateCartUI() {
+  const n = cartItems().length, b = $('cartBadge'); if (!b) return;
+  b.textContent = n; b.classList.toggle('hidden', !n); b.classList.toggle('flex', !!n);
+}
+const _renderBooks = window.renderBooks;
+window.renderBooks = () => { _renderBooks(); updateCartUI(); };
+window.addToCart = (id) => {
+  const c = getCart();
+  if (c.includes(id)) { toast('Bu kitap zaten sepetinde'); openCart(); return; }
+  c.push(id); setCart(c); toast('Sepete eklendi');
+};
+window.removeFromCart = (id) => { setCart(getCart().filter(x => x !== id)); renderCart(); };
+function renderCart() {
+  const items = cartItems(), t = cartTotals(items);
+  $('cartList').innerHTML = items.length ? items.map(b => `<div class="flex items-center gap-3 p-2.5 rounded-[14px] border border-zinc-200 dark:border-zinc-700"><img src="${esc(b.kapakUrl || '')}" onerror="this.style.visibility='hidden'" class="w-11 h-15 h-[60px] object-cover rounded-lg bg-zinc-100"><div class="flex-1 min-w-0"><div class="text-[13px] font-semibold truncate">${esc(b.baslik)}</div><div class="text-[12px] text-zinc-500 mt-0.5">${TL(b.fiyat)}</div></div><button onclick="removeFromCart('${b.id}')" class="w-8 h-8 rounded-full text-zinc-500 hover:text-red-600" title="Kaldır"><i class="fa-regular fa-trash-can text-[13px]"></i></button></div>`).join('')
+    : '<p class="text-center text-[13px] text-zinc-500 py-10">Sepetin boş. Kitap kartlarındaki <i class="fa-solid fa-cart-plus"></i> düğmesiyle ekleyebilirsin.</p>';
+  $('cartCoupon').style.display = items.length ? '' : 'none';
+  $('cartPay').classList.toggle('hidden', !items.length);
+  $('cartTotals').innerHTML = items.length ? `<div class="flex justify-between items-baseline px-1"><span class="text-[13px] text-zinc-500">Toplam</span><span class="font-bold text-[20px]">${t.final < t.sum ? `<span class="text-[13px] font-normal line-through text-zinc-400 mr-2">${TL(t.sum)}</span>` : ''}${TL(t.final)}</span></div>` : '';
+}
+window.openCart = () => {
+  $('cartCoupon').innerHTML = couponBox('cart');
+  $('cartBank').textContent = BANK_INFO.banka + ' · ' + BANK_INFO.hesapSahibi;
+  $('cartIban').textContent = BANK_INFO.iban;
+  renderCart(); $('cartModal').classList.add('modal-active');
+};
+window.closeCart = () => $('cartModal').classList.remove('modal-active');
+window.checkoutCart = async () => {
+  const items = cartItems(); if (!items.length) return;
+  if (!auth.currentUser) { closeCart(); openAuthWithMessage('Satın almak için önce giriş yapmalısınız'); return; }
+  const t = cartTotals(items), u = auth.currentUser, c = window.__activeCoupon;
+  let kalan = t.final; const lines = [];
+  for (let i = 0; i < items.length; i++) {
+    const b = items[i], list = Number(b.fiyat);
+    const f = i === items.length - 1 ? Math.max(1, kalan) : Math.max(1, Math.round(list * t.final / t.sum));
+    kalan -= f;
+    try {
+      await addDoc(collection(db, 'siparisler'), { kitapId: b.id, kitapAdi: b.baslik, fiyat: f, listeFiyati: list, kupon: c ? c.kod : null, kullaniciId: u.uid, kullaniciEmail: u.email, kullaniciAd: u.displayName || u.email, durum: 'bekliyor', tarih: serverTimestamp() });
+    } catch (e) {}
+    lines.push('• ' + b.baslik + ' (' + TL(f) + ')');
+  }
+  const msg = encodeURIComponent('Merhaba, sepetimdeki ' + items.length + ' kitap için ödemeyi yaptım (toplam ' + TL(t.final) + (c ? ', kupon: ' + c.kod : '') + '):\n' + lines.join('\n') + '\nDekontu ekte gönderiyorum. E-posta: ' + u.email);
+  window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + msg, '_blank');
+  setCart([]); closeCart();
+  alert('Talebiniz alındı! Dekontu WhatsApp üzerinden gönderdiğinizde, onayın ardından kitaplar hesabınıza tanımlanacaktır.');
+};
+
+</script></body></html>
