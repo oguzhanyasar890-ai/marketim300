@@ -382,11 +382,11 @@
   </div>
 
   <div id="bookDetailModal" class="fixed inset-0 z-[999] items-center justify-center bg-zinc-950/60 backdrop-blur-[12px] p-4">
-    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[900px] border border-[#1a4066] dark:border-zinc-800 shadow-[0_20px_80px_-20px_rgba(0,0,0,.6)] overflow-hidden flex flex-col md:flex-row max-h-[90vh] relative">
+    <div class="rounded-[28px] w-full max-w-[900px] border border-[#1a4066] shadow-[0_20px_80px_-20px_rgba(0,0,0,.6)] overflow-hidden flex flex-col md:flex-row max-h-[90vh] relative" style="background:#0d2a4a">
       <button onclick="closeBookModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
       <div class="w-full md:w-[46%] p-7 border-b md:border-b-0 md:border-r border-zinc-100 dark:border-zinc-800 overflow-y-auto">
         <div class="flex gap-5"><img alt="Seçilen kitabın kapak görseli" loading="lazy" id="modalCover" class="w-28 sm:w-32 aspect-[2/3] object-cover rounded-[12px] bg-zinc-100"><div><span id="modalCategory" class="text-[10px] font-semibold tracking-widest uppercase px-2.5 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"></span><span id="modalPriceBadge" class="ml-2 text-[10px] font-semibold px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border"></span><h3 id="modalTitle" class="mt-3 font-serif font-bold text-[22px] leading-tight"></h3><p id="modalAuthor" class="text-[13px] text-zinc-500 mt-1"></p></div></div>
-        <p id="modalDesc" class="mt-6 text-[13.5px] leading-6" style="color:#d6e4f5"></p>
+        <p id="modalDesc" class="mt-6 text-[13.5px] leading-6" style="color:#ffffff;background:#0a1f3a;padding:12px;border-radius:12px;border:1px solid rgba(125,185,255,.3)"></p>
         <div class="mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800">
           <button id="modalBuyBtn" class="hidden w-full h-11 bg-emerald-600 text-white rounded-full font-semibold text-[13px]"><i class="fa-solid fa-cart-shopping mr-2"></i><span id="modalBuyBtnText">Satın Al</span></button>
           <div id="modalReadDownloadRow" class="flex gap-2"><button id="modalReadBtn" class="flex-1 h-11 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full font-semibold text-[13px]"><i class="fa-solid fa-play mr-1.5"></i>Oku & Dinle</button><button id="modalDownloadBtn" class="flex-1 h-11 bg-white dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 rounded-full font-semibold text-[13px]"><i class="fa-solid fa-arrow-down mr-1.5"></i>İndir</button></div>
