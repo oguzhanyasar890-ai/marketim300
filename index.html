@@ -212,6 +212,10 @@
   #bookGrid{background:linear-gradient(180deg,#0d2a4a,#0a1f3a)!important}
   #bookGrid article{background:#102f54!important;border-color:rgba(125,185,255,.35)!important}
   #bookGrid h4,#bookGrid p{color:#fff!important}
+  /* Okunaklı yazılar — mavi zemin kontrastı */
+  .text-zinc-500,.text-\[13px\].text-zinc-500{color:#b8d0f0!important;font-size:14px!important;line-height:1.7}
+  .text-zinc-600,.text-zinc-400{color:#c9dcf5!important}
+  body p,body span,body div:not([style]){line-height:1.7}
   /* Uygun yazı tipi: Inter (metin) + Fraunces (başlık) */
   body{font-family:'Inter',system-ui,sans-serif!important;letter-spacing:-.01em}
   h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif!important;letter-spacing:-.02em}
@@ -244,8 +248,6 @@
       <nav class="hidden lg:flex items-center gap-1 p-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200/60 dark:border-zinc-700">
         <a href="#vitrin" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition">Vitrin</a>
         <a href="#kitaplarBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium bg-white dark:bg-zinc-900 shadow-sm border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white">Koleksiyon</a>
-        <a href="#sizdenGelenlerSection" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 transition">Topluluk</a>
-        <a href="#youtubeBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 transition">YouTube</a>
       </nav>
       <div class="flex items-center gap-2">
         <!-- Sepet kaldırıldı -->
@@ -341,28 +343,7 @@
     </div>
   </section>
 
-  <section id="youtubeBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-14 border-t border-zinc-200 dark:border-zinc-800 w-full">
-    <div class="flex justify-between items-end mb-8">
-      <div>
-        <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Video</div>
-        <h3 class="mt-2 font-serif text-[28px] font-bold tracking-tight flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-red-600 text-white flex items-center justify-center text-[14px]"><i class="fa-brands fa-youtube"></i></span> YouTube'da dinle</h3>
-      </div>
-      <a href="https://www.youtube.com/@yasaroguzhan890" target="_blank" class="h-9 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[13px] font-medium" rel="noopener noreferrer">Kanala git</a>
-    </div>
-    <div id="youtubeGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-  </section>
-
-  <section id="sizdenGelenlerSection" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-14 border-t border-zinc-200 dark:border-zinc-800 w-full">
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-8">
-      <div>
-        <div class="text-[11px] font-semibold tracking-[0.16em] uppercase text-zinc-500">Topluluk</div>
-        <h3 class="mt-2 font-serif text-[28px] font-bold tracking-tight">Sizden gelenler</h3>
-        <p class="text-[13px] text-zinc-500 mt-1">Okurlarımızın favori alıntıları ve mesajları.</p>
-      </div>
-      <button onclick="openSubmissionModal()" class="h-10 px-5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[13px] font-semibold">+ Paylaş</button>
-    </div>
-    <div id="sizdenGelenlerGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
-  </section>
+  <!-- YouTube + Sizden gelenler kaldırıldı (sade vitrin) -->
 
   <!-- MODALLAR - Profesyonel -->
   <div id="authModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur-[12px] p-4">
