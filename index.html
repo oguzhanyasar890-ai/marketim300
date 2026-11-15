@@ -263,7 +263,7 @@
       </nav>
       <div class="flex items-center gap-2">
         <!-- Sepet kaldırıldı -->
-        <!-- Premium kaldırıldı -->
+        <button id="kayitOlBtn" onclick="document.getElementById('authModal').classList.add('modal-active')" class="h-9 px-4 rounded-full text-[12.5px] font-semibold inline-flex items-center gap-1.5" style="background:#25d366;color:#fff">Kayıt Ol</button>
         <!-- Admin/APK/Giriş kaldırıldı (ebooks stili sade vitrin) -->
       </div>
     </div>
@@ -334,18 +334,18 @@
   <!-- YouTube + Sizden gelenler kaldırıldı (sade vitrin) -->
 
   <!-- MODALLAR - Profesyonel -->
-  <div id="authModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur-[12px] p-4">
-    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[420px] p-8 shadow-[0_20px_60px_-20px_rgba(0,0,0,.5)] border border-[#1a4066] dark:border-zinc-800 relative">
-      <button onclick="document.getElementById('authModal').classList.remove('modal-active')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
-      <div class="text-center mb-6"><div class="w-12 h-12 mx-auto rounded-[14px] bg-zinc-900 text-white flex items-center justify-center font-serif font-black">M</div><h3 id="authTitle" class="mt-4 font-serif font-bold text-[22px]">Giriş yap</h3></div>
-      <form id="emailAuthForm" onsubmit="handleEmailAuth(event)" class="flex flex-col gap-3 mb-4">
-        <div id="nameField" style="display:none;"><input type="text" id="authNameInput" placeholder="Ad Soyad" class="w-full h-11 bg-[#0d2a4a] dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 rounded-full px-4 text-[13px]"></div>
-        <input type="email" id="authEmailInput" required placeholder="E-posta" class="w-full h-11 bg-[#0d2a4a] dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 rounded-full px-4 text-[13px]">
-        <input type="password" id="authPasswordInput" required placeholder="Şifre" class="w-full h-11 bg-[#0d2a4a] dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 rounded-full px-4 text-[13px]">
-        <button type="submit" id="authSubmitBtn" class="w-full h-11 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full font-semibold text-[13px] mt-2">Devam et</button>
+  <!-- Basit kayıt formu (e-posta girişi kaldırıldı) -->
+  <div id="authModal" class="fixed inset-0 z-[1000] items-center justify-center p-4" style="background:rgba(10,31,58,.7);backdrop-filter:blur(8px)">
+    <div class="rounded-[24px] w-full max-w-[380px] p-6 shadow-xl border border-[#4d94ff]/40 relative" style="background:#0d2a4a">
+      <button onclick="document.getElementById('authModal').classList.remove('modal-active')" class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center" style="background:#102f54;color:#fff"><i class="fa-solid fa-xmark text-[12px]"></i></button>
+      <h3 id="authTitle" class="font-bold text-[18px] text-center" style="color:#fff">Kayıt Ol</h3>
+      <p class="text-center text-[12px] mt-1" style="color:#8fc2ff">Bir dakikada okur hesabı oluşturun</p>
+      <form onsubmit="event.preventDefault(); document.getElementById('kayitMesaj').style.display='block'; this.reset(); return false;" class="flex flex-col gap-3 mt-5">
+        <input required placeholder="Adınız" class="w-full h-11 rounded-full px-4 text-[13px]" style="background:#102f54;border:1px solid #1a4066;color:#fff">
+        <input required placeholder="WhatsApp numaranız (05xx...)" class="w-full h-11 rounded-full px-4 text-[13px]" style="background:#102f54;border:1px solid #1a4066;color:#fff">
+        <button class="w-full h-11 rounded-full font-semibold text-[13px]" style="background:#25d366;color:#fff">Kayıt Ol</button>
       </form>
-      <button onclick="loginWithGoogle()" class="w-full h-11 bg-white dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 rounded-full font-medium text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-google"></i> Google ile devam et</button>
-      <p class="text-center text-[12px] text-zinc-500 mt-6"><span id="authToggleText">Hesabın yok mu?</span><button onclick="toggleAuthMode()" id="authToggleBtn" class="font-semibold text-zinc-900 dark:text-white ml-1">Kayıt ol</button></p>
+      <p id="kayitMesaj" class="hidden text-center text-[12px] mt-3" style="color:#7db9ff">✓ Kaydınız alındı! Asistanımız WhatsApp'tan bağlanacak.</p>
     </div>
   </div>
 
