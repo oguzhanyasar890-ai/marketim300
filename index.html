@@ -264,6 +264,7 @@
       <div class="flex items-center gap-2">
         <!-- Sepet kaldırıldı -->
         <button id="kayitOlBtn" onclick="document.getElementById('authModal').classList.add('modal-active')" class="h-9 px-4 rounded-full text-[12.5px] font-semibold inline-flex items-center gap-1.5" style="background:#25d366;color:#fff">Kayıt Ol</button>
+        <a href="https://wa.me/905318479349" target="_blank" class="h-9 px-4 rounded-full text-[12.5px] font-semibold inline-flex items-center gap-1.5" style="background:#25d366;color:#fff"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
         <!-- Admin/APK/Giriş kaldırıldı (ebooks stili sade vitrin) -->
       </div>
     </div>
@@ -448,15 +449,7 @@
 
   <div id="submissionModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4"><div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-lg p-8 border shadow-xl relative"><button onclick="closeSubmissionModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button><h3 class="font-bold text-[20px]">Sizden gelenler</h3><p class="text-[12px] text-zinc-500 mt-1">Alıntınızı paylaşın</p><form id="submissionForm" onsubmit="submitSizdenGelen(event)" class="mt-6 grid gap-4"><div class="grid grid-cols-2 gap-3"><input id="subName" required placeholder="Adınız" class="h-11 rounded-full border px-4 text-[13px]"><select id="subType" class="h-11 rounded-full border px-4 text-[13px]"><option>Kitap Alıntısı</option><option>Kitap Tavsiyesi</option><option>Okur Mesajı</option></select></div><input id="subTopic" required placeholder="Başlık" class="h-11 rounded-full border px-4 text-[13px]"><textarea id="subMessage" required rows="4" placeholder="Mesajınız..." class="rounded-[16px] border p-4 text-[13px] resize-none"></textarea><button id="subSubmitBtn" class="h-11 rounded-full bg-zinc-900 text-white font-semibold text-[13px]">Gönder</button></form></div></div>
 
-  <div id="aiChatbot" class="fixed bottom-5 right-5 z-50 flex flex-col items-end">
-    <div id="chatWindow" style="display:none" class="w-[360px] bg-white dark:bg-zinc-900 border border-[#1a4066] dark:border-zinc-800 rounded-[20px] shadow-[0_20px_60px_-20px_rgba(0,0,0,.4)] mb-4 overflow-hidden flex-col">
-      <div class="h-14 px-4 bg-zinc-900 text-white flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-white text-zinc-900 flex items-center justify-center font-bold text-[12px]">M</div><div><h4 class="text-[13px] font-semibold">Depo Asistanı</h4><span class="text-[10px] text-zinc-400 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Çevrimiçi</span></div></div><button onclick="toggleChat()" class="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[11px]"></i></button></div>
-      <div id="chatMessages" class="p-4 h-[280px] overflow-y-auto bg-[#0d2a4a] dark:bg-zinc-800/50 flex flex-col gap-3 text-[13px]"></div>
-      <div class="p-3 bg-white dark:bg-zinc-900 border-t flex gap-2"><input id="chatInput" aria-label="Depo Asistanına mesaj yaz" placeholder="Bir soru sor..." class="flex-1 h-9 bg-zinc-100 dark:bg-zinc-800 rounded-full px-4 text-[13px] focus:outline-none" onkeypress="handleKeyPress(event)"><button onclick="sendMessage()" class="w-9 h-9 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-paper-plane text-[12px]"></i></button></div>
-    </div>
-    <button onclick="toggleChat()" class="w-14 h-14 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-[0_8px_24px_rgba(0,0,0,.2)] flex items-center justify-center hover:scale-[1.03] transition"><i class="fa-solid fa-comments"></i></button>
-  </div>
-
+  <!-- Depo Asistanı kaldırıldı — WhatsApp üstte Kayıt Ol yanında -->
   <a href="https://wa.me/905318479349?text=Merhaba%20E-Kitap%20Deposu%20Destek" target="_blank" id="whatsappSupport" class="fixed bottom-5 left-5 z-50 h-11 px-5 rounded-full shadow-lg flex items-center gap-2 font-semibold text-[13px] hover:scale-[1.02] transition" style="background:#25d366;color:#fff!important" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp text-[18px]" style="color:#fff"></i> <span style="color:#fff">Destek</span></a>
 
 
