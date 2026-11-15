@@ -203,7 +203,19 @@
   .m3000-book.book-one{background:linear-gradient(145deg,#244a70,#10243e);transform:translate(-92px,13px) rotate(-13deg)}
   .m3000-book.book-two{background:linear-gradient(145deg,#e99a4e,#bd5c25);transform:translate(5px,-8px) rotate(7deg);z-index:2}
   .m3000-book.book-three{background:linear-gradient(145deg,#607c72,#304c43);transform:translate(100px,22px) rotate(15deg);z-index:1}
-  .m3000-note{position:absolute;z-index:4;bottom:4px;right:2%;display:flex;align-items:center;gap:11px;padding:12px 16px;background:#fff;border:1px solid #ffe4d1;border-radius:999px;box-shadow:0 8px 24px rgba(242,122,26,.18);color:#7db9ff}.m3000-note span{display:flex;flex-direction:column;gap:3px}.m3000-note b{font:800 11px Inter,sans-serif;color:#1a1a1a}.m3000-note small{font:400 10px Inter,sans-serif;color:#8a8a8a}
+  .m3000-note{position:absolute;z-index:4;bottom:4px;right:2%;display:flex;align-items:center;gap:11px;padding:12px 16px;background:#0a1f3a;border:1px solid rgba(125,185,255,.4);border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.4);color:#8fc2ff}.m3000-note span{display:flex;flex-direction:column;gap:3px}.m3000-note b{font:800 11px Inter,sans-serif;color:#fff}.m3000-note small{font:400 10px Inter,sans-serif;color:#8fc2ff}
+  /* Beyaz alanları maviye çek — tüm kart/seksiyon/modül */
+  .bg-white,.surface-card{background:#0d2a4a!important;color:#fff!important}
+  .bg-white *, .surface-card *{color:#eaf2ff!important}
+  [class*="rounded-[24px]"],[class*="rounded-[20px]"]{background:#0d2a4a!important}
+  .feat-card{background:#0d2a4a!important;border-color:rgba(125,185,255,.3)!important}
+  #bookGrid{background:linear-gradient(180deg,#0d2a4a,#0a1f3a)!important}
+  #bookGrid article{background:#102f54!important;border-color:rgba(125,185,255,.35)!important}
+  #bookGrid h4,#bookGrid p{color:#fff!important}
+  /* Uygun yazı tipi: Inter (metin) + Fraunces (başlık) */
+  body{font-family:'Inter',system-ui,sans-serif!important;letter-spacing:-.01em}
+  h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif!important;letter-spacing:-.02em}
+  .m3000-hero h2{font-family:'Fraunces',Georgia,serif!important;letter-spacing:-.03em}
   @media(max-width:760px){.m3000-hero-inner{grid-template-columns:1fr;padding:48px 22px 35px;gap:18px}.m3000-hero h2{font-size:43px}.m3000-visual{height:280px;transform:scale(.88);transform-origin:center top;margin-bottom:-24px}.m3000-trust-row{gap:12px}.m3000-trust-row span{font-size:10px}}
   @media(max-width:390px){.m3000-hero h2{font-size:37px}.m3000-visual{transform:scale(.76);margin-left:-20px;margin-right:-20px;margin-bottom:-55px}.m3000-actions>*{width:100%}}
 
