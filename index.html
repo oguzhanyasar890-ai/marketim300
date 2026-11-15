@@ -104,9 +104,15 @@
     .feat-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px -18px rgba(99,102,241,.4)}
     #bookGrid article{animation:rise .6s cubic-bezier(.2,.8,.2,1) both;transition:transform .35s,box-shadow .35s,border-color .35s}
     #bookGrid article:nth-child(4n+2){animation-delay:.06s} #bookGrid article:nth-child(4n+3){animation-delay:.12s} #bookGrid article:nth-child(4n+4){animation-delay:.18s}
-    /* Kitap kart satırı — çiçek motifli zemin (ebooks-gibi ferah, botanik desen) */
-    #bookGrid{background:linear-gradient(180deg,rgba(255,251,245,.7),rgba(255,255,255,.7));border-radius:28px;padding:18px 14px 22px;position:relative}
-    #bookGrid:before{content:"✿ ❀ ✿ ❀ ✿ ❀ ✿ ❀";position:absolute;left:0;right:0;top:6px;text-align:center;color:rgba(212,175,55,.28);font-size:22px;letter-spacing:18px;pointer-events:none}
+    /* Kitap kart satırı — çiçek desenli zemin (tam kaplama botanik) */
+    #bookGrid{background:
+      radial-gradient(circle at 12% 20%, rgba(255,240,245,.9) 0 12px, transparent 13px),
+      radial-gradient(circle at 88% 30%, rgba(255,241,214,.65) 0 14px, transparent 15px),
+      radial-gradient(circle at 30% 80%, rgba(255,240,245,.7) 0 10px, transparent 11px),
+      radial-gradient(circle at 70% 85%, rgba(255,241,214,.55) 0 12px, transparent 13px),
+      linear-gradient(180deg,#fffaf5,#ffffff)!important;
+      border-radius:28px;padding:28px 14px 26px;position:relative;overflow:hidden}
+    #bookGrid:before{content:"✿ ❀ ✿ ❀ ✿ ❀ ✿ ❀ ✿ ❀ ✿ ❀";position:absolute;inset:0;display:grid;place-content:center;text-align:center;color:rgba(212,175,55,.18);font-size:44px;line-height:1.8;letter-spacing:24px;pointer-events:none}
     #bookGrid article{border:1px solid #eee!important;background:#fff!important;box-shadow:0 1px 10px rgba(0,0,0,.05);aspect-ratio:auto;border-radius:16px!important}
     #bookGrid article:before{content:"";display:block;height:0}
     #bookGrid article:hover{transform:translateY(-3px);box-shadow:0 16px 36px -14px rgba(242,122,26,.35)!important;border-color:#f27a1a!important}
@@ -206,9 +212,8 @@
 <body class="font-sans min-h-screen flex flex-col selection:bg-zinc-900 selection:text-white">
   <a href="#kitaplarBolumu" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[2000] focus:rounded-full focus:bg-white focus:px-4 focus:py-3 focus:text-zinc-900 focus:shadow-lg">İçeriğe geç</a>
   <!-- Top bar -->
-  <div class="h-8 bg-zinc-900 text-zinc-100 text-[11px] font-medium tracking-wide flex items-center justify-center gap-6 px-4">
-    <span class="hidden sm:flex items-center gap-2"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Canlı kütüphane — Anında erişim</span>
-    <span class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-[11px] opacity-70"></i> Güvenli ödeme · Hızlı teslimat</span>
+  <div class="h-8 text-[11px] font-medium tracking-wide flex items-center justify-center gap-6 px-4" style="background:rgba(255,255,255,.9);color:#001d2b;border-bottom:1px solid #eee">
+    🚨 Marketim3000 E-book Digital Kafe 📚
   </div>
 
   <header class="glass-nav sticky top-0 z-40">
