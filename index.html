@@ -165,22 +165,22 @@
   
   /* MARKETIM3000 LIGHT DESIGN OVERRIDES */
   html,html.dark{color-scheme:light!important;background:#fff!important}
-  html.dark body,body{background:#fff!important;color:#1a1a1a!important}
-  html.dark .glass-nav,.glass-nav{background:rgba(255,255,255,.97)!important;border-bottom:2px solid #f27a1a!important;backdrop-filter:blur(12px)}
-  html.dark .surface-card,.surface-card{background:#fff!important;border-color:#eee!important;color:#1a1a1a!important}
-  .m3000-hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#fff 0%,#fff1e8 55%,#ffe4d1 100%);border-bottom:1px solid #ffe4d1;color:#1a1a1a}
+  html.dark body,body{background:#f4f6f8!important;color:#001d2b!important}
+  html.dark .glass-nav,.glass-nav{background:#fff!important;border-bottom:1px solid #e5e5e5!important}
+  html.dark .surface-card,.surface-card{background:#fff!important;border-color:#e5e5e5!important;color:#001d2b!important;box-shadow:0 2px 12px rgba(0,29,43,.06)}
+  .m3000-hero{position:relative;overflow:hidden;background:#fff;border-bottom:1px solid #eee;color:#001d2b}
   .m3000-hero:before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;right:-160px;top:-250px;background:radial-gradient(circle,rgba(197,155,87,.22),transparent 68%);pointer-events:none}
   .m3000-hero-inner{position:relative;z-index:1;max-width:1280px;margin:auto;padding:68px 32px 62px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:44px;min-height:430px}
-  .m3000-kicker{display:flex;align-items:center;gap:9px;font:800 11px Inter,sans-serif;letter-spacing:.12em;color:#f27a1a;text-transform:uppercase}
-  .m3000-kicker span{width:8px;height:8px;border-radius:50%;background:#f27a1a;box-shadow:0 0 0 5px #ffe4d1}
-  .m3000-hero h2{font:900 clamp(38px,5vw,64px)/1.05 Inter,sans-serif;letter-spacing:-.03em;color:#1a1a1a;margin:22px 0 18px}
-  .m3000-hero h2 em{font-family:Inter,sans-serif;font-weight:900;color:#f27a1a;font-style:normal}
-  .m3000-hero-copy>p{max-width:590px;font:400 15px/1.85 Inter,sans-serif;color:#6b6b6b;margin:0}
+  .m3000-kicker{display:flex;align-items:center;gap:9px;font:700 11px Inter,sans-serif;letter-spacing:.12em;color:#005d7f;text-transform:uppercase}
+  .m3000-kicker span{width:8px;height:8px;border-radius:50%;background:#005d7f;box-shadow:0 0 0 5px #e0ecf1}
+  .m3000-hero h2{font:800 clamp(38px,5vw,64px)/1.05 Inter,sans-serif;letter-spacing:-.03em;color:#001d2b;margin:22px 0 18px}
+  .m3000-hero h2 em{font-family:Georgia,serif;font-weight:700;color:#005d7f;font-style:italic}
+  .m3000-hero-copy>p{max-width:590px;font:400 16px/1.8 Inter,sans-serif;color:#4a6573;margin:0}
   .m3000-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:27px}
-  .m3000-primary,.m3000-secondary{min-height:47px;padding:0 22px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;gap:10px;font:800 13px Inter,sans-serif;text-decoration:none;transition:all .2s}
-  .m3000-primary{background:#f27a1a;color:#fff;box-shadow:0 8px 20px rgba(242,122,26,.3)}.m3000-primary:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(242,122,26,.45)}
-  .m3000-secondary{background:#fff;color:#1a1a1a;border:1px solid #eee}.m3000-secondary:hover{border-color:#f27a1a;color:#f27a1a}
-  .m3000-trust-row{display:flex;flex-wrap:wrap;gap:19px;margin-top:30px;color:#8a8a8a;font:700 11px Inter,sans-serif}.m3000-trust-row span{display:flex;align-items:center;gap:7px}.m3000-trust-row i{color:#f27a1a}
+  .m3000-primary,.m3000-secondary{min-height:47px;padding:0 22px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;gap:10px;font:700 13px Inter,sans-serif;text-decoration:none;transition:all .2s}
+  .m3000-primary{background:#005d7f;color:#fff;box-shadow:0 6px 16px rgba(0,93,127,.25)}.m3000-primary:hover{background:#0077a5;transform:translateY(-1px)}
+  .m3000-secondary{background:#fff;color:#005d7f;border:1px solid #005d7f}.m3000-secondary:hover{background:#eef5f8;color:#005d7f}
+  .m3000-trust-row{display:flex;flex-wrap:wrap;gap:19px;margin-top:30px;color:#6b8591;font:600 11px Inter,sans-serif}.m3000-trust-row span{display:flex;align-items:center;gap:7px}.m3000-trust-row i{color:#005d7f}
   .m3000-visual{height:330px;position:relative;display:flex;align-items:center;justify-content:center;isolation:isolate}
   .m3000-orbit{position:absolute;width:290px;height:290px;border:1px solid #ffe4d1;border-radius:50%;box-shadow:0 0 0 35px rgba(242,122,26,.08),0 0 0 70px rgba(242,122,26,.05)}
   .m3000-book{position:absolute;width:145px;height:220px;border-radius:7px 14px 14px 7px;box-shadow:12px 18px 30px rgba(15,35,60,.2);padding:20px 15px;display:flex;flex-direction:column;justify-content:space-between;color:white;border-left:7px solid rgba(0,0,0,.12)}
@@ -224,13 +224,7 @@
       <div class="flex items-center gap-2">
         <button id="cartBtn" onclick="openCart()" title="Sepetim" class="relative w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition"><i class="fa-solid fa-cart-shopping text-[13px]"></i><span id="cartBadge" class="hidden absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-600 text-white text-[10px] font-bold items-center justify-center">0</span></button>
         <button id="premiumBtn" onclick="openPremiumModal()" class="h-9 px-3.5 rounded-full bg-amber-500 hover:bg-amber-600 text-zinc-950 text-[12.5px] font-semibold inline-flex items-center gap-1.5 transition"><i class="fa-solid fa-crown text-[11px]"></i><span id="premiumBtnText">Premium</span></button>
-        <!-- Admin ve APK bölümleri kaldırıldı (vitrin/panel ayrımı) -->
-        <button id="googleLoginBtn" onclick="openAuthModal()" class="h-9 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold hover:bg-black dark:hover:bg-zinc-100 transition">Giriş Yap</button>
-        <div id="userProfileArea" style="display:none" class="h-9 items-center gap-2 pl-1 pr-3 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 cursor-pointer" onclick="openProfileModal()">
-          <img alt="Kullanıcı profil fotoğrafı" id="userAvatarImg" style="display:none" class="w-7 h-7 rounded-full object-cover">
-          <div id="userAvatarText" class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold text-[12px] flex items-center justify-center">U</div>
-          <span id="userNameDisplay" class="text-[12.5px] font-medium max-w-[80px] truncate">Okur</span>
-        </div>
+        <!-- Admin/APK/Giriş kaldırıldı (ebooks stili sade vitrin) -->
       </div>
     </div>
   </header>
@@ -1781,6 +1775,7 @@ async function loadAdminSubmissions() {
 onAuthStateChanged(auth, async (user) => {
   const loginBtn = document.getElementById('googleLoginBtn');
   const profileArea = document.getElementById('userProfileArea');
+  if (!loginBtn || !profileArea) return; // Giriş kaldırıldı — hesap akışı panelde
   const adminBtn = document.getElementById('adminPanelBtn');
   const warn = document.getElementById('authRequiredWarning');
   if (warn && user) warn.style.display = 'none';
