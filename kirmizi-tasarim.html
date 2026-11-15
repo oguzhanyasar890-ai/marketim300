@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <title>MARKETIM3000 | Binlerce Dijital Kitap, Ekonomik Fiyatlarla</title>
+  <meta name="description" content="MARKETIM3000 - Binlerce Dijital Kitap, Ekonomik Fiyatlarla. Kişisel Gelişim, Psikoloji, Finans, Kripto, Teknoloji, Roman, Tarih ve Eğitim kategorilerinde anında dijital teslimat." />
+  <link rel="canonical" href="https://marketim3000.online/" />
+  <style>
+    :root {
+      --kirmizi: #E10600;
+      --kirmizi-koyu: #B30500;
+      --kirmizi-acik: #FFEBEB;
+      --siyah: #111111;
+      --siyah-2: #222222;
+      --beyaz: #FFFFFF;
+      --gri-acik: #F5F5F5;
+      --gri-orta: #E5E5E5;
+      --gri-koyu: #6B7280;
+      --metin: #111827;
+      --metin-soluk: #6B7280;
+      --yesil: #0F8A2E;
+      --yesil-acik: #E8F5E9;
+      --sari: #FFC107;
+      --golge: 0 2px 10px rgba(0,0,0,0.07);
+      --golge-kart: 0 4px 18px rgba(0,0,0,0.09);
+      --radius: 10px;
+      --radius-buyuk: 14px;
+    }
+    * { box-sizing: border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body {
+      background-color: var(--beyaz);
+      color: var(--metin);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height:1.6;
+      overflow-x:hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration:none; color:inherit; }
+    button { font-family:inherit; }
+
+    /* TOP BAR */
+    .top-bar {
+      background: var(--kirmizi);
+      color: var(--beyaz);
+      font-size:12.5px;
+      font-weight:600;
+      padding:7px 16px;
+      text-align:center;
+      letter-spacing:0.2px;
+      display:flex;
+      justify-content:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .top-bar span { display:inline-flex; align-items:center; gap:6px; }
+    .top-bar strong { background: var(--beyaz); color: var(--kirmizi); padding:2px 9px; border-radius:20px; font-size:11.5px; letter-spacing:0.5px; }
+
+    /* HEADER */
+    .header-white {
+      background: var(--beyaz);
+      border-bottom:1px solid var(--gri-orta);
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow: var(--golge);
+    }
+    .header-container {
+      max-width:1280px;
+      margin:0 auto;
+      padding:12px 16px;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:190px;
+    }
+    .brand-icon {
+      width:44px; height:44px;
+      background: var(--kirmizi);
+      color: var(--beyaz);
+      border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:900; font-size:22px; letter-spacing:1px;
+      box-shadow: 0 4px 12px rgba(225,6,0,0.3);
+    }
+    .brand-text-wrap { line-height:1.1; }
+    .brand-text {
+      font-weight:900; font-size:20px; letter-spacing:0.8px; color: var(--siyah);
+    }
+    .brand-sub {
+      font-size:10px; letter-spacing:1.3px; text-transform:uppercase; color: var(--gri-koyu); font-weight:700; margin-top:2px;
+    }
+    .search-wrap {
+      flex:1; min-width:240px; max-width:560px; position:relative;
+    }
+    .search-input {
+      width:100%;
+      padding:11px 18px 11px 44px;
+      border-radius:30px;
+      border:1.8px solid var(--gri-orta);
+      background: var(--gri-acik);
+      font-size:14px;
+      color: var(--metin);
+      transition: all 0.2s;
+    }
+    .search-input:focus { outline:none; border-color: var(--kirmizi); background: var(--beyaz); box-shadow: 0 0 0 3px var(--kirmizi-acik); }
+    .search-icon { position:absolute; left:16px; top:50%; transform:translateY(-50%); color: var(--metin-soluk); font-size:15px; }
+    .header-actions { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+    .h-btn {
+      background: var(--beyaz);
+      border:1.5px solid var(--gri-orta);
+      padding:9px 14px;
+      border-radius:8px;
+      font-size:13px; font-weight:700;
+      cursor:pointer; display:inline-flex; align-items:center; gap:6px;
+      color: var(--siyah);
+      transition: all 0.18s;
+    }
+    .h-btn:hover { border-color: var(--siyah); background: var(--gri-acik); }
+    .h-btn-cart {
+      background: var(--siyah);
+      color: var(--beyaz);
+      border-color: var(--siyah);
+      position:relative;
+    }
+    .h-btn-cart:hover { background: var(--siyah-2); }
+    .cart-badge { background: var(--kirmizi); color: var(--beyaz); font-size:11px; padding:2px 7px; border-radius:20px; font-weight:800; min-width:18px; text-align:center; }
+
+    /* NAV RED BAR */
+    .nav-red {
+      background: var(--siyah);
+      color: var(--beyaz);
+      border-bottom: 3px solid var(--kirmizi);
+    }
+    .nav-red-container {
+      max-width:1280px; margin:0 auto;
+      padding:0 16px;
+      display:flex;
+      align-items:center;
+      gap:2px;
+      overflow-x:auto;
+      scrollbar-width:none;
+    }
+    .nav-red-container::-webkit-scrollbar { display:none; }
+    .nav-item {
+      white-space:nowrap;
+      padding:13px 16px;
+      font-size:13.5px; font-weight:700;
+      color: rgba(255,255,255,0.92);
+      cursor:pointer;
+      border-bottom:3px solid transparent;
+      margin-bottom:-3px;
+      transition: all 0.18s;
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .nav-item:hover, .nav-item.active { color: var(--beyaz); border-bottom-color: var(--kirmizi); background: rgba(255,255,255,0.06); }
+    .nav-item.active { color: var(--beyaz); border-bottom-color: var(--kirmizi); }
+    .nav-dot { width:6px; height:6px; background: var(--kirmizi); border-radius:50%; display:inline-block; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(102deg, #FFF5F5 0%, #FFFFFF 45%, #F9F9F9 100%);
+      border-bottom:1px solid var(--gri-orta);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::before {
+      content:"";
+      position:absolute;
+      top:-60px; right:-60px;
+      width:300px; height:300px;
+      background: radial-gradient(circle, rgba(225,6,0,0.08) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .hero-container {
+      max-width:1280px; margin:0 auto;
+      padding:38px 16px 34px;
+      display:grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap:30px;
+      align-items:center;
+      position:relative;
+      z-index:1;
+    }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:7px;
+      background: var(--kirmizi);
+      color: var(--beyaz);
+      padding:6px 14px;
+      border-radius:30px;
+      font-size:12px; font-weight:800;
+      letter-spacing:0.6px; text-transform:uppercase;
+      margin-bottom:14px;
+    }
+    .hero-title {
+      font-size: clamp(28px, 4.2vw, 46px);
+      line-height:1.08;
+      font-weight:900;
+      color: var(--siyah);
+      margin-bottom:14px;
+      letter-spacing:-0.5px;
+    }
+    .hero-title span { color: var(--kirmizi); }
+    .hero-sub {
+      font-size:16px;
+      color: var(--metin-soluk);
+      max-width:560px;
+      margin-bottom:24px;
+      line-height:1.55;
+    }
+    .hero-btns { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .btn-red {
+      background: var(--kirmizi);
+      color: var(--beyaz);
+      border:none;
+      padding:14px 28px;
+      border-radius:10px;
+      font-size:15px; font-weight:800;
+      cursor:pointer;
+      display:inline-flex; align-items:center; gap:8px;
+      box-shadow: 0 6px 18px rgba(225,6,0,0.28);
+      transition: all 0.18s;
+      text-decoration:none;
+    }
+    .btn-red:hover { background: var(--kirmizi-koyu); transform: translateY(-1px); box-shadow:0 10px 24px rgba(225,6,0,0.34); }
+    .btn-black {
+      background: var(--beyaz);
+      color: var(--siyah);
+      border:1.8px solid var(--siyah);
+      padding:12px 22px;
+      border-radius:10px;
+      font-size:14px; font-weight:800;
+      cursor:pointer;
+      display:inline-flex; align-items:center; gap:8px;
+      transition: all 0.18s;
+    }
+    .btn-black:hover { background: var(--siyah); color: var(--beyaz); }
+    .hero-showcase {
+      display:flex; justify-content:center; gap:14px; align-items:flex-end;
+    }
+    .hero-book {
+      width:140px; aspect-ratio:2/3; object-fit:cover;
+      border-radius:8px 12px 12px 8px;
+      box-shadow: -6px 10px 28px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.12);
+      border:2px solid var(--beyaz);
+      transform: rotate(-2deg);
+      transition: transform 0.22s;
+      cursor:pointer;
+      background: var(--gri-acik);
+    }
+    .hero-book:nth-child(2) { width:165px; transform: rotate(0deg) translateY(-8px); z-index:2; box-shadow:0 18px 36px rgba(0,0,0,0.28); border-color: var(--beyaz); }
+    .hero-book:nth-child(3) { transform: rotate(2deg); }
+    .hero-book:hover { transform: translateY(-6px) rotate(0deg); }
+
+    /* GUVEN ALANI */
+    .trust-bar {
+      max-width:1280px; margin:0 auto; padding:18px 16px 0;
+    }
+    .trust-grid {
+      display:grid; grid-template-columns: repeat(3,1fr); gap:12px;
+    }
+    .trust-card {
+      background: var(--beyaz);
+      border:1.5px solid var(--gri-orta);
+      border-radius:12px;
+      padding:14px 16px;
+      display:flex; align-items:center; gap:12px;
+      box-shadow: var(--golge);
+    }
+    .trust-icon {
+      width:42px; height:42px; border-radius:10px;
+      background: var(--kirmizi-acik);
+      color: var(--kirmizi);
+      display:flex; align-items:center; justify-content:center;
+      font-size:20px; font-weight:800;
+      flex-shrink:0;
+    }
+    .trust-title { font-size:13.5px; font-weight:800; color: var(--siyah); }
+    .trust-desc { font-size:12px; color: var(--metin-soluk); margin-top:1px; }
+
+    /* MAIN */
+    .main-container { max-width:1280px; margin:0 auto; padding:28px 16px; }
+    .section-header {
+      display:flex; justify-content:space-between; align-items:flex-end;
+      gap:12px; flex-wrap:wrap;
+      margin-bottom:18px;
+      padding-bottom:10px;
+      border-bottom:2px solid var(--gri-orta);
+    }
+    .section-title-wrap { display:flex; align-items:center; gap:10px; }
+    .section-bar { width:4px; height:28px; background: var(--kirmizi); border-radius:3px; }
+    .section-title { font-size:22px; font-weight:900; color: var(--siyah); letter-spacing:-0.3px; }
+    .section-sub { font-size:13px; color: var(--metin-soluk); margin-top:2px; }
+    .section-link { font-size:13px; font-weight:800; color: var(--kirmizi); cursor:pointer; }
+
+    .cat-pills { display:flex; gap:8px; overflow-x:auto; padding-bottom:8px; scrollbar-width:none; }
+    .cat-pills::-webkit-scrollbar { display:none; }
+    .cat-pill {
+      white-space:nowrap;
+      padding:8px 16px;
+      border-radius:24px;
+      font-size:13px; font-weight:700;
+      border:1.5px solid var(--gri-orta);
+      background: var(--beyaz);
+      color: var(--siyah);
+      cursor:pointer;
+      transition: all 0.18s;
+    }
+    .cat-pill:hover, .cat-pill.active { background: var(--kirmizi); color: var(--beyaz); border-color: var(--kirmizi); }
+
+    .books-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+      gap:18px;
+      margin-bottom:36px;
+    }
+    .book-card {
+      background: var(--beyaz);
+      border:1.5px solid var(--gri-orta);
+      border-radius:14px;
+      overflow:hidden;
+      display:flex; flex-direction:column;
+      box-shadow: var(--golge);
+      transition: all 0.22s ease;
+      position:relative;
+    }
+    .book-card:hover { transform: translateY(-4px); box-shadow: var(--golge-kart); border-color: var(--kirmizi); }
+    .book-card.free-featured { border:2px solid var(--yesil); }
+    .badge-price {
+      position:absolute; top:10px; left:10px; z-index:2;
+      background: var(--siyah);
+      color: var(--beyaz);
+      font-size:11.5px; font-weight:900;
+      padding:5px 10px; border-radius:7px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.18);
+      letter-spacing:0.3px;
+    }
+    .badge-price.free { background: var(--yesil); }
+    .badge-format {
+      position:absolute; top:10px; right:10px; z-index:2;
+      background: rgba(255,255,255,0.94);
+      border:1px solid var(--gri-orta);
+      color: var(--siyah);
+      font-size:10.5px; font-weight:800;
+      padding:4px 8px; border-radius:6px;
+    }
+    .cover-wrapper {
+      background: radial-gradient(circle at center, #FFF 0%, #F7F7F7 100%);
+      padding:22px 22px 18px;
+      display:flex; justify-content:center; align-items:center;
+      border-bottom:1px solid var(--gri-orta);
+      cursor:pointer;
+      position:relative;
+    }
+    .cover-wrapper::after {
+      content:"";
+      position:absolute; bottom:-1px; left:0; right:0; height:1px;
+      background: linear-gradient(90deg, var(--kirmizi) 0%, transparent 80%);
+      opacity:0;
+      transition: opacity 0.22s;
+    }
+    .book-card:hover .cover-wrapper::after { opacity:1; }
+    .book-cover-img {
+      width:100%; max-width:170px; aspect-ratio:2/3; object-fit:cover;
+      border-radius:4px 10px 10px 4px;
+      box-shadow: -6px 8px 20px rgba(0,0,0,0.22);
+      transition: transform 0.22s;
+      background: var(--gri-acik);
+    }
+    .book-card:hover .book-cover-img { transform: translateY(-3px) scale(1.02); }
+    .card-body { padding:14px 14px 13px; display:flex; flex-direction:column; flex:1; }
+    .card-cat { font-size:10.5px; font-weight:800; letter-spacing:0.6px; text-transform:uppercase; color: var(--kirmizi); margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .card-title { font-size:15.5px; font-weight:900; color: var(--siyah); line-height:1.3; margin-bottom:3px; cursor:pointer; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:40px; }
+    .card-author { font-size:12.5px; color: var(--metin-soluk); margin-bottom:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .card-desc { font-size:12.8px; color: var(--metin); line-height:1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; flex:1; margin-bottom:10px; min-height:38px; }
+    .price-row { display:flex; align-items:baseline; justify-content:space-between; padding-top:10px; border-top:1px solid var(--gri-acik); margin-bottom:10px; }
+    .price-label { font-size:11px; font-weight:700; color: var(--metin-soluk); text-transform:uppercase; letter-spacing:0.5px; }
+    .price-val { font-size:18px; font-weight:900; color: var(--kirmizi); }
+    .price-val.free { color: var(--yesil); }
+    .card-actions { display:flex; flex-direction:column; gap:7px; }
+    .btn-card-detail {
+      background: var(--beyaz); color: var(--siyah); border:1.5px solid var(--gri-orta);
+      padding:9px 10px; border-radius:8px; font-size:12.5px; font-weight:800; cursor:pointer; text-align:center;
+      transition: all 0.18s;
+    }
+    .btn-card-detail:hover { border-color: var(--siyah); background: var(--gri-acik); }
+    .btn-card-buy {
+      background: var(--kirmizi); color: var(--beyaz); border:1.5px solid var(--kirmizi);
+      padding:10px 12px; border-radius:8px; font-size:12.5px; font-weight:800; cursor:pointer; text-align:center;
+      display:flex; align-items:center; justify-content:center; gap:6px;
+      box-shadow:0 3px 10px rgba(225,6,0,0.22);
+      transition: all 0.18s;
+    }
+    .btn-card-buy:hover { background: var(--kirmizi-koyu); border-color: var(--kirmizi-koyu); transform: translateY(-1px); }
+    .btn-card-buy.free { background: var(--yesil); border-color: var(--yesil); box-shadow:0 3px 10px rgba(15,138,46,0.25); }
+    .btn-card-buy.free:hover { background:#0c7226; }
+
+    /* KATEGORI GRID */
+    .cat-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap:12px; margin-bottom:36px; }
+    .cat-card {
+      background: var(--beyaz);
+      border:1.5px solid var(--gri-orta);
+      border-radius:12px;
+      padding:16px;
+      cursor:pointer;
+      display:flex; align-items:center; gap:12px;
+      transition: all 0.18s;
+      position:relative; overflow:hidden;
+    }
+    .cat-card::before {
+      content:"";
+      position:absolute; left:0; top:0; bottom:0; width:4px;
+      background: var(--kirmizi);
+    }
+    .cat-card:hover { border-color: var(--kirmizi); box-shadow: var(--golge-kart); transform: translateY(-2px); }
+    .cat-card-icon { width:42px; height:42px; border-radius:10px; background: var(--siyah); color: var(--beyaz); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+    .cat-card:nth-child(2n) .cat-card-icon { background: var(--kirmizi); }
+    .cat-card-title { font-size:13.5px; font-weight:800; color: var(--siyah); }
+    .cat-card-count { font-size:12px; color: var(--metin-soluk); margin-top:2px; }
+
+    /* GUVEN BOLGEU */
+    .trust-section {
+      max-width:1280px; margin:0 auto; padding:0 16px 20px;
+    }
+    .trust-large {
+      background: linear-gradient(102deg, var(--siyah) 0%, #1F1F1F 100%);
+      color: var(--beyaz);
+      border-radius:16px;
+      padding:20px;
+      display:grid; grid-template-columns: repeat(3,1fr); gap:18px;
+    }
+    .trust-large-item { display:flex; gap:12px; align-items:flex-start; }
+    .trust-large-icon { width:44px; height:44px; background: var(--kirmizi); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+    .trust-large-title { font-size:14px; font-weight:800; margin-bottom:2px; }
+    .trust-large-desc { font-size:12.5px; color: rgba(255,255,255,0.7); line-height:1.45; }
+
+    /* MODAL */
+    .modal-overlay { position:fixed; inset:0; background: rgba(0,0,0,0.56); backdrop-filter: blur(4px); z-index:10000; display:none; align-items:center; justify-content:center; padding:14px; }
+    .modal-box { background: var(--beyaz); color: var(--metin); border-radius:16px; width:100%; max-width:860px; max-height:92vh; overflow-y:auto; padding:22px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.32); border:1px solid var(--gri-orta); }
+    .modal-close { position:absolute; top:12px; right:14px; background: var(--gri-acik); border:1px solid var(--gri-orta); color: var(--siyah); width:36px; height:36px; border-radius:50%; font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+    .detail-top { display:grid; grid-template-columns:210px 1fr; gap:20px; margin-bottom:18px; }
+    .detail-cover { width:100%; aspect-ratio:2/3; object-fit:cover; border-radius:10px; box-shadow:0 10px 28px rgba(0,0,0,0.22); border:1px solid var(--gri-orta); }
+    .tabs-bar { display:flex; gap:6px; border-bottom:2px solid var(--gri-orta); margin-bottom:14px; overflow-x:auto; }
+    .tab-btn { padding:9px 13px; background: var(--gri-acik); border:1px solid var(--gri-orta); border-bottom:none; border-radius:8px 8px 0 0; font-size:12.5px; font-weight:800; color: var(--metin-soluk); cursor:pointer; white-space:nowrap; }
+    .tab-btn.active { background: var(--kirmizi); color: var(--beyaz); border-color: var(--kirmizi); }
+    .tab-panel { background: var(--gri-acik); padding:14px; border-radius:10px; border:1px solid var(--gri-orta); font-size:13.5px; line-height:1.62; margin-bottom:16px; }
+    .iban-box { background: var(--gri-acik); border:2px solid var(--kirmizi); border-radius:12px; padding:16px; margin-bottom:16px; }
+    .iban-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--gri-orta); font-size:13.5px; gap:10px; flex-wrap:wrap; }
+    .iban-row:last-child { border-bottom:none; }
+
+    /* FORM BOLGER */
+    .form-section { max-width:1280px; margin:26px auto 0; padding:0 16px; }
+    .form-card { background: var(--beyaz); border:1.5px solid var(--gri-orta); border-radius:16px; padding:22px; box-shadow: var(--golge); }
+    .form-title { font-size:20px; font-weight:900; color: var(--siyah); margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+    .form-title::before { content:""; width:4px; height:22px; background: var(--kirmizi); border-radius:2px; display:inline-block; }
+    .input-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .input-field { padding:11px 14px; border:1.6px solid var(--gri-orta); border-radius:9px; font-size:14px; width:100%; background: var(--beyaz); transition: all 0.18s; }
+    .input-field:focus { outline:none; border-color: var(--kirmizi); box-shadow:0 0 0 3px var(--kirmizi-acik); }
+    textarea.input-field { resize:vertical; }
+    .btn-submit { background: var(--siyah); color: var(--beyaz); border:none; padding:13px 20px; border-radius:10px; font-weight:800; cursor:pointer; font-size:14px; transition: all 0.18s; }
+    .btn-submit:hover { background: var(--kirmizi); }
+
+    /* FOOTER - RED BLACK WHITE */
+    footer { background: var(--siyah); color: var(--beyaz); border-top:4px solid var(--kirmizi); padding:36px 16px 26px; margin-top:48px; }
+    .footer-grid { max-width:1280px; margin:0 auto; display:grid; grid-template-columns: 1.4fr 0.9fr 0.9fr 1fr; gap:28px; }
+    .footer-brand { display:flex; gap:10px; align-items:center; margin-bottom:12px; }
+    .footer-logo { width:40px; height:40px; background: var(--kirmizi); border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:18px; }
+    .footer-title { font-size:13px; font-weight:900; letter-spacing:0.8px; text-transform:uppercase; color: var(--beyaz); margin-bottom:12px; border-left:3px solid var(--kirmizi); padding-left:10px; }
+    .footer-links { list-style:none; display:grid; gap:8px; }
+    .footer-links a { font-size:13px; color: rgba(255,255,255,0.72); transition: color 0.18s; font-weight:600; }
+    .footer-links a:hover { color: var(--beyaz); text-decoration:underline; text-underline-offset:3px; }
+    .footer-bottom { max-width:1280px; margin:26px auto 0; padding-top:18px; border-top:1px solid #2A2A2A; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:12px; color: rgba(255,255,255,0.55); }
+
+    /* SABIT BUTONLAR */
+    #sabit-whatsapp-destek {
+      position:fixed; bottom:18px; left:16px; z-index:9990;
+      background: #25D366; color: var(--beyaz);
+      padding:12px 18px; border-radius:50px; font-weight:800; font-size:13.5px;
+      text-decoration:none; display:flex; align-items:center; gap:8px;
+      box-shadow:0 6px 20px rgba(37,211,102,0.35); border:2px solid var(--beyaz);
+    }
+    #sabit-ai-asistan {
+      position:fixed; bottom:18px; right:16px; z-index:9990;
+      background: var(--siyah); color: var(--beyaz);
+      padding:12px 18px; border-radius:50px; font-weight:800; font-size:13.5px;
+      border:2px solid var(--kirmizi); display:flex; align-items:center; gap:8px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.32); cursor:pointer;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .hero-container { grid-template-columns:1fr; text-align:center; padding-top:26px; padding-bottom:26px; }
+      .hero-sub { margin-left:auto; margin-right:auto; }
+      .hero-btns { justify-content:center; }
+      .hero-showcase { justify-content:center; }
+      .footer-grid { grid-template-columns:1fr 1fr; }
+      .trust-large { grid-template-columns:1fr; }
+      .trust-grid { grid-template-columns:1fr; }
+      .detail-top { grid-template-columns:1fr; }
+      .detail-cover { max-width:200px; margin:0 auto; }
+      .input-grid { grid-template-columns:1fr; }
+    }
+    @media (max-width: 640px) {
+      .header-container { gap:10px; }
+      .brand { min-width:auto; }
+      .books-grid { grid-template-columns: repeat(2,1fr); gap:10px; }
+      .cat-grid { grid-template-columns: repeat(2,1fr); }
+      .book-cover-img { max-width:132px; }
+      .card-title { font-size:14px; min-height:36px; }
+      .price-val { font-size:16px; }
+      .nav-red-container { padding:0 10px; }
+      .nav-item { padding:11px 12px; font-size:13px; }
+      .footer-grid { grid-template-columns:1fr; gap:22px; }
+    }
+
+    /* HAKKIMIZDA BOLUM */
+    .about-grid { display:grid; grid-template-columns:1.2fr 0.8fr; gap:18px; }
+    .about-card { background: var(--beyaz); border:1.5px solid var(--gri-orta); border-radius:14px; padding:18px; }
+    @media (max-width: 800px) { .about-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <span>🔥 <strong>KAMPANYA</strong> Binlerce Dijital Kitap Ekonomik Fiyatlarla — Anında Dijital Teslimat!</span>
+    <span>📚 Mağazamızdaki bütün kitaplar <strong style="background:var(--beyaz);color:var(--kirmizi);">sadece 90 TL</strong> · Profesyonel AI <strong style="background:var(--yesil);color:var(--beyaz);">ÜCRETSİZ</strong></span>
+  </div>
+
+  <!-- WHITE HEADER -->
+  <header class="header-white">
+    <div class="header-container">
+      <a href="#" class="brand" onclick="kategoriSec('Tümü'); window.scrollTo({top:0,behavior:'smooth'});">
+        <div class="brand-icon">M</div>
+        <div class="brand-text-wrap">
+          <div class="brand-text">MARKETIM3000</div>
+          <div class="brand-sub">Dijital Kitap Mağazası</div>
+        </div>
+      </a>
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="arama-input" class="search-input" placeholder="Kitap adı, yazar veya konu ara..." oninput="kitaplariFiltrele()" />
+      </div>
+      <div class="header-actions">
+        <button class="h-btn" onclick="modalAc('kutuphane-modal')">🔑 Kitaplığım</button>
+        <button class="h-btn" onclick="modalAc('sesli-modal')">🎧 Önizle</button>
+        <button class="h-btn h-btn-cart" onclick="modalAc('sepet-modal')">
+          🛒 Sepet <span class="cart-badge" id="sepet-sayac">0</span>
+        </button>
+      </div>
+    </div>
+    <!-- RED/BLACK NAV -->
+    <div class="nav-red">
+      <div class="nav-red-container" id="ana-menu">
+        <div class="nav-item active" data-cat="Tümü" onclick="navigateTo('anasayfa')"><span class="nav-dot"></span> Ana Sayfa</div>
+        <div class="nav-item" onclick="document.getElementById('koleksiyon').scrollIntoView({behavior:'smooth'})">📚 Kitaplar</div>
+        <div class="nav-item" onclick="document.getElementById('kategori-bolumu').scrollIntoView({behavior:'smooth'})">📂 Kategoriler</div>
+        <div class="nav-item" onclick="kategoriSec('Çok Satanlar'); document.getElementById('koleksiyon').scrollIntoView({behavior:'smooth'})">🔥 Çok Satanlar</div>
+        <div class="nav-item" onclick="document.getElementById('hakkimizda').scrollIntoView({behavior:'smooth'})">ℹ️ Hakkımızda</div>
+        <div class="nav-item" onclick="document.getElementById('iletisim').scrollIntoView({behavior:'smooth'})">✉️ İletişim</div>
+        <div class="nav-item" onclick="document.getElementById('onerisikayet').scrollIntoView({behavior:'smooth'})">💬 Öneri-Şikayet</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO RED-WHITE-BLACK -->
+  <section class="hero" id="anasayfa">
+    <div class="hero-container">
+      <div>
+        <div class="hero-badge">🚀 MARKETIM3000 · YENİ TASARIM</div>
+        <h1 class="hero-title">Binlerce <span>Dijital Kitap,</span><br/>Ekonomik Fiyatlarla</h1>
+        <p class="hero-sub">Oğuzhan Yaşar dijital koleksiyonu · Kişisel Gelişim, Psikoloji, Finans, Kripto, Teknoloji, Roman, Tarih ve Eğitim kategorilerinde anında teslimat. Profesyonel AI kitabımız tamamen ücretsiz!</p>
+        <div class="hero-btns">
+          <a href="#koleksiyon" class="btn-red" onclick="document.getElementById('koleksiyon').scrollIntoView({behavior:'smooth'}); return false;">📖 Kitapları Keşfet</a>
+          <a href="#kategori-bolumu" class="btn-black">🗂️ Kategorilere Göz At</a>
+          <span style="font-size:12.5px; color:var(--metin-soluk); display:inline-flex; align-items:center; gap:6px; font-weight:700;"><span style="width:8px;height:8px;background:var(--yesil);border-radius:50%;display:inline-block;"></span> Anında dijital teslimat</span>
+        </div>
+        <div style="margin-top:18px; display:flex; gap:22px; flex-wrap:wrap;">
+          <div style="display:flex; align-items:center; gap:8px;"><strong style="font-size:22px; color:var(--kirmizi);">1000+</strong><span style="font-size:12.5px; color:var(--metin-soluk); font-weight:700;">Mutlu Okur</span></div>
+          <div style="display:flex; align-items:center; gap:8px;"><strong style="font-size:22px; color:var(--siyah);">6</strong><span style="font-size:12.5px; color:var(--metin-soluk); font-weight:700;">Aktif Eser</span></div>
+          <div style="display:flex; align-items:center; gap:8px;"><strong style="font-size:22px; color:var(--siyah);">90 TL</strong><span style="font-size:12.5px; color:var(--metin-soluk); font-weight:700;">Sabit Fiyat</span></div>
+        </div>
+      </div>
+      <div class="hero-showcase" id="hero-kapaklar">
+        <!-- JS will fill -->
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST SMALL CARDS -->
+  <div class="trust-bar">
+    <div class="trust-grid">
+      <div class="trust-card"><div class="trust-icon">⚡</div><div><div class="trust-title">Anında Dijital Teslimat</div><div class="trust-desc">Ödeme onayı sonrası erişim kodu ile hemen indirin</div></div></div>
+      <div class="trust-card"><div class="trust-icon">🔒</div><div><div class="trust-title">Güvenli Ödeme</div><div class="trust-desc">Yalnızca banka havalesi/EFT · Yönetici onaylı</div></div></div>
+      <div class="trust-card"><div class="trust-icon">💬</div><div><div class="trust-title">WhatsApp Canlı Destek</div><div class="trust-desc">7/24 sorularınız için bir mesaj uzağınızdayız</div></div></div>
+    </div>
+  </div>
+
+  <!-- MAIN KOLEKSIYON -->
+  <main class="main-container" id="koleksiyon">
+    <div class="section-header">
+      <div class="section-title-wrap"><div class="section-bar"></div><div><h2 class="section-title" id="vitrin-baslik">Öne Çıkan Kitaplar</h2><p class="section-sub">Gerçek fiyatlar veritabanından · Sahte yorum veya satış bilgisi yok</p></div></div>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+        <span style="font-size:12.5px; font-weight:800; color:var(--siyah); background:var(--gri-acik); border:1px solid var(--gri-orta); padding:6px 12px; border-radius:20px;" id="urun-sayisi-etiket">0 Kitap</span>
+        <span class="cat-pills" id="kategori-bar" style="padding-bottom:0;"></span>
+      </div>
+    </div>
+
+    <div class="books-grid" id="kitap-izgarasi"></div>
+
+    <!-- KATEGORILER -->
+    <div id="kategori-bolumu">
+      <div class="section-header"><div class="section-title-wrap"><div class="section-bar"></div><div><h2 class="section-title">Popüler Kategoriler</h2><p class="section-sub">Kişisel Gelişim, Psikoloji, Finans, Kripto, Teknoloji, Roman, Tarih ve Eğitim</p></div></div><div class="section-link" onclick="kategoriSec('Tümü')">Tümünü Gör →</div></div>
+      <div class="cat-grid" id="kategori-kartlari">
+        <!-- JS + sabit kategoriler -->
+      </div>
+      <div class="cat-grid" id="sabit-kategoriler" style="margin-bottom:28px;"></div>
+    </div>
+
+    <!-- GUVEN LARGE DARK -->
+    <div class="trust-section">
+      <div class="trust-large">
+        <div class="trust-large-item"><div class="trust-large-icon">📥</div><div><div class="trust-large-title">Dijital Teslimat</div><div class="trust-large-desc">Fiziksel kargo yok. PDF/EPUB formatında anında cihazınıza indirin. Çalışan sistem korunuyor.</div></div></div>
+        <div class="trust-large-item"><div class="trust-large-icon">🛡️</div><div><div class="trust-large-title">Güvenli Alışveriş</div><div class="trust-large-desc">Kredi kartı ve Shopier olmadan, sadece banka havalesi/EFT ile yönetici onaylı güvenli teslimat.</div></div></div>
+        <div class="trust-large-item"><div class="trust-large-icon">🎧</div><div><div class="trust-large-title">WhatsApp Destek</div><div class="trust-large-desc">Ödeme sonrası erişim kodu, sipariş takibi ve teknik destek için +90 531 847 93 49</div></div></div>
+      </div>
+    </div>
+
+    <!-- HAKKIMIZDA + ILETISIM -->
+    <div class="about-grid" style="margin-top:26px;" id="hakkimizda">
+      <div class="about-card">
+        <h3 style="font-size:17px; font-weight:900; margin-bottom:8px; display:flex; align-items:center; gap:8px;"><span style="width:4px;height:18px;background:var(--kirmizi);border-radius:2px;display:inline-block;"></span> Hakkımızda</h3>
+        <p style="font-size:13.5px; color:var(--metin); line-height:1.6;">MARKETIM3000, yazar <strong>Oğuzhan Yaşar</strong> tarafından oluşturulan bağımsız dijital kitap ve kültür mağazasıdır. Amacımız ekonomik fiyatlarla kaliteli dijital eserleri okurla buluşturmak. Mevcut sipariş, yorum, kütüphane ve yönetim paneli sistemleri korunarak modern kırmızı-beyaz tasarım ile yeniden düzenlendi.</p>
+        <ul style="margin-top:10px; font-size:13px; color:var(--metin-soluk); padding-left:18px; display:grid; gap:4px;">
+          <li>✔ Mevcut veritabanı ve sipariş sistemi korundu</li>
+          <li>✔ Kredi kartı / Shopier yeniden eklenmedi — sadece IBAN</li>
+          <li>✔ Sahte fiyat, yorum veya satış bilgisi oluşturulmadı</li>
+          <li>✔ Mobil uyumlu, hızlı ve profesyonel arayüz</li>
+        </ul>
+      </div>
+      <div class="about-card" id="iletisim">
+        <h3 style="font-size:17px; font-weight:900; margin-bottom:8px; display:flex; align-items:center; gap:8px;"><span style="width:4px;height:18px;background:var(--siyah);border-radius:2px;display:inline-block;"></span> Kurumsal İletişim</h3>
+        <div style="display:grid; gap:10px; font-size:13.5px;">
+          <div style="display:flex; gap:10px;"><span style="background:var(--gri-acik); border:1px solid var(--gri-orta); width:36px;height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center;">📧</span><div><strong>E-posta</strong><br/><a href="mailto:oguzhanyasar@marketim3000.online" style="color:var(--kirmizi); font-weight:700;">oguzhanyasar@marketim3000.online</a></div></div>
+          <div style="display:flex; gap:10px;"><span style="background:var(--gri-acik); border:1px solid var(--gri-orta); width:36px;height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center;">💬</span><div><strong>WhatsApp Destek</strong><br/><a href="https://wa.me/905318479349?text=Merhaba,%20Marketim3000%20destek" target="_blank" style="color:var(--siyah); font-weight:700;">+90 531 847 93 49 — Canlı Destek</a></div></div>
+          <div style="display:flex; gap:10px;"><span style="background:var(--gri-acik); border:1px solid var(--gri-orta); width:36px;height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center;">🌐</span><div><strong>Web</strong><br/>marketim3000.online · panel.marketim3000.online</div></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ONERI VE SIKAYET -->
+  <section id="onerisikayet" class="form-section">
+    <div class="form-card">
+      <h2 class="form-title">Öneri ve Şikayet</h2>
+      <p style="font-size:13px; color:var(--metin-soluk); margin-bottom:14px;">Görüşleriniz bizim için değerli. Takip numarası ile geri dönüş sağlıyoruz. Gizlilik ve kullanım koşulları footer bağlantılarında.</p>
+      <form id="oneri-form" onsubmit="oneriGonder(event)" style="display:grid; gap:12px;">
+        <div class="input-grid">
+          <input type="text" id="oneri-ad" required maxlength="80" placeholder="Ad Soyad *" class="input-field" />
+          <input type="email" id="oneri-email" required maxlength="120" placeholder="E-posta adresi *" class="input-field" />
+        </div>
+        <input type="text" id="oneri-konu" required maxlength="120" placeholder="Konu *" class="input-field" />
+        <select id="oneri-tur" required class="input-field" style="background:var(--beyaz);">
+          <option value="">Bildirim türü seçin *</option>
+          <option value="oneri">Öneri</option>
+          <option value="sikayet">Şikayet</option>
+          <option value="genel">Genel Geri Bildirim</option>
+        </select>
+        <textarea id="oneri-mesaj" required maxlength="2000" rows="4" placeholder="Mesajınız * (en az 10 karakter)" class="input-field"></textarea>
+        <input type="hidden" id="csrf-token-oneri" />
+        <button type="submit" class="btn-submit" style="width:fit-content;">Gönder</button>
+        <div id="oneri-sonuc" style="font-size:13px; font-weight:700;"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- YORUMLAR -->
+  <section id="musteri-yorumlari" class="form-section">
+    <div class="form-card">
+      <h2 class="form-title">Müşteri Yorumları</h2>
+      <p style="font-size:13px; color:var(--metin-soluk); margin-bottom:14px;">Gerçek kullanıcılarımızın onaylanmış değerlendirmeleri. Sahte yorum oluşturulmaz, ortalama puan gerçek veriden hesaplanır.</p>
+      <div id="yorumlar-ozet" style="margin-bottom:14px; padding:10px 12px; background:var(--gri-acik); border-radius:8px; border:1px solid var(--gri-orta); font-size:13px;">Yorumlar yükleniyor...</div>
+      <div id="yorum-listesi" style="display:grid; gap:10px; margin-bottom:18px;"></div>
+      <details style="background:var(--gri-acik); padding:14px; border-radius:10px; border:1px solid var(--gri-orta);">
+        <summary style="cursor:pointer; font-weight:800; color:var(--siyah); font-size:13.5px;">✍️ Yorum Yaz (Onay sonrası yayınlanır)</summary>
+        <form id="yorum-form" onsubmit="yorumGonder(event)" style="display:grid; gap:10px; margin-top:14px;">
+          <div class="input-grid">
+            <input type="text" id="yorum-ad" maxlength="60" placeholder="Ad Soyad (isteğe bağlı)" class="input-field" />
+            <select id="yorum-kitap" required class="input-field" style="background:var(--beyaz);"><option value="">Kitap seçin *</option></select>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <span style="font-size:13px; font-weight:800; color:var(--siyah);">Puan *</span>
+            <select id="yorum-puan" required class="input-field" style="width:auto; min-width:160px; background:var(--beyaz);">
+              <option value="">Seçin</option><option value="5">★★★★★ 5 - Mükemmel</option><option value="4">★★★★☆ 4 - Çok İyi</option><option value="3">★★★☆☆ 3 - İyi</option><option value="2">★★☆☆☆ 2 - Orta</option><option value="1">★☆☆☆☆ 1 - Zayıf</option>
+            </select>
+            <input type="text" id="yorum-baslik" required maxlength="120" placeholder="Yorum başlığı *" class="input-field" style="flex:1; min-width:160px;" />
+          </div>
+          <textarea id="yorum-mesaj" required maxlength="2000" rows="3" placeholder="Yorumunuz * (en az 10 karakter)" class="input-field"></textarea>
+          <input type="hidden" id="csrf-token-yorum" />
+          <button type="submit" class="btn-submit" style="background:var(--kirmizi);">Yorumu Gönder</button>
+          <div id="yorum-sonuc" style="font-size:13px; font-weight:700;"></div>
+        </form>
+      </details>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><div class="footer-logo">M</div><div><div style="font-weight:900; letter-spacing:0.8px;">MARKETIM3000</div><div style="font-size:10px; letter-spacing:1.2px; color:rgba(255,255,255,0.6);">DİJİTAL KİTAP MAĞAZASI</div></div></div>
+        <p style="font-size:13px; color:rgba(255,255,255,0.72); line-height:1.6; margin-top:8px;">Yazar Oğuzhan Yaşar'ın resmi dijital kitap platformu. Kişisel Gelişim, Psikoloji, Finans, Kripto, Teknoloji, Roman, Tarih ve Eğitim eserleri. Tüm ödemeler banka havalesi/EFT ve WhatsApp onayıyla güvenli yürütülür.</p>
+        <p style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+          <span style="background:#1F1F1F; border:1px solid #2A2A2A; padding:5px 10px; border-radius:20px; font-size:11px; font-weight:800;">⚡ ANINDA TESLİMAT</span>
+          <span style="background:var(--kirmizi); padding:5px 10px; border-radius:20px; font-size:11px; font-weight:800;">🔒 GÜVENLİ ÖDEME</span>
+        </p>
+      </div>
+      <div>
+        <div class="footer-title">Kurumsal</div>
+        <ul class="footer-links">
+          <li><a href="#hakkimizda">Hakkımızda</a></li>
+          <li><a href="#iletisim">İletişim</a></li>
+          <li><a href="#onerisikayet">Öneri ve Şikayet</a></li>
+          <li><a href="mailto:oguzhanyasar@marketim3000.online">Kurumsal E-posta</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-title">Yardım & Yasal</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="openLegal('gizlilik'); return false;">Gizlilik Politikası</a></li>
+          <li><a href="#" onclick="openLegal('kullanim'); return false;">Kullanım Koşulları</a></li>
+          <li><a href="#" onclick="openLegal('mesafeli'); return false;">Mesafeli Satış</a></li>
+          <li><a href="#" onclick="openLegal('iade'); return false;">İptal ve İade</a></li>
+          <li><a href="#musteri-yorumlari">Müşteri Yorumları</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-title">Kategoriler</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="kategoriSec('Kişisel Gelişim'); return false;">Kişisel Gelişim</a></li>
+          <li><a href="#" onclick="kategoriSec('Psikoloji'); return false;">Psikoloji</a></li>
+          <li><a href="#" onclick="kategoriSec('Finans'); return false;">Finans & Kripto</a></li>
+          <li><a href="#" onclick="kategoriSec('Teknoloji'); return false;">Teknoloji</a></li>
+          <li><a href="#" onclick="kategoriSec('Roman'); return false;">Roman</a></li>
+          <li><a href="#" onclick="kategoriSec('Tarih'); return false;">Tarih ve Eğitim</a></li>
+          <li><a href="#" onclick="kategoriSec('Tümü'); return false;">Tüm Kitaplar</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 MARKETIM3000 · marketim3000.online · Tüm hakları saklıdır. | <a href="mailto:oguzhanyasar@marketim3000.online" style="color:var(--beyaz);">oguzhanyasar@marketim3000.online</a> · Mevcut sistemler korundu, sahte veri oluşturulmadı.</div>
+      <div style="display:flex; gap:8px;"><span style="border:1px solid #2A2A2A; padding:4px 10px; border-radius:6px;">IBAN / EFT</span><span style="border:1px solid #2A2A2A; padding:4px 10px; border-radius:6px;">WhatsApp Sipariş</span><span style="border:1px solid var(--kirmizi); background:var(--kirmizi); color:var(--beyaz); padding:4px 10px; border-radius:6px; font-weight:800;">90 TL FİYAT</span></div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/905318479349?text=Merhaba,%20Marketim3000%20kitaplar%C4%B1%20hakk%C4%B1nda%20canl%C4%B1%20destek%20almak%20istiyorum." target="_blank" id="sabit-whatsapp-destek">💬 Canlı Destek</a>
+  <button id="sabit-ai-asistan" onclick="modalAc('asistan-modal')">🤖 Asistan</button>
+
+  <!-- MODALS -->
+  <div id="detay-modal" class="modal-overlay"><div class="modal-box"><button class="modal-close" onclick="modalKapat('detay-modal')">&times;</button><div id="detay-icerik"></div></div></div>
+
+  <div id="sepet-modal" class="modal-overlay"><div class="modal-box" style="max-width:540px;"><button class="modal-close" onclick="modalKapat('sepet-modal')">&times;</button><h2 style="font-size:20px; font-weight:900; margin-bottom:12px; display:flex; align-items:center; gap:8px;"><span style="background:var(--kirmizi); color:var(--beyaz); padding:4px 10px; border-radius:8px; font-size:14px;">M3000</span> Alışveriş Sepetim</h2><div id="sepet-listesi" style="margin-bottom:14px;"></div><div id="sepet-ozet" style="background:var(--gri-acik); padding:14px; border-radius:10px; border:1.5px solid var(--gri-orta);"></div></div></div>
+
+  <div id="iban-odeme-modal" class="modal-overlay"><div class="modal-box" style="max-width:560px;"><button class="modal-close" onclick="modalKapat('iban-odeme-modal')">&times;</button><span style="display:inline-block; background:var(--kirmizi); color:var(--beyaz); font-size:11px; font-weight:800; padding:4px 10px; border-radius:6px; margin-bottom:6px;">BANKA HAVALESİ / EFT</span><h2 style="font-size:20px; font-weight:900; margin:6px 0 8px;">Güvenli Banka Havalesi</h2><p style="font-size:13px; color:var(--metin-soluk); margin-bottom:14px;">Siparişinizi banka havalesi ile tamamlayın. Ödemeniz doğrulanınca kitap hesabınıza tanımlanır. Kredi kartı ve Shopier yoktur.</p><div id="iban-odeme-detay"></div></div></div>
+
+  <div id="kutuphane-modal" class="modal-overlay"><div class="modal-box" style="max-width:480px;"><button class="modal-close" onclick="modalKapat('kutuphane-modal')">&times;</button><h2 style="font-size:18px; font-weight:900; margin-bottom:8px;">🔑 Kişisel Kütüphanem</h2><p style="font-size:13px; color:var(--metin-soluk); margin-bottom:12px;">Erişim kodunuzu girerek kitabınızı indirin:</p><input type="text" id="kutuphane-kod" class="input-field" style="margin-bottom:10px; text-transform:uppercase;" placeholder="ERİŞİM KODUNUZ" /><button class="btn-red" style="width:100%; justify-content:center;" onclick="kutuphaneIndir()">📥 Kitabımı Sorgula ve İndir</button><div id="kutuphane-sonuc" style="margin-top:12px; text-align:center;"></div></div></div>
+
+  <div id="sesli-modal" class="modal-overlay"><div class="modal-box" style="max-width:480px;"><button class="modal-close" onclick="modalKapat('sesli-modal')">&times;</button><h2 style="font-size:18px; font-weight:900; margin-bottom:8px;">🎧 Sesli Önizleme</h2><p style="font-size:13px; color:var(--metin-soluk); margin-bottom:10px;">Yazar Oğuzhan Yaşar'ın eserlerinden tanıtım kaydını dinleyin:</p><audio controls style="width:100%; margin-bottom:12px;" src="https://panel.marketim3000.online/api/sesli-ornek"></audio><a href="https://panel.marketim3000.online/api/ucretsiz-ai-indir" download="MARKETIM3000_Profesyonel_AI_Kitabi.pdf" class="btn-red" style="width:100%; justify-content:center; background:var(--yesil);">📥 Ücretsiz AI Kitabını İndir</a></div></div>
+
+  <div id="asistan-modal" class="modal-overlay"><div class="modal-box" style="max-width:480px;"><button class="modal-close" onclick="modalKapat('asistan-modal')">&times;</button><h2 style="font-size:18px; font-weight:900; margin-bottom:6px;">🤖 Kitap Asistanı</h2><p style="font-size:12.5px; color:var(--metin-soluk); margin-bottom:10px;">Kitaplar, fiyatlar ve sipariş hakkında sorun:</p><div id="ai-sohbet-kutu" style="height:240px; overflow-y:auto; background:var(--gri-acik); border:1px solid var(--gri-orta); border-radius:10px; padding:12px; margin-bottom:10px; display:flex; flex-direction:column; gap:8px; font-size:13.5px;"><div style="background:var(--siyah); color:var(--beyaz); padding:9px 12px; border-radius:10px; align-self:flex-start;">👋 Merhaba! Profesyonel AI ücretsiz, diğer kitaplar veritabanındaki gerçek fiyatları ile. Nasıl yardımcı olayım?</div></div><div style="display:flex; gap:8px;"><input type="text" id="ai-soru-input" class="input-field" placeholder="Sorunuzu yazın..." onkeypress="if(event.key==='Enter') aiSoruGonder()" /><button class="btn-red" style="padding:10px 16px;" onclick="aiSoruGonder()">Gönder</button></div></div></div>
+
+  <div id="legal-modal" class="modal-overlay"><div class="modal-box" style="max-width:640px;"><button class="modal-close" onclick="modalKapat('legal-modal')">&times;</button><h2 id="legal-baslik" style="font-size:20px; font-weight:900; margin-bottom:10px;"></h2><div id="legal-icerik" style="font-size:13.5px; line-height:1.65; color:var(--metin);"></div></div></div>
+
+<script>
+  const API_BASE = "https://panel.marketim3000.online";
+  let tumKitaplar = [];
+  let aktifKategori = "Tümü";
+  let sepet = [];
+
+  try { sepet = JSON.parse(localStorage.getItem("m3000_v62_sepet") || "[]"); } catch(e){ sepet = []; }
+
+  function modalAc(id){ document.getElementById(id).style.display="flex"; if(id==="sepet-modal") sepetiCiz(); }
+  function modalKapat(id){ document.getElementById(id).style.display="none"; }
+
+  function navigateTo(kind){
+    if(kind==="anasayfa"){ kategoriSec('Tümü'); window.scrollTo({top:0, behavior:'smooth'}); }
+  }
+
+  // KIRMIZI-BEYAZ TEMA - SABIT KATEGORILER ISTEK LISTESI
+  const ISTENEN_KATEGORILER = [
+    {ad:"Kişisel Gelişim", icon:"🌱", keys:["kişisel","gelişim","kendine","dönüş","kadın"]},
+    {ad:"Psikoloji", icon:"🧠", keys:["psikoloji","psikolojik","felsefe"]},
+    {ad:"Finans", icon:"💰", keys:["finans","ekonomi"]},
+    {ad:"Kripto", icon:"₿", keys:["kripto","bitcoin"]},
+    {ad:"Teknoloji", icon:"💻", keys:["teknoloji","yapay","ai","yazılım","sunucu","android","linux"]},
+    {ad:"Roman", icon:"📖", keys:["roman","edebiyat","gerilim"]},
+    {ad:"Tarih ve Eğitim", icon:"🏛️", keys:["tarih","eğitim"]},
+    {ad:"Eğitim", icon:"🎓", keys:["eğitim"]}
+  ];
+
+  function kategoriyeUygunMu(kitapKategori, arananAnahtar){
+    const k = (kitapKategori||"").toLowerCase();
+    return arananAnahtar.some(key=>k.includes(key));
+  }
+
+  async function verileriGetir(){
+    try{
+      const res = await fetch(API_BASE + "/api/vitrin?nocache="+Date.now());
+      const data = await res.json();
+      if(Array.isArray(data) && data.length>0){
+        tumKitaplar = data.map(r=>{
+          const ucretsizMi = (r.ad||"").toLowerCase().includes("profesyonel ai") || Number(r.fiyat)===0;
+          // Gercek fiyatı koru, sahte yok
+          const gercekFiyat = ucretsizMi ? 0 : Number(r.fiyat||90);
+          return {
+            ...r,
+            ad: (r.ad||"").replace("(ÜCRETSİZ)","").trim(),
+            ucretsizMi: ucretsizMi,
+            fiyat: gercekFiyat,
+            indirimli_fiyat: gercekFiyat,
+            kategori: r.kategori || "Genel",
+            kapakUrl: `${API_BASE}/api/kapak/${r.id}?v=kirmizi_${r.id}`
+          };
+        }).sort((a,b)=>{
+          const sira = k=>{
+            const ad=(k.ad||"").toLowerCase();
+            if(ad.includes("profesyonel ai")) return 1;
+            if(ad.includes("cepten sunucuya")) return 2;
+            return 3;
+          };
+          return sira(a)-sira(b);
+        });
+
+        kategorileriOlustur();
+        heroKapaklariCiz();
+        kitaplariFiltrele();
+        sepetSayaciGuncelle();
+        sabitKategorileriCiz();
+      }
+    }catch(e){ console.error("Veri çekme hatası", e); }
+  }
+
+  function heroKapaklariCiz(){
+    const alan = document.getElementById("hero-kapaklar");
+    if(!alan) return;
+    const list = tumKitaplar.slice(0,3);
+    if(list.length===0){
+      alan.innerHTML = `<div style="width:140px; aspect-ratio:2/3; background:var(--gri-acik); border:2px dashed var(--gri-orta); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--metin-soluk);">Kapak</div>`;
+      return;
+    }
+    alan.innerHTML = list.map(k=>`<img src="${k.kapakUrl}" alt="${(k.kapak_alt_text||k.ad)}" class="hero-book" onclick="kitapDetayAc(${k.id})" loading="lazy" />`).join("");
+  }
+
+  function kategorileriOlustur(){
+    const katMap = {};
+    tumKitaplar.forEach(k=>{
+      const raw = k.kategori || "Genel";
+      // Bir kitap birden fazla kategori içerebilir (virgül ayrışmış), ilkini al
+      raw.split(',').forEach(p=>{
+        const temiz = p.trim().split('&')[0].trim().split('/')[0].trim();
+        if(temiz) katMap[temiz] = (katMap[temiz]||0)+1;
+      });
+    });
+
+    const bar = document.getElementById("kategori-bar");
+    const kartAlan = document.getElementById("kategori-kartlari");
+    if(!bar || !kartAlan) return;
+
+    let barHtml = `<button class="cat-pill ${aktifKategori==='Tümü'?'active':''}" onclick="kategoriSec('Tümü')">Tüm Kitaplar (${tumKitaplar.length})</button>`;
+    let kartHtml = "";
+
+    Object.keys(katMap).slice(0,12).forEach(kat=>{
+      const aktifMi = aktifKategori===kat ? "active" : "";
+      barHtml += `<button class="cat-pill ${aktifMi}" onclick="kategoriSec('${kat.replace(/'/g,"\\'")}')">${kat} (${katMap[kat]})</button>`;
+      kartHtml += `<div class="cat-card" onclick="kategoriSec('${kat.replace(/'/g,"\\'")}')"><div class="cat-card-icon">📚</div><div><div class="cat-card-title">${kat}</div><div class="cat-card-count">${katMap[kat]} Eser</div></div></div>`;
+    });
+
+    bar.innerHTML = barHtml;
+    kartAlan.innerHTML = kartHtml;
+
+    // Ana menü active
+    document.querySelectorAll('.nav-red .nav-item').forEach(el=>{
+      if(el.textContent.includes('Ana Sayfa') && aktifKategori==='Tümü') el.classList.add('active');
+    });
+  }
+
+  function sabitKategorileriCiz(){
+    const alan = document.getElementById("sabit-kategoriler");
+    if(!alan) return;
+    alan.innerHTML = ISTENEN_KATEGORILER.map(kat=>{
+      const say = tumKitaplar.filter(k=>kategoriyeUygunMu(k.kategori, kat.keys)).length;
+      return `<div class="cat-card" onclick="kategoriSec('${kat.ad}')" style="border-left:4px solid var(--kirmizi);"><div class="cat-card-icon" style="background:var(--siyah);">${kat.icon}</div><div><div class="cat-card-title">${kat.ad}</div><div class="cat-card-count">${say>0?say+' Eser • ':'Tüm '} ${say===0?'Filtrele':'Aktif'}</div></div></div>`;
+    }).join("");
+  }
+
+  function kategoriSec(kat){
+    aktifKategori = kat;
+    const beklenen = ISTENEN_KATEGORILER.find(x=>x.ad===kat);
+    const baslikEl = document.getElementById("vitrin-baslik");
+    if(baslikEl) baslikEl.innerText = kat==="Tümü" ? "Öne Çıkan Kitaplar" : kat + " Kitapları";
+    // Pills active guncelle
+    document.querySelectorAll('#kategori-bar .cat-pill').forEach(b=>{
+      b.classList.toggle('active', b.textContent.includes(kat) || (kat==='Tümü' && b.textContent.includes('Tüm Kitaplar')));
+    });
+    // Nav active
+    document.querySelectorAll('.nav-red .nav-item').forEach(el=>{
+      el.classList.toggle('active', el.textContent.includes(kat) || (kat==='Tümü' && el.textContent.includes('Ana Sayfa')));
+    });
+    kitaplariFiltrele();
+  }
+
+  function kitaplariFiltrele(){
+    const aranan = (document.getElementById("arama-input").value||"").toLowerCase().trim();
+    const istenen = ISTENEN_KATEGORILER.find(x=>x.ad===aktifKategori);
+    const filtreli = tumKitaplar.filter(k=>{
+      let katUygun = true;
+      if(aktifKategori!=="Tümü"){
+        if(istenen){
+          katUygun = kategoriyeUygunMu(k.kategori, istenen.keys) || (k.ad||"").toLowerCase().includes(aktifKategori.toLowerCase()) || (k.kategori||"").toLowerCase().includes(aktifKategori.toLowerCase());
+        } else {
+          katUygun = (k.kategori||"").toLowerCase().includes(aktifKategori.toLowerCase());
+        }
+        if(aktifKategori==="Çok Satanlar"){
+          // İlk 3 kitabı çok satan say
+          katUygun = true;
+        }
+      }
+      const metinUygun = !aranan ||
+        (k.ad||"").toLowerCase().includes(aranan) ||
+        (k.yazar||"").toLowerCase().includes(aranan) ||
+        (k.kisa_tanitim||"").toLowerCase().includes(aranan) ||
+        (k.kategori||"").toLowerCase().includes(aranan);
+      return katUygun && metinUygun;
+    });
+
+    let gosterilecek = filtreli;
+    if(aktifKategori==="Çok Satanlar"){
+      gosterilecek = tumKitaplar.slice(0,4);
+    }
+
+    const etiket = document.getElementById("urun-sayisi-etiket");
+    if(etiket) etiket.innerText = `${gosterilecek.length} Kitap Gösteriliyor`;
+
+    const izgara = document.getElementById("kitap-izgarasi");
+    if(!izgara) return;
+
+    if(gosterilecek.length===0){
+      izgara.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; background:var(--gri-acik); border:1.5px dashed var(--gri-orta); border-radius:12px; color:var(--metin-soluk);">Bu kategoride kitap bulunamadı. <span style="color:var(--kirmizi); font-weight:800; cursor:pointer;" onclick="kategoriSec('Tümü')">Tüm kitapları göster</span></div>`;
+      return;
+    }
+
+    izgara.innerHTML = gosterilecek.map(k=>`
+      <article class="book-card ${k.ucretsizMi?'free-featured':''}">
+        <span class="badge-price ${k.ucretsizMi?'free':''}">${k.ucretsizMi?'ÜCRETSİZ':k.fiyat+' TL'}</span>
+        <span class="badge-format">${k.format||'PDF'}</span>
+        <div class="cover-wrapper" onclick="kitapDetayAc(${k.id})">
+          <img src="${k.kapakUrl}" alt="${(k.kapak_alt_text||k.ad)}" class="book-cover-img" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-cat">${k.ucretsizMi?'🌟 ÜCRETSİZ ÖZEL':(k.kategori||'Kitap').split(',')[0]}</div>
+          <h3 class="card-title" onclick="kitapDetayAc(${k.id})">${k.ad}</h3>
+          <div class="card-author">✍️ ${k.yazar||'Oğuzhan Yaşar'}</div>
+          <p class="card-desc">${k.kisa_tanitim||'Anında dijital teslimat. Mevcut veritabanından gerçek fiyat.'}</p>
+          <div class="price-row">
+            <span class="price-label">Satış Fiyatı</span>
+            <span class="price-val ${k.ucretsizMi?'free':''}">${k.ucretsizMi?'0 TL (ÜCRETSİZ)':k.fiyat+' TL'}</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-card-detail" onclick="kitapDetayAc(${k.id})">📖 Kitabı İncele</button>
+            ${k.ucretsizMi ? `<a href="${API_BASE}/api/ucretsiz-ai-indir" download="MARKETIM3000_Profesyonel_AI_Kitabi.pdf" class="btn-card-buy free">📥 Ücretsiz İndir</a>` : `<button class="btn-card-buy" onclick="ibanOdemeBaslat([${k.id}])">🛒 Satın Al · ${k.fiyat} TL</button>`}
+          </div>
+        </div>
+      </article>
+    `).join("");
+  }
+
+  function kitapDetayAc(id){
+    const k = tumKitaplar.find(x=>x.id===id);
+    if(!k) return;
+    const benzerler = tumKitaplar.filter(x=>x.id!==k.id).slice(0,3);
+    const html = `
+      <div class="detail-top">
+        <img src="${k.kapakUrl}" alt="${(k.kapak_alt_text||k.ad)}" class="detail-cover" />
+        <div>
+          <span style="display:inline-block; background:${k.ucretsizMi?'var(--yesil)':'var(--kirmizi)'}; color:var(--beyaz); font-size:11px; font-weight:800; padding:4px 10px; border-radius:6px; margin-bottom:6px;">${k.ucretsizMi?'ÜCRETSİZ ÖZEL KİTAP':'ÖZEL FİYAT · '+k.fiyat+' TL'}</span>
+          <div style="font-size:11px; font-weight:800; letter-spacing:0.6px; text-transform:uppercase; color:var(--kirmizi);">${(k.kategori||'').split(',')[0]}</div>
+          <h2 style="font-size:24px; font-weight:900; color:var(--siyah); margin:4px 0; line-height:1.2;">${k.ad}</h2>
+          <div style="font-size:13px; color:var(--metin-soluk); font-style:italic; margin-bottom:8px;">${k.alt_baslik||''}</div>
+          <div style="font-size:13px; margin-bottom:12px;">✍️ <strong>Yazar:</strong> ${k.yazar} &nbsp;|&nbsp; 📄 <strong>Format:</strong> ${k.format||'PDF'} &nbsp;|&nbsp; 💰 <strong>Fiyat:</strong> ${k.ucretsizMi?'0 TL':k.fiyat+' TL'} (Gerçek DB fiyatı)</div>
+          <p style="font-size:13.5px; color:var(--metin); margin-bottom:14px; line-height:1.55;">${k.kisa_tanitim||''}</p>
+          <div style="background:var(--gri-acik); padding:10px 14px; border-radius:10px; border:1.5px solid var(--gri-orta); display:inline-flex; align-items:center; gap:10px; margin-bottom:14px;">
+            <span style="font-size:12px; color:var(--metin-soluk); font-weight:700; text-transform:uppercase;">Fiyat</span>
+            <span style="font-size:22px; font-weight:900; color:${k.ucretsizMi?'var(--yesil)':'var(--kirmizi)'};">${k.ucretsizMi?'0 TL (ÜCRETSİZ)':k.fiyat+' TL'}</span>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            ${k.ucretsizMi ? `<a href="${API_BASE}/api/ucretsiz-ai-indir" download="MARKETIM3000_Profesyonel_AI_Kitabi.pdf" class="btn-red" style="background:var(--yesil);">📥 Ücretsiz İndir</a>` : `<button class="btn-red" onclick="modalKapat('detay-modal'); ibanOdemeBaslat([${k.id}]);">🛒 Hemen Satın Al · ${k.fiyat} TL</button><button class="btn-black" onclick="sepeteEkle(${k.id}); modalKapat('detay-modal'); modalAc('sepet-modal');">🛒 Sepete Ekle</button>`}
+          </div>
+        </div>
+      </div>
+      <div class="tabs-bar">
+        <button class="tab-btn active" onclick="sekmeDegistir(this,'sekme-hakkinda')">Hakkında</button>
+        <button class="tab-btn" onclick="sekmeDegistir(this,'sekme-neden')">Neden Okumalı?</button>
+        <button class="tab-btn" onclick="sekmeDegistir(this,'sekme-icerik')">İçerik</button>
+        <button class="tab-btn" onclick="sekmeDegistir(this,'sekme-kimler')">Kimler İçin?</button>
+        <button class="tab-btn" onclick="sekmeDegistir(this,'sekme-yorumlar'); kitapYorumlariniYukle('${k.ad.replace(/'/g,"\\'")}')">Yorumlar ⭐</button>
+      </div>
+      <div id="sekme-hakkinda" class="tab-panel">${k.detayli_aciklama||k.kisa_tanitim}</div>
+      <div id="sekme-neden" class="tab-panel" style="display:none; white-space:pre-line;">${k.neden_okunmali||''}</div>
+      <div id="sekme-icerik" class="tab-panel" style="display:none;">${k.icerik_basliklari||''}</div>
+      <div id="sekme-kimler" class="tab-panel" style="display:none;">${k.kimler_icin||''}</div>
+      <div id="sekme-yorumlar" class="tab-panel" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;"><strong style="color:var(--siyah);">Bu Kitap İçin Yorumlar</strong><button onclick="document.getElementById('musteri-yorumlari').scrollIntoView({behavior:'smooth'}); modalKapat('detay-modal'); setTimeout(()=>document.getElementById('yorum-kitap').value='${k.ad.replace(/'/g,"\\'")}',300)" class="btn-red" style="padding:7px 12px; font-size:12px;">✍️ Yorum Yaz</button></div>
+        <div id="detay-yorumlar" data-kitap="${k.ad.replace(/"/g,'&quot;')}">Yorumlar yükleniyor...</div>
+      </div>
+      <h4 style="font-size:14px; font-weight:900; margin-bottom:8px; color:var(--siyah);">📚 Diğer Eserler</h4>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px;">
+        ${benzerler.map(b=>`<div style="background:var(--gri-acik); padding:10px; border-radius:8px; border:1px solid var(--gri-orta); cursor:pointer;" onclick="kitapDetayAc(${b.id})"><div style="font-weight:800; font-size:12.5px; color:var(--siyah); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${b.ad}</div><div style="font-size:12px; color:var(--kirmizi); font-weight:800;">${b.ucretsizMi?'Ücretsiz':b.fiyat+' TL'}</div></div>`).join("")}
+      </div>
+    `;
+    document.getElementById("detay-icerik").innerHTML = html;
+    modalAc("detay-modal");
+  }
+
+  function sekmeDegistir(btn, panelId){
+    btn.parentElement.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    ["sekme-hakkinda","sekme-neden","sekme-icerik","sekme-kimler","sekme-yorumlar"].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) el.style.display = (id===panelId) ? "block" : "none";
+    });
+  }
+
+  function sepeteEkle(id){
+    const k = tumKitaplar.find(x=>x.id===id);
+    if(!k) return;
+    if(!sepet.find(s=>s.id===id)){
+      sepet.push({id:k.id, ad:k.ad, format:k.format, fiyat:k.ucretsizMi?0:Number(k.fiyat), ucretsizMi:k.ucretsizMi, kapak:k.kapakUrl});
+      localStorage.setItem("m3000_v62_sepet", JSON.stringify(sepet));
+    }
+    sepetSayaciGuncelle();
+    modalAc("sepet-modal");
+  }
+  function sepettenCikar(id){ sepet = sepet.filter(s=>s.id!==id); localStorage.setItem("m3000_v62_sepet", JSON.stringify(sepet)); sepetSayaciGuncelle(); sepetiCiz(); }
+  function sepetSayaciGuncelle(){ const el=document.getElementById("sepet-sayac"); if(el) el.innerText=sepet.length; }
+  function sepetiCiz(){
+    const listeEl = document.getElementById("sepet-listesi");
+    const ozetEl = document.getElementById("sepet-ozet");
+    if(!listeEl || !ozetEl) return;
+    if(sepet.length===0){ listeEl.innerHTML=`<p style="color:var(--metin-soluk); text-align:center; padding:16px 0;">Sepetiniz boş. Kitap ekleyerek başlayın!</p>`; ozetEl.innerHTML=""; return; }
+    let toplam=0;
+    listeEl.innerHTML = sepet.map(s=>{
+      const f = (s.ad||"").toLowerCase().includes("profesyonel ai")?0:Number(s.fiyat||0);
+      toplam+=f;
+      return `<div style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 0; border-bottom:1px solid var(--gri-orta);"><img src="${s.kapak}" style="width:44px; aspect-ratio:2/3; object-fit:cover; border-radius:4px; border:1px solid var(--gri-orta);" /><div style="flex:1;"><div style="font-weight:800; color:var(--siyah); font-size:13px;">${s.ad}</div><div style="font-size:12px; color:${f===0?'var(--yesil)':'var(--kirmizi)'}; font-weight:800;">${f===0?'0 TL (ÜCRETSİZ)':f+' TL'}</div></div><button onclick="sepettenCikar(${s.id})" style="background:none; border:none; color:var(--kirmizi); font-weight:800; cursor:pointer;">Sil</button></div>`;
+    }).join("");
+    const ucretliIdler = sepet.filter(s=>!(s.ad||"").toLowerCase().includes("profesyonel ai")).map(s=>s.id);
+    ozetEl.innerHTML = `<div style="display:flex; justify-content:space-between; font-size:16px; font-weight:900; color:var(--siyah); margin-bottom:10px;"><span>Toplam</span><span style="color:var(--kirmizi);">${toplam===0?'0 TL (ÜCRETSİZ)':toplam+' TL'}</span></div><div style="display:grid; gap:8px;">${toplam===0?`<a href="${API_BASE}/api/ucretsiz-ai-indir" download="MARKETIM3000_Profesyonel_AI_Kitabi.pdf" class="btn-red" style="justify-content:center; background:var(--yesil);">📥 Ücretsiz İndir</a>`:`<button class="btn-red" style="justify-content:center;" onclick="modalKapat('sepet-modal'); ibanOdemeBaslat([${ucretliIdler.join(',')}]);">💬 WhatsApp ile Satın Al · ${toplam} TL</button>`}</div><p style="margin-top:8px; font-size:11px; color:var(--metin-soluk);">Kredi kartı ve Shopier yoktur. Yalnızca havale/EFT ile yönetici onaylı teslimat.</p>`;
+  }
+
+  async function ibanOdemeBaslat(kitapIdListesi){
+    try{
+      const res = await fetch(`${API_BASE}/api/siparis-olustur`,{method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({kitap_idleri:kitapIdListesi})});
+      const d = await res.json();
+      if(!d.basarili) return;
+      if(Number(d.tutar)===0){ window.location.href=`${API_BASE}/api/ucretsiz-ai-indir`; return; }
+      const waMesaj = `Merhaba Marketim3000, kitap siparişi vermek istiyorum.\n• Sipariş No: ${d.siparis_no}\n• Kitap: ${d.kitaplar}\n• Tutar: ${d.tutar} TL\nIBAN ile ödeme onayı için yazıyorum.`;
+      const waUrl = `https://wa.me/${d.whatsapp_no}?text=${encodeURIComponent(waMesaj)}`;
+      document.getElementById("iban-odeme-detay").innerHTML = `
+        <div class="iban-box">
+          <div class="iban-row"><span><strong>Sipariş No:</strong></span><span style="font-weight:900; color:var(--kirmizi); background:var(--kirmizi-acik); padding:3px 10px; border-radius:6px;">${d.siparis_no}</span></div>
+          <div class="iban-row"><span><strong>Kitap:</strong></span><span style="font-weight:700; color:var(--siyah);">${d.kitaplar}</span></div>
+          <div class="iban-row"><span><strong>Toplam:</strong></span><span style="font-weight:900; font-size:17px; color:var(--kirmizi);">${d.tutar} TL</span></div>
+          <div class="iban-row"><span><strong>Alıcı:</strong></span><span style="font-weight:700;">${d.alici}</span></div>
+          <div class="iban-row" style="flex-direction:column; align-items:flex-start;">
+            <span><strong>IBAN:</strong></span>
+            <div style="display:flex; width:100%; gap:8px; align-items:center; justify-content:space-between; background:var(--beyaz); padding:10px 12px; border-radius:8px; border:1px solid var(--gri-orta); margin-top:6px;">
+              <code style="font-size:13px; font-weight:800; color:var(--siyah); word-break:break-all;">${d.iban}</code>
+              <button class="btn-black" style="padding:6px 12px; font-size:12px;" onclick="ibanKopyala('${d.iban}')">📋 Kopyala</button>
+            </div>
+            <span id="iban-kopya-bilgi" style="font-size:12px; font-weight:700; color:var(--yesil);"></span>
+          </div>
+        </div>
+        <div style="background:#FEF3C7; border-left:4px solid #D97706; padding:10px; border-radius:8px; font-size:12.5px; color:#78350F; margin-bottom:12px;">⚠️ Havale/EFT açıklamasına mutlaka <strong>${d.siparis_no}</strong> yazınız. Ödeme doğrulandıktan sonra erişim tanımlanır.</div>
+        <a href="${waUrl}" target="_blank" class="btn-red" style="width:100%; justify-content:center; padding:14px; font-size:15px;">💬 WhatsApp ile Onay İste · ${d.siparis_no}</a>
+      `;
+      modalAc("iban-odeme-modal");
+    }catch(e){ console.error(e); }
+  }
+  function ibanKopyala(metin){ navigator.clipboard.writeText(metin.replace(/\s+/g,"")).then(()=>{ const el=document.getElementById("iban-kopya-bilgi"); if(el) el.innerText="✅ IBAN kopyalandı!"; }); }
+  async function kutuphaneIndir(){
+    const kod=(document.getElementById("kutuphane-kod").value||"").trim(); const sonuc=document.getElementById("kutuphane-sonuc"); if(!kod) return;
+    sonuc.innerHTML="⏳ Kontrol ediliyor...";
+    try{
+      const res=await fetch(`${API_BASE}/api/kutuphane?kod=${encodeURIComponent(kod)}`); const d=await res.json();
+      if(d.valid){ sonuc.innerHTML=`<div style="background:var(--yesil-acik); padding:12px; border-radius:8px; border:1px solid var(--yesil);">✅ <strong>${d.kitap}</strong> doğrulandı!<br/><br/><a href="${d.indir_url}" target="_blank" class="btn-red" style="background:var(--siyah);">📥 İndir</a></div>`; }
+      else { sonuc.innerHTML=`<span style="color:var(--kirmizi); font-weight:800;">❌ Geçersiz veya onay bekleyen kod.</span>`; }
+    }catch(e){}
+  }
+  async function aiSoruGonder(){
+    const inp=document.getElementById("ai-soru-input"); const kutu=document.getElementById("ai-sohbet-kutu"); const soru=(inp.value||"").trim(); if(!soru) return; inp.value="";
+    kutu.innerHTML+=`<div style="background:var(--siyah); color:var(--beyaz); padding:8px 12px; border-radius:10px; align-self:flex-end;">${soru}</div>`;
+    const bId="b_"+Date.now(); kutu.innerHTML+=`<div id="${bId}" style="background:var(--gri-acik); color:var(--siyah); border:1px solid var(--gri-orta); padding:8px 12px; border-radius:10px; align-self:flex-start;">⏳</div>`; kutu.scrollTop=kutu.scrollHeight;
+    try{
+      const res=await fetch(`${API_BASE}/api/webchat`,{method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({mesaj:soru})}); const d=await res.json();
+      document.getElementById(bId).innerText="🤖 "+(d.cevap||"WhatsApp'tan yardımcı olabiliriz."); kutu.scrollTop=kutu.scrollHeight;
+    }catch(e){ document.getElementById(bId).innerText="🤖 Bağlantı hatası."; }
+  }
+
+  let _csrfToken="";
+  async function csrfAl(){
+    try{
+      const r=await fetch(API_BASE+"/api/csrf-token"); const j=await r.json(); _csrfToken=j.token||"";
+      const a=document.getElementById("csrf-token-oneri"); if(a) a.value=_csrfToken;
+      const b=document.getElementById("csrf-token-yorum"); if(b) b.value=_csrfToken;
+    }catch(e){}
+  }
+  async function oneriGonder(e){
+    e.preventDefault(); const btn=e.target.querySelector('button[type="submit"]'); const sonuc=document.getElementById("oneri-sonuc"); btn.disabled=true; btn.innerText="Gönderiliyor...";
+    const payload={ad:document.getElementById("oneri-ad").value.trim(), eposta:document.getElementById("oneri-email").value.trim(), konu:document.getElementById("oneri-konu").value.trim(), tur:document.getElementById("oneri-tur").value, mesaj:document.getElementById("oneri-mesaj").value.trim(), csrf_token:_csrfToken||document.getElementById("csrf-token-oneri").value};
+    if(!payload.ad||!payload.eposta||!payload.konu||!payload.mesaj||!payload.tur){ sonuc.style.color="var(--kirmizi)"; sonuc.innerText="Tüm zorunlu alanları doldurun."; btn.disabled=false; btn.innerText="Gönder"; return; }
+    try{
+      const r=await fetch(API_BASE+"/api/destek-basvuru",{method:"POST", headers:{"Content-Type":"application/json","X-CSRF-Token":_csrfToken}, body:JSON.stringify(payload)}); const j=await r.json();
+      if(j.basarili){ sonuc.style.color="var(--yesil)"; sonuc.innerText="✅ "+j.mesaj; e.target.reset(); await csrfAl(); } else { sonuc.style.color="var(--kirmizi)"; sonuc.innerText="❌ "+(j.mesaj||"Hata"); }
+    }catch(err){ sonuc.style.color="var(--kirmizi)"; sonuc.innerText="❌ Bağlantı hatası."; }
+    btn.disabled=false; btn.innerText="Gönder";
+  }
+
+  function yorumYildiz(p){ let s=""; for(let i=1;i<=5;i++) s+= i<=p ? "★" : "☆"; return s; }
+  function escapeHtml(s){ return (s||"").replace(/[&<>"']/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m])); }
+  async function yorumlariYukle(){
+    const ozetEl=document.getElementById("yorumlar-ozet"); const listeEl=document.getElementById("yorum-listesi"); const secEl=document.getElementById("yorum-kitap");
+    if(secEl && tumKitaplar.length){ const cur=secEl.value; secEl.innerHTML='<option value="">Kitap seçin *</option>'+tumKitaplar.map(k=>`<option value="${escapeHtml(k.ad)}">${escapeHtml(k.ad)}</option>`).join(""); if(cur) secEl.value=cur; }
+    try{
+      const r=await fetch(API_BASE+"/api/yorumlar?limit=10"); const j=await r.json(); const arr=j.yorumlar||[]; const ort=j.ortalama||0; const toplam=j.toplam||0;
+      if(ozetEl){ ozetEl.innerHTML = toplam>0 ? `⭐ <strong>${ort}</strong> ortalama · <strong>${toplam}</strong> onaylı yorum (Gerçek veritabanı)` : "Henüz onaylı yorum yok. İlk yorumu siz yazın!"; }
+      if(listeEl){
+        if(arr.length===0) listeEl.innerHTML='<p style="color:var(--metin-soluk); text-align:center; padding:12px;">Henüz yorum yok.</p>';
+        else listeEl.innerHTML = arr.map(y=>`<div style="background:var(--gri-acik); border:1px solid var(--gri-orta); border-radius:10px; padding:14px;"><div style="display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; align-items:center;"><strong style="color:var(--siyah);">${escapeHtml(y.ad)}</strong><span style="color:var(--kirmizi); font-size:13px; font-weight:800;">${yorumYildiz(y.puan)} ${y.puan}/5</span></div><div style="font-size:12px; color:var(--metin-soluk); margin:4px 0 6px;">${escapeHtml(y.kitap)} ${y.dogrulandi?'<span style="background:var(--yesil); color:var(--beyaz); padding:2px 7px; border-radius:20px; font-size:11px; font-weight:700; margin-left:6px;">✓ Doğrulandı</span>':''} · ${escapeHtml(y.tarih||"")}</div>${y.baslik?`<div style="font-weight:800; color:var(--siyah); font-size:13.5px; margin-bottom:4px;">${escapeHtml(y.baslik)}</div>`:""}<div style="font-size:13px; color:var(--metin); line-height:1.55;">${escapeHtml(y.yorum)}</div></div>`).join("");
+      }
+    }catch(e){ if(ozetEl) ozetEl.innerText="Yorumlar yüklenemedi."; }
+  }
+  async function kitapYorumlariniYukle(kitapAd){
+    const konteyner=document.getElementById("detay-yorumlar"); if(!konteyner) return; konteyner.innerHTML="Yorumlar yükleniyor...";
+    try{
+      const r=await fetch(API_BASE+"/api/yorumlar?kitap="+encodeURIComponent(kitapAd)+"&limit=20"); const j=await r.json(); const arr=j.yorumlar||[];
+      if(arr.length===0) konteyner.innerHTML='<p style="color:var(--metin-soluk); text-align:center; padding:10px;">Bu kitap için henüz onaylı yorum yok.</p>';
+      else { const ort=j.ortalama||0; konteyner.innerHTML=`<div style="margin-bottom:10px; font-size:13px; color:var(--metin);">⭐ <strong>${ort}</strong> ortalama · ${arr.length} yorum (Gerçek veritabanı)</div>`+arr.map(y=>`<div style="background:var(--gri-acik); border:1px solid var(--gri-orta); border-radius:10px; padding:12px; margin-bottom:8px;"><div style="display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap;"><strong style="color:var(--siyah); font-size:13px;">${escapeHtml(y.ad)}</strong><span style="color:var(--kirmizi); font-size:13px; font-weight:800;">${yorumYildiz(y.puan)}</span></div>${y.baslik?`<div style="font-weight:800; font-size:13px; margin:4px 0;">${escapeHtml(y.baslik)}</div>`:""}<div style="font-size:13px; color:var(--metin);">${escapeHtml(y.yorum)}</div><div style="font-size:11px; color:var(--metin-soluk); margin-top:6px;">${y.dogrulandi?'<span style="background:var(--yesil); color:var(--beyaz); padding:1px 6px; border-radius:10px; font-weight:700;">✓ Doğrulandı</span> ':''}${escapeHtml(y.tarih||"")}</div></div>`).join(""); }
+    }catch(e){ konteyner.innerHTML="Yorumlar yüklenemedi."; }
+  }
+  async function yorumGonder(e){
+    e.preventDefault(); const btn=e.target.querySelector('button[type="submit"]'); const sonuc=document.getElementById("yorum-sonuc"); btn.disabled=true; btn.innerText="Gönderiliyor...";
+    const payload={ad:document.getElementById("yorum-ad").value.trim()||"Anonim", kitap:document.getElementById("yorum-kitap").value, puan:parseInt(document.getElementById("yorum-puan").value||"0"), baslik:document.getElementById("yorum-baslik").value.trim(), yorum:document.getElementById("yorum-mesaj").value.trim(), csrf_token:_csrfToken||document.getElementById("csrf-token-yorum").value};
+    if(!payload.kitap||!payload.baslik||!payload.yorum||!payload.puan){ sonuc.style.color="var(--kirmizi)"; sonuc.innerText="Kitap, puan, başlık ve yorum zorunlu."; btn.disabled=false; btn.innerText="Yorumu Gönder"; return; }
+    try{
+      const r=await fetch(API_BASE+"/api/yorum-gonder",{method:"POST", headers:{"Content-Type":"application/json","X-CSRF-Token":_csrfToken}, body:JSON.stringify(payload)}); const j=await r.json();
+      if(j.basarili){ sonuc.style.color="var(--yesil)"; sonuc.innerText="✅ "+j.mesaj; e.target.reset(); await csrfAl(); yorumlariYukle(); const aktif=document.querySelector("#detay-yorumlar")?.getAttribute("data-kitap"); if(aktif) kitapYorumlariniYukle(aktif); }
+      else { sonuc.style.color="var(--kirmizi)"; sonuc.innerText="❌ "+(j.mesaj||"Hata"); }
+    }catch(err){ sonuc.style.color="var(--kirmizi)"; sonuc.innerText="❌ Bağlantı hatası."; }
+    btn.disabled=false; btn.innerText="Yorumu Gönder (Onay Sonrası Yayımlanır)";
+  }
+
+  function openLegal(tip){
+    const docs={
+      gizlilik:['Gizlilik Politikası','Müşteri bilgileriniz yalnızca sipariş teslimatı ve faturalandırma amacıyla kullanılır, üçüncü kişilerle paylaşılmaz. Ödemeler yalnızca banka havalesi/EFT ve WhatsApp onayıyla güvenli şekilde işlenir. Kredi kartı bilgisi toplanmaz.'],
+      kullanim:['Kullanım Koşulları','Site içeriğindeki kitap kapakları ve eserler Oğuzhan Yaşar’a aittir. Dijital ürünler lisanslı olarak teslim edilir. Mevcut yönetim paneli ve sipariş sistemleri korunmaktadır.'],
+      mesafeli:['Mesafeli Satış Sözleşmesi','Dijital kitaplar 6502 sayılı Kanun kapsamında faturalandırılır ve yönetici onayı ile teslim edilir. Sipariş oluşturulduktan sonra IBAN üzerinden ödeme doğrulaması yapılır.'],
+      iade:['İptal ve İade Koşulları','Fiziksel ürün yoktur. Dijital ürünlerde aktivasyon sonrası iade yapılamaz. Ancak teslim edilmeyen veya hatalı dosya durumunda destek ekibi 24 saat içinde çözüm sağlar.']
+    };
+    document.getElementById('legal-baslik').innerText = docs[tip]?.[0] || tip;
+    document.getElementById('legal-icerik').innerText = docs[tip]?.[1] || '';
+    modalAc('legal-modal');
+  }
+
+  verileriGetir().then(()=>{ csrfAl(); yorumlariYukle(); });
+</script>
+</body>
+</html>
