@@ -224,12 +224,7 @@
       <div class="flex items-center gap-2">
         <button id="cartBtn" onclick="openCart()" title="Sepetim" class="relative w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition"><i class="fa-solid fa-cart-shopping text-[13px]"></i><span id="cartBadge" class="hidden absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-600 text-white text-[10px] font-bold items-center justify-center">0</span></button>
         <button id="premiumBtn" onclick="openPremiumModal()" class="h-9 px-3.5 rounded-full bg-amber-500 hover:bg-amber-600 text-zinc-950 text-[12.5px] font-semibold inline-flex items-center gap-1.5 transition"><i class="fa-solid fa-crown text-[11px]"></i><span id="premiumBtnText">Premium</span></button>
-        <button id="adminPanelBtn" onclick="openAdminModal()" style="display:none" class="hidden sm:flex h-9 px-3.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold items-center gap-1.5">
-          <i class="fa-solid fa-shield-halved text-[11px]"></i> Admin
-        </button>
-        <a href="E-Kitap.apk" download class="hidden md:flex h-9 px-3.5 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 text-[12.5px] font-semibold items-center gap-1.5 hover:bg-zinc-50 transition">
-          <i class="fa-brands fa-android"></i> Uygulama
-        </a>
+        <!-- Admin ve APK bölümleri kaldırıldı (vitrin/panel ayrımı) -->
         <button id="googleLoginBtn" onclick="openAuthModal()" class="h-9 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold hover:bg-black dark:hover:bg-zinc-100 transition">Giriş Yap</button>
         <div id="userProfileArea" style="display:none" class="h-9 items-center gap-2 pl-1 pr-3 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 cursor-pointer" onclick="openProfileModal()">
           <img alt="Kullanıcı profil fotoğrafı" id="userAvatarImg" style="display:none" class="w-7 h-7 rounded-full object-cover">
@@ -500,7 +495,7 @@
         <div><div class="w-9 h-9 rounded-[10px] bg-zinc-900 text-white flex items-center justify-center font-serif font-black">M</div><p class="mt-4 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Bilginin gücünü dinleyerek keşfedin. Dijital kütüphane, sesli arşiv ve topluluk.</p></div>
         <div><h4 class="font-semibold text-[13px]">Keşfet</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="#vitrin" class="hover:text-zinc-900 dark:hover:text-white">Vitrin</a></li><li><a href="#kitaplarBolumu" class="hover:text-zinc-900">Koleksiyon</a></li><li><a href="#sizdenGelenlerSection" class="hover:text-zinc-900">Topluluk</a></li><li><a href="#sss" class="hover:text-zinc-900">Sık sorulan sorular</a></li></ul></div>
         <div><h4 class="font-semibold text-[13px]">İletişim</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="mailto:oguzhanyasar@marketim3000.online" class="hover:text-zinc-900" style="font-weight:600;">oguzhanyasar@marketim3000.online</a></li><li><a href="https://wa.me/905542026620" target="_blank" class="hover:text-zinc-900" rel="noopener noreferrer">WhatsApp</a></li><li><button onclick="openSubmissionModal()" class="hover:text-zinc-900">Alıntı paylaş</button></li></ul></div>
-        <div><h4 class="font-semibold text-[13px]">Uygulama</h4><p class="mt-4 text-[13px] text-zinc-500">Android uygulamasını indirin ve çevrimdışı okuyun.</p><a href="E-Kitap.apk" download class="mt-3 inline-flex h-9 px-4 rounded-full bg-zinc-900 text-white text-[12.5px] font-semibold items-center gap-2">APK İndir <i class="fa-solid fa-download text-[11px]"></i></a></div>
+        <!-- Uygulama indirme kaldırıldı -->
       </div>
       <div class="mt-12 pt-8 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row justify-between gap-3 text-[12px] text-zinc-500"><span>© 2026 Ebook Store — Tüm hakları saklıdır.</span><span class="flex items-center gap-2"><i class="fa-solid fa-lock text-[10px]"></i> Güvenli · Hızlı · Sade</span></div>
     </div>
@@ -1809,7 +1804,7 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById('profileEmail').innerText = user.email;
     document.getElementById('modalCommentName').value = user.displayName || '';
     document.getElementById('subName').value = user.displayName || '';
-    if (user.email === ADMIN_EMAIL) adminBtn.style.display = 'flex'; else adminBtn.style.display = 'none';
+    if (adminBtn) adminBtn.style.display = (user.email === ADMIN_EMAIL) ? 'flex' : 'none';
     try { const favSnapshot = await getDocs(collection(db, "kullanicilar", user.uid, "favoriler")); userFavorites = favSnapshot.docs.map(doc => doc.id); } catch (e) {}
     try { const purSnapshot = await getDocs(collection(db, "kullanicilar", user.uid, "satinAlinanlar")); userPurchases = purSnapshot.docs.map(doc => doc.id); } catch (e) {}
   } else {
