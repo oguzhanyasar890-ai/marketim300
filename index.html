@@ -164,11 +164,13 @@
 
   
   /* MARKETIM3000 LIGHT DESIGN OVERRIDES */
-  html,html.dark{color-scheme:light!important;background:#fff!important}
-  html.dark body,body{background:#f4f6f8!important;color:#001d2b!important}
-  html.dark .glass-nav,.glass-nav{background:#fff!important;border-bottom:1px solid #e5e5e5!important}
-  html.dark .surface-card,.surface-card{background:#fff!important;border-color:#e5e5e5!important;color:#001d2b!important;box-shadow:0 2px 12px rgba(0,29,43,.06)}
-  .m3000-hero{position:relative;overflow:hidden;background:#fff;border-bottom:1px solid #eee;color:#001d2b}
+  /* Hafif saydam zemin — cam efektli beyaz */
+  html,html.dark{color-scheme:light!important;background:transparent!important}
+  body{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(244,246,248,.92))!important;color:#001d2b!important}
+  html.dark body{background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(244,246,248,.88))!important}
+  html.dark .glass-nav,.glass-nav{background:rgba(255,255,255,.88)!important;border-bottom:1px solid rgba(229,229,229,.8)!important;backdrop-filter:blur(18px) saturate(160%)}
+  html.dark .surface-card,.surface-card{background:rgba(255,255,255,.78)!important;border-color:rgba(229,229,229,.7)!important;color:#001d2b!important;box-shadow:0 2px 16px rgba(0,29,43,.05);backdrop-filter:blur(10px)}
+  .m3000-hero{position:relative;overflow:hidden;background:rgba(255,255,255,.55)!important;border-bottom:1px solid rgba(229,229,229,.7);color:#001d2b;backdrop-filter:blur(6px)}
   .m3000-hero:before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;right:-160px;top:-250px;background:radial-gradient(circle,rgba(197,155,87,.22),transparent 68%);pointer-events:none}
   .m3000-hero-inner{position:relative;z-index:1;max-width:1280px;margin:auto;padding:68px 32px 62px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:44px;min-height:430px}
   .m3000-kicker{display:flex;align-items:center;gap:9px;font:700 11px Inter,sans-serif;letter-spacing:.12em;color:#005d7f;text-transform:uppercase}
@@ -223,7 +225,7 @@
       </nav>
       <div class="flex items-center gap-2">
         <button id="cartBtn" onclick="openCart()" title="Sepetim" class="relative w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition"><i class="fa-solid fa-cart-shopping text-[13px]"></i><span id="cartBadge" class="hidden absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-600 text-white text-[10px] font-bold items-center justify-center">0</span></button>
-        <button id="premiumBtn" onclick="openPremiumModal()" class="h-9 px-3.5 rounded-full bg-amber-500 hover:bg-amber-600 text-zinc-950 text-[12.5px] font-semibold inline-flex items-center gap-1.5 transition"><i class="fa-solid fa-crown text-[11px]"></i><span id="premiumBtnText">Premium</span></button>
+        <!-- Premium kaldırıldı -->
         <!-- Admin/APK/Giriş kaldırıldı (ebooks stili sade vitrin) -->
       </div>
     </div>
@@ -238,7 +240,7 @@
         <p>Sevdiğin kitapları keşfet, çevrim içi oku, desteklenen formatlarda indir ve sesli kitaplarla okuma deneyimini her yerde sürdür.</p>
         <div class="m3000-actions">
           <a href="#kitaplarBolumu" class="m3000-primary"><i class="fa-solid fa-book-open"></i> Kitapları keşfet <i class="fa-solid fa-arrow-right"></i></a>
-          <button onclick="openPremiumModal()" class="m3000-secondary"><i class="fa-solid fa-crown"></i> Premium üyelik</button>
+          <a href="https://wa.me/905318479349" target="_blank" class="m3000-secondary"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
         </div>
         <div class="m3000-trust-row"><span><i class="fa-solid fa-book"></i> Zengin koleksiyon</span><span><i class="fa-solid fa-headphones"></i> Sesli dinleme</span><span><i class="fa-solid fa-mobile-screen"></i> Her cihazda</span></div>
       </div>
@@ -453,7 +455,7 @@
     <button onclick="toggleChat()" class="w-14 h-14 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-[0_8px_24px_rgba(0,0,0,.2)] flex items-center justify-center hover:scale-[1.03] transition"><i class="fa-solid fa-comments"></i></button>
   </div>
 
-  <a href="https://wa.me/905542026620?text=Merhaba%20E-Kitap%20Deposu%20Destek" target="_blank" id="whatsappSupport" class="fixed bottom-5 left-5 z-50 h-11 px-5 rounded-full bg-[#25D366] text-white shadow-lg flex items-center gap-2 font-semibold text-[13px] hover:scale-[1.02] transition" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp text-[18px]"></i> Destek</a>
+  <a href="https://wa.me/905318479349?text=Merhaba%20E-Kitap%20Deposu%20Destek" target="_blank" id="whatsappSupport" class="fixed bottom-5 left-5 z-50 h-11 px-5 rounded-full bg-[#25D366] text-white shadow-lg flex items-center gap-2 font-semibold text-[13px] hover:scale-[1.02] transition" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp text-[18px]"></i> Destek</a>
 
 
   <!-- SIK SORULAN SORULAR -->
@@ -488,7 +490,7 @@
       <div class="grid md:grid-cols-4 gap-10">
         <div><div class="w-9 h-9 rounded-[10px] bg-zinc-900 text-white flex items-center justify-center font-serif font-black">M</div><p class="mt-4 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Bilginin gücünü dinleyerek keşfedin. Dijital kütüphane, sesli arşiv ve topluluk.</p></div>
         <div><h4 class="font-semibold text-[13px]">Keşfet</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="#vitrin" class="hover:text-zinc-900 dark:hover:text-white">Vitrin</a></li><li><a href="#kitaplarBolumu" class="hover:text-zinc-900">Koleksiyon</a></li><li><a href="#sizdenGelenlerSection" class="hover:text-zinc-900">Topluluk</a></li><li><a href="#sss" class="hover:text-zinc-900">Sık sorulan sorular</a></li></ul></div>
-        <div><h4 class="font-semibold text-[13px]">İletişim</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="mailto:oguzhanyasar@marketim3000.online" class="hover:text-zinc-900" style="font-weight:600;">oguzhanyasar@marketim3000.online</a></li><li><a href="https://wa.me/905542026620" target="_blank" class="hover:text-zinc-900" rel="noopener noreferrer">WhatsApp</a></li><li><button onclick="openSubmissionModal()" class="hover:text-zinc-900">Alıntı paylaş</button></li></ul></div>
+        <div><h4 class="font-semibold text-[13px]">İletişim</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="mailto:oguzhanyasar@marketim3000.online" class="hover:text-zinc-900" style="font-weight:600;">oguzhanyasar@marketim3000.online</a></li><li><a href="https://wa.me/905318479349" target="_blank" class="hover:text-zinc-900" rel="noopener noreferrer" style="font-weight:600;">+90 531 847 93 49 (WhatsApp)</a></li><li><button onclick="openSubmissionModal()" class="hover:text-zinc-900">Alıntı paylaş</button></li></ul></div>
         <!-- Uygulama indirme kaldırıldı -->
       </div>
       <div class="mt-12 pt-8 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row justify-between gap-3 text-[12px] text-zinc-500"><span>© 2026 Ebook Store — Tüm hakları saklıdır.</span><span class="flex items-center gap-2"><i class="fa-solid fa-lock text-[10px]"></i> Güvenli · Hızlı · Sade</span></div>
@@ -562,7 +564,7 @@ const BANK_INFO = {
   hesapSahibi: "Oğuzhan Yaşar",
   iban: "TR54 0020 5000 0965 2961 4000 01"
 };
-const WHATSAPP_NUMBER = "905542026620"; // Ödeme bildirimlerinin gideceği WhatsApp numarası
+const WHATSAPP_NUMBER = "905318479349"; // Ödeme bildirimlerinin gideceği WhatsApp numarası
 
 let allBooks = [];
 let allCategories = [];
