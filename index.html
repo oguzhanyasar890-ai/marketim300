@@ -1488,9 +1488,11 @@ window.filterCategory = (cat, btnEl) => {
 };
 
 async function loadBooks() {
-  // SADECE veritabanı (/api/vitrin) kitapları gösterilir. Veritabanıda olmayan kitap listelenmez.
+  // SADECE veritabanı (panel /api/vitrin) kitapları gösterilir. Veritabanıda olmayan kitap listelenmez.
+  // NOT: marketim3000.online/api → Cloudflare kenarında 404 verir, o yüzden panel adresi kullanılır.
+  const VITRIN_URL = 'https://panel.marketim3000.online/api/vitrin';
   try {
-    const res = await fetch('/api/vitrin', { cache: 'no-store' });
+    const res = await fetch(VITRIN_URL, { cache: 'no-store' });
     if (!res.ok) throw new Error('Vitrin API hatası: ' + res.status);
     const rows = await res.json();
     allBooks = (rows || []).map(r => ({
@@ -1707,9 +1709,9 @@ window.editBookPrice = async (id, currentPrice) => {
 async function loadAdminBooks() {
   const list = document.getElementById('adminBookList');
   list.innerHTML = '<p class="text-slate-400 text-sm">Yükleniyor...</p>';
-  // DB-only: /api/vitrin — veritabanıda olmayan kitap listelenmez
+  // DB-only: panel /api/vitrin — veritabanıda olmayan kitap listelenmez
   try {
-    const res = await fetch('/api/vitrin', { cache: 'no-store' });
+    const res = await fetch('https://panel.marketim3000.online/api/vitrin', { cache: 'no-store' });
     const rows = await res.json();
     list.innerHTML = '';
     rows.forEach(r => {
