@@ -1490,7 +1490,9 @@ async function loadBooks() {
       yazar: r.yazar || 'Oğuzhan Yaşar',
       kategori: r.kategori || 'Genel',
       dosyaAdi: (r.ad || r.baslik || 'kitap') + '.pdf',
-      kapakUrl: r.kapak_dosyasi || r.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800',
+      kapakUrl: (r.kapak_dosyasi && String(r.kapak_dosyasi).includes('kapak_') && !String(r.kapak_dosyasi).startsWith('http'))
+        ? `https://panel.marketim3000.online/api/kapak/${r.id}`
+        : (r.kapakUrl || r.kapak_dosyasi || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'),
       aciklama: r.alt_baslik || r.kisa_tanitim || '',
       fiyat: Number(r.fiyat) || Number(r.indirimli_fiyat) || 0,
       indirmeSayisi: r.indirmeSayisi || 0,
@@ -1704,7 +1706,7 @@ async function loadAdminBooks() {
     const rows = await res.json();
     list.innerHTML = '';
     rows.forEach(r => {
-      const b = { baslik: r.ad || 'Başlıksız', yazar: r.yazar || 'Oğuzhan Yaşar', fiyat: Number(r.fiyat) || 0, kapakUrl: r.kapak_dosyasi || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800', dosyaAdi: (r.ad || 'kitap') + '.pdf' };
+      const b = { baslik: r.ad || 'Başlıksız', yazar: r.yazar || 'Oğuzhan Yaşar', fiyat: Number(r.fiyat) || 0, kapakUrl: (r.kapak_dosyasi && String(r.kapak_dosyasi).includes('kapak_') && !String(r.kapak_dosyasi).startsWith('http')) ? `https://panel.marketim3000.online/api/kapak/${r.id}` : 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800', dosyaAdi: (r.ad || 'kitap') + '.pdf' };
       const priceLabel = b.fiyat > 0 ? `₺${b.fiyat}` : 'Ücretsiz';
       list.innerHTML += `<div class="flex justify-between items-center bg-red-50/50 dark:bg-slate-800 p-3 rounded-xl border border-red-100 dark:border-slate-700"><div class="flex items-center gap-3"><img src="${b.kapakUrl}" class="w-10 h-14 object-cover rounded"><div><p class="text-slate-900 dark:text-white text-sm font-bold line-clamp-1">${b.baslik}</p><p class="text-slate-500 text-xs">${b.yazar} — <span class="text-brand-600 font-semibold">${b.dosyaAdi}</span></p><span class="text-[10px] font-extrabold text-emerald-600">${priceLabel}</span></div></div><div class="flex items-center gap-1"><span class="text-[10px] font-bold text-slate-400">DB #${r.id}</span></div></div>`;
     });
