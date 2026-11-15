@@ -11,17 +11,17 @@
 </script>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MARKETIM3000 | Dijital Kitap Mağazası — Premium Koleksiyon</title>
+  <title>MARKETIM3000 | Dijital Kitap Mağazası — Premium Kitaplık</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#ffffff"/>
-  <meta name="description" content="Ebook Store’da dijital kitapları keşfet, çevrim içi oku, sesli dinle ve desteklenen formatlarda indir. Yeni kitapları ve koleksiyonları keşfet.">
+  <meta name="description" content="Ebook Store’da dijital kitapları keşfet, çevrim içi oku, sesli dinle ve desteklenen formatlarda indir. Yeni kitapları ve kitaplıkları keşfet.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://www.marketim3000.online/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="tr_TR">
   <meta property="og:site_name" content="Ebook Store">
   <meta property="og:title" content="Ebook Store | Dijital Kitap Mağazası">
-  <meta property="og:description" content="Dijital kitapları keşfet, çevrim içi oku, sesli dinle ve yeni koleksiyonlara göz at.">
+  <meta property="og:description" content="Dijital kitapları keşfet, çevrim içi oku, sesli dinle ve yeni kitaplıklara göz at.">
   <meta property="og:url" content="https://www.marketim3000.online/">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Ebook Store | Dijital Kitap Mağazası">
@@ -214,6 +214,11 @@
   #bookGrid h4,#bookGrid p{color:#fff!important}
   /* Okunaklı yazılar — mavi zemin kontrastı */
   .text-zinc-500,.text-\[13px\].text-zinc-500{color:#b8d0f0!important;font-size:14px!important;line-height:1.7}
+  /* Kitaplık arama/kategori beyaz alanları koyu lacivert */
+  #searchInput,#sortSelect{background:#0d2a4a!important;color:#fff!important;border-color:#1a4066!important}
+  #searchInput::placeholder{color:#8fa8c8!important}
+  #categoryContainer .cat-btn{background:#102f54!important;color:#d6e4f5!important;border-color:rgba(125,185,255,.3)!important}
+  #categoryContainer .cat-btn:hover{border-color:#4d94ff!important;color:#fff!important}
   .text-zinc-600,.text-zinc-400{color:#c9dcf5!important}
   body p,body span,body div:not([style]){line-height:1.7}
   /* Uygun yazı tipi: Inter (metin) + Fraunces (başlık) */
@@ -245,9 +250,9 @@
         </div>
       </a>
 
-      <nav class="hidden lg:flex items-center gap-1 p-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200/60 dark:border-zinc-700">
+      <nav class="hidden lg:flex items-center gap-1 p-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-[#1a4066]/60 dark:border-zinc-700">
         <a href="#vitrin" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition">Vitrin</a>
-        <a href="#kitaplarBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium bg-white dark:bg-zinc-900 shadow-sm border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white">Koleksiyon</a>
+        <a href="#kitaplarBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium bg-white dark:bg-zinc-900 shadow-sm border border-[#1a4066] dark:border-zinc-700 text-zinc-900 dark:text-white">Kitaplık</a>
       </nav>
       <div class="flex items-center gap-2">
         <!-- Sepet kaldırıldı -->
@@ -268,9 +273,9 @@
           <a href="#kitaplarBolumu" class="m3000-primary"><i class="fa-solid fa-book-open"></i> Kitapları keşfet <i class="fa-solid fa-arrow-right"></i></a>
           <a href="https://wa.me/905318479349" target="_blank" class="m3000-secondary"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
         </div>
-        <div class="m3000-trust-row"><span><i class="fa-solid fa-book"></i> Zengin koleksiyon</span><span><i class="fa-solid fa-headphones"></i> Sesli dinleme</span><span><i class="fa-solid fa-mobile-screen"></i> Her cihazda</span></div>
+        <div class="m3000-trust-row"><span><i class="fa-solid fa-book"></i> Zengin kitaplık</span><span><i class="fa-solid fa-headphones"></i> Sesli dinleme</span><span><i class="fa-solid fa-mobile-screen"></i> Her cihazda</span></div>
       </div>
-      <div class="m3000-visual" aria-label="Dijital kitap koleksiyonu illüstrasyonu">
+      <div class="m3000-visual" aria-label="Dijital kitap kitaplıku illüstrasyonu">
         <div class="m3000-orbit"></div>
         <img src="https://panel.marketim3000.online/api/kapak/11" alt="Profesyonel AI - Oğuzhan Yaşar" class="m3000-book book-one" style="object-fit:cover;padding:0" loading="lazy" onerror="this.style.display='none'">
         <img src="https://panel.marketim3000.online/api/kapak/17" alt="Kripto Para Piyasaları - Oğuzhan Yaşar" class="m3000-book book-two" style="object-fit:cover;padding:0" loading="lazy" onerror="this.style.display='none'">
@@ -282,21 +287,21 @@
 
   <!-- KOLEKSIYON -->
   <main id="kitaplarBolumu" class="max-w-[1280px] mx-auto px-5 sm:px-8 py-8 w-full">
-    <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-5 sm:p-6 mb-6">
+    <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-[#1a4066] dark:border-zinc-800 p-5 sm:p-6 mb-6">
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
         <div class="flex items-start gap-3.5">
           <div class="w-10 h-10 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-layer-group text-[14px]"></i></div>
           <div>
-            <h2 id="listTitle" class="font-serif font-bold text-[22px] leading-none tracking-tight">Koleksiyon</h2>
+            <h2 id="listTitle" class="font-serif font-bold text-[22px] leading-none tracking-tight">Kitaplık</h2>
             <p class="text-[13px] text-zinc-500 mt-1.5">Satın al, oku, dinle ve indir — tüm arşiv burada.</p>
           </div>
         </div>
         <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
           <div class="relative flex-1 sm:w-[300px]">
             <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-[12px]"></i>
-            <input id="searchInput" aria-label="Kitap veya yazar ara" autocomplete="off" onkeyup="filterBooks()" placeholder="Kitap, yazar ara..." class="w-full h-10 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full pl-10 pr-4 text-[13px] focus:outline-none focus:ring-2 focus:ring-zinc-900/10">
+            <input id="searchInput" aria-label="Kitap veya yazar ara" autocomplete="off" onkeyup="filterBooks()" placeholder="Kitap, yazar ara..." class="w-full h-10 bg-[#0d2a4a] dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 rounded-full pl-10 pr-4 text-[13px] focus:outline-none focus:ring-2 focus:ring-zinc-900/10">
           </div>
-          <select id="sortSelect" aria-label="Kitapları sıralama ölçütü" onchange="renderBooks()" class="h-10 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-4 text-[13px] font-medium focus:outline-none">
+          <select id="sortSelect" aria-label="Kitapları sıralama ölçütü" onchange="renderBooks()" class="h-10 bg-[#0d2a4a] dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 rounded-full px-4 text-[13px] font-medium focus:outline-none">
             <option value="newest">En yeni</option>
             <option value="popular">En popüler</option>
             <option value="az">A → Z</option>
@@ -326,14 +331,14 @@
       <a href="#kitaplarBolumu" class="text-[13px] font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white">Tümünü gör →</a>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-6">
+      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-[#1a4066] dark:border-zinc-800 p-6">
         <div class="flex items-center justify-between mb-5">
           <h4 class="font-semibold text-[14px] flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center text-[11px]"><i class="fa-solid fa-fire"></i></span> En çok okunanlar</h4>
           <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">Popüler</span>
         </div>
         <div id="popularBooks" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
       </div>
-      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-zinc-200 dark:border-zinc-800 p-6">
+      <div class="bg-white dark:bg-zinc-900 rounded-[24px] border border-[#1a4066] dark:border-zinc-800 p-6">
         <div class="flex items-center justify-between mb-5">
           <h4 class="font-semibold text-[14px] flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-[11px]">✦</span> Yeni eklenenler</h4>
           <span class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border">Taze</span>
@@ -347,22 +352,22 @@
 
   <!-- MODALLAR - Profesyonel -->
   <div id="authModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur-[12px] p-4">
-    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[420px] p-8 shadow-[0_20px_60px_-20px_rgba(0,0,0,.5)] border border-zinc-200 dark:border-zinc-800 relative">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[420px] p-8 shadow-[0_20px_60px_-20px_rgba(0,0,0,.5)] border border-[#1a4066] dark:border-zinc-800 relative">
       <button onclick="document.getElementById('authModal').classList.remove('modal-active')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
       <div class="text-center mb-6"><div class="w-12 h-12 mx-auto rounded-[14px] bg-zinc-900 text-white flex items-center justify-center font-serif font-black">M</div><h3 id="authTitle" class="mt-4 font-serif font-bold text-[22px]">Giriş yap</h3></div>
       <form id="emailAuthForm" onsubmit="handleEmailAuth(event)" class="flex flex-col gap-3 mb-4">
-        <div id="nameField" style="display:none;"><input type="text" id="authNameInput" placeholder="Ad Soyad" class="w-full h-11 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-4 text-[13px]"></div>
-        <input type="email" id="authEmailInput" required placeholder="E-posta" class="w-full h-11 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-4 text-[13px]">
-        <input type="password" id="authPasswordInput" required placeholder="Şifre" class="w-full h-11 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-4 text-[13px]">
+        <div id="nameField" style="display:none;"><input type="text" id="authNameInput" placeholder="Ad Soyad" class="w-full h-11 bg-[#0d2a4a] dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 rounded-full px-4 text-[13px]"></div>
+        <input type="email" id="authEmailInput" required placeholder="E-posta" class="w-full h-11 bg-[#0d2a4a] dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 rounded-full px-4 text-[13px]">
+        <input type="password" id="authPasswordInput" required placeholder="Şifre" class="w-full h-11 bg-[#0d2a4a] dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 rounded-full px-4 text-[13px]">
         <button type="submit" id="authSubmitBtn" class="w-full h-11 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full font-semibold text-[13px] mt-2">Devam et</button>
       </form>
-      <button onclick="loginWithGoogle()" class="w-full h-11 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full font-medium text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-google"></i> Google ile devam et</button>
+      <button onclick="loginWithGoogle()" class="w-full h-11 bg-white dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 rounded-full font-medium text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-google"></i> Google ile devam et</button>
       <p class="text-center text-[12px] text-zinc-500 mt-6"><span id="authToggleText">Hesabın yok mu?</span><button onclick="toggleAuthMode()" id="authToggleBtn" class="font-semibold text-zinc-900 dark:text-white ml-1">Kayıt ol</button></p>
     </div>
   </div>
 
   <div id="profileModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur-[12px] p-4">
-    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[560px] overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-xl flex flex-col max-h-[88vh]">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[560px] overflow-hidden border border-[#1a4066] dark:border-zinc-800 shadow-xl flex flex-col max-h-[88vh]">
       <div class="p-6 flex items-center gap-4 border-b border-zinc-100 dark:border-zinc-800"><img alt="Profil fotoğrafı" id="profileImg" class="w-12 h-12 rounded-full object-cover hidden"><div id="profileImgText" class="w-12 h-12 rounded-full bg-zinc-900 text-white flex items-center justify-center font-bold">U</div><div><h2 id="profileName" class="font-semibold">Kullanıcı</h2><p id="profileEmail" class="text-[12px] text-zinc-500"></p></div><button onclick="document.getElementById('profileModal').classList.remove('modal-active')" class="ml-auto w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button></div>
       <div class="flex overflow-x-auto scrollbar-hide border-b border-zinc-100 dark:border-zinc-800"><button onclick="switchProfileTab('downloads')" id="tabBtnDownloads" class="flex-1 py-3 text-[13px] font-semibold border-b-2 border-zinc-900 dark:border-white">İndirdiklerim</button><button onclick="switchProfileTab('myComments')" id="tabBtnMyComments" class="flex-1 py-3 text-[13px] font-medium text-zinc-500">Yorumlarım</button><button onclick="switchProfileTab('stats')" id="tabBtnStats" class="whitespace-nowrap px-3 flex-1 py-3 text-[13px] font-medium text-zinc-500">İstatistik</button><button onclick="switchProfileTab('notes')" id="tabBtnNotes" class="whitespace-nowrap px-3 flex-1 py-3 text-[13px] font-medium text-zinc-500">Notlarım</button></div>
       <div class="p-6 overflow-y-auto flex-1"><div id="profileTabDownloads" class="space-y-3"></div><div id="profileTabMyComments" class="hidden space-y-3"></div><div id="profileTabStats" class="hidden space-y-4"></div><div id="profileTabNotes" class="hidden space-y-5"></div></div>
@@ -370,20 +375,20 @@
   </div>
 
   <div id="bookDetailModal" class="fixed inset-0 z-[999] items-center justify-center bg-zinc-950/60 backdrop-blur-[12px] p-4">
-    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[900px] border border-zinc-200 dark:border-zinc-800 shadow-[0_20px_80px_-20px_rgba(0,0,0,.6)] overflow-hidden flex flex-col md:flex-row max-h-[90vh] relative">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[900px] border border-[#1a4066] dark:border-zinc-800 shadow-[0_20px_80px_-20px_rgba(0,0,0,.6)] overflow-hidden flex flex-col md:flex-row max-h-[90vh] relative">
       <button onclick="closeBookModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
       <div class="w-full md:w-[46%] p-7 border-b md:border-b-0 md:border-r border-zinc-100 dark:border-zinc-800 overflow-y-auto">
         <div class="flex gap-5"><img alt="Seçilen kitabın kapak görseli" loading="lazy" id="modalCover" class="w-28 sm:w-32 aspect-[2/3] object-cover rounded-[12px] bg-zinc-100"><div><span id="modalCategory" class="text-[10px] font-semibold tracking-widest uppercase px-2.5 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"></span><span id="modalPriceBadge" class="ml-2 text-[10px] font-semibold px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border"></span><h3 id="modalTitle" class="mt-3 font-serif font-bold text-[22px] leading-tight"></h3><p id="modalAuthor" class="text-[13px] text-zinc-500 mt-1"></p></div></div>
         <p id="modalDesc" class="mt-6 text-[13.5px] leading-6 text-zinc-600 dark:text-zinc-400"></p>
         <div class="mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800">
           <button id="modalBuyBtn" class="hidden w-full h-11 bg-emerald-600 text-white rounded-full font-semibold text-[13px]"><i class="fa-solid fa-cart-shopping mr-2"></i><span id="modalBuyBtnText">Satın Al</span></button>
-          <div id="modalReadDownloadRow" class="flex gap-2"><button id="modalReadBtn" class="flex-1 h-11 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full font-semibold text-[13px]"><i class="fa-solid fa-play mr-1.5"></i>Oku & Dinle</button><button id="modalDownloadBtn" class="flex-1 h-11 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full font-semibold text-[13px]"><i class="fa-solid fa-arrow-down mr-1.5"></i>İndir</button></div>
+          <div id="modalReadDownloadRow" class="flex gap-2"><button id="modalReadBtn" class="flex-1 h-11 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full font-semibold text-[13px]"><i class="fa-solid fa-play mr-1.5"></i>Oku & Dinle</button><button id="modalDownloadBtn" class="flex-1 h-11 bg-white dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 rounded-full font-semibold text-[13px]"><i class="fa-solid fa-arrow-down mr-1.5"></i>İndir</button></div>
         </div>
       </div>
-      <div class="w-full md:w-[54%] flex flex-col bg-zinc-50/60 dark:bg-zinc-900/60">
+      <div class="w-full md:w-[54%] flex flex-col bg-[#0d2a4a]/60 dark:bg-zinc-900/60">
         <div class="p-5 border-b border-zinc-100 dark:border-zinc-800"><h4 class="font-semibold text-[13px]"><i class="fa-regular fa-comments mr-2"></i>Okur yorumları</h4></div>
         <div id="modalCommentsList" class="flex-1 overflow-y-auto p-5 space-y-3"></div>
-        <div class="p-4 bg-white dark:bg-zinc-900 border-t border-zinc-100 dark:border-zinc-800"><form id="modalCommentForm" onsubmit="submitBookComment(event)" class="flex flex-col gap-2"><div class="flex gap-2"><input id="modalCommentName" required placeholder="Adınız" class="flex-1 h-9 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-full px-3 text-[12px]"><select id="modalCommentRating" class="w-[110px] h-9 bg-zinc-50 dark:bg-zinc-800 border rounded-full px-2 text-[12px]"><option value="5">★★★★★</option><option value="4">★★★★</option><option value="3">★★★</option></select></div><textarea id="modalCommentMsg" required placeholder="Düşünceleriniz..." rows="2" class="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-[14px] px-3 py-2 text-[12px] resize-none"></textarea><button class="h-9 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full text-[12px] font-semibold">Gönder</button></form></div>
+        <div class="p-4 bg-white dark:bg-zinc-900 border-t border-zinc-100 dark:border-zinc-800"><form id="modalCommentForm" onsubmit="submitBookComment(event)" class="flex flex-col gap-2"><div class="flex gap-2"><input id="modalCommentName" required placeholder="Adınız" class="flex-1 h-9 bg-[#0d2a4a] dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 rounded-full px-3 text-[12px]"><select id="modalCommentRating" class="w-[110px] h-9 bg-[#0d2a4a] dark:bg-zinc-800 border rounded-full px-2 text-[12px]"><option value="5">★★★★★</option><option value="4">★★★★</option><option value="3">★★★</option></select></div><textarea id="modalCommentMsg" required placeholder="Düşünceleriniz..." rows="2" class="w-full bg-[#0d2a4a] dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 rounded-[14px] px-3 py-2 text-[12px] resize-none"></textarea><button class="h-9 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full text-[12px] font-semibold">Gönder</button></form></div>
       </div>
     </div>
   </div>
@@ -410,7 +415,7 @@
   </div>
 
   <div id="adminModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4">
-    <div class="bg-white dark:bg-zinc-900 rounded-[24px] w-full max-w-4xl border border-zinc-200 dark:border-zinc-800 shadow-xl flex flex-col h-[90vh] overflow-hidden">
+    <div class="bg-white dark:bg-zinc-900 rounded-[24px] w-full max-w-4xl border border-[#1a4066] dark:border-zinc-800 shadow-xl flex flex-col h-[90vh] overflow-hidden">
       <div class="h-14 px-6 flex items-center justify-between bg-zinc-900 text-white"><h2 class="font-semibold text-[14px]"><i class="fa-solid fa-shield-halved mr-2"></i>Yönetici</h2><button onclick="document.getElementById('adminModal').classList.remove('modal-active')"><i class="fa-solid fa-xmark"></i></button></div>
       <div class="flex border-b border-zinc-100 dark:border-zinc-800 overflow-x-auto scrollbar-hide">
         <button onclick="switchAdminTab('books')" id="tabBtnBooks" class="px-5 py-3 text-[13px] font-semibold border-b-2 border-zinc-900">Kitaplar</button>
@@ -422,7 +427,7 @@
       </div>
       <div class="p-6 overflow-y-auto flex-1">
         <div id="adminTabBooks">
-          <form id="addBookForm" onsubmit="addNewBook(event)" class="bg-zinc-50 dark:bg-zinc-800 p-4 rounded-[16px] border grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+          <form id="addBookForm" onsubmit="addNewBook(event)" class="bg-[#0d2a4a] dark:bg-zinc-800 p-4 rounded-[16px] border grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
             <h3 class="col-span-full font-semibold text-[13px]">Yeni kitap ekle</h3>
             <input id="newBookTitle" required placeholder="Kitap Adı" class="h-10 rounded-full border px-4 text-[13px]"><input id="newBookAuthor" required placeholder="Yazar" class="h-10 rounded-full border px-4 text-[13px]"><select id="newBookCategory" class="h-10 rounded-full border px-4 text-[13px]"></select><input id="newBookFile" required placeholder="Dosya adı (kitap.txt)" class="h-10 rounded-full border px-4 text-[13px]"><input id="newBookPrice" type="number" min="0" step="0.01" placeholder="Fiyat ₺ (boş=ücretsiz)" class="h-10 rounded-full border px-4 text-[13px]"><input id="newBookCover" required placeholder="Kapak URL" class="h-10 rounded-full border px-4 text-[13px] col-span-full"><textarea id="newBookDesc" required placeholder="Açıklama" rows="2" class="rounded-[16px] border p-3 text-[13px] col-span-full"></textarea><button class="col-span-full h-10 rounded-full bg-zinc-900 text-white font-semibold text-[13px]">Kaydet</button>
           </form>
@@ -438,10 +443,10 @@
   </div>
 
   <div id="purchaseModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4">
-    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[420px] p-7 border border-zinc-200 dark:border-zinc-800 shadow-xl relative">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[420px] p-7 border border-[#1a4066] dark:border-zinc-800 shadow-xl relative">
       <button onclick="closePurchaseModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
       <div class="text-center mb-6"><div class="w-12 h-12 mx-auto rounded-[14px] bg-zinc-900 text-white flex items-center justify-center"><i class="fa-solid fa-cart-shopping"></i></div><h3 class="mt-4 font-bold text-[18px]">Satın al</h3><p id="purchaseBookTitle" class="text-[13px] text-zinc-500 mt-1"></p><p id="purchaseBookPrice" class="text-[28px] font-bold mt-2 tracking-tight"></p></div>
-      <div class="bg-zinc-50 dark:bg-zinc-800 rounded-[16px] p-4 border text-[13px] space-y-2"><p><b>Banka:</b> <span id="bankAdi"></span></p><p><b>Hesap:</b> <span id="bankHesapSahibi"></span></p><p class="flex justify-between"><span><b>IBAN:</b> <span id="bankIban"></span></span><button onclick="copyIban()" class="text-zinc-500"><i class="fa-regular fa-copy"></i></button></p></div>
+      <div class="bg-[#0d2a4a] dark:bg-zinc-800 rounded-[16px] p-4 border text-[13px] space-y-2"><p><b>Banka:</b> <span id="bankAdi"></span></p><p><b>Hesap:</b> <span id="bankHesapSahibi"></span></p><p class="flex justify-between"><span><b>IBAN:</b> <span id="bankIban"></span></span><button onclick="copyIban()" class="text-zinc-500"><i class="fa-regular fa-copy"></i></button></p></div>
       <p class="text-[11px] text-zinc-500 mt-4 leading-5">Ödemeyi yaptıktan sonra dekontu WhatsApp ile gönderin. Onay sonrası erişiminiz açılacak.</p>
       <button onclick="confirmPurchaseRequest()" class="w-full h-11 mt-5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-[16px]"></i> Ödemeyi yaptım, bildir</button>
     </div>
@@ -452,9 +457,9 @@
   <div id="submissionModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4"><div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-lg p-8 border shadow-xl relative"><button onclick="closeSubmissionModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button><h3 class="font-bold text-[20px]">Sizden gelenler</h3><p class="text-[12px] text-zinc-500 mt-1">Alıntınızı paylaşın</p><form id="submissionForm" onsubmit="submitSizdenGelen(event)" class="mt-6 grid gap-4"><div class="grid grid-cols-2 gap-3"><input id="subName" required placeholder="Adınız" class="h-11 rounded-full border px-4 text-[13px]"><select id="subType" class="h-11 rounded-full border px-4 text-[13px]"><option>Kitap Alıntısı</option><option>Kitap Tavsiyesi</option><option>Okur Mesajı</option></select></div><input id="subTopic" required placeholder="Başlık" class="h-11 rounded-full border px-4 text-[13px]"><textarea id="subMessage" required rows="4" placeholder="Mesajınız..." class="rounded-[16px] border p-4 text-[13px] resize-none"></textarea><button id="subSubmitBtn" class="h-11 rounded-full bg-zinc-900 text-white font-semibold text-[13px]">Gönder</button></form></div></div>
 
   <div id="aiChatbot" class="fixed bottom-5 right-5 z-50 flex flex-col items-end">
-    <div id="chatWindow" style="display:none" class="w-[360px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[20px] shadow-[0_20px_60px_-20px_rgba(0,0,0,.4)] mb-4 overflow-hidden flex-col">
+    <div id="chatWindow" style="display:none" class="w-[360px] bg-white dark:bg-zinc-900 border border-[#1a4066] dark:border-zinc-800 rounded-[20px] shadow-[0_20px_60px_-20px_rgba(0,0,0,.4)] mb-4 overflow-hidden flex-col">
       <div class="h-14 px-4 bg-zinc-900 text-white flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-white text-zinc-900 flex items-center justify-center font-bold text-[12px]">M</div><div><h4 class="text-[13px] font-semibold">Depo Asistanı</h4><span class="text-[10px] text-zinc-400 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Çevrimiçi</span></div></div><button onclick="toggleChat()" class="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[11px]"></i></button></div>
-      <div id="chatMessages" class="p-4 h-[280px] overflow-y-auto bg-zinc-50 dark:bg-zinc-800/50 flex flex-col gap-3 text-[13px]"></div>
+      <div id="chatMessages" class="p-4 h-[280px] overflow-y-auto bg-[#0d2a4a] dark:bg-zinc-800/50 flex flex-col gap-3 text-[13px]"></div>
       <div class="p-3 bg-white dark:bg-zinc-900 border-t flex gap-2"><input id="chatInput" aria-label="Depo Asistanına mesaj yaz" placeholder="Bir soru sor..." class="flex-1 h-9 bg-zinc-100 dark:bg-zinc-800 rounded-full px-4 text-[13px] focus:outline-none" onkeypress="handleKeyPress(event)"><button onclick="sendMessage()" class="w-9 h-9 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center"><i class="fa-solid fa-paper-plane text-[12px]"></i></button></div>
     </div>
     <button onclick="toggleChat()" class="w-14 h-14 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-[0_8px_24px_rgba(0,0,0,.2)] flex items-center justify-center hover:scale-[1.03] transition"><i class="fa-solid fa-comments"></i></button>
@@ -471,30 +476,30 @@
       <p class="mt-2 text-[13px] leading-6 text-zinc-500">Kitapları keşfetme, okuma ve satın alma süreci hakkında kısa yanıtlar.</p>
     </div>
     <div class="space-y-3">
-      <details class="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
+      <details class="group rounded-2xl border border-[#1a4066] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
         <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[14px]">Kitapları nasıl keşfedebilirim?<i class="fa-solid fa-chevron-down text-xs text-zinc-400 transition-transform group-open:rotate-180"></i></summary>
-        <p class="mt-3 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Koleksiyon bölümündeki arama alanını, kategori filtrelerini ve sıralama seçeneklerini kullanarak kitapları bulabilirsin.</p>
+        <p class="mt-3 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Kitaplık bölümündeki arama alanını, kategori filtrelerini ve sıralama seçeneklerini kullanarak kitapları bulabilirsin.</p>
       </details>
-      <details class="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
+      <details class="group rounded-2xl border border-[#1a4066] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
         <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[14px]">Ücretsiz kitapları okuyabilir miyim?<i class="fa-solid fa-chevron-down text-xs text-zinc-400 transition-transform group-open:rotate-180"></i></summary>
         <p class="mt-3 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Kitap kartında ücretsiz olarak belirtilen eserler için kitap detayındaki okuma ve indirme seçeneklerini kontrol edebilirsin. Bazı özellikler oturum açmanı gerektirebilir.</p>
       </details>
-      <details class="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
+      <details class="group rounded-2xl border border-[#1a4066] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
         <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[14px]">Satın alma işlemi nasıl tamamlanıyor?<i class="fa-solid fa-chevron-down text-xs text-zinc-400 transition-transform group-open:rotate-180"></i></summary>
         <p class="mt-3 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Ücretli kitaplarda ekrandaki satın alma adımlarını takip et. Ödeme/dekont bildirimi istenirse verilen WhatsApp destek bağlantısı üzerinden iletişim kur; erişim onaydan sonra tanımlanabilir.</p>
       </details>
-      <details class="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
+      <details class="group rounded-2xl border border-[#1a4066] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 sm:p-5">
         <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[14px]">Yardım veya içerik önerisini nasıl iletebilirim?<i class="fa-solid fa-chevron-down text-xs text-zinc-400 transition-transform group-open:rotate-180"></i></summary>
         <p class="mt-3 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Sayfadaki Destek bağlantısından WhatsApp üzerinden ulaşabilir veya “Alıntı paylaş” alanını kullanabilirsin.</p>
       </details>
     </div>
   </section>
 
-  <footer class="mt-auto border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+  <footer class="mt-auto border-t border-[#1a4066] dark:border-zinc-800 bg-white dark:bg-zinc-950">
     <div class="max-w-[1280px] mx-auto px-5 sm:px-8 py-12">
       <div class="grid md:grid-cols-4 gap-10">
         <div><div class="w-9 h-9 rounded-[10px] bg-zinc-900 text-white flex items-center justify-center font-serif font-black">M</div><p class="mt-4 text-[13px] leading-6 text-zinc-600 dark:text-zinc-400">Bilginin gücünü dinleyerek keşfedin. Dijital kütüphane, sesli arşiv ve topluluk.</p></div>
-        <div><h4 class="font-semibold text-[13px]">Keşfet</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="#vitrin" class="hover:text-zinc-900 dark:hover:text-white">Vitrin</a></li><li><a href="#kitaplarBolumu" class="hover:text-zinc-900">Koleksiyon</a></li><li><a href="#sss" class="hover:text-zinc-900">Sık sorulan sorular</a></li></ul></div>
+        <div><h4 class="font-semibold text-[13px]">Keşfet</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="#vitrin" class="hover:text-zinc-900 dark:hover:text-white">Vitrin</a></li><li><a href="#kitaplarBolumu" class="hover:text-zinc-900">Kitaplık</a></li><li><a href="#sss" class="hover:text-zinc-900">Sık sorulan sorular</a></li></ul></div>
         <div><h4 class="font-semibold text-[13px]">İletişim</h4><ul class="mt-4 space-y-2.5 text-[13px] text-zinc-600 dark:text-zinc-400"><li><a href="mailto:oguzhanyasar@marketim3000.online" class="hover:text-zinc-900" style="font-weight:600;">oguzhanyasar@marketim3000.online</a></li><li><a href="https://wa.me/905318479349" target="_blank" class="hover:text-zinc-900" rel="noopener noreferrer" style="font-weight:600;">+90 531 847 93 49 (WhatsApp)</a></li><li><button onclick="openSubmissionModal()" class="hover:text-zinc-900">Alıntı paylaş</button></li></ul></div>
         <!-- Uygulama indirme kaldırıldı -->
       </div>
@@ -504,14 +509,14 @@
 
   <!-- SEPET -->
   <div id="cartModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4">
-    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[460px] max-h-[92vh] overflow-y-auto p-7 border border-zinc-200 dark:border-zinc-800 shadow-xl relative">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[460px] max-h-[92vh] overflow-y-auto p-7 border border-[#1a4066] dark:border-zinc-800 shadow-xl relative">
       <button onclick="closeCart()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
       <h3 class="font-serif font-bold text-[24px] tracking-tight">Sepetim</h3>
       <div id="cartList" class="mt-4 space-y-2.5"></div>
       <div id="cartCoupon"></div>
       <div id="cartTotals" class="mt-3"></div>
       <div id="cartPay" class="hidden">
-        <div class="bg-zinc-50 dark:bg-zinc-800 rounded-[16px] p-4 border border-zinc-200 dark:border-zinc-700 text-[13px] space-y-1.5 mt-3">
+        <div class="bg-[#0d2a4a] dark:bg-zinc-800 rounded-[16px] p-4 border border-[#1a4066] dark:border-zinc-700 text-[13px] space-y-1.5 mt-3">
           <p><b>Banka:</b> <span id="cartBank"></span></p>
           <p class="flex justify-between gap-2"><span><b>IBAN:</b> <span id="cartIban"></span></span><button onclick="copyPremIban()" class="text-zinc-500"><i class="fa-regular fa-copy"></i></button></p>
         </div>
@@ -523,7 +528,7 @@
 
   <!-- PREMIUM ÜYELİK -->
   <div id="premiumModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4">
-    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[460px] max-h-[92vh] overflow-y-auto p-7 border border-zinc-200 dark:border-zinc-800 shadow-xl relative">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[460px] max-h-[92vh] overflow-y-auto p-7 border border-[#1a4066] dark:border-zinc-800 shadow-xl relative">
       <button onclick="closePremiumModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
       <div class="w-12 h-12 rounded-[14px] bg-amber-500 text-zinc-950 flex items-center justify-center"><i class="fa-solid fa-crown"></i></div>
       <h3 class="mt-4 font-serif font-bold text-[24px] tracking-tight">Premium üyelik</h3>
@@ -531,7 +536,7 @@
       <div id="premiumStatus"></div>
       <div id="planList" class="mt-5 grid gap-2.5"></div>
       <div id="planCoupon"></div>
-      <div class="bg-zinc-50 dark:bg-zinc-800 rounded-[16px] p-4 border border-zinc-200 dark:border-zinc-700 text-[13px] space-y-1.5 mt-3">
+      <div class="bg-[#0d2a4a] dark:bg-zinc-800 rounded-[16px] p-4 border border-[#1a4066] dark:border-zinc-700 text-[13px] space-y-1.5 mt-3">
         <p><b>Banka:</b> <span id="premBank"></span></p>
         <p class="flex justify-between gap-2"><span><b>IBAN:</b> <span id="premIban"></span></span><button onclick="copyPremIban()" class="text-zinc-500"><i class="fa-regular fa-copy"></i></button></p>
       </div>
@@ -1348,13 +1353,13 @@ async function loadEpubIntoReader(epubUrl, title) {
   const viewer = document.getElementById('viewer');
   viewer.innerHTML = `
     <div class="flex h-full bg-white dark:bg-zinc-950">
-      <div id="epubToc" class="hidden lg:flex flex-col w-[260px] border-r border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50">
-        <div class="p-4 border-b border-zinc-200 dark:border-zinc-800">
+      <div id="epubToc" class="hidden lg:flex flex-col w-[260px] border-r border-[#1a4066] dark:border-zinc-800 bg-[#0d2a4a]/50 dark:bg-zinc-900/50">
+        <div class="p-4 border-b border-[#1a4066] dark:border-zinc-800">
           <h4 class="text-[11px] font-bold tracking-[0.14em] uppercase text-zinc-500">İçindekiler</h4>
           <p class="text-[12px] font-semibold mt-1 truncate">${title}</p>
         </div>
         <div id="epubTocList" class="flex-1 overflow-y-auto p-2 space-y-1 text-[12.5px]"></div>
-        <div class="p-3 border-t border-zinc-200 dark:border-zinc-800 flex gap-2">
+        <div class="p-3 border-t border-[#1a4066] dark:border-zinc-800 flex gap-2">
           <button onclick="adjustReaderSize(-1)" class="flex-1 h-8 rounded-full bg-white dark:bg-zinc-800 border text-[11px] font-medium">A-</button>
           <button onclick="adjustReaderSize(1)" class="flex-1 h-8 rounded-full bg-white dark:bg-zinc-800 border text-[11px] font-medium">A+</button>
         </div>
@@ -1477,7 +1482,7 @@ window.closeReader = () => {
 window.filterBooks = () => { searchQuery = document.getElementById('searchInput').value.toLocaleLowerCase('tr-TR'); renderBooks(); };
 window.filterCategory = (cat, btnEl) => {
   currentCategory = cat;
-  document.getElementById('listTitle').innerText = cat === 'Tümü' ? 'Kitaplar Koleksiyonu' : `${cat} Kitapları`;
+  document.getElementById('listTitle').innerText = cat === 'Tümü' ? 'Kitaplar Kitaplıku' : `${cat} Kitapları`;
   document.querySelectorAll('.cat-btn').forEach(b => { b.className = "cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-red-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-brand-600 hover:text-brand-600 bg-white dark:bg-slate-900"; });
   if(btnEl) { btnEl.className = "cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-brand-600 bg-brand-600 text-white shadow-md shadow-brand-600/20"; }
   renderBooks();
@@ -1535,7 +1540,7 @@ window.renderBooks = () => {
   const countEl = document.getElementById('bookCount');
   if(countEl) countEl.innerText = `${filtered.length} eser`;
   if (filtered.length === 0) {
-    grid.innerHTML = `<div class="col-span-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[24px] text-center py-20 px-6"><div class="w-12 h-12 mx-auto mb-4 rounded-2xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-book-open text-zinc-400"></i></div><p class="text-zinc-900 dark:text-zinc-100 text-[15px] font-semibold">Sonuç bulunamadı</p><p class="text-zinc-500 text-[13px] mt-1">Arama kriterlerinizi değiştirmeyi deneyin.</p></div>`;
+    grid.innerHTML = `<div class="col-span-full bg-white dark:bg-zinc-900 border border-[#1a4066] dark:border-zinc-800 rounded-[24px] text-center py-20 px-6"><div class="w-12 h-12 mx-auto mb-4 rounded-2xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-book-open text-zinc-400"></i></div><p class="text-zinc-900 dark:text-zinc-100 text-[15px] font-semibold">Sonuç bulunamadı</p><p class="text-zinc-500 text-[13px] mt-1">Arama kriterlerinizi değiştirmeyi deneyin.</p></div>`;
     return;
   }
   filtered.forEach(book => {
@@ -1549,12 +1554,12 @@ window.renderBooks = () => {
     const priceBadge = price > 0
       ? (owned
           ? `<span class="absolute bottom-3 right-3 text-[11px] font-bold text-white bg-emerald-600 px-3 py-1 rounded-full shadow-sm flex items-center gap-1"><i class="fa-solid fa-check text-[10px]"></i> Erişim var</span>`
-          : `<span class="absolute bottom-3 right-3 text-[11px] font-bold tracking-tight text-zinc-900 bg-white/95 backdrop-blur px-3 py-1 rounded-full shadow-sm border border-zinc-200">₺${price.toLocaleString('tr-TR')}</span>`)
+          : `<span class="absolute bottom-3 right-3 text-[11px] font-bold tracking-tight text-zinc-900 bg-white/95 backdrop-blur px-3 py-1 rounded-full shadow-sm border border-[#1a4066]">₺${price.toLocaleString('tr-TR')}</span>`)
       : `<span class="absolute bottom-3 right-3 text-[11px] font-bold text-white bg-zinc-900 px-3 py-1 rounded-full shadow-sm">Ücretsiz</span>`;
     const primaryAction = (price > 0 && !owned)
-      ? `<div class="flex gap-2"><button onclick="event.stopPropagation(); openPurchaseModal('${book.id}')" class="flex-1 h-[40px] bg-zinc-900 hover:bg-black text-white rounded-full text-[12.5px] font-semibold tracking-wide transition flex items-center justify-center gap-2"><i class="fa-solid fa-lock text-[11px]"></i> Satın Al — ₺${price.toLocaleString('tr-TR')}</button><button onclick="event.stopPropagation(); addToCart('${book.id}')" title="Sepete ekle" class="cart-add w-[40px] h-[40px] shrink-0 rounded-full bg-white text-zinc-900 border border-zinc-200 flex items-center justify-center"><i class="fa-solid fa-cart-plus text-[13px]"></i></button></div>`
-      : `<div class="grid grid-cols-[1.1fr_0.9fr] gap-2"><button onclick="event.stopPropagation(); openReader('${safeFile}', '${safeTitle}', '${book.id}')" class="h-[40px] bg-zinc-900 hover:bg-black text-white rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-play text-[10px]"></i> Oku</button><button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${safeFile}')" class="h-[40px] bg-white hover:bg-zinc-50 text-zinc-900 border border-zinc-200 rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-arrow-down text-[11px]"></i> İndir</button></div>`;
-    grid.innerHTML += `<article class="group bg-white dark:bg-zinc-900 border border-zinc-200/70 dark:border-zinc-800 rounded-[20px] p-3 flex flex-col hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.15)] transition-all duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[3/4.2] rounded-[14px] overflow-hidden relative bg-zinc-100 dark:bg-zinc-800 cursor-pointer"><img src="${cover}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div><!-- kategori rozeti kapağın üstünden altına taşındı --><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-3 right-3 w-8 h-8 bg-white/90 dark:bg-zinc-900/90 backdrop-blur rounded-full flex items-center justify-center transition hover:scale-105 shadow-sm border border-zinc-200/50"><i class="${heartClass} text-[13px]"></i></button>${priceBadge}</div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-900 dark:text-zinc-100 line-clamp-2 cursor-pointer group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition min-h-[38px]">${book.baslik}</h4><p class="text-[12.5px] font-medium text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">${book.yazar}</p><span class="mt-2 inline-block bg-white/90 dark:bg-zinc-900/90 text-zinc-900 dark:text-zinc-100 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide border border-zinc-200/50">${(book.kategori || 'Genel').toUpperCase()}</span><div class="mt-auto pt-3 flex flex-col gap-2">${primaryAction}</div></div></article>`;
+      ? `<div class="flex gap-2"><button onclick="event.stopPropagation(); openPurchaseModal('${book.id}')" class="flex-1 h-[40px] bg-zinc-900 hover:bg-black text-white rounded-full text-[12.5px] font-semibold tracking-wide transition flex items-center justify-center gap-2"><i class="fa-solid fa-lock text-[11px]"></i> Satın Al — ₺${price.toLocaleString('tr-TR')}</button><button onclick="event.stopPropagation(); addToCart('${book.id}')" title="Sepete ekle" class="cart-add w-[40px] h-[40px] shrink-0 rounded-full bg-white text-zinc-900 border border-[#1a4066] flex items-center justify-center"><i class="fa-solid fa-cart-plus text-[13px]"></i></button></div>`
+      : `<div class="grid grid-cols-[1.1fr_0.9fr] gap-2"><button onclick="event.stopPropagation(); openReader('${safeFile}', '${safeTitle}', '${book.id}')" class="h-[40px] bg-zinc-900 hover:bg-black text-white rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-play text-[10px]"></i> Oku</button><button onclick="event.stopPropagation(); checkDownload(event, '${book.id}', '${safeFile}')" class="h-[40px] bg-white hover:bg-[#0d2a4a] text-zinc-900 border border-[#1a4066] rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-arrow-down text-[11px]"></i> İndir</button></div>`;
+    grid.innerHTML += `<article class="group bg-white dark:bg-zinc-900 border border-[#1a4066]/70 dark:border-zinc-800 rounded-[20px] p-3 flex flex-col hover:border-zinc-300 dark:hover:border-zinc-700 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.15)] transition-all duration-300"><div onclick="openBookModal('${book.id}')" class="w-full aspect-[3/4.2] rounded-[14px] overflow-hidden relative bg-zinc-100 dark:bg-zinc-800 cursor-pointer"><img src="${cover}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div><!-- kategori rozeti kapağın üstünden altına taşındı --><button onclick="event.stopPropagation(); toggleFavorite('${book.id}', this)" class="absolute top-3 right-3 w-8 h-8 bg-white/90 dark:bg-zinc-900/90 backdrop-blur rounded-full flex items-center justify-center transition hover:scale-105 shadow-sm border border-[#1a4066]/50"><i class="${heartClass} text-[13px]"></i></button>${priceBadge}</div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-900 dark:text-zinc-100 line-clamp-2 cursor-pointer group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition min-h-[38px]">${book.baslik}</h4><p class="text-[12.5px] font-medium text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">${book.yazar}</p><span class="mt-2 inline-block bg-white/90 dark:bg-zinc-900/90 text-zinc-900 dark:text-zinc-100 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide border border-[#1a4066]/50">${(book.kategori || 'Genel').toUpperCase()}</span><div class="mt-auto pt-3 flex flex-col gap-2">${primaryAction}</div></div></article>`;
   });
 };
 function renderHomeSections() {
@@ -1912,7 +1917,7 @@ window.__couponPrice = (p) => {
   return Math.max(1, p - d);
 };
 function couponBox(ctx) {
-  return `<div class="mt-4 flex gap-2"><input id="${ctx}CouponInput" placeholder="Kupon kodu" class="flex-1 h-10 rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 text-[13px] uppercase"><button onclick="applyCoupon('${ctx}')" class="h-10 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold">Uygula</button></div><p id="${ctx}CouponMsg" class="text-[11.5px] mt-1.5 min-h-[16px]"></p>`;
+  return `<div class="mt-4 flex gap-2"><input id="${ctx}CouponInput" placeholder="Kupon kodu" class="flex-1 h-10 rounded-full border border-[#1a4066] dark:border-zinc-700 bg-white dark:bg-zinc-800 px-4 text-[13px] uppercase"><button onclick="applyCoupon('${ctx}')" class="h-10 px-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[12.5px] font-semibold">Uygula</button></div><p id="${ctx}CouponMsg" class="text-[11.5px] mt-1.5 min-h-[16px]"></p>`;
 }
 window.applyCoupon = (ctx) => {
   const kod = ($(ctx + 'CouponInput').value || '').trim().toUpperCase();
@@ -1969,7 +1974,7 @@ function updatePremiumUI() {
 function renderPlans() {
   $('planList').innerHTML = PLANLAR.map(p => {
     const f = window.__couponPrice(p.fiyat), sel = p.id === selectedPlan.id;
-    return `<button onclick="selectPlan('${p.id}')" class="text-left rounded-[16px] border p-4 flex items-center justify-between gap-3 transition ${sel ? 'border-zinc-900 dark:border-white ring-1 ring-zinc-900 dark:ring-white' : 'border-zinc-200 dark:border-zinc-700'}"><span><span class="block font-semibold text-[14px]">${esc(p.ad)}</span><span class="block text-[12px] text-zinc-500 mt-0.5">${esc(p.not)}</span></span><span class="text-right font-bold text-[16px] whitespace-nowrap">${f < p.fiyat ? `<span class="block text-[11px] font-normal line-through text-zinc-400">${TL(p.fiyat)}</span>` : ''}${TL(f)}</span></button>`;
+    return `<button onclick="selectPlan('${p.id}')" class="text-left rounded-[16px] border p-4 flex items-center justify-between gap-3 transition ${sel ? 'border-zinc-900 dark:border-white ring-1 ring-zinc-900 dark:ring-white' : 'border-[#1a4066] dark:border-zinc-700'}"><span><span class="block font-semibold text-[14px]">${esc(p.ad)}</span><span class="block text-[12px] text-zinc-500 mt-0.5">${esc(p.not)}</span></span><span class="text-right font-bold text-[16px] whitespace-nowrap">${f < p.fiyat ? `<span class="block text-[11px] font-normal line-through text-zinc-400">${TL(p.fiyat)}</span>` : ''}${TL(f)}</span></button>`;
   }).join('');
 }
 window.selectPlan = (id) => { selectedPlan = PLANLAR.find(p => p.id === id) || selectedPlan; renderPlans(); };
@@ -2010,7 +2015,7 @@ window.openBookModal = async (id) => {
   let row = $('modalExtraRow');
   if (!row) { row = document.createElement('div'); row.id = 'modalExtraRow'; row.className = 'mt-2 flex gap-2'; $('modalBuyBtn').insertAdjacentElement('afterend', row); }
   if (price > 0 && !owned) {
-    row.innerHTML = `<button onclick="startPreview('${b.id}')" class="flex-1 h-10 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 font-semibold text-[12.5px]"><i class="fa-regular fa-eye mr-1.5"></i>Örnek bölümü oku</button><button onclick="closeBookModal();openPremiumModal()" class="flex-1 h-10 rounded-full bg-amber-500 text-zinc-950 font-semibold text-[12.5px]"><i class="fa-solid fa-crown mr-1.5 text-[11px]"></i>Premium ile oku</button><button onclick="addToCart('${b.id}')" title="Sepete ekle" class="w-10 h-10 shrink-0 rounded-full bg-zinc-900 text-white flex items-center justify-center"><i class="fa-solid fa-cart-plus text-[13px]"></i></button>`;
+    row.innerHTML = `<button onclick="startPreview('${b.id}')" class="flex-1 h-10 rounded-full bg-white dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 font-semibold text-[12.5px]"><i class="fa-regular fa-eye mr-1.5"></i>Örnek bölümü oku</button><button onclick="closeBookModal();openPremiumModal()" class="flex-1 h-10 rounded-full bg-amber-500 text-zinc-950 font-semibold text-[12.5px]"><i class="fa-solid fa-crown mr-1.5 text-[11px]"></i>Premium ile oku</button><button onclick="addToCart('${b.id}')" title="Sepete ekle" class="w-10 h-10 shrink-0 rounded-full bg-zinc-900 text-white flex items-center justify-center"><i class="fa-solid fa-cart-plus text-[13px]"></i></button>`;
   } else {
     row.innerHTML = '';
     if (price > 0 && window.__premiumActive && !userPurchases.includes(b.id) && !(window.isAdmin && window.isAdmin())) $('modalPriceBadge').innerText = 'Premium ✓';
@@ -2110,21 +2115,21 @@ function renderStats() {
   const prem = pi
     ? `<div class="p-3 rounded-[14px] bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 text-[12.5px] text-emerald-800 dark:text-emerald-300"><i class="fa-solid fa-crown mr-1.5"></i>${esc(pi.plan.ad)} — ${pi.bitis ? pi.bitis.toLocaleDateString('tr-TR') + ' tarihine kadar' : 'süresiz'}</div>`
     : `<button onclick="document.getElementById('profileModal').classList.remove('modal-active');openPremiumModal()" class="w-full p-3 rounded-[14px] bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900 text-[12.5px] text-amber-800 dark:text-amber-300 text-left"><i class="fa-solid fa-crown mr-1.5"></i>Premium ile tüm kitaplara eriş — planları gör</button>`;
-  const box = (v, l) => `<div class="p-3 rounded-[14px] border border-zinc-200 dark:border-zinc-700 text-center"><div class="font-bold text-[18px] tracking-tight">${v}</div><div class="text-[11px] text-zinc-500 mt-0.5">${l}</div></div>`;
+  const box = (v, l) => `<div class="p-3 rounded-[14px] border border-[#1a4066] dark:border-zinc-700 text-center"><div class="font-bold text-[18px] tracking-tight">${v}</div><div class="text-[11px] text-zinc-500 mt-0.5">${l}</div></div>`;
   el.innerHTML = `${prem}
-    <div class="p-4 rounded-[16px] border border-zinc-200 dark:border-zinc-700">
+    <div class="p-4 rounded-[16px] border border-[#1a4066] dark:border-zinc-700">
       <div class="flex justify-between items-baseline"><span class="font-semibold text-[13px]">Bugün</span><span class="text-[12px] text-zinc-500">${Math.floor(bsn / 60)} / ${s.hedef} dk</span></div>
       <div class="h-2 rounded-full bg-zinc-100 dark:bg-zinc-800 mt-2.5 overflow-hidden"><div class="h-full rounded-full bg-emerald-500" style="width:${yuzde}%"></div></div>
       <button onclick="setGoal()" class="mt-2.5 text-[11.5px] text-zinc-500 underline">Günlük hedefi değiştir</button>
     </div>
     <div class="grid grid-cols-3 gap-2.5">${box(fmtSure(toplamSn(s)), 'Toplam süre')}${box(seri(s) + ' gün', 'Seri')}${box(s.bitenler.length, 'Bitirilen kitap')}</div>
-    <div class="p-4 rounded-[16px] border border-zinc-200 dark:border-zinc-700">
+    <div class="p-4 rounded-[16px] border border-[#1a4066] dark:border-zinc-700">
       <div class="font-semibold text-[13px] mb-3">Son 7 gün</div>
       <div class="flex items-end gap-2 h-24">${gunler.map(g => { const v = s.gun[g.k] || 0; return `<div class="flex-1 flex flex-col items-center justify-end h-full gap-1.5"><div class="w-full rounded-t-md ${g.k === bugun() ? 'bg-emerald-500' : 'bg-zinc-900 dark:bg-zinc-300'}" style="height:${Math.max(3, Math.round(v / maks * 100))}%" title="${Math.floor(v / 60)} dk"></div><span class="text-[10px] text-zinc-500">${g.ad}</span></div>`; }).join('')}</div>
     </div>
     <div>
       <div class="font-semibold text-[13px] mb-2.5">Rozetler <span class="text-zinc-500 font-normal">${s.rozet.length}/${ROZETLER.length}</span></div>
-      <div class="grid grid-cols-2 gap-2.5">${ROZETLER.map(r => { const k = s.rozet.includes(r.id); return `<div class="flex items-center gap-3 p-3 rounded-[14px] border ${k ? 'border-amber-300 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-800' : 'border-zinc-200 dark:border-zinc-700 opacity-50'}"><div class="w-9 h-9 rounded-full flex items-center justify-center ${k ? 'bg-amber-500 text-zinc-950' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500'}"><i class="fa-solid ${r.ikon} text-[13px]"></i></div><div class="leading-tight"><div class="text-[12.5px] font-semibold">${r.ad}</div><div class="text-[10.5px] text-zinc-500 mt-0.5">${r.acik}</div></div></div>`; }).join('')}</div>
+      <div class="grid grid-cols-2 gap-2.5">${ROZETLER.map(r => { const k = s.rozet.includes(r.id); return `<div class="flex items-center gap-3 p-3 rounded-[14px] border ${k ? 'border-amber-300 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-800' : 'border-[#1a4066] dark:border-zinc-700 opacity-50'}"><div class="w-9 h-9 rounded-full flex items-center justify-center ${k ? 'bg-amber-500 text-zinc-950' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-500'}"><i class="fa-solid ${r.ikon} text-[13px]"></i></div><div class="leading-tight"><div class="text-[12.5px] font-semibold">${r.ad}</div><div class="text-[10.5px] text-zinc-500 mt-0.5">${r.acik}</div></div></div>`; }).join('')}</div>
     </div>
     <p class="text-[11px] text-zinc-500">İstatistikler bu cihazda saklanır. Önizleme (örnek bölüm) okumaları sayılmaz.</p>`;
 }
@@ -2216,8 +2221,8 @@ window.delNote = (bid, tur, id) => {
 function noteItems(bid, b, jump) {
   const btn = 'px-2.5 h-7 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[11px] font-semibold';
   const del = (tur, id) => `<button onclick="delNote('${bid}','${tur}','${id}')" class="w-7 h-7 rounded-full text-zinc-500 hover:text-red-600" title="Sil"><i class="fa-regular fa-trash-can text-[12px]"></i></button>`;
-  const ym = (b.ym || []).map(y => `<div class="flex items-center justify-between gap-2 p-3 rounded-[12px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-[12.5px]"><span><i class="fa-solid fa-bookmark mr-2 text-amber-500"></i>${y.cfi ? 'EPUB konumu' : 'Konum %' + y.pct}</span><span class="flex gap-1">${jump ? `<button onclick="gotoBookmark('${y.id}')" class="${btn}">Git</button>` : ''}${del('ym', y.id)}</span></div>`).join('');
-  const hl = (b.hl || []).map(h => `<div class="p-3 rounded-[12px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-[12.5px]" style="border-left:4px solid ${dot(h.renk)}"><p class="leading-5 italic">${esc(h.metin)}</p>${h.not ? `<p class="mt-1.5 font-medium leading-5">${esc(h.not)}</p>` : ''}<div class="mt-2 flex gap-1">${jump ? `<button onclick="gotoHighlight('${h.id}')" class="${btn}">Git</button>` : ''}${del('hl', h.id)}</div></div>`).join('');
+  const ym = (b.ym || []).map(y => `<div class="flex items-center justify-between gap-2 p-3 rounded-[12px] bg-[#0d2a4a] dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 text-[12.5px]"><span><i class="fa-solid fa-bookmark mr-2 text-amber-500"></i>${y.cfi ? 'EPUB konumu' : 'Konum %' + y.pct}</span><span class="flex gap-1">${jump ? `<button onclick="gotoBookmark('${y.id}')" class="${btn}">Git</button>` : ''}${del('ym', y.id)}</span></div>`).join('');
+  const hl = (b.hl || []).map(h => `<div class="p-3 rounded-[12px] bg-[#0d2a4a] dark:bg-zinc-800 border border-[#1a4066] dark:border-zinc-700 text-[12.5px]" style="border-left:4px solid ${dot(h.renk)}"><p class="leading-5 italic">${esc(h.metin)}</p>${h.not ? `<p class="mt-1.5 font-medium leading-5">${esc(h.not)}</p>` : ''}<div class="mt-2 flex gap-1">${jump ? `<button onclick="gotoHighlight('${h.id}')" class="${btn}">Git</button>` : ''}${del('hl', h.id)}</div></div>`).join('');
   return ym + hl;
 }
 function renderNotesPanel() {
@@ -2234,7 +2239,7 @@ function renderProfileNotes() {
   const n = getNotes(), ids = Object.keys(n).filter(k => (n[k].hl || []).length + (n[k].ym || []).length);
   if (!ids.length) { el.innerHTML = '<p class="text-zinc-500 text-[13px] text-center py-6">Henüz not, vurgu ya da yer imi yok.</p>'; return; }
   el.innerHTML = ids.map(k => `<div><div class="font-semibold text-[13px] mb-2">${esc(n[k].ad || 'Kitap')} <span class="text-zinc-500 font-normal">${(n[k].hl || []).length} vurgu · ${(n[k].ym || []).length} yer imi</span></div><div class="space-y-2">${noteItems(k, n[k], false)}</div></div>`).join('')
-    + '<button onclick="exportNotes()" class="w-full h-10 rounded-full border border-zinc-200 dark:border-zinc-700 text-[12.5px] font-semibold"><i class="fa-regular fa-copy mr-1.5"></i>Tüm notları kopyala</button>';
+    + '<button onclick="exportNotes()" class="w-full h-10 rounded-full border border-[#1a4066] dark:border-zinc-700 text-[12.5px] font-semibold"><i class="fa-regular fa-copy mr-1.5"></i>Tüm notları kopyala</button>';
 }
 window.exportNotes = () => {
   const n = getNotes();
@@ -2254,7 +2259,7 @@ $('readerModal').insertAdjacentHTML('beforeend', `
     <button onclick="addHighlight('pembe')" class="w-6 h-6 rounded-full" style="background:#f472b6" title="Pembe vurgu"></button>
     <button onclick="addHighlight('sari', true)" class="h-7 px-3 rounded-full bg-white text-zinc-900 text-[12px] font-semibold"><i class="fa-regular fa-pen-to-square mr-1"></i>Not</button>
   </div>
-  <aside id="notesPanel" class="hidden absolute top-[60px] right-0 bottom-0 w-full sm:w-[360px] z-30 flex-col bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border-l border-zinc-200 dark:border-zinc-800 shadow-2xl">
+  <aside id="notesPanel" class="hidden absolute top-[60px] right-0 bottom-0 w-full sm:w-[360px] z-30 flex-col bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border-l border-[#1a4066] dark:border-zinc-800 shadow-2xl">
     <div class="p-4 flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800"><h4 class="font-semibold text-[14px]">Notlarım</h4><button onclick="toggleNotesPanel(false)" class="w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800"><i class="fa-solid fa-xmark text-[12px]"></i></button></div>
     <div id="notesList" class="flex-1 overflow-y-auto p-4 space-y-2.5"></div>
   </aside>
@@ -2310,7 +2315,7 @@ window.addToCart = (id) => {
 window.removeFromCart = (id) => { setCart(getCart().filter(x => x !== id)); renderCart(); };
 function renderCart() {
   const items = cartItems(), t = cartTotals(items);
-  $('cartList').innerHTML = items.length ? items.map(b => `<div class="flex items-center gap-3 p-2.5 rounded-[14px] border border-zinc-200 dark:border-zinc-700"><img src="${esc(b.kapakUrl || '')}" onerror="this.style.visibility='hidden'" class="w-11 h-15 h-[60px] object-cover rounded-lg bg-zinc-100"><div class="flex-1 min-w-0"><div class="text-[13px] font-semibold truncate">${esc(b.baslik)}</div><div class="text-[12px] text-zinc-500 mt-0.5">${TL(b.fiyat)}</div></div><button onclick="removeFromCart('${b.id}')" class="w-8 h-8 rounded-full text-zinc-500 hover:text-red-600" title="Kaldır"><i class="fa-regular fa-trash-can text-[13px]"></i></button></div>`).join('')
+  $('cartList').innerHTML = items.length ? items.map(b => `<div class="flex items-center gap-3 p-2.5 rounded-[14px] border border-[#1a4066] dark:border-zinc-700"><img src="${esc(b.kapakUrl || '')}" onerror="this.style.visibility='hidden'" class="w-11 h-15 h-[60px] object-cover rounded-lg bg-zinc-100"><div class="flex-1 min-w-0"><div class="text-[13px] font-semibold truncate">${esc(b.baslik)}</div><div class="text-[12px] text-zinc-500 mt-0.5">${TL(b.fiyat)}</div></div><button onclick="removeFromCart('${b.id}')" class="w-8 h-8 rounded-full text-zinc-500 hover:text-red-600" title="Kaldır"><i class="fa-regular fa-trash-can text-[13px]"></i></button></div>`).join('')
     : '<p class="text-center text-[13px] text-zinc-500 py-10">Sepetin boş. Kitap kartlarındaki <i class="fa-solid fa-cart-plus"></i> düğmesiyle ekleyebilirsin.</p>';
   $('cartCoupon').style.display = items.length ? '' : 'none';
   $('cartPay').classList.toggle('hidden', !items.length);
