@@ -104,7 +104,11 @@
     .feat-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px -18px rgba(99,102,241,.4)}
     #bookGrid article{animation:rise .6s cubic-bezier(.2,.8,.2,1) both;transition:transform .35s,box-shadow .35s,border-color .35s}
     #bookGrid article:nth-child(4n+2){animation-delay:.06s} #bookGrid article:nth-child(4n+3){animation-delay:.12s} #bookGrid article:nth-child(4n+4){animation-delay:.18s}
-    #bookGrid article{border:1px solid #eee!important;background:#fff!important;box-shadow:0 1px 6px rgba(0,0,0,.05);aspect-ratio:auto;border-radius:16px!important}
+    /* Kitap kart satırı — çiçek motifli zemin (ebooks-gibi ferah, botanik desen) */
+    #bookGrid{background:linear-gradient(180deg,rgba(255,251,245,.7),rgba(255,255,255,.7));border-radius:28px;padding:18px 14px 22px;position:relative}
+    #bookGrid:before{content:"✿ ❀ ✿ ❀ ✿ ❀ ✿ ❀";position:absolute;left:0;right:0;top:6px;text-align:center;color:rgba(212,175,55,.28);font-size:22px;letter-spacing:18px;pointer-events:none}
+    #bookGrid article{border:1px solid #eee!important;background:#fff!important;box-shadow:0 1px 10px rgba(0,0,0,.05);aspect-ratio:auto;border-radius:16px!important}
+    #bookGrid article:before{content:"";display:block;height:0}
     #bookGrid article:hover{transform:translateY(-3px);box-shadow:0 16px 36px -14px rgba(242,122,26,.35)!important;border-color:#f27a1a!important}
     #bookGrid article img{aspect-ratio:3/4.2;object-fit:cover}
     .cart-add{transition:transform .2s,background .2s} .cart-add:hover{transform:scale(1.08);background:#e11d48;color:#fff}
@@ -224,7 +228,7 @@
         <a href="#youtubeBolumu" class="px-4 py-1.5 rounded-full text-[13px] font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 transition">YouTube</a>
       </nav>
       <div class="flex items-center gap-2">
-        <button id="cartBtn" onclick="openCart()" title="Sepetim" class="relative w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center text-zinc-600 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition"><i class="fa-solid fa-cart-shopping text-[13px]"></i><span id="cartBadge" class="hidden absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-600 text-white text-[10px] font-bold items-center justify-center">0</span></button>
+        <!-- Sepet kaldırıldı -->
         <!-- Premium kaldırıldı -->
         <!-- Admin/APK/Giriş kaldırıldı (ebooks stili sade vitrin) -->
       </div>
