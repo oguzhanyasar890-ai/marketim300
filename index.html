@@ -247,7 +247,9 @@
     #bookGrid::-webkit-scrollbar{width:10px;height:10px}
     #bookGrid::-webkit-scrollbar-track{background:#0a1f3a}
     #bookGrid::-webkit-scrollbar-thumb{background:#d90429;border-radius:999px}
-    #bookGrid{grid-template-columns:repeat(4,minmax(180px,1fr))!important;max-height:640px!important;overflow:auto!important}
+    #bookGrid{display:grid!important;grid-auto-flow:column!important;grid-template-rows:repeat(2,auto)!important;grid-template-columns:none!important;grid-auto-columns:230px!important;max-height:none!important;overflow-x:auto!important;overflow-y:hidden!important}
+    #bookGrid.tumunu-gor{grid-auto-flow:row!important;grid-template-rows:none!important;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))!important;grid-auto-columns:auto!important;max-height:70vh!important;overflow-x:hidden!important;overflow-y:auto!important}
+    button[aria-label="Kitapları yukarı kaydır"],button[aria-label="Kitapları aşağı kaydır"]{display:none!important}
     .m3000-hero{background:linear-gradient(rgba(10,31,58,.78),rgba(10,31,58,.78)),url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600") center/cover no-repeat!important;backdrop-filter:none!important}
     main#kitaplarBolumu ~ section,main#kitaplarBolumu ~ footer { background:linear-gradient(rgba(10,31,58,.62),rgba(10,31,58,.62)),url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600") center/cover no-repeat!important }
     main#kitaplarBolumu ~ section{max-width:none!important;margin:0!important;padding:36px 24px!important;border-radius:0!important;border:0!important}
@@ -330,7 +332,7 @@
       </div>
       <div class="mt-6 pt-5 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between gap-4">
         <div id="categoryContainer" class="flex gap-2 overflow-x-auto scrollbar-hide"></div>
-        <span id="bookCount" aria-live="polite" class="flex-shrink-0 text-[11px] font-semibold px-3 py-1.5 rounded-full" style="background:#ffffff;color:#fff">0 eser</span>
+        <div class="flex items-center gap-2"><button id="tumunuGorBtn" onclick="tumunuGor()" class="h-8 px-3 rounded-full text-[11px] font-semibold" style="background:#ffffff;color:#22c55e"><i class="fa-solid fa-expand mr-1"></i>Tümünü görüntüle</button><span id="bookCount" aria-live="polite" class="flex-shrink-0 text-[11px] font-semibold px-3 py-1.5 rounded-full" style="background:#ffffff;color:#fff">0 eser</span></div>
       </div>
     </div>
 
@@ -1455,6 +1457,17 @@ window.filterCategory = (cat, btnEl) => {
   document.querySelectorAll('.cat-btn').forEach(b => { b.className = "cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-red-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-brand-600 hover:text-brand-600 bg-white dark:bg-slate-900"; });
   if(btnEl) { btnEl.className = "cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-brand-600 bg-brand-600 text-white shadow-md shadow-brand-600/20"; }
   renderBooks();
+};
+window.tumunuGor = () => {
+  const g = document.getElementById('bookGrid');
+  const btn = document.getElementById('tumunuGorBtn');
+  const acik = g.classList.toggle('tumunu-gor');
+  btn.innerHTML = acik ? '<i class="fa-solid fa-compress mr-1"></i>Geri dön' : '<i class="fa-solid fa-expand mr-1"></i>Tümünü görüntüle';
+  window.filterCategory('Tümü');
+  searchQuery = '';
+  const si = document.getElementById('searchInput'); if (si) si.value = '';
+  renderBooks();
+  g.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 };
 
 async function loadBooks() {
