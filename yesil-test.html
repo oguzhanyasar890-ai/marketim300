@@ -262,6 +262,7 @@
     body.kayitli .tel-kayitli{display:inline}
     body.kayitli .tel-misafir{display:none}
     .tel-blur{filter:blur(5px);user-select:none;pointer-events:none}
+    body.kayitli .kayit-ol-metni{display:none}
     .m3000-hero{background:linear-gradient(rgba(10,31,58,.78),rgba(10,31,58,.78)),url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600") center/cover no-repeat!important;backdrop-filter:none!important}
     main#kitaplarBolumu ~ section,main#kitaplarBolumu ~ footer { background:linear-gradient(rgba(10,31,58,.62),rgba(10,31,58,.62)),url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600") center/cover no-repeat!important }
     main#kitaplarBolumu ~ section{max-width:none!important;margin:0!important;padding:36px 24px!important;border-radius:0!important;border:0!important}
@@ -289,6 +290,7 @@
       </nav>
       <div class="flex items-center gap-2">
         <!-- Sepet kaldırıldı -->
+        <span class="kayit-ol-metni self-start pt-0.5 text-[11px] font-medium leading-none whitespace-nowrap">Satın almak için kayıt olun</span>
         <button id="kayitOlBtn" onclick="openKayitModal()" class="h-9 px-4 rounded-full text-[12.5px] font-semibold inline-flex items-center gap-1.5" style="background:#ffffff;color:#22c55e;border:1px solid #22c55e"><i class="fa-solid fa-user-plus"></i> Kayıt Ol</button>
         <a href="https://wa.me/905318479349" target="_blank" class="h-9 px-4 rounded-full text-[12.5px] font-semibold inline-flex items-center gap-1.5 wa-btn wa-btn-disabled" style="background:#ffffff"><i class="fa-brands fa-whatsapp" style="color:#fff"></i> <span style="color:#fff">WhatsApp</span></a>
         <!-- Admin/APK/Giriş kaldırıldı (ebooks stili sade vitrin) -->
