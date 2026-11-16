@@ -247,6 +247,7 @@
     #bookGrid::-webkit-scrollbar{width:10px;height:10px}
     #bookGrid::-webkit-scrollbar-track{background:#0a1f3a}
     #bookGrid::-webkit-scrollbar-thumb{background:#d90429;border-radius:999px}
+    #bookGrid{grid-template-columns:repeat(2,minmax(240px,1fr))!important;max-height:640px!important;overflow:auto!important}
     .m3000-hero{background:linear-gradient(rgba(10,31,58,.78),rgba(10,31,58,.78)),url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600") center/cover no-repeat!important;backdrop-filter:none!important}
     main#kitaplarBolumu ~ section,main#kitaplarBolumu ~ footer { background:linear-gradient(rgba(10,31,58,.62),rgba(10,31,58,.62)),url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600") center/cover no-repeat!important }
     main#kitaplarBolumu ~ section{max-width:none!important;margin:0!important;padding:36px 24px!important;border-radius:0!important;border:0!important}
@@ -1457,7 +1458,6 @@ window.filterCategory = (cat, btnEl) => {
 };
 
 async function loadBooks() {
-  // SADECE veritabanı (panel /api/vitrin) kitapları gösterilir. Veritabanıda olmayan kitap listelenmez.
   // NOT: marketim3000.online/api → Cloudflare kenarında 404 verir, o yüzden panel adresi kullanılır.
   const VITRIN_URL = 'https://panel.marketim3000.online/api/vitrin';
   try {
@@ -1478,6 +1478,27 @@ async function loadBooks() {
       indirmeSayisi: r.indirmeSayisi || 0,
       tarih: null
     }));
+    try {
+      const snap = await getDocs(collection(db, "kitaplar"));
+      const mevcut = new Set(allBooks.map(b => (b.baslik || '').toLocaleLowerCase('tr-TR').trim()));
+      snap.forEach(d => {
+        const k = d.data() || {};
+        const baslik = String(k.baslik || '').trim();
+        if (!baslik || mevcut.has(baslik.toLocaleLowerCase('tr-TR'))) return;
+        mevcut.add(baslik.toLocaleLowerCase('tr-TR'));
+        allBooks.push({
+          id: d.id, baslik,
+          yazar: k.yazar || 'Oğuzhan Yaşar',
+          kategori: k.kategori || 'Genel',
+          dosyaAdi: k.dosyaAdi || (baslik + '.pdf'),
+          kapakUrl: k.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800',
+          aciklama: k.aciklama || '',
+          fiyat: Number(k.fiyat) || 0,
+          indirmeSayisi: k.indirmeSayisi || 0,
+          tarih: k.tarih || null
+        });
+      });
+    } catch (e) {}
     const li = document.getElementById('loadingIndicator'); if (li) li.style.display = 'none';
     renderBooks();
     renderHomeSections();
