@@ -247,7 +247,13 @@
     #bookGrid::-webkit-scrollbar{width:10px;height:10px}
     #bookGrid::-webkit-scrollbar-track{background:#0a1f3a}
     #bookGrid::-webkit-scrollbar-thumb{background:#d90429;border-radius:999px}
-    #bookGrid{display:grid!important;grid-auto-flow:column!important;grid-template-rows:repeat(2,auto)!important;grid-template-columns:none!important;grid-auto-columns:230px!important;max-height:none!important;overflow-x:auto!important;overflow-y:hidden!important}
+    #bookGrid{display:grid!important;grid-auto-flow:column!important;grid-template-rows:repeat(2,auto)!important;grid-template-columns:none!important;grid-auto-columns:300px!important;max-height:none!important;overflow-x:auto!important;overflow-y:hidden!important}
+    #bookGrid article{max-width:none!important;padding:10px!important}
+    #bookGrid article>div:first-child{aspect-ratio:16/9!important}
+    #bookGrid article img{aspect-ratio:auto!important;width:100%!important;height:100%!important;object-fit:cover}
+    #bookGrid article>div:last-child{padding-top:8px!important;padding-bottom:0!important}
+    #bookGrid article h4{min-height:0!important;font-size:14px!important}
+    #bookGrid article a{height:34px!important}
     #bookGrid.tumunu-gor{grid-auto-flow:row!important;grid-template-rows:none!important;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))!important;grid-auto-columns:auto!important;max-height:70vh!important;overflow-x:hidden!important;overflow-y:auto!important}
     button[aria-label="Kitapları yukarı kaydır"],button[aria-label="Kitapları aşağı kaydır"]{display:none!important}
     #kayitModal{display:none}
