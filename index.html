@@ -1505,53 +1505,63 @@ window.tumunuGor = () => {
 async function loadBooks() {
   // NOT: marketim3000.online/api → Cloudflare kenarında 404 verir, o yüzden panel adresi kullanılır.
   const VITRIN_URL = 'https://panel.marketim3000.online/api/vitrin';
+  const li = document.getElementById('loadingIndicator');
+  let rows;
   try {
-    const res = await fetch(VITRIN_URL, { cache: 'no-store' });
+    const ctrl = new AbortController();
+    const zamanAsimi = setTimeout(() => ctrl.abort(), 8000);
+    const res = await fetch(VITRIN_URL, { cache: 'no-store', signal: ctrl.signal });
+    clearTimeout(zamanAsimi);
     if (!res.ok) throw new Error('Vitrin API hatası: ' + res.status);
-    const rows = await res.json();
-    allBooks = (rows || []).map(r => ({
-      id: String(r.id),
-      baslik: r.ad || r.baslik || 'Başlıksız',
-      yazar: r.yazar || 'Oğuzhan Yaşar',
-      kategori: r.kategori || 'Genel',
-      dosyaAdi: (r.ad || r.baslik || 'kitap') + '.pdf',
-      kapakUrl: (r.kapak_dosyasi && String(r.kapak_dosyasi).includes('kapak_') && !String(r.kapak_dosyasi).startsWith('http'))
-        ? `https://panel.marketim3000.online/api/kapak/${r.id}`
-        : (r.kapakUrl || r.kapak_dosyasi || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'),
-      aciklama: r.alt_baslik || r.kisa_tanitim || '',
-      fiyat: Number(r.fiyat) || Number(r.indirimli_fiyat) || 0,
-      indirmeSayisi: r.indirmeSayisi || 0,
-      tarih: null
-    }));
-    try {
-      const snap = await getDocs(collection(db, "kitaplar"));
-      const mevcut = new Set(allBooks.map(b => (b.baslik || '').toLocaleLowerCase('tr-TR').trim()));
-      snap.forEach(d => {
-        const k = d.data() || {};
-        const baslik = String(k.baslik || '').trim();
-        if (!baslik || mevcut.has(baslik.toLocaleLowerCase('tr-TR'))) return;
-        mevcut.add(baslik.toLocaleLowerCase('tr-TR'));
-        allBooks.push({
-          id: d.id, baslik,
-          yazar: k.yazar || 'Oğuzhan Yaşar',
-          kategori: k.kategori || 'Genel',
-          dosyaAdi: k.dosyaAdi || (baslik + '.pdf'),
-          kapakUrl: k.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800',
-          aciklama: k.aciklama || '',
-          fiyat: Number(k.fiyat) || 0,
-          indirmeSayisi: k.indirmeSayisi || 0,
-          tarih: k.tarih || null
-        });
-      });
-    } catch (e) {}
-    const li = document.getElementById('loadingIndicator'); if (li) li.style.display = 'none';
-    renderBooks();
-    renderHomeSections();
+    rows = await res.json();
   } catch (error) {
-    const li = document.getElementById('loadingIndicator');
     if (li) li.innerHTML = `<p class="text-brand-600 text-xs font-bold">Kitaplar yüklenemedi: ${error.message}</p>`;
     allBooks = [];
+    renderBooks();
+    return;
   }
+  allBooks = (rows || []).map(r => ({
+    id: String(r.id),
+    baslik: r.ad || r.baslik || 'Başlıksız',
+    yazar: r.yazar || 'Oğuzhan Yaşar',
+    kategori: r.kategori || 'Genel',
+    dosyaAdi: (r.ad || r.baslik || 'kitap') + '.pdf',
+    kapakUrl: (r.kapak_dosyasi && String(r.kapak_dosyasi).includes('kapak_') && !String(r.kapak_dosyasi).startsWith('http'))
+      ? `https://panel.marketim3000.online/api/kapak/${r.id}`
+      : (r.kapakUrl || r.kapak_dosyasi || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'),
+    aciklama: r.alt_baslik || r.kisa_tanitim || '',
+    fiyat: Number(r.fiyat) || Number(r.indirimli_fiyat) || 0,
+    indirmeSayisi: r.indirmeSayisi || 0,
+    tarih: null
+  }));
+  if (li) li.style.display = 'none';
+  renderBooks();
+  renderHomeSections();
+  try {
+    const snap = await Promise.race([
+      getDocs(collection(db, "kitaplar")),
+      new Promise((_, rej) => setTimeout(() => rej(new Error('zaman aşımı')), 5000))
+    ]);
+    const mevcut = new Set(allBooks.map(b => (b.baslik || '').toLocaleLowerCase('tr-TR').trim()));
+    snap.forEach(d => {
+      const k = d.data() || {};
+      const baslik = String(k.baslik || '').trim();
+      if (!baslik || mevcut.has(baslik.toLocaleLowerCase('tr-TR'))) return;
+      mevcut.add(baslik.toLocaleLowerCase('tr-TR'));
+      allBooks.push({
+        id: d.id, baslik,
+        yazar: k.yazar || 'Oğuzhan Yaşar',
+        kategori: k.kategori || 'Genel',
+        dosyaAdi: k.dosyaAdi || (baslik + '.pdf'),
+        kapakUrl: k.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800',
+        aciklama: k.aciklama || '',
+        fiyat: Number(k.fiyat) || 0,
+        indirmeSayisi: k.indirmeSayisi || 0,
+        tarih: k.tarih || null
+      });
+    });
+    renderBooks();
+  } catch (e) {}
 }
 window.renderBooks = () => {
   const grid = document.getElementById('bookGrid');
