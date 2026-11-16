@@ -250,6 +250,8 @@
     #bookGrid{display:grid!important;grid-auto-flow:column!important;grid-template-rows:repeat(2,auto)!important;grid-template-columns:none!important;grid-auto-columns:230px!important;max-height:none!important;overflow-x:auto!important;overflow-y:hidden!important}
     #bookGrid.tumunu-gor{grid-auto-flow:row!important;grid-template-rows:none!important;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))!important;grid-auto-columns:auto!important;max-height:70vh!important;overflow-x:hidden!important;overflow-y:auto!important}
     button[aria-label="Kitapları yukarı kaydır"],button[aria-label="Kitapları aşağı kaydır"]{display:none!important}
+    #kayitModal{display:none}
+    a.wa-btn-disabled{opacity:.45!important;pointer-events:none!important;filter:grayscale(1)!important;cursor:not-allowed!important}
     .m3000-hero{background:linear-gradient(rgba(10,31,58,.78),rgba(10,31,58,.78)),url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600") center/cover no-repeat!important;backdrop-filter:none!important}
     main#kitaplarBolumu ~ section,main#kitaplarBolumu ~ footer { background:linear-gradient(rgba(10,31,58,.62),rgba(10,31,58,.62)),url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1600") center/cover no-repeat!important }
     main#kitaplarBolumu ~ section{max-width:none!important;margin:0!important;padding:36px 24px!important;border-radius:0!important;border:0!important}
@@ -277,8 +279,8 @@
       </nav>
       <div class="flex items-center gap-2">
         <!-- Sepet kaldırıldı -->
-        <!-- Kayıt Ol kaldırıldı -->
-        <a href="https://wa.me/905318479349" target="_blank" class="h-9 px-4 rounded-full text-[12.5px] font-semibold inline-flex items-center gap-1.5" style="background:#ffffff"><i class="fa-brands fa-whatsapp" style="color:#fff"></i> <span style="color:#fff">WhatsApp</span></a>
+        <button id="kayitOlBtn" onclick="openKayitModal()" class="h-9 px-4 rounded-full text-[12.5px] font-semibold inline-flex items-center gap-1.5" style="background:#ffffff;color:#22c55e;border:1px solid #22c55e"><i class="fa-solid fa-user-plus"></i> Kayıt Ol</button>
+        <a href="https://wa.me/905318479349" target="_blank" class="h-9 px-4 rounded-full text-[12.5px] font-semibold inline-flex items-center gap-1.5 wa-btn wa-btn-disabled" style="background:#ffffff"><i class="fa-brands fa-whatsapp" style="color:#fff"></i> <span style="color:#fff">WhatsApp</span></a>
         <!-- Admin/APK/Giriş kaldırıldı (ebooks stili sade vitrin) -->
       </div>
     </div>
@@ -293,7 +295,7 @@
         <p>Asistanımız ile WhatsApp butonuna tıklayarak doğrudan iletişime geçin. Tüm kitaplara hızlıca ulaşın — sipariş, ödeme ve teslimat aynı sohbetten ilerler.</p>
         <div class="m3000-actions">
           <a href="#kitaplarBolumu" class="m3000-primary" style="background:#ffffff!important;color:#22c55e!important;box-shadow:0 8px 20px rgba(37,211,102,.35)"><i class="fa-solid fa-book-open"></i> Kitapları keşfet <i class="fa-solid fa-arrow-right"></i></a>
-          <a href="https://wa.me/905318479349" target="_blank" class="m3000-secondary" style="background:#ffffff!important;color:#22c55e!important;border-color:#25d366!important"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+          <a href="https://wa.me/905318479349" target="_blank" class="m3000-secondary wa-btn wa-btn-disabled" style="background:#ffffff!important;color:#22c55e!important;border-color:#25d366!important"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
         </div>
         <div class="m3000-trust-row" style="border-top:1px solid rgba(125,185,255,.25);padding-top:18px;margin-top:26px"><span style="background:rgba(125,185,255,.12);padding:8px 12px;border-radius:999px;border:1px solid rgba(125,185,255,.35)"><i class="fa-solid fa-book"></i> Zengin kitaplık</span><span style="background:rgba(125,185,255,.12);padding:8px 12px;border-radius:999px;border:1px solid rgba(125,185,255,.35)"><i class="fa-solid fa-headphones"></i> Sesli dinleme</span><span style="background:rgba(125,185,255,.12);padding:8px 12px;border-radius:999px;border:1px solid rgba(125,185,255,.35)"><i class="fa-solid fa-mobile-screen"></i> Her cihazda</span></div>
       </div>
@@ -1862,6 +1864,33 @@ document.addEventListener('keydown', (e) => {
 const savedTheme = localStorage.getItem('reader_theme');
 if(savedTheme) setReaderTheme(savedTheme);
 
+const KAYIT_KEY = 'm3000_kayitli_email';
+function waDurumunuGuncelle() {
+  const aktif = !!localStorage.getItem(KAYIT_KEY);
+  document.querySelectorAll('a.wa-btn').forEach(a => a.classList.toggle('wa-btn-disabled', !aktif));
+  const btn = document.getElementById('kayitOlBtn');
+  if (btn) btn.style.display = aktif ? 'none' : 'inline-flex';
+}
+window.openKayitModal = () => {
+  document.getElementById('kayitEmail').value = localStorage.getItem(KAYIT_KEY) || '';
+  document.getElementById('kayitMesaj').textContent = '';
+  document.getElementById('kayitModal').classList.add('modal-active');
+};
+window.closeKayitModal = () => document.getElementById('kayitModal').classList.remove('modal-active');
+window.kayitOl = async (ev) => {
+  ev.preventDefault();
+  const email = (document.getElementById('kayitEmail').value || '').trim().toLowerCase();
+  const msg = document.getElementById('kayitMesaj');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.textContent = 'Geçerli bir e-posta adresi girin.'; return; }
+  try {
+    await setDoc(doc(db, 'kayitli_epostalar', email.replace(/[^a-z0-9@_-]/g, '_')), { email, tarih: serverTimestamp() });
+  } catch (e) {}
+  localStorage.setItem(KAYIT_KEY, email);
+  waDurumunuGuncelle();
+  closeKayitModal();
+};
+waDurumunuGuncelle();
+
 function initApp() {
   loadCategories().then(() => loadBooks());
   loadSizdenGelenler();
@@ -2348,4 +2377,17 @@ window.checkoutCart = async () => {
   alert('Talebiniz alındı! Dekontu WhatsApp üzerinden gönderdiğinizde, onayın ardından kitaplar hesabınıza tanımlanacaktır.');
 };
 
-</script></body></html>
+</script>
+  <div id="kayitModal" class="fixed inset-0 z-[3000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4">
+    <div class="bg-white dark:bg-zinc-900 rounded-[24px] w-full max-w-[400px] p-7 border border-[#1a4066] shadow-xl relative">
+      <button onclick="closeKayitModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
+      <h3 class="font-bold text-[19px]">Kayıt Ol</h3>
+      <p class="text-[12.5px] text-zinc-500 mt-1.5 leading-5">WhatsApp butonlarını kullanmak için yalnızca e-posta adresinizi bırakın. Şifre gerekmez.</p>
+      <form onsubmit="kayitOl(event)" class="mt-5 grid gap-3">
+        <input id="kayitEmail" type="email" required autocomplete="email" placeholder="E-posta adresiniz" class="h-11 rounded-full border border-[#1a4066] bg-white px-4 text-[13px]">
+        <p id="kayitMesaj" class="text-[11.5px] min-h-[16px]"></p>
+        <button type="submit" class="h-11 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[13px]">Kayıt Ol</button>
+      </form>
+    </div>
+  </div>
+</body></html>
