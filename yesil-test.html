@@ -255,7 +255,6 @@
     #bookGrid article h4{min-height:0!important;font-size:14px!important}
     #bookGrid article a{height:34px!important}
     #bookGrid.tumunu-gor{grid-auto-flow:row!important;grid-template-rows:none!important;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))!important;grid-auto-columns:auto!important;max-height:70vh!important;overflow-x:hidden!important;overflow-y:auto!important}
-    button[aria-label="Kitapları yukarı kaydır"],button[aria-label="Kitapları aşağı kaydır"]{display:none!important}
     #kayitModal{display:none}
     body:not(.kayitli) .wa-btn{opacity:.45!important;pointer-events:none!important;filter:grayscale(1)!important;cursor:not-allowed!important}
     .tel-kayitli{display:none}
@@ -375,8 +374,6 @@
     </div>
     <div id="bookGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5" style="align-items:start;max-height:560px;overflow:auto;padding:8px;scroll-behavior:smooth"></div>
     <div style="display:flex;justify-content:center;gap:10px;margin-top:16px">
-      <button onclick="document.getElementById('bookGrid').scrollTop=0; document.getElementById('bookGrid').scrollTo({top:0,behavior:'smooth'})" aria-label="Kitapları yukarı kaydır" class="w-10 h-10 rounded-full" style="background:#ffffff;color:#fff"><i class="fa-solid fa-arrow-up"></i></button>
-      <button onclick="const g=document.getElementById('bookGrid'); g.scrollBy({top:240,behavior:'smooth'})" aria-label="Kitapları aşağı kaydır" class="w-10 h-10 rounded-full" style="background:#ffffff;color:#fff"><i class="fa-solid fa-arrow-down"></i></button>
       <button onclick="const g=document.getElementById('bookGrid'); g.scrollBy({left:-240,behavior:'smooth'})" aria-label="Kitapları sola kaydır" class="w-10 h-10 rounded-full" style="background:#ffffff;color:#fff"><i class="fa-solid fa-arrow-left"></i></button>
       <button onclick="const g=document.getElementById('bookGrid'); g.scrollBy({left:240,behavior:'smooth'})" aria-label="Kitapları sağa kaydır" class="w-10 h-10 rounded-full" style="background:#ffffff;color:#fff"><i class="fa-solid fa-arrow-right"></i></button>
     </div>
