@@ -409,7 +409,7 @@
        <form id="publicCommentForm" onsubmit="herkeseAcikYorumGonder(event)" class="mt-6 grid gap-3">
          <input id="publicCommentName" required maxlength="60" placeholder="Adınız" class="h-11 rounded-full border border-[#1a4066] bg-white px-4 text-[13px]">
          <textarea id="publicCommentMsg" required rows="3" maxlength="1000" placeholder="Yorumunuz..." class="rounded-[16px] border border-[#1a4066] bg-white p-4 text-[13px] resize-none"></textarea>
-         <div class="flex items-center gap-3"><button type="submit" class="h-11 px-6 rounded-full bg-emerald-600 text-white font-semibold text-[13px]" disabled>Yorumu Gönder</button><button type="button" onclick="openKayitModal()" class="h-11 px-6 rounded-full bg-zinc-900 text-white font-semibold text-[13px] inline-flex items-center justify-center gap-1.5"><i class="fa-solid fa-user-plus"></i>Kayıt Ol</button><span id="publicCommentStatus" class="text-[12px]"></span></div>
+         <div class="flex items-center gap-3"><button type="submit" id="publicCommentSubmitBtn" class="h-11 px-6 rounded-full bg-emerald-600 text-white font-semibold text-[13px]">Yorumu Gönder</button><button type="button" onclick="openKayitModal()" class="h-11 px-6 rounded-full bg-zinc-900 text-white font-semibold text-[13px] inline-flex items-center justify-center gap-1.5"><i class="fa-solid fa-user-plus"></i>Kayıt Ol</button><span id="publicCommentStatus" class="text-[12px]"></span></div>
        </form>
        <div id="publicCommentList" class="mt-6 grid gap-3"></div>
      </div>
@@ -1897,6 +1897,7 @@ onAuthStateChanged(auth, async (user) => {
   }
   renderBooks();
 });
+onAuthStateChanged(auth, () => { yorumButonuGuncelle(); });
 
 const chatWindow = document.getElementById('chatWindow');
 const chatMessages = document.getElementById('chatMessages');
@@ -1939,11 +1940,18 @@ const savedTheme = localStorage.getItem('reader_theme');
 if(savedTheme) setReaderTheme(savedTheme);
 
 const KAYIT_KEY = 'm3000_kayitli_email';
+function yorumButonuGuncelle() {
+  const btn = document.getElementById('publicCommentSubmitBtn');
+  if (!btn) return;
+  const kayitli = !!(auth.currentUser || localStorage.getItem(KAYIT_KEY));
+  btn.disabled = !kayitli;
+}
 function waDurumunuGuncelle() {
   const aktif = !!localStorage.getItem(KAYIT_KEY);
   document.body.classList.toggle('kayitli', aktif);
   const btn = document.getElementById('kayitOlBtn');
   if (btn) btn.style.display = aktif ? 'none' : 'inline-flex';
+  yorumButonuGuncelle();
 }
 window.openKayitModal = () => {
   document.getElementById('kayitEmail').value = localStorage.getItem(KAYIT_KEY) || '';
