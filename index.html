@@ -242,7 +242,7 @@
     html body, html body *:not(#__yazilari_yesil_yap):not(.__yazilari_yesil_yap) { color:#22c55e!important }
     html body input::placeholder, html body textarea::placeholder { color:#22c55e!important;opacity:.8 }
     #modalBuyBtn,#modalReadBtn,#modalDownloadBtn,#bookGrid a[href*="wa.me"],#bookDetailModal a[href*="wa.me"] { background:#ffffff!important }
-    #kitaplarBolumu,#kitaplarBolumu > div:first-child,#bookGrid { background:linear-gradient(rgba(10,31,58,.7),rgba(10,31,58,.7)),url("https://images.unsplash.com/photo-1505142468610-359e7d316be0?q=80&w=1600") center/cover fixed no-repeat!important }
+    #kitaplarBolumu,#kitaplarBolumu > div:first-child,#bookGrid { background:#0a1f3a url('site-arkaplan-20.png') center/cover fixed no-repeat!important }
     #bookGrid{scrollbar-width:thin;scrollbar-color:#d90429 #0a1f3a}
     #bookGrid::-webkit-scrollbar{width:10px;height:10px}
     #bookGrid::-webkit-scrollbar-track{background:#0a1f3a}
@@ -263,9 +263,9 @@
     body.kayitli .tel-misafir{display:none}
     .tel-blur{filter:blur(5px);user-select:none;pointer-events:none}
     body.kayitli .kayit-ol-metni{display:none}
-    .m3000-hero{background:linear-gradient(rgba(10,31,58,.7),rgba(10,31,58,.7)),url("https://images.unsplash.com/photo-1505142468610-359e7d316be0?q=80&w=1600") center/cover fixed no-repeat!important;backdrop-filter:none!important}
-    main#kitaplarBolumu ~ section,main#kitaplarBolumu ~ footer { background:linear-gradient(rgba(10,31,58,.7),rgba(10,31,58,.7)),url("https://images.unsplash.com/photo-1505142468610-359e7d316be0?q=80&w=1600") center/cover fixed no-repeat!important }
-    html body{background:linear-gradient(rgba(10,31,58,.7),rgba(10,31,58,.7)),url("https://images.unsplash.com/photo-1505142468610-359e7d316be0?q=80&w=1600") center/cover fixed no-repeat!important}
+    .m3000-hero{background:linear-gradient(rgba(10,31,58,.8),rgba(10,31,58,.8)),url('site-arkaplan-20.png') center/cover fixed no-repeat!important;backdrop-filter:none!important}
+    main#kitaplarBolumu ~ section,main#kitaplarBolumu ~ footer { background:linear-gradient(rgba(10,31,58,.8),rgba(10,31,58,.8)),url('site-arkaplan-20.png') center/cover fixed no-repeat!important }
+    html body{background:linear-gradient(rgba(10,31,58,.8),rgba(10,31,58,.8)),url('site-arkaplan-20.png') center/cover fixed no-repeat!important}
     html body{zoom:1.265!important}
     #publicCommentForm button[type="submit"],#modalCommentForm button[type="submit"]{background:#ffffff!important}
     html body,html body *{text-shadow:0 1px 2px rgba(0,0,0,.75)!important}
@@ -290,7 +290,7 @@
       footer>div{padding:32px 16px!important}
       #kayitModal>div{padding:20px!important}
     }
-    html body,html body #kitaplarBolumu,html body #bookGrid,html body .m3000-hero,html body main#kitaplarBolumu ~ section,html body main#kitaplarBolumu ~ footer{background:linear-gradient(rgba(10,31,58,.80),rgba(10,31,58,.80)),url('profil-arkaplan.png') center/auto 82% fixed no-repeat!important}
+    html body,html body #kitaplarBolumu,html body #bookGrid,html body .m3000-hero,html body main#kitaplarBolumu ~ section,html body main#kitaplarBolumu ~ footer{background:#0a1f3a url('site-arkaplan-20.png') center/cover fixed no-repeat!important}
 </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebSite","name":"Marketim3000","url":"https://www.marketim3000.online/","inLanguage":"tr-TR","description":"Dijital kitapları keşfetme, çevrim içi okuma ve sesli dinleme platformu."}
@@ -330,9 +330,10 @@
           <a href="https://wa.me/905318479349" target="_blank" class="m3000-secondary wa-btn wa-btn-disabled" style="background:#ffffff!important;color:#22c55e!important;border-color:#25d366!important"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
         </div>
         <div id="duyuruAsansor" style="margin-top:22px;max-height:260px;overflow-y:auto;scroll-behavior:smooth;padding-right:4px"></div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:16px">
+        <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap">
           <button onclick="document.getElementById('duyuruAsansor').scrollTo({top:0,behavior:'smooth'})" aria-label="Yukarı kaydır" class="w-10 h-10 rounded-full" style="background:#ffffff;color:#fff"><i class="fa-solid fa-arrow-up"></i></button>
           <button onclick="document.getElementById('duyuruAsansor').scrollBy({top:180,behavior:'smooth'})" aria-label="Aşağı kaydır" class="w-10 h-10 rounded-full" style="background:#ffffff;color:#fff"><i class="fa-solid fa-arrow-down"></i></button>
+          <button id="duyuruTumunuBtn" onclick="duyuruTumunuGor()" aria-label="Tüm duyuruları göster" class="h-10 rounded-full px-4 text-[12px] font-bold" style="background:#ffffff;color:#fff"><i class="fa-solid fa-expand me-1"></i>Tümünü Gör</button>
         </div>
         <div class="m3000-trust-row" style="border-top:1px solid rgba(125,185,255,.25);padding-top:18px;margin-top:26px"><span style="background:rgba(125,185,255,.12);padding:8px 12px;border-radius:999px;border:1px solid rgba(125,185,255,.35)"><i class="fa-solid fa-book"></i> Zengin kitaplık</span><span style="background:rgba(125,185,255,.12);padding:8px 12px;border-radius:999px;border:1px solid rgba(125,185,255,.35)"><i class="fa-solid fa-headphones"></i> Sesli dinleme</span><span style="background:rgba(125,185,255,.12);padding:8px 12px;border-radius:999px;border:1px solid rgba(125,185,255,.35)"><i class="fa-solid fa-mobile-screen"></i> Her cihazda</span></div>
       </div>
@@ -2029,6 +2030,27 @@ async function loadDuyurular() {
   }
 }
 window.loadDuyurular = loadDuyurular;
+
+window.duyuruTumunuGor = function () {
+  const box = document.getElementById('duyuruAsansor');
+  const btn = document.getElementById('duyuruTumunuBtn');
+  if (!box || !btn) return;
+  const acik = box.dataset.acik === '1';
+  if (acik) {
+    box.style.maxHeight = '260px';
+    box.style.overflowY = 'auto';
+    box.dataset.acik = '0';
+    btn.innerHTML = '<i class="fa-solid fa-expand me-1"></i>Tümünü Gör';
+    btn.setAttribute('aria-label', 'Tüm duyuruları göster');
+    box.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    box.style.maxHeight = 'none';
+    box.style.overflowY = 'visible';
+    box.dataset.acik = '1';
+    btn.innerHTML = '<i class="fa-solid fa-compress me-1"></i>Geri Dön';
+    btn.setAttribute('aria-label', 'Duyuru listesini daralt');
+  }
+};
 
 function initApp() {
   loadDuyurular();
