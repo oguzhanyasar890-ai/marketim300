@@ -249,8 +249,8 @@
     #bookGrid::-webkit-scrollbar-thumb{background:#d90429;border-radius:999px}
     #bookGrid{display:grid!important;grid-auto-flow:column!important;grid-template-rows:repeat(2,auto)!important;grid-template-columns:none!important;grid-auto-columns:300px!important;max-height:none!important;overflow-x:auto!important;overflow-y:hidden!important}
     #bookGrid article{max-width:none!important;padding:10px!important}
-    #bookGrid article>div:first-child{aspect-ratio:16/9!important}
-    #bookGrid article img{aspect-ratio:auto!important;width:100%!important;height:100%!important;object-fit:cover}
+    #bookGrid article>div:first-child{aspect-ratio:2/3!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#071a30!important;overflow:hidden!important}
+    #bookGrid article img{aspect-ratio:auto!important;width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important}
     #bookGrid article>div:last-child{padding-top:8px!important;padding-bottom:0!important}
     #bookGrid article h4{min-height:0!important;font-size:14px!important}
     #bookGrid article a{height:34px!important}
@@ -281,7 +281,7 @@
       .glass-nav a div span{font-size:10px!important}
       #kayitOlBtn,header a[href^="https://wa.me"]{height:34px!important;padding:0 11px!important;font-size:11px!important}
       #bookGrid{grid-auto-columns:200px!important;gap:12px!important}
-      #bookGrid article>div:first-child{aspect-ratio:4/3!important}
+      #bookGrid article>div:first-child{aspect-ratio:2/3!important}
       #bookGrid article a{font-size:11px!important}
       .m3000-hero-inner{padding:40px 18px!important;gap:18px!important}
       .m3000-hero h2{font-size:34px!important}
@@ -499,7 +499,7 @@
       <button onclick="closePurchaseModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
       <div class="text-center mb-6"><div class="w-12 h-12 mx-auto rounded-[14px] bg-zinc-900 text-white flex items-center justify-center"><i class="fa-solid fa-cart-shopping"></i></div><h3 class="mt-4 font-bold text-[18px]">Satın al</h3><p id="purchaseBookTitle" class="text-[13px] text-zinc-500 mt-1"></p><p id="purchaseBookPrice" class="text-[28px] font-bold mt-2 tracking-tight"></p></div>
       <div class="bg-[#0d2a4a] dark:bg-zinc-800 rounded-[16px] p-4 border text-[13px] space-y-2"><p><b>Banka:</b> <span id="bankAdi"></span></p><p><b>Hesap:</b> <span id="bankHesapSahibi"></span></p><p class="flex justify-between"><span><b>IBAN:</b> <span id="bankIban"></span></span><button onclick="copyIban()" class="text-zinc-500"><i class="fa-regular fa-copy"></i></button></p></div>
-      <p class="text-[11px] text-zinc-500 mt-4 leading-5">Ödemeyi yaptıktan sonra dekontu WhatsApp ile gönderin. Onay sonrası erişiminiz açılacak.</p>
+      <p class="text-[11px] text-zinc-500 mt-4 leading-5">Ödemeyi yaptıktan sonra dekontu WhatsApp ile yalnızca PDF formatında gönderin. Onay sonrası erişiminiz açılacak.</p>
       <button onclick="confirmPurchaseRequest()" class="w-full h-11 mt-5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-[16px]"></i> Ödemeyi yaptım, bildir</button>
     </div>
   </div>
@@ -552,7 +552,7 @@
           <p><b>Banka:</b> <span id="cartBank"></span></p>
           <p class="flex justify-between gap-2"><span><b>IBAN:</b> <span id="cartIban"></span></span><button onclick="copyPremIban()" class="text-zinc-500"><i class="fa-regular fa-copy"></i></button></p>
         </div>
-        <p class="text-[11px] text-zinc-500 mt-3 leading-5">Ödemeyi yaptıktan sonra dekontu WhatsApp ile gönderin. Onaydan sonra kitaplar hesabınıza tanımlanır.</p>
+        <p class="text-[11px] text-zinc-500 mt-3 leading-5">Ödemeyi yaptıktan sonra dekontu WhatsApp ile yalnızca PDF formatında gönderin. Onaydan sonra kitaplar hesabınıza tanımlanır.</p>
         <button onclick="checkoutCart()" class="w-full h-11 mt-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-[16px]"></i> Ödemeyi yaptım, bildir</button>
       </div>
     </div>
@@ -572,7 +572,7 @@
         <p><b>Banka:</b> <span id="premBank"></span></p>
         <p class="flex justify-between gap-2"><span><b>IBAN:</b> <span id="premIban"></span></span><button onclick="copyPremIban()" class="text-zinc-500"><i class="fa-regular fa-copy"></i></button></p>
       </div>
-      <p class="text-[11px] text-zinc-500 mt-3 leading-5">Ödemeyi yaptıktan sonra dekontu WhatsApp ile gönderin. Onaydan sonra üyeliğiniz hesabınıza tanımlanır.</p>
+      <p class="text-[11px] text-zinc-500 mt-3 leading-5">Ödemeyi yaptıktan sonra dekontu WhatsApp ile yalnızca PDF formatında gönderin. Onaydan sonra üyeliğiniz hesabınıza tanımlanır.</p>
       <button onclick="confirmPlanRequest()" class="w-full h-11 mt-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-[16px]"></i> Ödemeyi yaptım, bildir</button>
     </div>
   </div>
@@ -1687,10 +1687,10 @@ window.confirmPurchaseRequest = async () => {
       tarih: serverTimestamp()
     });
   } catch (e) {}
-  const msg = encodeURIComponent(`Merhaba, "${book.baslik}" (₺${price}) kitabı için ödemeyi yaptım. Dekontu ekte gönderiyorum. E-posta: ${auth.currentUser.email}`);
+  const msg = encodeURIComponent(`Merhaba, "${book.baslik}" (₺${price}) kitabı için ödemeyi yaptım. Dekontu yalnızca PDF olarak göndereceğim. E-posta: ${auth.currentUser.email}`);
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
   closePurchaseModal();
-  alert('Siparişiniz alındı! Dekontu WhatsApp üzerinden gönderdiğinizde, onayın ardından kitap hesabınıza tanımlanacaktır.');
+  alert('Siparişiniz alındı! Dekontu yalnızca PDF olarak WhatsApp üzerinden gönderdiğinizde, onayın ardından kitap hesabınıza tanımlanacaktır.');
 };
 window.checkDownload = async (event, bookId, fileName) => {
   if (event) event.preventDefault();
@@ -1912,8 +1912,8 @@ window.sendMessage = () => {
 };
 function botReply(text) {
   let reply = "Artık kitapları sarı vurgu ile takip ederek dinleyebilirsin. Oynat tuşuna basman yeterli, kaldığın yerden devam eder.";
-  if (text.includes("fiyat") || text.includes("ücret") || text.includes("öde")) reply = "Her kitabın fiyatı kapağında ve detay sayfasında yazar. <b>Satın Al</b> butonuna basıp havale/EFT bilgilerinden ödeme yaptıktan sonra WhatsApp'tan dekontu iletmen yeterli — onay sonrası kitap hemen hesabına tanımlanır.";
-  else if (text.includes("satın al") || text.includes("nasıl al")) reply = "Kitabın üzerindeki <b>Satın Al</b> butonuna bas, açılan ekrandaki IBAN'a ödemeni yap ve WhatsApp butonuyla dekontu gönder. Onaylandığında kitap kütüphanene eklenir.";
+  if (text.includes("fiyat") || text.includes("ücret") || text.includes("öde")) reply = "Her kitabın fiyatı kapağında ve detay sayfasında yazar. <b>Satın Al</b> butonuna basıp havale/EFT bilgilerinden ödeme yaptıktan sonra WhatsApp'tan dekontu yalnızca PDF olarak iletmen yeterli — onay sonrası kitap hemen hesabına tanımlanır.";
+  else if (text.includes("satın al") || text.includes("nasıl al")) reply = "Kitabın üzerindeki <b>Satın Al</b> butonuna bas, açılan ekrandaki IBAN'a ödemeni yap ve WhatsApp butonuyla dekontu yalnızca PDF olarak gönder. Onaylandığında kitap kütüphanene eklenir.";
   else if (text.includes("ses") || text.includes("dinle")) reply = "Üstteki ses barından <b>▶</b> bas, hızını 1.5x yapabilir, ileri-geri atlayabilirsin. TXT kitaplar en iyi sonucu verir.";
   else if (text.includes("kaydet") || text.includes("kaldı")) reply = "Okuma ve dinleme konumun otomatik kaydediliyor. Kitabı kapatıp açtığında kaldığın yerden devam edersin.";
   chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-slate-950 border border-brand-600 flex-shrink-0 flex items-center justify-center mt-1 overflow-hidden p-0.5"><img src="1792945068177.jpg" onerror="handleLogoError(this)" class="w-full h-full object-contain"></div><div class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-red-100 dark:border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
@@ -2190,10 +2190,10 @@ window.confirmPlanRequest = async () => {
       kullaniciId: u.uid, kullaniciEmail: u.email, kullaniciAd: u.displayName || u.email, durum: 'bekliyor', tarih: serverTimestamp()
     });
   } catch (e) {}
-  const msg = encodeURIComponent(`Merhaba, "${p.ad}" (${TL(fiyat)}${window.__activeCoupon ? ', kupon: ' + window.__activeCoupon.kod : ''}) için ödemeyi yaptım. Dekontu ekte gönderiyorum. E-posta: ${u.email}`);
+  const msg = encodeURIComponent(`Merhaba, "${p.ad}" (${TL(fiyat)}${window.__activeCoupon ? ', kupon: ' + window.__activeCoupon.kod : ''}) için ödemeyi yaptım. Dekontu yalnızca PDF olarak göndereceğim. E-posta: ${u.email}`);
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
   closePremiumModal();
-  alert('Talebiniz alındı! Dekontu WhatsApp üzerinden gönderdiğinizde, onayın ardından üyeliğiniz hesabınıza tanımlanacaktır.');
+  alert('Talebiniz alındı! Dekontu yalnızca PDF olarak WhatsApp üzerinden gönderdiğinizde, onayın ardından üyeliğiniz hesabınıza tanımlanacaktır.');
 };
 window.copyPremIban = () => { navigator.clipboard.writeText(BANK_INFO.iban.replace(/\s/g, '')); toast('IBAN kopyalandı'); };
 onAuthStateChanged(auth, (u) => { live = null; loadPremium(u); });
@@ -2534,10 +2534,10 @@ window.checkoutCart = async () => {
     } catch (e) {}
     lines.push('• ' + b.baslik + ' (' + TL(f) + ')');
   }
-  const msg = encodeURIComponent('Merhaba, sepetimdeki ' + items.length + ' kitap için ödemeyi yaptım (toplam ' + TL(t.final) + (c ? ', kupon: ' + c.kod : '') + '):\n' + lines.join('\n') + '\nDekontu ekte gönderiyorum. E-posta: ' + u.email);
+  const msg = encodeURIComponent('Merhaba, sepetimdeki ' + items.length + ' kitap için ödemeyi yaptım (toplam ' + TL(t.final) + (c ? ', kupon: ' + c.kod : '') + '):\n' + lines.join('\n') + '\nDekontu yalnızca PDF olarak göndereceğim. E-posta: ' + u.email);
   window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + msg, '_blank');
   setCart([]); closeCart();
-  alert('Talebiniz alındı! Dekontu WhatsApp üzerinden gönderdiğinizde, onayın ardından kitaplar hesabınıza tanımlanacaktır.');
+  alert('Talebiniz alındı! Dekontu yalnızca PDF olarak WhatsApp üzerinden gönderdiğinizde, onayın ardından kitaplar hesabınıza tanımlanacaktır.');
 };
 
 </script>
