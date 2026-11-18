@@ -587,6 +587,106 @@
     </div>
   </div>
 
+<script>
+window.__m3000Books = [];
+window.__m3000FallbackBooks = [{"id":"11","baslik":"Profesyonel AI","yazar":"Oğuzhan Yaşar","kategori":"Yapay Zekâ, E-Ticaret & Sistem Mimarisi","kapakUrl":"https://panel.marketim3000.online/api/kapak/11","fiyat":0.0,"indirmeSayisi":0},{"id":"14","baslik":"Cepten Sunucuya","yazar":"Oğuzhan Yaşar","kategori":"Android, Linux, Terminal, Sunucu Yönetimi, Node.js/Python, API & Cloudflare Tunnel","kapakUrl":"https://panel.marketim3000.online/api/kapak/14","fiyat":90.0,"indirmeSayisi":0},{"id":"26","baslik":"Türkiye Cumhuriyeti Tarihi","yazar":"Oğuzhan Yaşar","kategori":"Tarih, Siyasi Tarih & Kültür","kapakUrl":"https://panel.marketim3000.online/api/kapak/26","fiyat":90.0,"indirmeSayisi":0},{"id":"23","baslik":"Yapay Zekâ Teknolojileri","yazar":"Oğuzhan Yaşar","kategori":"Teknoloji ve Yapay Zekâ","kapakUrl":"https://panel.marketim3000.online/api/kapak/23","fiyat":149.0,"indirmeSayisi":0},{"id":"22","baslik":"Kayıp Şehir ve Turkuaz Harita","yazar":"Oğuzhan Yaşar","kategori":"Macera, Gizem ve Gerilim","kapakUrl":"https://panel.marketim3000.online/api/kapak/22","fiyat":90.0,"indirmeSayisi":0},{"id":"17","baslik":"Kripto Para Piyasaları","yazar":"Oğuzhan Yaşar","kategori":"Finans, Ekonomi ve Kripto Para","kapakUrl":"https://panel.marketim3000.online/api/kapak/17","fiyat":70.0,"indirmeSayisi":0},{"id":"12","baslik":"Kendine Dönüş","yazar":"Oğuzhan Yaşar","kategori":"Felsefe, Psikoloji & Edebi Düşünce","kapakUrl":"https://panel.marketim3000.online/api/kapak/12","fiyat":90.0,"indirmeSayisi":0}];
+window.__m3000BookMode = 'classic';
+window.__m3000LoadBooks = async function () {
+  window.__booksBooted = true;
+  var li = document.getElementById('loadingIndicator');
+  var ctrl = new AbortController();
+  var timeout = setTimeout(function () { ctrl.abort(); }, 8000);
+  try {
+    var res = await fetch('https://panel.marketim3000.online/api/vitrin', { cache: 'no-store', signal: ctrl.signal });
+    clearTimeout(timeout);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var rows = await Promise.race([
+      res.json(),
+      new Promise(function (_, reject) { setTimeout(function () { reject(new Error('API yanıt zaman aşımı')); }, 8000); })
+    ]);
+    var books = (rows || []).map(function (r) {
+      return {
+        id: String(r.id),
+        baslik: r.ad || r.baslik || 'Başlıksız',
+        yazar: r.yazar || 'Oğuzhan Yaşar',
+        kategori: r.kategori || 'Genel',
+        dosyaAdi: (r.ad || r.baslik || 'kitap') + '.pdf',
+        kapakUrl: (r.kapak_dosyasi && String(r.kapak_dosyasi).indexOf('kapak_') !== -1 && String(r.kapak_dosyasi).indexOf('http') !== 0)
+          ? 'https://panel.marketim3000.online/api/kapak/' + r.id
+          : (r.kapakUrl || r.kapak_dosyasi || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'),
+        aciklama: r.alt_baslik || r.kisa_tanitim || '',
+        fiyat: Number(r.fiyat) || Number(r.indirimli_fiyat) || 0,
+        indirmeSayisi: r.indirmeSayisi || 0,
+        tarih: null
+      };
+    });
+    if (!books.length) throw new Error('boş vitrin');
+    window.__m3000Books.length = 0;
+    Array.prototype.push.apply(window.__m3000Books, books);
+    if (li) li.style.display = 'none';
+    window.__booksHazir = true;
+    window.renderBooks();
+  } catch (error) {
+    var fallback = window.__m3000FallbackBooks || [];
+    window.__m3000Books.length = 0;
+    Array.prototype.push.apply(window.__m3000Books, fallback);
+    if (li) li.style.display = 'none';
+    window.__booksHazir = true;
+    window.__m3000FallbackUsed = true;
+    window.renderBooks();
+  }
+};
+window.__m3000RenderBooks = function () {
+  var grid = document.getElementById('bookGrid');
+  if (!grid) return;
+  var si = document.getElementById('searchInput');
+  var sortEl = document.getElementById('sortSelect');
+  var active = document.querySelector('#categoryContainer .cat-btn.bg-brand-600');
+  var q = (si ? si.value : '').toLocaleLowerCase('tr-TR');
+  var cat = active ? active.textContent.trim() : 'Tümü';
+  var sortVal = sortEl ? sortEl.value : 'newest';
+  var list = (window.__m3000Books || []).filter(function (book) {
+    var title = String(book.baslik || '').toLocaleLowerCase('tr-TR');
+    var author = String(book.yazar || '').toLocaleLowerCase('tr-TR');
+    return (cat === 'Tümü' || book.kategori === cat) && (title.indexOf(q) !== -1 || author.indexOf(q) !== -1);
+  });
+  list.sort(function (a, b) {
+    if (sortVal === 'popular') return (b.indirmeSayisi || 0) - (a.indirmeSayisi || 0);
+    if (sortVal === 'az') return String(a.baslik || '').localeCompare(String(b.baslik || ''), 'tr');
+    return (b.tarih || 0) - (a.tarih || 0);
+  });
+  var countEl = document.getElementById('bookCount');
+  if (countEl) countEl.innerText = list.length + ' eser';
+  if (!list.length) {
+    grid.innerHTML = '<div class="col-span-full bg-white border border-[#1a4066] rounded-[24px] text-center py-20 px-6"><p class="text-zinc-900 text-[15px] font-semibold">Sonuç bulunamadı</p><p class="text-zinc-500 text-[13px] mt-1">Arama kriterlerinizi değiştirmeyi deneyin.</p></div>';
+    return;
+  }
+  grid.innerHTML = list.map(function (book) {
+    var price = Number(book.fiyat) || 0;
+    var title = String(book.baslik || '').replace(/'/g, "\\'");
+    var cover = book.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800';
+    var waText = price > 0 ? 'Merhaba, ' + book.baslik + ' kitabı için satın almak istiyorum.' : 'Merhaba, ' + book.baslik + ' kitabını okumak/indirmek istiyorum.';
+    var waUrl = 'https://wa.me/905318479349?text=' + encodeURIComponent(waText);
+    var label = price > 0 ? 'Satın Al — ₺' + price.toLocaleString('tr-TR') : 'Oku / İndir';
+    return '<article class="group border border-[#1a4066]/70 rounded-[16px] p-2.5 flex flex-col hover:border-[#4d94ff] hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.5)] transition-all duration-300 max-w-[150px] mx-auto w-full" style="background:#0a1f3a"><div onclick="openBookModal(\'' + book.id + '\')" class="w-full aspect-square rounded-[20px] overflow-hidden relative bg-zinc-100 cursor-pointer"><img src="' + cover + '" loading="lazy" decoding="async" onerror="this.src=\'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800\'" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div></div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal(\'' + book.id + '\')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-100 line-clamp-2 cursor-pointer min-h-[38px]">' + title + '</h4><p class="text-[12.5px] font-medium text-zinc-400 mt-1 line-clamp-1">' + String(book.yazar || '') + '</p><div class="mt-auto pt-3"><a href="' + waUrl + '" target="_blank" class="wa-btn h-[40px] text-white rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5" style="background:#25d366"><i class="fa-brands fa-whatsapp text-[13px]" style="color:#fff"></i><span style="color:#fff">' + label + '</span></a></div></div></article>';
+  }).join('');
+};
+window.renderBooks = window.__m3000RenderBooks;
+window.filterBooks = function () { window.__m3000RenderBooks(); };
+window.filterCategory = function (cat, btnEl) {
+  document.querySelectorAll('#categoryContainer .cat-btn').forEach(function (b) {
+    b.className = 'cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-red-200 text-slate-600 bg-white';
+  });
+  if (btnEl) btnEl.className = 'cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-brand-600 bg-brand-600 text-white shadow-md';
+  window.__m3000RenderBooks();
+};
+window.openBookModal = function (id) {
+  var book = (window.__m3000Books || []).find(function (b) { return b.id === id; });
+  if (book) window.open('https://wa.me/905318479349?text=' + encodeURIComponent('Merhaba, ' + book.baslik + ' kitabı için bilgi almak istiyorum.'), '_blank');
+};
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', window.__m3000LoadBooks); else window.__m3000LoadBooks();
+</script>
+
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -618,7 +718,7 @@ const BANK_INFO = {
 };
 const WHATSAPP_NUMBER = "905318479349"; // Ödeme bildirimlerinin gideceği WhatsApp numarası
 
-let allBooks = [];
+let allBooks = window.__m3000Books || [];
 let allCategories = [];
 let currentCategory = 'Tümü';
 let searchQuery = '';
@@ -1615,6 +1715,7 @@ async function loadBooks() {
   } catch (e) {}
 }
 window.renderBooks = () => {
+  if (window.__m3000BookMode === 'classic' && typeof window.__m3000RenderBooks === 'function') return window.__m3000RenderBooks();
   const grid = document.getElementById('bookGrid');
   const sortVal = document.getElementById('sortSelect') ? document.getElementById('sortSelect').value : 'newest';
   grid.innerHTML = '';
@@ -2075,15 +2176,8 @@ window.duyuruTumunuGor = function () {
 };
 
 function initApp() {
-  window.__booksHazir = false;
-  setTimeout(() => {
-    if (!window.__booksHazir) {
-      const li = document.getElementById('loadingIndicator');
-      if (li && li.style.display !== 'none') li.innerHTML = `<p class="text-rose-600 text-xs font-bold">Kitaplar yüklenemedi. <button onclick="location.reload()" class="ms-2 rounded-full bg-rose-600 px-3 py-1 text-white">Tekrar dene</button></p>`;
-    }
-  }, 10000);
+  window.__booksHazir = true;
   loadDuyurular();
-  loadBooks();
   loadCategories();
   loadSizdenGelenler();
   loadYoutubeBooks();
