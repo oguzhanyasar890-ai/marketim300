@@ -318,6 +318,9 @@
         <span class="kayit-ol-metni self-start pt-0.5 text-[11px] font-medium leading-none whitespace-nowrap">Satın almak için kayıt olun</span>
         <button id="kayitOlBtn" onclick="openKayitModal()" class="h-9 px-4 rounded-full text-[12.5px] font-semibold inline-flex items-center gap-1.5" style="background:#ffffff;color:#22c55e;border:1px solid #22c55e"><i class="fa-solid fa-user-plus"></i> Kayıt Ol</button>
         <a href="https://wa.me/905318479349" target="_blank" class="h-9 px-4 rounded-full text-[12.5px] font-semibold inline-flex items-center gap-1.5 wa-btn wa-btn-disabled" style="background:#ffffff"><i class="fa-brands fa-whatsapp" style="color:#fff"></i> <span style="color:#fff">WhatsApp</span></a>
+        <a href="https://wa.me/905318479349" target="_blank" rel="noopener" aria-label="Oluwa Asistan ile görüş" title="Oluwa Asistan">
+          <img src="asistan.jpg" alt="Oluwa Asistan" width="36" height="36" style="width:36px;height:36px;flex:0 0 36px;object-fit:cover;border-radius:50%;background:#fff;border:1px solid #25d366;box-shadow:0 4px 14px rgba(0,0,0,.35)">
+        </a>
         <!-- Admin/APK/Giriş kaldırıldı (ebooks stili sade vitrin) -->
       </div>
     </div>
@@ -328,8 +331,8 @@
     <div class="m3000-hero-inner">
       <div class="m3000-hero-copy">
         <div class="m3000-kicker"><span></span> DİJİTAL KİTAPLARIMIZ</div>
-        <h2>Asistan ile hemen<br><em>iletişime geçin.</em></h2>
-        <p>Asistanımız ile WhatsApp butonuna tıklayarak doğrudan iletişime geçin. Tüm kitaplara hızlıca ulaşın — sipariş, ödeme ve teslimat aynı sohbetten ilerler.</p>
+        <h2>Oluwa ile hemen<br><em>iletişime geçin.</em></h2>
+        <p>Asistanımız Oluwa ile WhatsApp butonuna tıklayarak doğrudan iletişime geçin. Tüm kitaplara hızlıca ulaşın — sipariş, ödeme ve teslimat aynı sohbetten ilerler.</p>
         <div class="m3000-actions">
           <a href="#kitaplarBolumu" class="m3000-primary" style="background:#ffffff!important;color:#22c55e!important;box-shadow:0 8px 20px rgba(37,211,102,.35)"><i class="fa-solid fa-book-open"></i> Kitapları keşfet <i class="fa-solid fa-arrow-right"></i></a>
           <a href="https://wa.me/905318479349" target="_blank" class="m3000-secondary wa-btn wa-btn-disabled" style="background:#ffffff!important;color:#22c55e!important;border-color:#25d366!important"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
@@ -1921,7 +1924,7 @@ function botReply(text) {
   else if (text.includes("satın al") || text.includes("nasıl al")) reply = "Kitabın üzerindeki <b>Satın Al</b> butonuna bas, açılan ekrandaki IBAN'a ödemeni yap ve WhatsApp butonuyla dekontu yalnızca PDF olarak gönder. Onaylandığında kitap kütüphanene eklenir.";
   else if (text.includes("ses") || text.includes("dinle")) reply = "Üstteki ses barından <b>▶</b> bas, hızını 1.5x yapabilir, ileri-geri atlayabilirsin. TXT kitaplar en iyi sonucu verir.";
   else if (text.includes("kaydet") || text.includes("kaldı")) reply = "Okuma ve dinleme konumun otomatik kaydediliyor. Kitabı kapatıp açtığında kaldığın yerden devam edersin.";
-  chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-slate-950 border border-brand-600 flex-shrink-0 flex items-center justify-center mt-1 overflow-hidden p-0.5"><img src="site-logo.png" alt="Marketim3000 logosu" class="w-full h-full object-contain"></div><div class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-red-100 dark:border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
+  chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-slate-950 border border-brand-600 flex-shrink-0 flex items-center justify-center mt-1 overflow-hidden p-0.5"><img src="asistan.jpg" alt="Oluwa Asistan" class="w-full h-full object-contain"></div><div class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-red-100 dark:border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
