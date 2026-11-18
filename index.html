@@ -253,6 +253,11 @@
     #duyuruAsansor::-webkit-scrollbar-thumb{background:#d90429!important;border-radius:999px}
     #duyuruAsansor + div .duyuru-asansor-btn{background:#d90429!important;color:#fff!important;border:1px solid rgba(255,255,255,.35)!important}
     #duyuruAsansor + div .duyuru-asansor-btn i{color:#fff!important}
+    #modalKonu{margin-top:16px;padding:14px 16px;border-radius:16px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.3)}
+    #modalKonu h5{font-size:13px;font-weight:800;color:#22c55e;margin-bottom:9px}
+    #modalKonu b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#4ade80;margin:9px 0 3px}
+    #modalKonu p{font-size:12.5px;line-height:1.65;color:#dbeafe}
+    html.m3000-app #modalKonu,html.m3000-app #modalKonu *{text-shadow:none!important}
     #bookGrid{display:grid!important;grid-auto-flow:column!important;grid-template-rows:repeat(2,auto)!important;grid-template-columns:none!important;grid-auto-columns:300px!important;max-height:none!important;overflow-x:auto!important;overflow-y:hidden!important}
     #bookGrid article{max-width:none!important;padding:10px!important}
     #bookGrid article>div:first-child{aspect-ratio:2/3!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#071a30!important;overflow:hidden!important}
@@ -469,6 +474,7 @@
       <div class="w-full md:w-[46%] p-7 border-b md:border-b-0 md:border-r border-zinc-100 dark:border-zinc-800 overflow-y-auto">
         <div class="flex gap-5"><img alt="Seçilen kitabın kapak görseli" loading="lazy" decoding="async" id="modalCover" class="w-28 sm:w-32 aspect-[2/3] object-cover rounded-[12px] bg-zinc-100"><div><span id="modalCategory" class="text-[10px] font-semibold tracking-widest uppercase px-2.5 py-1 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"></span><span id="modalPriceBadge" class="ml-2 text-[10px] font-semibold px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border"></span><h3 id="modalTitle" class="mt-3 font-serif font-bold text-[22px] leading-tight"></h3><p id="modalAuthor" class="text-[13px] text-zinc-500 mt-1"></p></div></div>
         <p id="modalDesc" class="mt-6 text-[13.5px] leading-6" style="color:#ffffff;background:#0a1f3a;padding:12px;border-radius:12px;border:1px solid rgba(125,185,255,.3)"></p>
+        <div id="modalKonu"></div>
         <div class="mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800">
           <button id="modalBuyBtn" class="wa-btn hidden w-full h-11 bg-emerald-600 text-white rounded-full font-semibold text-[13px]"><i class="fa-solid fa-cart-shopping mr-2"></i><span id="modalBuyBtnText">Satın Al</span></button>
           <div id="modalReadDownloadRow" class="flex gap-2"><button id="modalReadBtn" class="wa-btn flex-1 h-11 text-white rounded-full font-semibold text-[13px]" style="background:#25d366"><i class="fa-solid fa-play mr-1.5" style="color:#fff"></i><span style="color:#fff">Oku & Dinle</span></button><button id="modalDownloadBtn" class="wa-btn flex-1 h-11 text-white rounded-full font-semibold text-[13px]" style="background:#25d366"><i class="fa-solid fa-arrow-down mr-1.5" style="color:#fff"></i><span style="color:#fff">İndir</span></button></div>
@@ -618,6 +624,15 @@
 window.__m3000Books = [];
 if (navigator.userAgent.indexOf('Marketim3000App') !== -1) document.documentElement.classList.add('m3000-app');
 window.__m3000FallbackBooks = [{"id":"11","baslik":"Profesyonel AI","yazar":"Oğuzhan Yaşar","kategori":"Yapay Zekâ, E-Ticaret & Sistem Mimarisi","kapakUrl":"https://panel.marketim3000.online/api/kapak/11","fiyat":0.0,"indirmeSayisi":0},{"id":"14","baslik":"Cepten Sunucuya","yazar":"Oğuzhan Yaşar","kategori":"Android, Linux, Terminal, Sunucu Yönetimi, Node.js/Python, API & Cloudflare Tunnel","kapakUrl":"https://panel.marketim3000.online/api/kapak/14","fiyat":90.0,"indirmeSayisi":0},{"id":"26","baslik":"Türkiye Cumhuriyeti Tarihi","yazar":"Oğuzhan Yaşar","kategori":"Tarih, Siyasi Tarih & Kültür","kapakUrl":"https://panel.marketim3000.online/api/kapak/26","fiyat":90.0,"indirmeSayisi":0},{"id":"23","baslik":"Yapay Zekâ Teknolojileri","yazar":"Oğuzhan Yaşar","kategori":"Teknoloji ve Yapay Zekâ","kapakUrl":"https://panel.marketim3000.online/api/kapak/23","fiyat":149.0,"indirmeSayisi":0},{"id":"22","baslik":"Kayıp Şehir ve Turkuaz Harita","yazar":"Oğuzhan Yaşar","kategori":"Macera, Gizem ve Gerilim","kapakUrl":"https://panel.marketim3000.online/api/kapak/22","fiyat":90.0,"indirmeSayisi":0},{"id":"17","baslik":"Kripto Para Piyasaları","yazar":"Oğuzhan Yaşar","kategori":"Finans, Ekonomi ve Kripto Para","kapakUrl":"https://panel.marketim3000.online/api/kapak/17","fiyat":70.0,"indirmeSayisi":0},{"id":"12","baslik":"Kendine Dönüş","yazar":"Oğuzhan Yaşar","kategori":"Felsefe, Psikoloji & Edebi Düşünce","kapakUrl":"https://panel.marketim3000.online/api/kapak/12","fiyat":90.0,"indirmeSayisi":0}];
+window.__m3000Konular = {
+  '11': { konu: '28 bölümlük teknik rapor; yapay zekâ ajanlarıyla düşük maliyetli bir e-ticaret sistemi kurmayı, çok modelli model yönetimini, RAG ve uzun hafızayı, WhatsApp sipariş otomasyonunu ve otonom işletme akışlarını anlatır.', neden: 'Yapay zekâyı yalnızca sohbet aracı olarak değil, gerçek bir mağazayı uçtan uca yöneten bir sistem olarak görmek isteyenler için.', kimler: 'Girişimciler, e-ticaret sahipleri ve AI agent mimarisi geliştiren yazılımcılar.', icerik: 'Sistem mimarisi, model ve kota yönetimi, üç katmanlı hafıza ve RAG, otonom sipariş, filigran, maliyet optimizasyonu.', kazanimlar: 'Düşük maliyetli, güvenli ve otomatik çalışan dijital ticaret altyapısı tasarımı.' },
+  '14': { konu: 'Android telefonu UserLAnd ile Linux ortamına dönüştürüp terminal, Node.js, Python, SQLite ve Cloudflare Tunnel kullanarak 7/24 çalışan bir web sunucusu ve otomasyon altyapısı kurmayı öğretir.', neden: 'Sunucu kirası ödemeden kendi sitenizi, API’nizi ve botlarınızı çalıştırmak isteyenler için pratik bir rehber.', kimler: 'Yazılım geliştiriciler, bağımsız girişimciler ve düşük bütçeyle otomasyon kurmak isteyenler.', icerik: 'Mobil Linux, Cloudflare Zero Trust tüneli, Node.js ve Python servisleri, SQLite veritabanı, güvenlik ve erişim kontrolü.', kazanimlar: 'Sıfır altyapı maliyetiyle çalışan gerçek bir sunucu, veritabanı ve otomasyon kurma becerisi.' },
+  '26': { konu: '1839 Tanzimat’tan 2024’e uzanan; Osmanlı’nın son yüzyılı ile cumhuriyetin ilk yüzyılını kurumlar, siyaset, toplum ve ekonomi ekseninde kaynaklarla anlatan 300 sayfalık tarih eseri.', neden: 'Türkiye Cumhuriyeti’nin nasıl kurulduğunu yalnızca olaylar zinciri olarak değil, kurumların ve gündelik hayatın değişimi olarak anlamak için.', kimler: 'Tarih öğrencileri, öğretmenler, akademisyenler ve dönemleri birlikte okumak isteyen okurlar.', icerik: 'Tanzimat, Islahat, Meşrutiyetler, İttihat ve Terakki, savaşlar, Kurtuluş Savaşı, tek parti ve çok partili dönem.', kazanimlar: 'Kronolojik bütünlük, kaynak okuma bilinci ve dönemler arası bağlantı kurma.' },
+  '23': { konu: 'Makine öğrenmesi, derin öğrenme, üretken yapay zekâ ve büyük dil modellerinin nasıl çalıştığını; akıllı sistemlerin veri, etik ve dijital dönüşümle nasıl birleştiğini anlatır.', neden: 'Yapay zekâ terimlerini ve gerçek kullanım alanlarını sade bir çerçevede öğrenmek isteyenler için.', kimler: 'Teknoloji meraklıları, öğrenciler ve iş süreçlerine yapay zekâ eklemek isteyen ekipler.', icerik: 'Akıllı sistemler, model türleri, veri hazırlığı, üretken yapay zekâ, etik ve iş süreçlerine entegrasyon.', kazanimlar: 'Yapay zekâyı doğru tanımlama, kullanım alanlarını ayırt etme ve dönüşüm fırsatlarını görme.' },
+  '22': { konu: 'Kayıp bir şehrin izini süren turkuaz harita etrafında gelişen; keşif, gizem ve gerilim dolu bir macera hikâyesi.', neden: 'Sürükleyici bir kurgu, yerel bilmeceler ve karakterlerin seçimleri üzerinden keyifli bir okuma arayanlar için.', kimler: 'Macera, gizem ve gerilim seven okurlar.', icerik: 'Kayıp şehir arayışı, turkuaz haritanın sırrı, keşif süreci ve gerilim dolu karşılaşmalar.', kazanimlar: 'Merak duygusunu canlı tutan bir kurgu ile tempo ve atmosfer keyfi.' },
+  '17': { konu: 'Bitcoin, Ethereum, blockchain ve DeFi altyapısını; RSI, MACD, Fibonacci, destek-direnç ve risk yönetimiyle birlikte bilinçli kripto yatırımını anlatır.', neden: 'Kulaktan dolma bilgiler yerine kendi grafiğini okuyabilen ve riskini yönetebilen bir yatırımcı olmak için.', kimler: 'Kripto para piyasalarına yeni başlayanlar ve teknik analiz becerisini geliştirmek isteyenler.', icerik: 'Kripto tarihi, Bitcoin ekonomisi, akıllı sözleşmeler, blockchain mimarisi, teknik analiz ve pozisyon yönetimi.', kazanimlar: 'Grafik okuma, destek-direnç çizimi, FOMO/FUD kontrolü ve matematiksel pozisyon disiplini.' },
+  '12': { konu: 'Modern hayatta yabancılaşma, yalnızlık, güven ve anlam arayışını; insanın kendi iç sesini yeniden duymasını ve ilişkilerde sağlıklı sınırlar kurmasını ele alan felsefi ve psikolojik bir deneme.', neden: 'İçsel yorgunluğun ve yabancılaşma hissinin nedenlerini samimi bir dille düşünmek isteyenler için.', kimler: 'Hayatın koşturmacasında kendine geç kaldığını hissedenler ve ilişkilerinde anlam arayanlar.', icerik: 'Yabancılaşma, kalabalıklar içinde yalnızlık, güven sorunu, sınır bilinci ve geçmişin yüklerinden arınma.', kazanimlar: 'Kendilikle dürüst yüzleşme, sağlıklı sınır bilinci ve yaşamın anlamına dair yeni bir bakış.' }
+};
 window.__m3000BookMode = 'classic';
 window.__m3000LoadBooks = async function () {
   window.__booksBooted = true;
@@ -642,7 +657,15 @@ window.__m3000LoadBooks = async function () {
         kapakUrl: (r.kapak_dosyasi && String(r.kapak_dosyasi).indexOf('kapak_') !== -1 && String(r.kapak_dosyasi).indexOf('http') !== 0)
           ? 'https://panel.marketim3000.online/api/kapak/' + r.id
           : (r.kapakUrl || r.kapak_dosyasi || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'),
-        aciklama: r.alt_baslik || r.kisa_tanitim || '',
+        aciklama: r.kisa_tanitim || r.alt_baslik || '',
+        altBaslik: r.alt_baslik || '',
+        kisaTanitim: r.kisa_tanitim || '',
+        detayliAciklama: r.detayli_aciklama || '',
+        nedenOkunmali: r.neden_okunmali || '',
+        kimlerIcin: r.kimler_icin || '',
+        icerikBasliklari: r.icerik_basliklari || '',
+        kazanimlar: r.kazanimlar || '',
+        format: r.format || 'PDF',
         fiyat: Number(r.fiyat) || Number(r.indirimli_fiyat) || 0,
         indirmeSayisi: r.indirmeSayisi || 0,
         tarih: null
@@ -893,11 +916,71 @@ window.applyCoupon = function (ctx) {
   }
   window.__m3000ActiveCoupon = kupon ? kod : '';
 };
-window.openBookModal = function (id) {
-  if (window.__m3000Durum()) window.openPurchaseModal(id); else window.openKayitModal();
+window.__m3000BookDetail = function (id) {
+  var book = (window.__m3000Books || []).find(function (b) { return b.id === id; });
+  if (!book) return;
+  var cover = document.getElementById('modalCover');
+  var title = document.getElementById('modalTitle');
+  var author = document.getElementById('modalAuthor');
+  var category = document.getElementById('modalCategory');
+  var desc = document.getElementById('modalDesc');
+  var badge = document.getElementById('modalPriceBadge');
+  var buyBtn = document.getElementById('modalBuyBtn');
+  var buyText = document.getElementById('modalBuyBtnText');
+  var readRow = document.getElementById('modalReadDownloadRow');
+  var modal = document.getElementById('bookDetailModal');
+  var price = Number(book.fiyat) || 0;
+  if (cover) cover.src = book.kapakUrl || '';
+  if (title) title.textContent = book.baslik || '';
+  if (author) author.textContent = book.yazar || '';
+  if (category) category.textContent = book.kategori || 'Genel';
+  if (desc) desc.textContent = book.kisaTanitim || book.aciklama || book.altBaslik || '';
+  if (badge) badge.textContent = price > 0 ? '₺' + price.toLocaleString('tr-TR') : 'Ücretsiz';
+  window.__m3000KonuGoster(book);
+  if (buyBtn && readRow) {
+    if (price > 0) {
+      buyBtn.classList.remove('hidden');
+      readRow.classList.add('hidden');
+      if (buyText) buyText.textContent = 'Satın Al — ₺' + price.toLocaleString('tr-TR');
+      buyBtn.onclick = function () {
+        if (window.__m3000Durum()) window.openPurchaseModal(id); else window.openKayitModal();
+      };
+    } else {
+      buyBtn.classList.add('hidden');
+      readRow.classList.remove('hidden');
+    }
+  }
+  if (modal) modal.classList.add('modal-active');
+};
+window.openBookModal = window.__m3000BookDetail;
+window.closeBookModal = function () {
+  var modal = document.getElementById('bookDetailModal');
+  if (modal) modal.classList.remove('modal-active');
 };
 window.__m3000Html = function (v) {
   return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+};
+window.__m3000Paragraf = function (v) {
+  return String(v == null ? '' : v).split(/\n+/).map(function (p) { return window.__m3000Html(p.trim()); }).filter(function (p) { return p; }).join('<br>');
+};
+window.__m3000KonuIcerik = function (book) {
+  book = book || {};
+  var id = book.id == null ? '' : String(book.id);
+  var k = (window.__m3000Konular || {})[id] || {};
+  var alanlar = [
+    ['Konu', k.konu || book.kisaTanitim || book.detayliAciklama || book.aciklama || 'Bu kitabın konusu yakında eklenecek.'],
+    ['Neden okunmalı?', k.neden || book.nedenOkunmali || ''],
+    ['Kimler için?', k.kimler || book.kimlerIcin || ''],
+    ['İçindekiler', k.icerik || book.icerikBasliklari || ''],
+    ['Kazanımlar', k.kazanimlar || book.kazanimlar || '']
+  ];
+  return '<h5><i class="fa-solid fa-circle-info mr-1.5"></i>Bu kitap neyi anlatıyor?</h5>' + alanlar.filter(function (a) { return !!a[1]; }).map(function (a) {
+    return '<b>' + window.__m3000Html(a[0]) + '</b><p>' + window.__m3000Paragraf(a[1]) + '</p>';
+  }).join('');
+};
+window.__m3000KonuGoster = function (book) {
+  var box = document.getElementById('modalKonu');
+  if (box) box.innerHTML = window.__m3000KonuIcerik(book);
 };
 window.__m3000FallbackDuyurular = [
   { ad: 'reklam', dosya: 'reklam.mp3', url: 'https://panel.marketim3000.online/api/duyuru-ses/reklam.mp3' },
@@ -1511,7 +1594,9 @@ window.openBookModal = async (bookId) => {
   currentBookForComments = book;
   document.getElementById('modalCover').src = book.kapakUrl;
   document.getElementById('modalTitle').innerText = book.baslik;
-  document.getElementById('modalAuthor').querySelector('span').innerText = book.yazar;
+  const authorEl = document.getElementById('modalAuthor');
+  const authorSpan = authorEl && authorEl.querySelector('span');
+  if (authorSpan) authorSpan.innerText = book.yazar; else if (authorEl) authorEl.innerText = book.yazar;
   document.getElementById('modalCategory').innerText = book.kategori || 'Genel';
   // Zenginleştirilmiş detay: format/kategori/benzer kitaplar (gerçek DB verisiyle)
   {
@@ -1520,6 +1605,7 @@ window.openBookModal = async (bookId) => {
     const benzerText = benzer.length ? `\n\n📌 Benzer kitaplar: ${benzer.map(b => b.baslik).join(', ')}` : '';
     const icerik = `\n\n📄 Format: ${format} • Kategori: ${book.kategori || 'Genel'} • Sayfa: kitapta belirtilmemiş (PDF)`;
     document.getElementById('modalDesc').innerText = (book.aciklama || '') + icerik + benzerText;
+  window.__m3000KonuGoster(book);
   }
   document.getElementById('modalDownloadBtn').onclick = (e) => checkDownload(e, book.id, book.dosyaAdi);
   document.getElementById('modalReadBtn').onclick = () => openReader(book.dosyaAdi, book.baslik, book.id);
