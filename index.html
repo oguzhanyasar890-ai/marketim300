@@ -307,14 +307,18 @@
     html.m3000-app .glass-nav{background:rgba(6,19,38,.96)!important;border-bottom:1px solid rgba(34,197,94,.3)!important}
     html.m3000-app .m3000-hero{padding:38px 18px 30px!important}
     html.m3000-app .m3000-hero-inner{max-width:680px;margin:0 auto}
-    html.m3000-app .m3000-visual{display:none!important}
+    html.m3000-app .m3000-visual{display:flex!important;height:auto!important;min-height:130px!important;gap:8px!important;margin:16px 0 4px!important;transform:none!important;overflow:visible!important}
+    html.m3000-app .m3000-orbit,html.m3000-app .m3000-note{display:none!important}
+    html.m3000-app .m3000-book{position:relative!important;width:78px!important;height:116px!important;max-width:none!important;padding:0!important;border:0!important;border-radius:12px!important;box-shadow:0 10px 20px rgba(0,0,0,.35)!important;object-fit:cover!important;flex:0 0 78px!important}
+    html.m3000-app .m3000-book.book-one,html.m3000-app .m3000-book.book-two,html.m3000-app .m3000-book.book-three{transform:none!important;z-index:1!important}
+    html.m3000-app .m3000-book.book-two{transform:translateY(-10px)!important;z-index:2!important}
     html.m3000-app .m3000-hero h2{color:#fff!important;line-height:1.12!important}
     html.m3000-app .m3000-hero h2 em{color:#22c55e!important}
     html.m3000-app .m3000-hero p{color:#b9cde1!important;text-shadow:none!important;line-height:1.75!important}
     html.m3000-app .m3000-actions{flex-direction:column!important;align-items:stretch!important}
     html.m3000-app .m3000-actions > *{width:100%!important;justify-content:center!important;min-height:46px!important}
     html.m3000-app #kitaplarBolumu{padding:26px 16px!important}
-    html.m3000-app button[aria-label^="Kitapları"]{display:none!important}
+    html.m3000-app button[aria-label="Kitapları en sola kaydır"],html.m3000-app button[aria-label="Kitapları sola kaydır"],html.m3000-app button[aria-label="Kitapları sağa kaydır"]{display:none!important}
     html.m3000-app #bookGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-flow:row!important;grid-template-rows:none!important;grid-auto-columns:auto!important;gap:14px!important;max-height:none!important;overflow:visible!important;background:transparent!important}
     html.m3000-app #bookGrid article{max-width:none!important;background:#0d2642!important;border:1px solid rgba(34,197,94,.28)!important;border-radius:20px!important;padding:12px!important;box-shadow:0 10px 24px rgba(0,0,0,.24)!important}
     html.m3000-app #bookGrid article img{border-radius:14px!important}
@@ -332,6 +336,25 @@
     html.m3000-app #m3000AppNav button.aktif{background:rgba(34,197,94,.16)!important;color:#22c55e!important}
     html.m3000-app #m3000AppNav button i{color:inherit!important;font-size:16px!important}
     html.m3000-app body:not(.kayitli) #m3000AppNav button[data-wa]{opacity:.45;pointer-events:none;filter:grayscale(1)}
+    #kitapAsansorBolumu{display:none}
+    html.m3000-app #kitapAsansorBolumu{display:block!important;margin:0 0 18px!important;padding:16px!important;background:#0b2340!important;border:1px solid rgba(34,197,94,.26)!important;border-radius:22px!important}
+    html.m3000-app #kitapAsansorBolumu h3{font-size:16px!important;font-weight:800!important;color:#fff!important}
+    html.m3000-app #kitapAsansorBolumu p{font-size:11.5px!important;color:#9fb7d0!important;margin-top:2px!important}
+    html.m3000-app #kitapAsansorBolumu > div:first-child i{color:#22c55e!important;font-size:16px!important}
+    html.m3000-app #kitapAsansor{margin-top:12px!important;max-height:300px!important;overflow-y:auto!important;scroll-behavior:smooth!important;padding-right:4px!important;scrollbar-width:thin!important;scrollbar-color:#d90429 rgba(10,31,58,.35)!important}
+    html.m3000-app #kitapAsansor::-webkit-scrollbar{width:8px!important}
+    html.m3000-app #kitapAsansor::-webkit-scrollbar-track{background:rgba(10,31,58,.35)!important;border-radius:999px!important}
+    html.m3000-app #kitapAsansor::-webkit-scrollbar-thumb{background:#d90429!important;border-radius:999px!important}
+    html.m3000-app .kitap-asansor-kart{display:flex!important;align-items:center!important;gap:11px!important;padding:9px!important;margin-bottom:8px!important;background:rgba(13,38,66,.9)!important;border:1px solid rgba(34,197,94,.18)!important;border-radius:14px!important;cursor:pointer!important}
+    html.m3000-app .kitap-asansor-kart img{width:46px!important;height:66px!important;flex:0 0 46px!important;object-fit:cover!important;border-radius:8px!important;background:#071a30!important}
+    html.m3000-app .kitap-asansor-kart div{min-width:0!important;flex:1!important;display:flex!important;flex-direction:column!important;gap:2px!important}
+    html.m3000-app .kitap-asansor-kart b{font-size:12.5px!important;color:#fff!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+    html.m3000-app .kitap-asansor-kart small{font-size:10px!important;color:#9fb7d0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+    html.m3000-app .kitap-asansor-kart span{font-size:10px!important;font-weight:800!important;color:#22c55e!important}
+    html.m3000-app .kitap-asansor-kart i{font-size:12px!important;color:#22c55e!important}
+    html.m3000-app .kitap-asansor-btn{width:42px!important;height:42px!important;border-radius:999px!important;border:1px solid rgba(255,255,255,.35)!important;background:#d90429!important;color:#fff!important;font-size:13px!important}
+    html.m3000-app .kitap-asansor-btn i{color:#fff!important}
+    html.m3000-app .kitap-asansor-genis{width:auto!important;padding:0 16px!important;font-size:12px!important;font-weight:800!important}
 </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebSite","name":"Marketim3000","url":"https://www.marketim3000.online/","inLanguage":"tr-TR","description":"Dijital kitapları keşfetme, çevrim içi okuma ve sesli dinleme platformu."}
@@ -379,9 +402,9 @@
       </div>
       <div class="m3000-visual" aria-label="Dijital kitap kitaplıku illüstrasyonu">
         <div class="m3000-orbit"></div>
-        <img src="https://panel.marketim3000.online/api/kapak/11" alt="Profesyonel AI - Oğuzhan Yaşar" class="m3000-book book-one" style="object-fit:cover;padding:0" loading="lazy" decoding="async" onerror="this.style.display='none'">
-        <img src="https://panel.marketim3000.online/api/kapak/17" alt="Kripto Para Piyasaları - Oğuzhan Yaşar" class="m3000-book book-two" style="object-fit:cover;padding:0" loading="lazy" decoding="async" onerror="this.style.display='none'">
-        <img src="https://panel.marketim3000.online/api/kapak/14" alt="Cepten Sunucuya - Oğuzhan Yaşar" class="m3000-book book-three" style="object-fit:cover;padding:0" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <img src="kapaklar/kapak-11.webp" alt="Profesyonel AI - Oğuzhan Yaşar" class="m3000-book book-one" style="object-fit:cover;padding:0" loading="lazy" decoding="async" onerror="window.__m3000HeroKapakHata(this,'https://panel.marketim3000.online/api/kapak/11')">
+        <img src="kapaklar/kapak-17.webp" alt="Kripto Para Piyasaları - Oğuzhan Yaşar" class="m3000-book book-two" style="object-fit:cover;padding:0" loading="lazy" decoding="async" onerror="window.__m3000HeroKapakHata(this,'https://panel.marketim3000.online/api/kapak/17')">
+        <img src="kapaklar/kapak-14.webp" alt="Cepten Sunucuya - Oğuzhan Yaşar" class="m3000-book book-three" style="object-fit:cover;padding:0" loading="lazy" decoding="async" onerror="window.__m3000HeroKapakHata(this,'https://panel.marketim3000.online/api/kapak/14')">
         <div class="m3000-note"><i class="fa-solid fa-book-open"></i><span><b>Okuma keyfi</b><small>Her an, her yerde</small></span></div>
       </div>
     </div>
@@ -416,6 +439,15 @@
       </div>
     </div>
 
+    <section id="kitapAsansorBolumu" aria-label="Kitap asansörü">
+      <div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:12px;background:rgba(34,197,94,.16);display:flex;align-items:center;justify-content:center;flex:0 0 36px"><i class="fa-solid fa-book-bookmark"></i></div><div><h3>Kitap asansörü</h3><p>Raftaki kitapları kaydırarak inceleyin.</p></div></div>
+      <div id="kitapAsansor"></div>
+      <div style="display:flex;justify-content:center;gap:10px;margin-top:12px;flex-wrap:wrap">
+        <button type="button" class="kitap-asansor-btn" onclick="window.__m3000KitapAsansorHareket(-140)" aria-label="Asansörde yukarı kaydır"><i class="fa-solid fa-arrow-up"></i></button>
+        <button type="button" class="kitap-asansor-btn" onclick="window.__m3000KitapAsansorHareket(140)" aria-label="Asansörde aşağı kaydır"><i class="fa-solid fa-arrow-down"></i></button>
+        <button type="button" class="kitap-asansor-btn kitap-asansor-genis" onclick="window.__m3000KitapAsansorTumu()"><i class="fa-solid fa-expand me-1"></i>Tümünü Gör</button>
+      </div>
+    </section>
     <div id="loadingIndicator" class="flex flex-col items-center justify-center py-24">
       <div class="loader mb-3"></div>
       <p class="text-zinc-500 text-[13px] font-medium">Kütüphane yükleniyor...</p>
@@ -624,6 +656,35 @@
 window.__m3000Books = [];
 if (navigator.userAgent.indexOf('Marketim3000App') !== -1) document.documentElement.classList.add('m3000-app');
 window.__m3000FallbackBooks = [{"id":"11","baslik":"Profesyonel AI","yazar":"Oğuzhan Yaşar","kategori":"Yapay Zekâ, E-Ticaret & Sistem Mimarisi","kapakUrl":"https://panel.marketim3000.online/api/kapak/11","fiyat":0.0,"indirmeSayisi":0},{"id":"14","baslik":"Cepten Sunucuya","yazar":"Oğuzhan Yaşar","kategori":"Android, Linux, Terminal, Sunucu Yönetimi, Node.js/Python, API & Cloudflare Tunnel","kapakUrl":"https://panel.marketim3000.online/api/kapak/14","fiyat":90.0,"indirmeSayisi":0},{"id":"26","baslik":"Türkiye Cumhuriyeti Tarihi","yazar":"Oğuzhan Yaşar","kategori":"Tarih, Siyasi Tarih & Kültür","kapakUrl":"https://panel.marketim3000.online/api/kapak/26","fiyat":90.0,"indirmeSayisi":0},{"id":"23","baslik":"Yapay Zekâ Teknolojileri","yazar":"Oğuzhan Yaşar","kategori":"Teknoloji ve Yapay Zekâ","kapakUrl":"https://panel.marketim3000.online/api/kapak/23","fiyat":149.0,"indirmeSayisi":0},{"id":"22","baslik":"Kayıp Şehir ve Turkuaz Harita","yazar":"Oğuzhan Yaşar","kategori":"Macera, Gizem ve Gerilim","kapakUrl":"https://panel.marketim3000.online/api/kapak/22","fiyat":90.0,"indirmeSayisi":0},{"id":"17","baslik":"Kripto Para Piyasaları","yazar":"Oğuzhan Yaşar","kategori":"Finans, Ekonomi ve Kripto Para","kapakUrl":"https://panel.marketim3000.online/api/kapak/17","fiyat":70.0,"indirmeSayisi":0},{"id":"12","baslik":"Kendine Dönüş","yazar":"Oğuzhan Yaşar","kategori":"Felsefe, Psikoloji & Edebi Düşünce","kapakUrl":"https://panel.marketim3000.online/api/kapak/12","fiyat":90.0,"indirmeSayisi":0}];
+window.__m3000HeroKapakHata = function (img, remote) {
+  if (!img || (img.dataset && img.dataset.kapakYedek)) return;
+  if (img.dataset) img.dataset.kapakYedek = '1';
+  img.src = remote;
+};
+window.__m3000YerelKapak = function (book) {
+  var id = book && book.id != null ? String(book.id) : '';
+  return /^\d+$/.test(id) ? 'kapaklar/kapak-' + id + '.webp' : '';
+};
+window.__m3000UzakKapak = function (book) {
+  if (!book) return '';
+  if (book.kapak_dosyasi && String(book.kapak_dosyasi).indexOf('http') === 0) return String(book.kapak_dosyasi);
+  var id = book.id == null ? '' : String(book.id);
+  return /^\d+$/.test(id) ? 'https://panel.marketim3000.online/api/kapak/' + id : (book.kapakUrl || '');
+};
+window.__m3000KapakUrl = function (book) {
+  return window.__m3000YerelKapak(book) || window.__m3000UzakKapak(book);
+};
+window.__m3000KitapKapak = function (book) {
+  var b = Object.assign({}, book || {});
+  b.uzakKapakUrl = window.__m3000UzakKapak(b);
+  b.kapakUrl = window.__m3000KapakUrl(b);
+  return b;
+};
+window.__m3000KapakHata = function (img, remote) {
+  if (!img || (img.dataset && img.dataset.yedekDenendi)) return;
+  if (img.dataset) img.dataset.yedekDenendi = '1';
+  img.src = remote || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800';
+};
 window.__m3000Konular = {
   '11': { konu: '28 bölümlük teknik rapor; yapay zekâ ajanlarıyla düşük maliyetli bir e-ticaret sistemi kurmayı, çok modelli model yönetimini, RAG ve uzun hafızayı, WhatsApp sipariş otomasyonunu ve otonom işletme akışlarını anlatır.', neden: 'Yapay zekâyı yalnızca sohbet aracı olarak değil, gerçek bir mağazayı uçtan uca yöneten bir sistem olarak görmek isteyenler için.', kimler: 'Girişimciler, e-ticaret sahipleri ve AI agent mimarisi geliştiren yazılımcılar.', icerik: 'Sistem mimarisi, model ve kota yönetimi, üç katmanlı hafıza ve RAG, otonom sipariş, filigran, maliyet optimizasyonu.', kazanimlar: 'Düşük maliyetli, güvenli ve otomatik çalışan dijital ticaret altyapısı tasarımı.' },
   '14': { konu: 'Android telefonu UserLAnd ile Linux ortamına dönüştürüp terminal, Node.js, Python, SQLite ve Cloudflare Tunnel kullanarak 7/24 çalışan bir web sunucusu ve otomasyon altyapısı kurmayı öğretir.', neden: 'Sunucu kirası ödemeden kendi sitenizi, API’nizi ve botlarınızı çalıştırmak isteyenler için pratik bir rehber.', kimler: 'Yazılım geliştiriciler, bağımsız girişimciler ve düşük bütçeyle otomasyon kurmak isteyenler.', icerik: 'Mobil Linux, Cloudflare Zero Trust tüneli, Node.js ve Python servisleri, SQLite veritabanı, güvenlik ve erişim kontrolü.', kazanimlar: 'Sıfır altyapı maliyetiyle çalışan gerçek bir sunucu, veritabanı ve otomasyon kurma becerisi.' },
@@ -654,9 +715,8 @@ window.__m3000LoadBooks = async function () {
         yazar: r.yazar || 'Oğuzhan Yaşar',
         kategori: r.kategori || 'Genel',
         dosyaAdi: (r.ad || r.baslik || 'kitap') + '.pdf',
-        kapakUrl: (r.kapak_dosyasi && String(r.kapak_dosyasi).indexOf('kapak_') !== -1 && String(r.kapak_dosyasi).indexOf('http') !== 0)
-          ? 'https://panel.marketim3000.online/api/kapak/' + r.id
-          : (r.kapakUrl || r.kapak_dosyasi || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'),
+        kapakUrl: window.__m3000KapakUrl(r),
+        uzakKapakUrl: window.__m3000UzakKapak(r),
         aciklama: r.kisa_tanitim || r.alt_baslik || '',
         altBaslik: r.alt_baslik || '',
         kisaTanitim: r.kisa_tanitim || '',
@@ -678,7 +738,7 @@ window.__m3000LoadBooks = async function () {
     window.__booksHazir = true;
     window.renderBooks();
   } catch (error) {
-    var fallback = window.__m3000FallbackBooks || [];
+    var fallback = (window.__m3000FallbackBooks || []).map(window.__m3000KitapKapak);
     window.__m3000Books.length = 0;
     Array.prototype.push.apply(window.__m3000Books, fallback);
     if (li) li.style.display = 'none';
@@ -712,14 +772,17 @@ window.__m3000RenderBooks = function () {
     grid.innerHTML = '<div class="col-span-full bg-white border border-[#1a4066] rounded-[24px] text-center py-20 px-6"><p class="text-zinc-900 text-[15px] font-semibold">Sonuç bulunamadı</p><p class="text-zinc-500 text-[13px] mt-1">Arama kriterlerinizi değiştirmeyi deneyin.</p></div>';
     return;
   }
+  window.__m3000KitapAsansoru();
   grid.innerHTML = list.map(function (book) {
     var price = Number(book.fiyat) || 0;
     var title = String(book.baslik || '').replace(/'/g, "\\'");
-    var cover = book.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800';
+    var safeId = String(book.id == null ? '' : book.id).replace(/'/g, "\\'");
+    var cover = window.__m3000KapakUrl(book);
+    var uzakKapak = window.__m3000Html(JSON.stringify(window.__m3000UzakKapak(book)));
     var waText = price > 0 ? 'Merhaba, ' + book.baslik + ' kitabı için satın almak istiyorum.' : 'Merhaba, ' + book.baslik + ' kitabını okumak/indirmek istiyorum.';
     var waUrl = 'https://wa.me/905318479349?text=' + encodeURIComponent(waText);
     var label = price > 0 ? 'Satın Al — ₺' + price.toLocaleString('tr-TR') : 'Oku / İndir';
-    return '<article class="group border border-[#1a4066]/70 rounded-[16px] p-2.5 flex flex-col hover:border-[#4d94ff] hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.5)] transition-all duration-300 max-w-[150px] mx-auto w-full" style="background:#0a1f3a"><div onclick="openBookModal(\'' + book.id + '\')" class="w-full aspect-square rounded-[20px] overflow-hidden relative bg-zinc-100 cursor-pointer"><img src="' + cover + '" loading="lazy" decoding="async" onerror="this.src=\'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800\'" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div></div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal(\'' + book.id + '\')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-100 line-clamp-2 cursor-pointer min-h-[38px]">' + title + '</h4><p class="text-[12.5px] font-medium text-zinc-400 mt-1 line-clamp-1">' + String(book.yazar || '') + '</p><div class="mt-auto pt-3"><a href="' + waUrl + '" target="_blank" class="wa-btn h-[40px] text-white rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5" style="background:#25d366"><i class="fa-brands fa-whatsapp text-[13px]" style="color:#fff"></i><span style="color:#fff">' + label + '</span></a></div></div></article>';
+    return `<article class="group border border-[#1a4066]/70 rounded-[16px] p-2.5 flex flex-col hover:border-[#4d94ff] hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.5)] transition-all duration-300 max-w-[150px] mx-auto w-full" style="background:#0a1f3a"><div onclick="openBookModal('${safeId}')" class="w-full aspect-square rounded-[20px] overflow-hidden relative bg-zinc-100 cursor-pointer"><img src="${cover}" loading="lazy" decoding="async" onerror="window.__m3000KapakHata(this,${uzakKapak})" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div></div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal('${safeId}')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-100 line-clamp-2 cursor-pointer min-h-[38px]">${title}</h4><p class="text-[12.5px] font-medium text-zinc-400 mt-1 line-clamp-1">${String(book.yazar || '')}</p><div class="mt-auto pt-3"><a href="${waUrl}" target="_blank" class="wa-btn h-[40px] text-white rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5" style="background:#25d366"><i class="fa-brands fa-whatsapp text-[13px]" style="color:#fff"></i><span style="color:#fff">${label}</span></a></div></div></article>`;
   }).join('');
 };
 window.renderBooks = window.__m3000RenderBooks;
@@ -916,6 +979,33 @@ window.applyCoupon = function (ctx) {
   }
   window.__m3000ActiveCoupon = kupon ? kod : '';
 };
+window.__m3000KitapAsansoru = function (kaynak) {
+  if (!document.documentElement.classList.contains('m3000-app')) return;
+  var box = document.getElementById('kitapAsansor');
+  if (!box) return;
+  var books = kaynak || window.__m3000Books || [];
+  if (!books.length) return;
+  box.innerHTML = books.map(function (b) {
+    var id = String(b.id == null ? '' : b.id);
+    var title = window.__m3000Html(b.baslik || '');
+    var cat = window.__m3000Html(b.kategori || 'Genel');
+    var cover = window.__m3000Html(window.__m3000KapakUrl(b));
+    var remote = window.__m3000Html(window.__m3000UzakKapak(b));
+    var fiyat = Number(b.fiyat) || 0;
+    var etiket = fiyat > 0 ? '₺' + fiyat.toLocaleString('tr-TR') : 'Ücretsiz';
+    return '<div onclick="openBookModal(\'' + id + '\')" class="kitap-asansor-kart" role="button" tabindex="0"><img src="' + cover + '" alt="' + title + '" loading="lazy" onerror="window.__m3000KapakHata(this,' + window.__m3000Html(JSON.stringify(remote)) + ')"><div><b>' + title + '</b><small>' + cat + '</small><span>' + etiket + '</span></div><i class="fa-solid fa-chevron-right"></i></div>';
+  }).join('');
+};
+window.__m3000KitapAsansorHareket = function (miktar) {
+  var box = document.getElementById('kitapAsansor');
+  if (box && box.scrollBy) box.scrollBy({ top: miktar, behavior: 'smooth' });
+};
+window.__m3000KitapAsansorTumu = function () {
+  var grid = document.getElementById('bookGrid');
+  if (grid) grid.classList.add('tumunu-gor');
+  var bolum = document.getElementById('kitaplarBolumu');
+  if (bolum && bolum.scrollIntoView) bolum.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
 window.__m3000BookDetail = function (id) {
   var book = (window.__m3000Books || []).find(function (b) { return b.id === id; });
   if (!book) return;
@@ -930,7 +1020,10 @@ window.__m3000BookDetail = function (id) {
   var readRow = document.getElementById('modalReadDownloadRow');
   var modal = document.getElementById('bookDetailModal');
   var price = Number(book.fiyat) || 0;
-  if (cover) cover.src = book.kapakUrl || '';
+  if (cover) {
+    cover.src = window.__m3000KapakUrl(book);
+    cover.onerror = function () { window.__m3000KapakHata(cover, window.__m3000UzakKapak(book)); };
+  }
   if (title) title.textContent = book.baslik || '';
   if (author) author.textContent = book.yazar || '';
   if (category) category.textContent = book.kategori || 'Genel';
@@ -1592,7 +1685,9 @@ window.openBookModal = async (bookId) => {
   const book = allBooks.find(b => b.id === bookId);
   if(!book) return;
   currentBookForComments = book;
-  document.getElementById('modalCover').src = book.kapakUrl;
+  const modalCoverEl = document.getElementById('modalCover');
+  modalCoverEl.src = window.__m3000KapakUrl(book);
+  modalCoverEl.onerror = function () { window.__m3000KapakHata(modalCoverEl, window.__m3000UzakKapak(book)); };
   document.getElementById('modalTitle').innerText = book.baslik;
   const authorEl = document.getElementById('modalAuthor');
   const authorSpan = authorEl && authorEl.querySelector('span');
@@ -2034,9 +2129,8 @@ async function loadBooks() {
       yazar: r.yazar || 'Oğuzhan Yaşar',
       kategori: r.kategori || 'Genel',
       dosyaAdi: (r.ad || r.baslik || 'kitap') + '.pdf',
-      kapakUrl: (r.kapak_dosyasi && String(r.kapak_dosyasi).includes('kapak_') && !String(r.kapak_dosyasi).startsWith('http'))
-        ? `https://panel.marketim3000.online/api/kapak/${r.id}`
-        : (r.kapakUrl || r.kapak_dosyasi || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'),
+      kapakUrl: window.__m3000KapakUrl(r),
+      uzakKapakUrl: window.__m3000UzakKapak(r),
       aciklama: r.alt_baslik || r.kisa_tanitim || '',
       fiyat: Number(r.fiyat) || Number(r.indirimli_fiyat) || 0,
       indirmeSayisi: r.indirmeSayisi || 0,
@@ -2074,7 +2168,8 @@ async function loadBooks() {
         yazar: k.yazar || 'Oğuzhan Yaşar',
         kategori: k.kategori || 'Genel',
         dosyaAdi: k.dosyaAdi || (baslik + '.pdf'),
-        kapakUrl: k.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800',
+        kapakUrl: window.__m3000KapakUrl(k),
+        uzakKapakUrl: window.__m3000UzakKapak(k),
         aciklama: k.aciklama || '',
         fiyat: Number(k.fiyat) || 0,
         indirmeSayisi: k.indirmeSayisi || 0,
@@ -2086,6 +2181,7 @@ async function loadBooks() {
 }
 window.renderBooks = () => {
   if (window.__m3000BookMode === 'classic' && typeof window.__m3000RenderBooks === 'function') return window.__m3000RenderBooks();
+  window.__m3000KitapAsansoru(allBooks);
   const grid = document.getElementById('bookGrid');
   const sortVal = document.getElementById('sortSelect') ? document.getElementById('sortSelect').value : 'newest';
   grid.innerHTML = '';
@@ -2112,7 +2208,8 @@ window.renderBooks = () => {
   filtered.forEach(book => {
     const isFav = userFavorites.includes(book.id);
     const heartClass = isFav ? "fa-solid fa-heart text-rose-500" : "fa-regular fa-heart text-zinc-400";
-    const cover = book.kapakUrl || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800';
+    const cover = window.__m3000KapakUrl(book);
+    const uzakKapak = window.__m3000UzakKapak(book);
     const safeTitle = book.baslik.replace(/'/g, "\\'");
     const safeFile = book.dosyaAdi.replace(/'/g, "\\'");
     const price = Number(book.fiyat) || 0;
@@ -2122,7 +2219,8 @@ window.renderBooks = () => {
       ? `<div class="flex gap-2"><a href="https://wa.me/905318479349?text=${encodeURIComponent('Merhaba, ' + book.baslik + ' kitabı için satın almak istiyorum.')}" target="_blank" onclick="event.stopPropagation()" class="wa-btn flex-1 h-[40px] rounded-full text-[12.5px] font-semibold tracking-wide transition flex items-center justify-center gap-2" style="background:#25d366"><i class="fa-brands fa-whatsapp text-[13px]" style="color:#22c55e!important"></i><span style="color:#22c55e!important">Satın Al — ₺${price.toLocaleString('tr-TR')}</span></a></div>`
       : `<div class="grid grid-cols-[1.1fr_0.9fr] gap-2"><a href="https://wa.me/905318479349?text=${encodeURIComponent('Merhaba, ' + book.baslik + ' kitabını okumak/indirmek istiyorum.')}" target="_blank" onclick="event.stopPropagation()" class="wa-btn h-[40px] text-white rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5" style="background:#25d366"><i class="fa-brands fa-whatsapp text-[13px]" style="color:#fff"></i><span style="color:#fff">Oku</span></a><a href="https://wa.me/905318479349?text=${encodeURIComponent('Merhaba, ' + book.baslik + ' kitabını indirmek istiyorum.')}" target="_blank" onclick="event.stopPropagation()" class="wa-btn h-[40px] text-white rounded-full text-[12.5px] font-semibold transition flex items-center justify-center gap-1.5" style="background:#25d366"><i class="fa-brands fa-whatsapp text-[13px]" style="color:#fff"></i><span style="color:#fff">İndir</span></a></div>`;
     const fiyatText = price > 0 ? `₺${price.toLocaleString('tr-TR')}` : 'Ücretsiz';
-    grid.innerHTML += `<article class="group border border-[#1a4066]/70 dark:border-zinc-800 rounded-[16px] p-2.5 flex flex-col hover:border-[#4d94ff] hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.5)] transition-all duration-300 max-w-[150px] mx-auto w-full" style="background:#0a1f3a"><div onclick="openBookModal('${book.id}')" class="w-full aspect-square rounded-[20px] overflow-hidden relative bg-zinc-100 dark:bg-zinc-800 cursor-pointer"><img src="${cover}" loading="lazy" decoding="async" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]"><div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div><!-- kategori rozeti kapağın üstünden altına taşındı --><!-- favori kalp kaldırıldı -->${priceBadge}</div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-900 dark:text-zinc-100 line-clamp-2 cursor-pointer group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition min-h-[38px]">${book.baslik}</h4><p class="text-[12.5px] font-medium text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">${book.yazar}</p><div class="mt-auto pt-3 flex flex-col gap-2">${primaryAction}</div></div></article>`;
+    grid.innerHTML += `<article class="group border border-[#1a4066]/70 dark:border-zinc-800 rounded-[16px] p-2.5 flex flex-col hover:border-[#4d94ff] hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.5)] transition-all duration-300 max-w-[150px] mx-auto w-full" style="background:#0a1f3a"><div onclick="openBookModal('${book.id}')" class="w-full aspect-square rounded-[20px] overflow-hidden relative bg-zinc-100 dark:bg-zinc-800 cursor-pointer"><img src="${cover}" loading="lazy" decoding="async" onerror="window.__m3000KapakHata(this,'${uzakKapak}')" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)]">
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-60"></div><!-- kategori rozeti kapağın üstünden altına taşındı --><!-- favori kalp kaldırıldı -->${priceBadge}</div><div class="pt-3.5 pb-1 px-1 flex flex-col flex-grow"><h4 onclick="openBookModal('${book.id}')" class="font-serif font-bold text-[15px] leading-[1.25] text-zinc-900 dark:text-zinc-100 line-clamp-2 cursor-pointer group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition min-h-[38px]">${book.baslik}</h4><p class="text-[12.5px] font-medium text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1">${book.yazar}</p><div class="mt-auto pt-3 flex flex-col gap-2">${primaryAction}</div></div></article>`;
   });
 };
 function renderHomeSections() {
