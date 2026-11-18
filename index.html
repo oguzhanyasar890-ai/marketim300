@@ -251,6 +251,8 @@
     #duyuruAsansor::-webkit-scrollbar{width:8px!important}
     #duyuruAsansor::-webkit-scrollbar-track{background:rgba(10,31,58,.35)!important;border-radius:999px}
     #duyuruAsansor::-webkit-scrollbar-thumb{background:#d90429!important;border-radius:999px}
+    #duyuruAsansor + div .duyuru-asansor-btn{background:#d90429!important;color:#fff!important;border:1px solid rgba(255,255,255,.35)!important}
+    #duyuruAsansor + div .duyuru-asansor-btn i{color:#fff!important}
     #bookGrid{display:grid!important;grid-auto-flow:column!important;grid-template-rows:repeat(2,auto)!important;grid-template-columns:none!important;grid-auto-columns:300px!important;max-height:none!important;overflow-x:auto!important;overflow-y:hidden!important}
     #bookGrid article{max-width:none!important;padding:10px!important}
     #bookGrid article>div:first-child{aspect-ratio:2/3!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#071a30!important;overflow:hidden!important}
@@ -341,9 +343,9 @@
         </div>
         <div id="duyuruAsansor" style="margin-top:22px;max-height:260px;overflow-y:auto;scroll-behavior:smooth;padding-right:4px"></div>
         <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap">
-          <button onclick="document.getElementById('duyuruAsansor').scrollTo({top:0,behavior:'smooth'})" aria-label="Yukarı kaydır" class="w-10 h-10 rounded-full" style="background:#ffffff;color:#fff"><i class="fa-solid fa-arrow-up"></i></button>
-          <button onclick="document.getElementById('duyuruAsansor').scrollBy({top:180,behavior:'smooth'})" aria-label="Aşağı kaydır" class="w-10 h-10 rounded-full" style="background:#ffffff;color:#fff"><i class="fa-solid fa-arrow-down"></i></button>
-          <button id="duyuruTumunuBtn" onclick="duyuruTumunuGor()" aria-label="Tüm duyuruları göster" class="h-10 rounded-full px-4 text-[12px] font-bold" style="background:#ffffff;color:#fff"><i class="fa-solid fa-expand me-1"></i>Tümünü Gör</button>
+          <button onclick="document.getElementById('duyuruAsansor').scrollTo({top:0,behavior:'smooth'})" aria-label="Yukarı kaydır" class="duyuru-asansor-btn w-10 h-10 rounded-full" style="background:#d90429;color:#fff"><i class="fa-solid fa-arrow-up"></i></button>
+          <button onclick="document.getElementById('duyuruAsansor').scrollBy({top:180,behavior:'smooth'})" aria-label="Aşağı kaydır" class="duyuru-asansor-btn w-10 h-10 rounded-full" style="background:#d90429;color:#fff"><i class="fa-solid fa-arrow-down"></i></button>
+          <button id="duyuruTumunuBtn" onclick="duyuruTumunuGor()" aria-label="Tüm duyuruları göster" class="duyuru-asansor-btn h-10 rounded-full px-4 text-[12px] font-bold" style="background:#d90429;color:#fff"><i class="fa-solid fa-expand me-1"></i>Tümünü Gör</button>
         </div>
         <div class="m3000-trust-row" style="border-top:1px solid rgba(125,185,255,.25);padding-top:18px;margin-top:26px"><span style="background:rgba(125,185,255,.12);padding:8px 12px;border-radius:999px;border:1px solid rgba(125,185,255,.35)"><i class="fa-solid fa-book"></i> Zengin kitaplık</span><span style="background:rgba(125,185,255,.12);padding:8px 12px;border-radius:999px;border:1px solid rgba(125,185,255,.35)"><i class="fa-solid fa-headphones"></i> Sesli dinleme</span><span style="background:rgba(125,185,255,.12);padding:8px 12px;border-radius:999px;border:1px solid rgba(125,185,255,.35)"><i class="fa-solid fa-mobile-screen"></i> Her cihazda</span></div>
       </div>
@@ -868,8 +870,58 @@ window.applyCoupon = function (ctx) {
 window.openBookModal = function (id) {
   if (window.__m3000Durum()) window.openPurchaseModal(id); else window.openKayitModal();
 };
+window.__m3000Html = function (v) {
+  return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+};
+window.__m3000FallbackDuyurular = [
+  { ad: 'reklam', dosya: 'reklam.mp3', url: 'https://panel.marketim3000.online/api/duyuru-ses/reklam.mp3' },
+  { ad: 'MiniMax 2026-11-17 16 25 03 izel', dosya: 'MiniMax_2026-11-17_16_25_03_izel.mp3', url: 'https://panel.marketim3000.online/api/duyuru-ses/MiniMax_2026-11-17_16_25_03_izel.mp3' },
+  { ad: 'MiniMax 2026-11-17 12 26 35 izel', dosya: 'MiniMax_2026-11-17_12_26_35_izel.mp3', url: 'https://panel.marketim3000.online/api/duyuru-ses/MiniMax_2026-11-17_12_26_35_izel.mp3' }
+];
+window.__m3000DuyurulariGoster = function (rows) {
+  var box = document.getElementById('duyuruAsansor');
+  if (!box) return;
+  var list = (rows || []).filter(function (d) {
+    return d && String(d.url || '').indexOf('https://panel.marketim3000.online/api/duyuru-ses/') === 0;
+  });
+  if (!list.length) {
+    box.innerHTML = '<div style="font-size:11.5px;color:#4d7c0f;padding:10px 2px;">Henüz yayınlanmış ses duyurusu yok.</div>';
+    return;
+  }
+  box.innerHTML = list.map(function (d, i) {
+    var ad = window.__m3000Html(d.ad || d.dosya || 'Ses duyurusu');
+    var url = window.__m3000Html(d.url);
+    return '<div style="' + (i ? 'margin-top:14px;' : '') + 'background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.35);border-radius:18px;padding:14px 16px;">' +
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">' +
+      '<i class="fa-solid fa-headphones" style="color:#22c55e;font-size:17px;"></i>' +
+      '<div style="flex:1;min-width:0;">' +
+      '<div style="font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#15803d;">Marketim3000 Ses</div>' +
+      '<div style="font-size:11.5px;color:#4d7c0f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + ad + '</div>' +
+      '</div></div>' +
+      '<audio controls preload="metadata" style="width:100%;height:38px;display:block;"><source src="' + url + '" type="audio/mpeg"></audio>' +
+      '</div>';
+  }).join('');
+};
+window.__m3000LoadDuyurular = async function () {
+  window.__m3000DuyurulariGoster(window.__m3000FallbackDuyurular);
+  var ctrl = new AbortController();
+  var timeout = setTimeout(function () { ctrl.abort(); }, 8000);
+  try {
+    var res = await fetch('https://panel.marketim3000.online/api/duyurular', { cache: 'no-store', signal: ctrl.signal });
+    clearTimeout(timeout);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var rows = await Promise.race([
+      res.json(),
+      new Promise(function (_, reject) { setTimeout(function () { reject(new Error('API yanıt zaman aşımı')); }, 8000); })
+    ]);
+    if (Array.isArray(rows) && rows.length) window.__m3000DuyurulariGoster(rows);
+  } catch (error) {
+    clearTimeout(timeout);
+  }
+};
+window.loadDuyurular = window.__m3000LoadDuyurular;
 window.__m3000Durum();
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', window.__m3000LoadBooks); else window.__m3000LoadBooks();
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { window.__m3000LoadBooks(); window.__m3000LoadDuyurular(); }); else { window.__m3000LoadBooks(); window.__m3000LoadDuyurular(); }
 </script>
 
 <script type="module">
