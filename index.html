@@ -341,12 +341,6 @@
           <a href="https://wa.me/905318479349" target="_blank" class="m3000-secondary wa-btn wa-btn-disabled" style="background:#ffffff!important;color:#22c55e!important;border-color:#25d366!important"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
           <a id="androidIndir" href="Marketim3000.apk" class="m3000-secondary" download="Marketim3000.apk" target="_blank" rel="noopener" style="background:#d90429!important;color:#ffffff!important;border-color:#d90429!important;box-shadow:0 8px 20px rgba(217,4,41,.28)"><i class="fa-brands fa-android"></i> Android İndir <i class="fa-solid fa-download"></i></a>
         </div>
-        <div id="duyuruAsansor" style="margin-top:22px;max-height:260px;overflow-y:auto;scroll-behavior:smooth;padding-right:4px"></div>
-        <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap">
-          <button onclick="document.getElementById('duyuruAsansor').scrollTo({top:0,behavior:'smooth'})" aria-label="Yukarı kaydır" class="duyuru-asansor-btn w-10 h-10 rounded-full" style="background:#d90429;color:#fff"><i class="fa-solid fa-arrow-up"></i></button>
-          <button onclick="document.getElementById('duyuruAsansor').scrollBy({top:180,behavior:'smooth'})" aria-label="Aşağı kaydır" class="duyuru-asansor-btn w-10 h-10 rounded-full" style="background:#d90429;color:#fff"><i class="fa-solid fa-arrow-down"></i></button>
-          <button id="duyuruTumunuBtn" onclick="duyuruTumunuGor()" aria-label="Tüm duyuruları göster" class="duyuru-asansor-btn h-10 rounded-full px-4 text-[12px] font-bold" style="background:#d90429;color:#fff"><i class="fa-solid fa-expand me-1"></i>Tümünü Gör</button>
-        </div>
         <div class="m3000-trust-row" style="border-top:1px solid rgba(125,185,255,.25);padding-top:18px;margin-top:26px"><span style="background:rgba(125,185,255,.12);padding:8px 12px;border-radius:999px;border:1px solid rgba(125,185,255,.35)"><i class="fa-solid fa-book"></i> Zengin kitaplık</span><span style="background:rgba(125,185,255,.12);padding:8px 12px;border-radius:999px;border:1px solid rgba(125,185,255,.35)"><i class="fa-solid fa-headphones"></i> Sesli dinleme</span><span style="background:rgba(125,185,255,.12);padding:8px 12px;border-radius:999px;border:1px solid rgba(125,185,255,.35)"><i class="fa-solid fa-mobile-screen"></i> Her cihazda</span></div>
       </div>
       <div class="m3000-visual" aria-label="Dijital kitap kitaplıku illüstrasyonu">
@@ -399,14 +393,16 @@
     </div>
   </main>
 
-  <!-- Okumanın önemi -->
-  <section style="max-width:880px;margin:36px auto;padding:28px 24px;border-radius:24px;background:rgba(125,185,255,.08);border:1px solid rgba(125,185,255,.28)">
-    <h2 style="font-family:'Fraunces',Georgia,serif;font-size:24px;font-weight:800;color:#22c55e;text-align:center">Okumak: Sessiz Bir Ufuk Yolculuğu</h2>
-    <p style="color:#22c55e;font-size:14px;line-height:1.9;margin-top:14px;text-align:center">
-      Her kitap, bambaşka bir dünyaya açılan penceredir. Okumak; düşüncenizi genişletir, hayal gücünüzü besler ve kelime haznenizi zenginleştirir. Günde yalnızca 15 dakikalık bir okuma, zihninizi dinlendirirken yeni fikirler, yeni bakış açıları edinmenizi sağlar.<br><br>
-      Dijital kütüphanemizde sevdiğiniz kitabı anında bulun, telefonunuzda, tabletinizde ya da bilgisayarınızda okuyun. Okuma alışkanlığı, geleceğe yapılan en değerli yatırımdır — bugün ilk sayfayı çevirin.
-    </p>
-   </section>
+  <section id="sesliDuyuruBolumu" style="max-width:880px;margin:36px auto;padding:28px 24px;border-radius:24px;background:rgba(125,185,255,.08);border:1px solid rgba(125,185,255,.28)">
+    <h2 style="font-family:'Fraunces',Georgia,serif;font-size:24px;font-weight:800;color:#22c55e;text-align:center">Sesli Duyurular</h2>
+    <p style="color:#22c55e;font-size:13px;line-height:1.7;margin-top:8px;text-align:center">Son sesli duyuruları dinleyin.</p>
+    <div id="duyuruAsansor" style="margin-top:18px;max-height:306px;overflow-y:auto;scroll-behavior:smooth;padding-right:4px"></div>
+    <div style="display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap">
+      <button onclick="document.getElementById('duyuruAsansor').scrollTo({top:0,behavior:'smooth'})" aria-label="Yukarı kaydır" class="duyuru-asansor-btn w-10 h-10 rounded-full" style="background:#d90429;color:#fff"><i class="fa-solid fa-arrow-up"></i></button>
+      <button onclick="document.getElementById('duyuruAsansor').scrollBy({top:180,behavior:'smooth'})" aria-label="Aşağı kaydır" class="duyuru-asansor-btn w-10 h-10 rounded-full" style="background:#d90429;color:#fff"><i class="fa-solid fa-arrow-down"></i></button>
+      <button id="duyuruTumunuBtn" onclick="duyuruTumunuGor()" aria-label="Tüm duyuruları göster" class="duyuru-asansor-btn h-10 rounded-full px-4 text-[12px] font-bold" style="background:#d90429;color:#fff"><i class="fa-solid fa-expand me-1"></i>Tümünü Gör</button>
+    </div>
+  </section>
 
    <!-- HERKESE AÇIK YORUMLAR -->
    <section id="herkeseAcikYorumlar" style="padding:36px 24px">
@@ -761,7 +757,7 @@ window.duyuruTumunuGor = function () {
   if (!box || !btn) return;
   var acik = box.dataset.acik === '1';
   if (acik) {
-    box.style.maxHeight = '260px';
+    box.style.maxHeight = '306px';
     box.style.overflowY = 'auto';
     box.dataset.acik = '0';
     btn.innerHTML = '<i class="fa-solid fa-expand me-1"></i>Tümünü Gör';
@@ -2397,7 +2393,7 @@ window.duyuruTumunuGor = function () {
   if (!box || !btn) return;
   const acik = box.dataset.acik === '1';
   if (acik) {
-    box.style.maxHeight = '260px';
+    box.style.maxHeight = '306px';
     box.style.overflowY = 'auto';
     box.dataset.acik = '0';
     btn.innerHTML = '<i class="fa-solid fa-expand me-1"></i>Tümünü Gör';
