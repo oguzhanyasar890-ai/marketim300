@@ -295,6 +295,7 @@
       #kayitModal>div{padding:20px!important}
     }
     html body,html body #kitaplarBolumu,html body #bookGrid,html body .m3000-hero,html body main#kitaplarBolumu ~ section,html body main#kitaplarBolumu ~ footer{background:#0a1f3a url('site-arkaplan-20.png') center/cover fixed no-repeat!important}
+    .m3000-app #androidIndir{display:none!important}
 </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebSite","name":"Marketim3000","url":"https://www.marketim3000.online/","inLanguage":"tr-TR","description":"Dijital kitapları keşfetme, çevrim içi okuma ve sesli dinleme platformu."}
@@ -336,7 +337,7 @@
         <div class="m3000-actions">
           <a href="#kitaplarBolumu" class="m3000-primary" style="background:#ffffff!important;color:#22c55e!important;box-shadow:0 8px 20px rgba(37,211,102,.35)"><i class="fa-solid fa-book-open"></i> Kitapları keşfet <i class="fa-solid fa-arrow-right"></i></a>
           <a href="https://wa.me/905318479349" target="_blank" class="m3000-secondary wa-btn wa-btn-disabled" style="background:#ffffff!important;color:#22c55e!important;border-color:#25d366!important"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-          <a href="Marketim3000.apk" class="m3000-secondary" download="Marketim3000.apk" target="_blank" rel="noopener" style="background:#d90429!important;color:#ffffff!important;border-color:#d90429!important;box-shadow:0 8px 20px rgba(217,4,41,.28)"><i class="fa-brands fa-android"></i> Android İndir <i class="fa-solid fa-download"></i></a>
+          <a id="androidIndir" href="Marketim3000.apk" class="m3000-secondary" download="Marketim3000.apk" target="_blank" rel="noopener" style="background:#d90429!important;color:#ffffff!important;border-color:#d90429!important;box-shadow:0 8px 20px rgba(217,4,41,.28)"><i class="fa-brands fa-android"></i> Android İndir <i class="fa-solid fa-download"></i></a>
         </div>
         <div id="duyuruAsansor" style="margin-top:22px;max-height:260px;overflow-y:auto;scroll-behavior:smooth;padding-right:4px"></div>
         <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap">
@@ -1541,39 +1542,51 @@ window.tumunuGor = () => {
 };
 
 async function loadBooks() {
-  // NOT: marketim3000.online/api → Cloudflare kenarında 404 verir, o yüzden panel adresi kullanılır.
+  window.__booksBooted = true;
+  window.__booksHazir = false;
   const VITRIN_URL = 'https://panel.marketim3000.online/api/vitrin';
   const li = document.getElementById('loadingIndicator');
   let rows;
+  let hataMesaji = '';
   try {
     const ctrl = new AbortController();
     const zamanAsimi = setTimeout(() => ctrl.abort(), 8000);
     const res = await fetch(VITRIN_URL, { cache: 'no-store', signal: ctrl.signal });
     clearTimeout(zamanAsimi);
     if (!res.ok) throw new Error('Vitrin API hatası: ' + res.status);
-    rows = await res.json();
+    rows = await Promise.race([
+      res.json(),
+      new Promise((_, rej) => setTimeout(() => rej(new Error('API yanıt zaman aşımı')), 8000))
+    ]);
+    allBooks = (rows || []).map(r => ({
+      id: String(r.id),
+      baslik: r.ad || r.baslik || 'Başlıksız',
+      yazar: r.yazar || 'Oğuzhan Yaşar',
+      kategori: r.kategori || 'Genel',
+      dosyaAdi: (r.ad || r.baslik || 'kitap') + '.pdf',
+      kapakUrl: (r.kapak_dosyasi && String(r.kapak_dosyasi).includes('kapak_') && !String(r.kapak_dosyasi).startsWith('http'))
+        ? `https://panel.marketim3000.online/api/kapak/${r.id}`
+        : (r.kapakUrl || r.kapak_dosyasi || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'),
+      aciklama: r.alt_baslik || r.kisa_tanitim || '',
+      fiyat: Number(r.fiyat) || Number(r.indirimli_fiyat) || 0,
+      indirmeSayisi: r.indirmeSayisi || 0,
+      tarih: null
+    }));
   } catch (error) {
-    if (li) li.innerHTML = `<p class="text-brand-600 text-xs font-bold">Kitaplar yüklenemedi: ${error.message}</p>`;
     allBooks = [];
-    renderBooks();
-    return;
+    hataMesaji = error.message;
+  } finally {
+    if (li) li.style.display = 'none';
+    window.__booksHazir = true;
   }
-  allBooks = (rows || []).map(r => ({
-    id: String(r.id),
-    baslik: r.ad || r.baslik || 'Başlıksız',
-    yazar: r.yazar || 'Oğuzhan Yaşar',
-    kategori: r.kategori || 'Genel',
-    dosyaAdi: (r.ad || r.baslik || 'kitap') + '.pdf',
-    kapakUrl: (r.kapak_dosyasi && String(r.kapak_dosyasi).includes('kapak_') && !String(r.kapak_dosyasi).startsWith('http'))
-      ? `https://panel.marketim3000.online/api/kapak/${r.id}`
-      : (r.kapakUrl || r.kapak_dosyasi || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800'),
-    aciklama: r.alt_baslik || r.kisa_tanitim || '',
-    fiyat: Number(r.fiyat) || Number(r.indirimli_fiyat) || 0,
-    indirmeSayisi: r.indirmeSayisi || 0,
-    tarih: null
-  }));
-  if (li) li.style.display = 'none';
   renderBooks();
+  if (hataMesaji) {
+    const g = document.getElementById('bookGrid');
+    const hataDiv = document.createElement('div');
+    hataDiv.className = 'col-span-full rounded-xl border border-rose-200 bg-rose-50 p-6 text-center text-sm font-semibold text-rose-700';
+    hataDiv.innerHTML = `Kitaplar yüklenemedi: ${hataMesaji} <button onclick="location.reload()" class="ms-2 rounded-full bg-rose-600 px-3 py-1 text-white">Tekrar dene</button>`;
+    if (g) g.prepend(hataDiv);
+  }
   renderHomeSections();
   try {
     const snap = await Promise.race([
@@ -2062,8 +2075,16 @@ window.duyuruTumunuGor = function () {
 };
 
 function initApp() {
+  window.__booksHazir = false;
+  setTimeout(() => {
+    if (!window.__booksHazir) {
+      const li = document.getElementById('loadingIndicator');
+      if (li && li.style.display !== 'none') li.innerHTML = `<p class="text-rose-600 text-xs font-bold">Kitaplar yüklenemedi. <button onclick="location.reload()" class="ms-2 rounded-full bg-rose-600 px-3 py-1 text-white">Tekrar dene</button></p>`;
+    }
+  }, 10000);
   loadDuyurular();
-  loadCategories().then(() => loadBooks());
+  loadBooks();
+  loadCategories();
   loadSizdenGelenler();
   loadYoutubeBooks();
   loadHerkeseAcikYorumlar();
@@ -2562,4 +2583,15 @@ window.checkoutCart = async () => {
       </form>
     </div>
   </div>
+<script>
+(function(){
+  if (navigator.userAgent.indexOf('Marketim3000App') !== -1) document.documentElement.classList.add('m3000-app');
+  setTimeout(function(){
+    var li = document.getElementById('loadingIndicator');
+    if (li && li.style.display !== 'none' && window.__booksHazir !== true) {
+      li.innerHTML = '<p class="text-rose-600 text-xs font-bold">Kitaplar yüklenemedi. <button onclick="location.reload()" class="ms-2 rounded-full bg-rose-600 px-3 py-1 text-white">Tekrar dene</button></p>';
+    }
+  }, 12000);
+})();
+</script>
 </body></html>
