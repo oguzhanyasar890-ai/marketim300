@@ -674,16 +674,201 @@ window.__m3000RenderBooks = function () {
 window.renderBooks = window.__m3000RenderBooks;
 window.filterBooks = function () { window.__m3000RenderBooks(); };
 window.filterCategory = function (cat, btnEl) {
+  var titleEl = document.getElementById('listTitle');
+  if (titleEl) titleEl.innerText = cat === 'Tümü' ? 'Kitaplar Kitaplıku' : cat + ' Kitapları';
   document.querySelectorAll('#categoryContainer .cat-btn').forEach(function (b) {
     b.className = 'cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-red-200 text-slate-600 bg-white';
   });
   if (btnEl) btnEl.className = 'cat-btn whitespace-nowrap px-4 py-2 rounded-xl text-xs font-bold transition border border-brand-600 bg-brand-600 text-white shadow-md';
   window.__m3000RenderBooks();
 };
-window.openBookModal = function (id) {
-  var book = (window.__m3000Books || []).find(function (b) { return b.id === id; });
-  if (book) window.open('https://wa.me/905318479349?text=' + encodeURIComponent('Merhaba, ' + book.baslik + ' kitabı için bilgi almak istiyorum.'), '_blank');
+window.__m3000KayitKey = 'm3000_kayitli_email';
+window.__m3000Banka = { banka: 'Kuveyt Türk', hesapSahibi: 'Oğuzhan Yaşar', iban: 'TR22 0020 5000 0929 1179 2000 01' };
+window.__m3000Telefon = '905318479349';
+window.__m3000Planlar = [
+  { id: 'premium_aylik', ad: 'Premium aylık', fiyat: 149, gun: 30, not: 'Tüm kitaplara 30 gün erişim' },
+  { id: 'premium_yillik', ad: 'Premium yıllık', fiyat: 1190, gun: 365, not: 'Tüm kitaplara 1 yıl erişim, aylığa göre %33 avantaj' },
+  { id: 'paket_omur', ad: 'Ömür boyu paket', fiyat: 2490, gun: 0, not: 'Tüm kitaplara süresiz erişim' }
+];
+window.__m3000SeciliPlan = window.__m3000Planlar[1];
+window.__m3000Durum = function () {
+  var email = localStorage.getItem(window.__m3000KayitKey) || '';
+  document.body.classList.toggle('kayitli', !!email);
+  var btn = document.getElementById('kayitOlBtn');
+  if (btn) btn.style.display = email ? 'none' : 'inline-flex';
+  var yorum = document.getElementById('publicCommentSubmitBtn');
+  if (yorum) yorum.disabled = !email;
+  return email;
 };
+window.__m3000Wa = function (text) {
+  window.location.href = 'https://wa.me/' + window.__m3000Telefon + '?text=' + encodeURIComponent(text);
+};
+window.openKayitModal = function () {
+  var input = document.getElementById('kayitEmail');
+  var msg = document.getElementById('kayitMesaj');
+  var modal = document.getElementById('kayitModal');
+  if (!input || !modal) return;
+  input.value = localStorage.getItem(window.__m3000KayitKey) || '';
+  if (msg) msg.textContent = '';
+  modal.classList.add('modal-active');
+  setTimeout(function () { input.focus(); }, 50);
+};
+window.closeKayitModal = function () {
+  var modal = document.getElementById('kayitModal');
+  if (modal) modal.classList.remove('modal-active');
+};
+window.kayitOl = async function (ev) {
+  if (ev) ev.preventDefault();
+  var input = document.getElementById('kayitEmail');
+  var msg = document.getElementById('kayitMesaj');
+  var email = ((input && input.value) || '').trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (msg) msg.textContent = 'Geçerli bir e-posta adresi girin.';
+    return;
+  }
+  var ctrl = new AbortController();
+  var timeout = setTimeout(function () { ctrl.abort(); }, 5000);
+  try {
+    await fetch('https://panel.marketim3000.online/api/kayit-ol', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email }),
+      signal: ctrl.signal
+    });
+  } catch (error) {}
+  clearTimeout(timeout);
+  localStorage.setItem(window.__m3000KayitKey, email);
+  window.__m3000Durum();
+  window.closeKayitModal();
+};
+window.tumunuGor = function () {
+  var g = document.getElementById('bookGrid');
+  var btn = document.getElementById('tumunuGorBtn');
+  if (!g) return;
+  var acik = g.classList.toggle('tumunu-gor');
+  if (btn) btn.innerHTML = acik ? '<i class="fa-solid fa-compress mr-1"></i>Geri dön' : '<i class="fa-solid fa-expand mr-1"></i>Tümünü görüntüle';
+  var si = document.getElementById('searchInput');
+  if (si) si.value = '';
+  window.filterCategory('Tümü');
+  window.__m3000RenderBooks();
+  if (g.scrollTo) g.scrollTo({ top: 0, behavior: 'smooth' });
+};
+window.duyuruTumunuGor = function () {
+  var box = document.getElementById('duyuruAsansor');
+  var btn = document.getElementById('duyuruTumunuBtn');
+  if (!box || !btn) return;
+  var acik = box.dataset.acik === '1';
+  if (acik) {
+    box.style.maxHeight = '260px';
+    box.style.overflowY = 'auto';
+    box.dataset.acik = '0';
+    btn.innerHTML = '<i class="fa-solid fa-expand me-1"></i>Tümünü Gör';
+    if (box.scrollTo) box.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    box.style.maxHeight = 'none';
+    box.style.overflowY = 'visible';
+    box.dataset.acik = '1';
+    btn.innerHTML = '<i class="fa-solid fa-compress me-1"></i>Geri Dön';
+  }
+};
+window.openPurchaseModal = function (id) {
+  var email = window.__m3000Durum();
+  if (!email) { window.openKayitModal(); return; }
+  var book = (window.__m3000Books || []).find(function (b) { return b.id === id; });
+  if (!book) return;
+  window.__m3000PurchaseBookId = id;
+  var titleEl = document.getElementById('purchaseBookTitle');
+  var priceEl = document.getElementById('purchaseBookPrice');
+  if (titleEl) titleEl.textContent = book.baslik;
+  if (priceEl) priceEl.textContent = '₺' + (Number(book.fiyat) || 0).toLocaleString('tr-TR');
+  var banka = document.getElementById('bankAdi');
+  var sahip = document.getElementById('bankHesapSahibi');
+  var iban = document.getElementById('bankIban');
+  if (banka) banka.textContent = window.__m3000Banka.banka;
+  if (sahip) sahip.textContent = window.__m3000Banka.hesapSahibi;
+  if (iban) iban.textContent = window.__m3000Banka.iban;
+  var modal = document.getElementById('purchaseModal');
+  if (modal) modal.classList.add('modal-active');
+};
+window.closePurchaseModal = function () {
+  var modal = document.getElementById('purchaseModal');
+  if (modal) modal.classList.remove('modal-active');
+  window.__m3000PurchaseBookId = null;
+};
+window.copyIban = function () {
+  if (navigator.clipboard) navigator.clipboard.writeText(window.__m3000Banka.iban.replace(/\s/g, ''));
+  alert('IBAN kopyalandı!');
+};
+window.copyPremIban = window.copyIban;
+window.confirmPurchaseRequest = async function () {
+  var id = window.__m3000PurchaseBookId;
+  var email = window.__m3000Durum();
+  var book = (window.__m3000Books || []).find(function (b) { return b.id === id; });
+  if (!id || !email || !book) return;
+  var siparisNo = 'M3000-' + Math.floor(100000 + Math.random() * 900000);
+  try {
+    var res = await fetch('https://panel.marketim3000.online/api/siparis-olustur', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ kitap_idleri: [id], musteri_ad: email, musteri_tel: '' })
+    });
+    var data = await res.json();
+    if (data && data.siparis_no) siparisNo = data.siparis_no;
+  } catch (error) {}
+  window.__m3000Wa('Merhaba, "' + book.baslik + '" (' + (Number(book.fiyat) || 0).toLocaleString('tr-TR') + ' TL) kitabı için ödemeyi yaptım. Dekontu yalnızca PDF olarak göndereceğim. Sipariş No: ' + siparisNo + '. E-posta: ' + email);
+  window.closePurchaseModal();
+  alert('Siparişiniz alındı! Dekontu PDF olarak WhatsApp üzerinden gönderdiğinizde erişiminiz açılacaktır.');
+};
+window.__m3000RenderPlans = function () {
+  var box = document.getElementById('planList');
+  if (!box) return;
+  box.innerHTML = window.__m3000Planlar.map(function (p) {
+    var secili = p.id === window.__m3000SeciliPlan.id ? 'border-zinc-900 ring-1 ring-zinc-900' : 'border-[#1a4066]';
+    return '<button onclick="selectPlan(\'' + p.id + '\')" class="text-left rounded-[16px] border p-4 flex items-center justify-between gap-3 ' + secili + '"><span><span class="block font-semibold text-[14px]">' + p.ad + '</span><span class="block text-[12px] text-zinc-500 mt-0.5">' + p.not + '</span></span><span class="font-bold text-[16px]">₺' + p.fiyat.toLocaleString('tr-TR') + '</span></button>';
+  }).join('');
+};
+window.selectPlan = function (id) {
+  window.__m3000SeciliPlan = window.__m3000Planlar.find(function (p) { return p.id === id; }) || window.__m3000SeciliPlan;
+  window.__m3000RenderPlans();
+};
+window.openPremiumModal = function () {
+  var email = window.__m3000Durum();
+  if (!email) { window.openKayitModal(); return; }
+  var banka = document.getElementById('premBank');
+  var iban = document.getElementById('premIban');
+  if (banka) banka.textContent = window.__m3000Banka.banka + ' · ' + window.__m3000Banka.hesapSahibi;
+  if (iban) iban.textContent = window.__m3000Banka.iban;
+  window.__m3000RenderPlans();
+  var modal = document.getElementById('premiumModal');
+  if (modal) modal.classList.add('modal-active');
+};
+window.closePremiumModal = function () {
+  var modal = document.getElementById('premiumModal');
+  if (modal) modal.classList.remove('modal-active');
+};
+window.confirmPlanRequest = function () {
+  var email = window.__m3000Durum();
+  if (!email) { window.closePremiumModal(); window.openKayitModal(); return; }
+  var p = window.__m3000SeciliPlan;
+  window.__m3000Wa('Merhaba, "' + p.ad + '" (' + p.fiyat.toLocaleString('tr-TR') + ' TL) için ödemeyi yaptım. Dekontu yalnızca PDF olarak göndereceğim. E-posta: ' + email);
+  window.closePremiumModal();
+  alert('Talebiniz alındı! Dekontu PDF olarak gönderdiğinizde üyeliğiniz açılacaktır.');
+};
+window.applyCoupon = function (ctx) {
+  var input = document.getElementById(ctx + 'CouponInput');
+  var msg = document.getElementById(ctx + 'CouponMsg');
+  var kod = ((input && input.value) || '').trim().toUpperCase();
+  var kupon = kod === 'HOSGELDIN10' ? 10 : (kod === 'OKUR50' ? 50 : 0);
+  if (msg) {
+    msg.textContent = kupon ? kod + ' uygulandı' : 'Kupon geçersiz.';
+    msg.className = 'text-[11.5px] mt-1.5 ' + (kupon ? 'text-emerald-600' : 'text-red-600');
+  }
+  window.__m3000ActiveCoupon = kupon ? kod : '';
+};
+window.openBookModal = function (id) {
+  if (window.__m3000Durum()) window.openPurchaseModal(id); else window.openKayitModal();
+};
+window.__m3000Durum();
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', window.__m3000LoadBooks); else window.__m3000LoadBooks();
 </script>
 
