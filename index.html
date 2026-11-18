@@ -26,7 +26,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Digital Kitaplarımız | MARKETIM3000">
   <meta name="twitter:description" content="Dijital kitapları keşfet, çevrim içi oku ve sesli dinle.">
-  <link rel="icon" href="1792945068177.jpg" type="image/png">
+  <link rel="icon" href="site-favicon.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.2/dist/jszip.min.js"></script>
@@ -305,7 +305,8 @@
   <a href="#kitaplarBolumu" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[2000] focus:rounded-full focus:bg-white focus:px-4 focus:py-3 focus:text-zinc-900 focus:shadow-lg">İçeriğe geç</a>
   <header class="glass-nav sticky top-0 z-40">
     <div class="max-w-[1280px] mx-auto px-5 sm:px-8 h-[68px] flex items-center justify-between gap-6">
-      <a href="#" class="flex items-center gap-3.5 group">
+      <a href="#" class="flex items-center gap-3 group">
+        <img src="site-logo.png" alt="Marketim3000 logosu" width="40" height="40" style="width:40px;height:40px;flex:0 0 40px;object-fit:contain;border-radius:50%;background:#fff;padding:2px;border:1px solid rgba(244,198,83,.7);box-shadow:0 4px 14px rgba(0,0,0,.35)">
         <div class="leading-none pl-3 border-l-2 border-[#d90429]">
           <h1 class="font-serif font-bold text-[21px] tracking-tight leading-none" style="color:#22c55e!important">Marketim3000</h1>
           <span class="text-[12px] font-semibold tracking-[0.14em] uppercase leading-none" style="color:#22c55e!important">Yapay Zeka Teknolojileri</span>
@@ -1920,7 +1921,7 @@ function botReply(text) {
   else if (text.includes("satın al") || text.includes("nasıl al")) reply = "Kitabın üzerindeki <b>Satın Al</b> butonuna bas, açılan ekrandaki IBAN'a ödemeni yap ve WhatsApp butonuyla dekontu yalnızca PDF olarak gönder. Onaylandığında kitap kütüphanene eklenir.";
   else if (text.includes("ses") || text.includes("dinle")) reply = "Üstteki ses barından <b>▶</b> bas, hızını 1.5x yapabilir, ileri-geri atlayabilirsin. TXT kitaplar en iyi sonucu verir.";
   else if (text.includes("kaydet") || text.includes("kaldı")) reply = "Okuma ve dinleme konumun otomatik kaydediliyor. Kitabı kapatıp açtığında kaldığın yerden devam edersin.";
-  chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-slate-950 border border-brand-600 flex-shrink-0 flex items-center justify-center mt-1 overflow-hidden p-0.5"><img src="1792945068177.jpg" onerror="handleLogoError(this)" class="w-full h-full object-contain"></div><div class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-red-100 dark:border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
+  chatMessages.innerHTML += `<div class="flex gap-2 w-full"><div class="w-6 h-6 rounded-full bg-slate-950 border border-brand-600 flex-shrink-0 flex items-center justify-center mt-1 overflow-hidden p-0.5"><img src="site-logo.png" alt="Marketim3000 logosu" class="w-full h-full object-contain"></div><div class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-3.5 py-2.5 rounded-2xl rounded-tl-none border border-red-100 dark:border-slate-700 shadow-sm max-w-[85%] leading-relaxed">${reply}</div></div>`;
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
