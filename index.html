@@ -298,6 +298,35 @@
     }
     html body,html body #kitaplarBolumu,html body #bookGrid,html body .m3000-hero,html body main#kitaplarBolumu ~ section,html body main#kitaplarBolumu ~ footer{background:#0a1f3a url('site-arkaplan-20.png') center/cover fixed no-repeat!important}
     .m3000-app #androidIndir{display:none!important}
+    html.m3000-app body{zoom:1!important;background:#061326!important;padding-bottom:82px!important}
+    html.m3000-app .glass-nav{background:rgba(6,19,38,.96)!important;border-bottom:1px solid rgba(34,197,94,.3)!important}
+    html.m3000-app .m3000-hero{padding:38px 18px 30px!important}
+    html.m3000-app .m3000-hero-inner{max-width:680px;margin:0 auto}
+    html.m3000-app .m3000-visual{display:none!important}
+    html.m3000-app .m3000-hero h2{color:#fff!important;line-height:1.12!important}
+    html.m3000-app .m3000-hero h2 em{color:#22c55e!important}
+    html.m3000-app .m3000-hero p{color:#b9cde1!important;text-shadow:none!important;line-height:1.75!important}
+    html.m3000-app .m3000-actions{flex-direction:column!important;align-items:stretch!important}
+    html.m3000-app .m3000-actions > *{width:100%!important;justify-content:center!important;min-height:46px!important}
+    html.m3000-app #kitaplarBolumu{padding:26px 16px!important}
+    html.m3000-app button[aria-label^="Kitapları"]{display:none!important}
+    html.m3000-app #bookGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-flow:row!important;grid-template-rows:none!important;grid-auto-columns:auto!important;gap:14px!important;max-height:none!important;overflow:visible!important;background:transparent!important}
+    html.m3000-app #bookGrid article{max-width:none!important;background:#0d2642!important;border:1px solid rgba(34,197,94,.28)!important;border-radius:20px!important;padding:12px!important;box-shadow:0 10px 24px rgba(0,0,0,.24)!important}
+    html.m3000-app #bookGrid article img{border-radius:14px!important}
+    html.m3000-app #bookGrid article h4{color:#fff!important;font-size:14px!important;min-height:36px!important}
+    html.m3000-app #bookGrid article p{color:#9fb7d0!important;text-shadow:none!important}
+    html.m3000-app #bookGrid article a{height:36px!important;border-radius:999px!important;background:#25d366!important;color:#fff!important}
+    html.m3000-app #sesliDuyuruBolumu,html.m3000-app #herkeseAcikYorumlar{max-width:720px!important;margin:24px auto!important;padding:24px 18px!important;background:#0b2340!important;border:1px solid rgba(34,197,94,.26)!important;border-radius:24px!important}
+    html.m3000-app #sesliDuyuruBolumu h2,html.m3000-app #herkeseAcikYorumlar h2{color:#fff!important}
+    html.m3000-app #sesliDuyuruBolumu p,html.m3000-app #herkeseAcikYorumlar p{color:#b9cde1!important;text-shadow:none!important}
+    html.m3000-app #duyuruAsansor > div{background:rgba(217,4,41,.09)!important;border-color:rgba(217,4,41,.4)!important}
+    html.m3000-app #duyuruAsansor > div div div{color:#cfe0f2!important;text-shadow:none!important}
+    html.m3000-app #duyuruAsansor + div .duyuru-asansor-btn{background:#d90429!important}
+    html.m3000-app #m3000AppNav{position:fixed;left:0;right:0;bottom:0;z-index:1200;display:grid!important;grid-template-columns:repeat(4,1fr);gap:4px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(6,19,38,.98)!important;border-top:1px solid rgba(34,197,94,.35)!important;box-shadow:0 -8px 24px rgba(0,0,0,.4)!important}
+    html.m3000-app #m3000AppNav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:50px;border:0;border-radius:16px;background:transparent!important;color:#9fb7d0!important;font-size:10.5px!important;font-weight:700!important;text-shadow:none!important}
+    html.m3000-app #m3000AppNav button.aktif{background:rgba(34,197,94,.16)!important;color:#22c55e!important}
+    html.m3000-app #m3000AppNav button i{color:inherit!important;font-size:16px!important}
+    html.m3000-app body:not(.kayitli) #m3000AppNav button[data-wa]{opacity:.45;pointer-events:none;filter:grayscale(1)}
 </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebSite","name":"Marketim3000","url":"https://www.marketim3000.online/","inLanguage":"tr-TR","description":"Dijital kitapları keşfetme, çevrim içi okuma ve sesli dinleme platformu."}
@@ -587,6 +616,7 @@
 
 <script>
 window.__m3000Books = [];
+if (navigator.userAgent.indexOf('Marketim3000App') !== -1) document.documentElement.classList.add('m3000-app');
 window.__m3000FallbackBooks = [{"id":"11","baslik":"Profesyonel AI","yazar":"Oğuzhan Yaşar","kategori":"Yapay Zekâ, E-Ticaret & Sistem Mimarisi","kapakUrl":"https://panel.marketim3000.online/api/kapak/11","fiyat":0.0,"indirmeSayisi":0},{"id":"14","baslik":"Cepten Sunucuya","yazar":"Oğuzhan Yaşar","kategori":"Android, Linux, Terminal, Sunucu Yönetimi, Node.js/Python, API & Cloudflare Tunnel","kapakUrl":"https://panel.marketim3000.online/api/kapak/14","fiyat":90.0,"indirmeSayisi":0},{"id":"26","baslik":"Türkiye Cumhuriyeti Tarihi","yazar":"Oğuzhan Yaşar","kategori":"Tarih, Siyasi Tarih & Kültür","kapakUrl":"https://panel.marketim3000.online/api/kapak/26","fiyat":90.0,"indirmeSayisi":0},{"id":"23","baslik":"Yapay Zekâ Teknolojileri","yazar":"Oğuzhan Yaşar","kategori":"Teknoloji ve Yapay Zekâ","kapakUrl":"https://panel.marketim3000.online/api/kapak/23","fiyat":149.0,"indirmeSayisi":0},{"id":"22","baslik":"Kayıp Şehir ve Turkuaz Harita","yazar":"Oğuzhan Yaşar","kategori":"Macera, Gizem ve Gerilim","kapakUrl":"https://panel.marketim3000.online/api/kapak/22","fiyat":90.0,"indirmeSayisi":0},{"id":"17","baslik":"Kripto Para Piyasaları","yazar":"Oğuzhan Yaşar","kategori":"Finans, Ekonomi ve Kripto Para","kapakUrl":"https://panel.marketim3000.online/api/kapak/17","fiyat":70.0,"indirmeSayisi":0},{"id":"12","baslik":"Kendine Dönüş","yazar":"Oğuzhan Yaşar","kategori":"Felsefe, Psikoloji & Edebi Düşünce","kapakUrl":"https://panel.marketim3000.online/api/kapak/12","fiyat":90.0,"indirmeSayisi":0}];
 window.__m3000BookMode = 'classic';
 window.__m3000LoadBooks = async function () {
@@ -916,8 +946,29 @@ window.__m3000LoadDuyurular = async function () {
   }
 };
 window.loadDuyurular = window.__m3000LoadDuyurular;
+window.__m3000AppGit = function (hedef) {
+  var id = hedef === 'kitaplar' ? 'kitaplarBolumu' : (hedef === 'sesler' ? 'sesliDuyuruBolumu' : 'herkeseAcikYorumlar');
+  var el = document.getElementById(id);
+  if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  var nav = document.getElementById('m3000AppNav');
+  if (nav && nav.querySelectorAll) {
+    var buttons = nav.querySelectorAll('button[data-nav]');
+    for (var i = 0; i < buttons.length; i++) buttons[i].classList.toggle('aktif', buttons[i].getAttribute('data-nav') === hedef);
+  }
+};
+window.__m3000AppNav = function () {
+  if (!document.documentElement.classList.contains('m3000-app') || !document.body || document.getElementById('m3000AppNav')) return;
+  var nav = document.createElement('div');
+  nav.id = 'm3000AppNav';
+  nav.innerHTML = '<button type="button" data-nav="kitaplar" class="aktif" onclick="window.__m3000AppGit(\'kitaplar\')"><i class="fa-solid fa-book"></i><span>Kitaplar</span></button>' +
+    '<button type="button" data-nav="sesler" onclick="window.__m3000AppGit(\'sesler\')"><i class="fa-solid fa-headphones"></i><span>Sesler</span></button>' +
+    '<button type="button" data-nav="yorumlar" onclick="window.__m3000AppGit(\'yorumlar\')"><i class="fa-solid fa-comments"></i><span>Yorumlar</span></button>' +
+    '<button type="button" data-wa="1" onclick="window.__m3000Durum() && window.__m3000Wa(\'Merhaba, Oluwa ile görüşmek istiyorum.\')"><i class="fa-brands fa-whatsapp"></i><span>Oluwa</span></button>';
+  document.body.appendChild(nav);
+};
 window.__m3000Durum();
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { window.__m3000LoadBooks(); window.__m3000LoadDuyurular(); }); else { window.__m3000LoadBooks(); window.__m3000LoadDuyurular(); }
+window.__m3000AppNav();
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { window.__m3000AppNav(); window.__m3000LoadBooks(); window.__m3000LoadDuyurular(); }); else { window.__m3000AppNav(); window.__m3000LoadBooks(); window.__m3000LoadDuyurular(); }
 </script>
 
 <script type="module">
