@@ -579,6 +579,28 @@
     </div>
   </div>
 
+  <div id="authModal" class="fixed inset-0 z-[1100] items-center justify-center bg-zinc-950/60 backdrop-blur p-4">
+    <div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-[400px] p-7 border border-[#1a4066] dark:border-zinc-800 shadow-xl relative">
+      <button onclick="closeAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark text-[12px]"></i></button>
+      <div id="authRequiredWarning" class="bg-amber-50 border-2 border-amber-300 text-amber-900 text-xs font-black rounded-xl p-3 mb-4" style="display:none"></div>
+      <h3 id="authTitle" class="font-bold text-[19px]">Giriş Yap</h3>
+      <p class="text-[12.5px] text-zinc-500 mt-1.5 leading-5">Kitapları okumak, indirmek ve yorum yapmak için hesabına giriş yap.</p>
+      <button id="googleLoginBtn" onclick="loginWithGoogle()" class="w-full h-11 mt-5 rounded-full bg-white border border-zinc-300 dark:bg-zinc-800 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-google text-[#4285F4]"></i> Google ile devam et</button>
+      <div id="userProfileArea" class="items-center gap-2 mt-4 p-3 rounded-[14px] bg-emerald-50 dark:bg-emerald-950/40" style="display:none">
+        <img id="userAvatarImg" alt="" class="w-8 h-8 rounded-full" style="display:none">
+        <span id="userAvatarText" class="w-8 h-8 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center" style="display:none"></span>
+        <b id="userNameDisplay" class="text-[13px]"></b>
+      </div>
+      <form id="emailAuthForm" onsubmit="handleEmailAuth(event)" class="mt-5 grid gap-3">
+        <div id="nameField" style="display:none"><input id="authNameInput" placeholder="Ad Soyad" class="h-11 w-full rounded-full border px-4 text-[13px]"></div>
+        <input id="authEmailInput" type="email" required placeholder="E-posta" class="h-11 w-full rounded-full border px-4 text-[13px]">
+        <input id="authPasswordInput" type="password" required minlength="6" placeholder="Şifre" class="h-11 w-full rounded-full border px-4 text-[13px]">
+        <button id="authSubmitBtn" type="submit" class="h-11 rounded-full bg-zinc-900 text-white font-semibold text-[13px]">Giriş Yap</button>
+      </form>
+      <p class="text-center text-[12px] text-zinc-500 mt-4"><span id="authToggleText">Hesabınız yok mu?</span> <button id="authToggleBtn" type="button" onclick="toggleAuthMode()" class="text-brand-600 font-bold">Kayıt Olun</button></p>
+    </div>
+  </div>
+
   <div id="qrModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4"><div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-sm p-8 border shadow-xl relative text-center"><button onclick="closeQRModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button><h3 class="font-bold text-[18px]">QR Kod</h3><p class="text-[12px] text-zinc-500 mt-1">Telefonla okut</p><div class="bg-white p-4 rounded-[16px] inline-block mt-6 border shadow-sm"><img alt="marketim3000.online adresine yönlendiren QR kodu" loading="lazy" decoding="async" width="192" height="192" src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https://www.marketim3000.online&color=24,24,27" class="w-48 h-48"></div></div></div>
 
   <div id="submissionModal" class="fixed inset-0 z-[1000] items-center justify-center bg-zinc-950/60 backdrop-blur p-4"><div class="bg-white dark:bg-zinc-900 rounded-[28px] w-full max-w-lg p-8 border shadow-xl relative"><button onclick="closeSubmissionModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button><h3 class="font-bold text-[20px]">Sizden gelenler</h3><p class="text-[12px] text-zinc-500 mt-1">Alıntınızı paylaşın</p><form id="submissionForm" onsubmit="submitSizdenGelen(event)" class="mt-6 grid gap-4"><div class="grid grid-cols-2 gap-3"><input id="subName" required placeholder="Adınız" class="h-11 rounded-full border px-4 text-[13px]"><select id="subType" class="h-11 rounded-full border px-4 text-[13px]"><option>Kitap Alıntısı</option><option>Kitap Tavsiyesi</option><option>Okur Mesajı</option></select></div><input id="subTopic" required placeholder="Başlık" class="h-11 rounded-full border px-4 text-[13px]"><textarea id="subMessage" required rows="4" placeholder="Mesajınız..." class="rounded-[16px] border p-4 text-[13px] resize-none"></textarea><button id="subSubmitBtn" class="h-11 rounded-full bg-zinc-900 text-white font-semibold text-[13px]">Gönder</button></form></div></div>
@@ -1615,6 +1637,7 @@ window.submitSizdenGelen = async (e) => {
 
 let isLoginMode = true;
 window.openAuthModal = () => { document.getElementById('authModal').classList.add('modal-active'); };
+window.closeAuthModal = () => { document.getElementById('authModal').classList.remove('modal-active'); };
 window.toggleAuthMode = () => {
   isLoginMode = !isLoginMode;
   document.getElementById('authTitle').innerText = isLoginMode ? "Giriş Yap" : "Kayıt Ol";
@@ -2258,6 +2281,16 @@ window.openPurchaseModal = (bookId) => {
 window.closePurchaseModal = () => { document.getElementById('purchaseModal').classList.remove('modal-active'); purchaseModalBookId = null; };
 window.copyIban = () => { navigator.clipboard.writeText(BANK_INFO.iban.replace(/\s/g, '')); alert('IBAN kopyalandı!'); };
 
+window.__m3000SiparisOlustur = async (ids, email, ad) => {
+  try {
+    const res = await fetch('https://panel.marketim3000.online/api/siparis-olustur', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ kitap_idleri: ids, musteri_ad: ad || email, musteri_email: email, musteri_tel: '' }) });
+    if (!res.ok) return null;
+    const data = await res.json().catch(() => null);
+    return data && data.siparis_no ? data.siparis_no : null;
+  } catch (e) {
+    return null;
+  }
+};
 window.confirmPurchaseRequest = async () => {
   if (!purchaseModalBookId || !auth.currentUser) return;
   const book = allBooks.find(b => b.id === purchaseModalBookId);
@@ -2278,7 +2311,8 @@ window.confirmPurchaseRequest = async () => {
       tarih: serverTimestamp()
     });
   } catch (e) {}
-  const msg = encodeURIComponent(`Merhaba, "${book.baslik}" (₺${price}) kitabı için ödemeyi yaptım. Dekontu yalnızca PDF olarak göndereceğim. E-posta: ${auth.currentUser.email}`);
+  const siparisNo = await window.__m3000SiparisOlustur([book.id], auth.currentUser.email, auth.currentUser.displayName || '') || `M3000-${Math.floor(100000 + Math.random() * 900000)}`;
+  const msg = encodeURIComponent(`Merhaba, "${book.baslik}" (₺${price}) kitabı için ödemeyi yaptım. Dekontu yalnızca PDF olarak göndereceğim. Sipariş No: ${siparisNo}. E-posta: ${auth.currentUser.email}`);
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
   closePurchaseModal();
   alert('Siparişiniz alındı! Dekontu yalnızca PDF olarak WhatsApp üzerinden gönderdiğinizde, onayın ardından kitap hesabınıza tanımlanacaktır.');
@@ -3126,7 +3160,8 @@ window.checkoutCart = async () => {
     } catch (e) {}
     lines.push('• ' + b.baslik + ' (' + TL(f) + ')');
   }
-  const msg = encodeURIComponent('Merhaba, sepetimdeki ' + items.length + ' kitap için ödemeyi yaptım (toplam ' + TL(t.final) + (c ? ', kupon: ' + c.kod : '') + '):\n' + lines.join('\n') + '\nDekontu yalnızca PDF olarak göndereceğim. E-posta: ' + u.email);
+  const siparisNo = await window.__m3000SiparisOlustur(items.map(b => b.id), u.email, u.displayName || '') || `M3000-${Math.floor(100000 + Math.random() * 900000)}`;
+  const msg = encodeURIComponent('Merhaba, sepetimdeki ' + items.length + ' kitap için ödemeyi yaptım (toplam ' + TL(t.final) + (c ? ', kupon: ' + c.kod : '') + '):\n' + lines.join('\n') + '\nDekontu yalnızca PDF olarak göndereceğim. Sipariş No: ' + siparisNo + '. E-posta: ' + u.email);
   window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + msg, '_blank');
   setCart([]); closeCart();
   alert('Talebiniz alındı! Dekontu yalnızca PDF olarak WhatsApp üzerinden gönderdiğinizde, onayın ardından kitaplar hesabınıza tanımlanacaktır.');
