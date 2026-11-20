@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oluwa — Kişisel Asistan</title>
+<style>
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:#071a30;color:#eaf2ff}
+  #app{display:flex;flex-direction:column;height:100dvh;max-width:720px;margin:0 auto;background:#0a1f3a;border-left:1px solid #163d63;border-right:1px solid #163d63}
+  header{display:flex;align-items:center;gap:11px;padding:16px 16px 14px;border-bottom:1px solid rgba(125,185,255,.16);background:#0b2440}
+  header img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #22c55e}
+  header b{display:block;font-size:16px;color:#fff}
+  header small{display:block;font-size:11px;color:#7dd3a0;margin-top:2px}
+  header .dot{width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e;margin-left:auto}
+  #mesajlar{flex:1;overflow-y:auto;padding:18px 14px;display:flex;flex-direction:column;gap:11px;scroll-behavior:smooth}
+  .mesaj{max-width:82%;padding:11px 14px;border-radius:16px;font-size:14px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+  .bot{background:#123a5f;color:#eaf6ff;border-bottom-left-radius:4px;align-self:flex-start;border:1px solid rgba(125,185,255,.18)}
+  .kullanici{background:#22c55e;color:#05220f;border-bottom-right-radius:4px;align-self:flex-end;font-weight:600}
+  .yaziyor{opacity:.65;font-style:italic}
+  #alt{padding:12px;border-top:1px solid rgba(125,185,255,.16);background:#0b2440;display:flex;gap:9px;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+  #girdi{flex:1;min-height:44px;max-height:120px;resize:none;border-radius:22px;border:1px solid rgba(125,185,255,.3);background:#0d2a4a;color:#fff;padding:11px 16px;font:inherit;font-size:14px;outline:none}
+  #girdi:focus{border-color:#22c55e}
+  #gonder{width:48px;height:48px;border-radius:50%;border:0;background:#22c55e;color:#04240f;font-size:20px;cursor:pointer;flex:0 0 48px}
+  #gonder:disabled{opacity:.5;cursor:wait}
+  .ipucu{text-align:center;font-size:11px;color:#6f93b5;padding:0 14px 8px}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <img src="asistan.jpg" alt="Oluwa">
+    <div><b>Oluwa — Kişisel Asistanım</b><small>Ticaret botundan ayrı, yalnızca sana özel</small></div>
+    <span class="dot" title="Çevrimiçi"></span>
+  </header>
+  <div id="mesajlar"><div class="mesaj bot">Merhaba! Ben Oluwa, kişisel asistanın. Sohbet etmek, soru sormak veya fikir almak için yazabilirsin.</div></div>
+  <div class="ipucu">Not: Bu sohbet WhatsApp ticaret botundan bağımsızdır.</div>
+  <div id="alt">
+    <textarea id="girdi" rows="1" placeholder="Oluwa'ya bir şey yaz..."></textarea>
+    <button id="gonder" aria-label="Gönder">➤</button>
+  </div>
+</div>
+<script>
+(function(){
+  var API='https://panel.marketim3000.online/api/oluwa-chat';
+  var kutu=document.getElementById('mesajlar'), girdi=document.getElementById('girdi'), btn=document.getElementById('gonder');
+
+  function ekle(metin, sinif){
+    var d=document.createElement('div');
+    d.className='mesaj '+sinif;
+    d.textContent=metin;
+    kutu.appendChild(d);
+    kutu.scrollTop=kutu.scrollHeight;
+    return d;
+  }
+
+  async function gonder(){
+    var mesaj=girdi.value.trim();
+    if(!mesaj) return;
+    girdi.value='';
+    ekle(mesaj,'kullanici');
+    btn.disabled=true;
+    var bekliyor=ekle('Oluwa yazıyor...','bot yaziyor');
+    try{
+      var res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mesaj:mesaj})});
+      var veri=await res.json();
+      bekliyor.classList.remove('yaziyor');
+      bekliyor.textContent=veri.cevap||'Yanıt alınamadı.';
+    }catch(e){
+      bekliyor.classList.remove('yaziyor');
+      bekliyor.textContent='Bağlantı hatası: '+e.message;
+    }finally{
+      btn.disabled=false;
+      kutu.scrollTop=kutu.scrollHeight;
+      girdi.focus();
+    }
+  }
+
+  btn.addEventListener('click',gonder);
+  girdi.addEventListener('keydown',function(e){
+    if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); gonder(); }
+  });
+  girdi.focus();
+})();
+</script>
+</body>
+</html>
