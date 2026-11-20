@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oluwa — Canlı Sohbet</title>
+<style>
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:#071a30;color:#eaf2ff;overflow:hidden}
+  #app{display:flex;flex-direction:column;height:100dvh;max-width:720px;margin:0 auto;background:#0a1f3a;border-left:1px solid #163d63;border-right:1px solid #163d63}
+  header{display:flex;align-items:center;gap:11px;padding:16px;border-bottom:1px solid rgba(125,185,255,.16);background:#0b2440}
+  header img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #22c55e}
+  header b{display:block;font-size:16px;color:#fff}
+  header small{display:block;font-size:11px;color:#7dd3a0;margin-top:2px}
+  .dot{width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e;margin-left:auto}
+  #durum{text-align:center;font-size:12px;color:#8fc2ff;padding:7px 10px;min-height:28px;background:rgba(13,42,74,.7);border-bottom:1px solid rgba(125,185,255,.1)}
+  #mesajlar{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+  .mesaj{max-width:85%;padding:11px 14px;border-radius:16px;font-size:14px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+  .bot{background:#123a5f;color:#eaf6ff;border-bottom-left-radius:4px;align-self:flex-start;border:1px solid rgba(125,185,255,.18)}
+  .kullanici{background:#22c55e;color:#05220f;border-bottom-right-radius:4px;align-self:flex-end;font-weight:600}
+  .yaziyor{opacity:.6;font-style:italic}
+  #alt{padding:10px 12px 8px;border-top:1px solid rgba(125,185,255,.16);background:#0b2440;display:flex;gap:9px;align-items:center}
+  #girdi{flex:1;min-height:44px;max-height:110px;resize:none;border-radius:22px;border:1px solid rgba(125,185,255,.3);background:#0d2a4a;color:#fff;padding:11px 16px;font:inherit;font-size:14px;outline:none}
+  #girdi:focus{border-color:#22c55e}
+  #gonder{width:46px;height:46px;border-radius:50%;border:0;background:#22c55e;color:#04240f;font-size:19px;flex:0 0 46px}
+  #canli{display:block;width:calc(100% - 24px);margin:2px 12px calc(12px + env(safe-area-inset-bottom));height:52px;border-radius:26px;border:1px solid rgba(34,197,94,.5);background:#0d2a4a;color:#7dd3a0;font-size:14px;font-weight:700;letter-spacing:.02em}
+  #canli.aktif{background:#d90429;color:#fff;border-color:#ff6b6b;box-shadow:0 0 24px rgba(217,4,41,.6);animation:nabiz 1.1s ease-in-out infinite}
+  @keyframes nabiz{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <img src="asistan.jpg" alt="Oluwa">
+    <div><b>Oluwa — Canlı Sohbet</b><small>Kişisel asistanın · sesli konuşma açık</small></div>
+    <span class="dot"></span>
+  </header>
+  <div id="durum">Hazır. Yazabilirsin veya canlı konuşma butonuna bas.</div>
+  <div id="mesajlar"><div class="mesaj bot">Merhaba! Ben Oluwa, kişisel asistanın. Canlı konuşma butonuna basıp doğrudan konuşabilirsin.</div></div>
+  <div id="alt">
+    <textarea id="girdi" rows="1" placeholder="Oluwa'ya yaz..."></textarea>
+    <button id="gonder" aria-label="Gönder">➤</button>
+  </div>
+  <button id="canli">CANLI KONUŞMA BAŞLAT</button>
+</div>
+<script>
+(function(){
+  var API='https://panel.marketim3000.online/api/oluwa-chat';
+  var kutu=document.getElementById('mesajlar'), girdi=document.getElementById('girdi'),
+      gonderBtn=document.getElementById('gonder'), micBtn=document.getElementById('canli'),
+      durum=document.getElementById('durum');
+
+  function ekle(metin, sinif){
+    var d=document.createElement('div'); d.className='mesaj '+sinif; d.textContent=metin;
+    kutu.appendChild(d); kutu.scrollTop=kutu.scrollHeight; return d;
+  }
+  function durumYaz(t){ durum.textContent=t; }
+
+  async function gonder(mesaj, sesli){
+    if(!mesaj) return;
+    girdi.value=''; ekle(mesaj,'kullanici');
+    gonderBtn.disabled=true;
+    var bekliyor=ekle('Oluwa yazıyor...','bot yaziyor');
+    durumYaz(sesli?'Oluwa yanıtlıyor...':'Yanıt bekleniyor...');
+    try{
+      var res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mesaj:mesaj})});
+      var veri=await res.json();
+      bekliyor.classList.remove('yaziyor');
+      var cevap=veri.cevap||'Yanıt alınamadı.';
+      bekliyor.textContent=cevap;
+      if(sesli && 'speechSynthesis' in window){
+        window.speechSynthesis.cancel();
+        var u=new SpeechSynthesisUtterance(cevap);
+        u.lang='tr-TR'; u.rate=1.05;
+        u.onstart=function(){ durumYaz('Oluwa konuşuyor...'); };
+        u.onend=function(){ if(canli){ durumYaz('Dinliyorum... konuşun'); dinle(); } else durumYaz('Hazır.'); };
+        window.speechSynthesis.speak(u);
+      } else if(canli){ durumYaz('Dinliyorum... konuşun'); dinle(); }
+      else durumYaz('Hazır.');
+    }catch(e){
+      bekliyor.classList.remove('yaziyor');
+      bekliyor.textContent='Bağlantı hatası: '+e.message;
+      durumYaz('Bağlantı hatası');
+      if(canli) setTimeout(dinle, 1500);
+    }finally{
+      gonderBtn.disabled=false;
+      kutu.scrollTop=kutu.scrollHeight;
+    }
+  }
+
+  gonderBtn.addEventListener('click',function(){ gonder(girdi.value.trim(), false); });
+  girdi.addEventListener('keydown',function(e){ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); gonder(girdi.value.trim(), false); } });
+
+  var SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var tanima=null, canli=false;
+
+  if(SpeechRecognition){
+    tanima=new SpeechRecognition();
+    tanima.lang='tr-TR';
+    tanima.continuous=false;
+    tanima.interimResults=false;
+    tanima.maxAlternatives=1;
+    tanima.onresult=function(e){
+      var metin=e.results[0][0].transcript.trim();
+      if(!metin) return;
+      if('speechSynthesis' in window) window.speechSynthesis.cancel();
+      durumYaz('Seni duydum: '+metin);
+      gonder(metin, true);
+    };
+    tanima.onerror=function(e){ durumYaz('Ses algılama: '+e.error); if(canli) setTimeout(dinle, 800); };
+    tanima.onend=function(){ if(canli && !('speechSynthesis' in window && window.speechSynthesis.speaking)) setTimeout(dinle, 250); };
+  }
+
+  function dinle(){
+    if(!canli || !tanima) return;
+    try{ tanima.start(); durumYaz('Dinliyorum... konuşun'); }catch(e){ setTimeout(dinle, 500); }
+  }
+
+  micBtn.addEventListener('click',function(){
+    if(!SpeechRecognition){ durumYaz('Bu tarayıcı sesli konuşmayı desteklemiyor.'); return; }
+    canli=!canli;
+    micBtn.classList.toggle('aktif', canli);
+    micBtn.textContent=canli?'CANLI KONUŞMAYI DURDUR':'CANLI KONUŞMA BAŞLAT';
+    if(canli){
+      if('speechSynthesis' in window) window.speechSynthesis.cancel();
+      dinle();
+    }else{
+      if('speechSynthesis' in window) window.speechSynthesis.cancel();
+      try{ tanima.stop(); }catch(e){}
+      durumYaz('Hazır.');
+    }
+  });
+
+  girdi.focus();
+})();
+</script>
+</body>
+</html>
