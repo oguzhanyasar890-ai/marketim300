@@ -357,6 +357,23 @@
     html.m3000-app .kitap-asansor-genis{width:auto!important;padding:0 16px!important;font-size:12px!important;font-weight:800!important}
 
 main#kitaplarBolumu{border:14px solid #7a5a3a;border-image:url('cerceve_ahap.png') 30;border-image-repeat:stretch;border-radius:22px!important;box-shadow:0 16px 55px rgba(74,51,40,.45)!important;background:rgba(245,238,225,.92)!important}
+
+main#kitaplarBolumu{position:relative!important;overflow:visible!important}
+.orbit-wrap{
+  position:absolute!important;
+  left:50%!important;top:50%!important;
+  width:0!important;height:0!important;
+  animation:kitaplikOrbit 38s linear infinite!important;
+  z-index:30!important;
+}
+.orbit-wrap>.orbit-card{
+  position:absolute!important;
+  left:0!important;top:0!important;
+  margin:0!important;
+  pointer-events:auto!important;
+}
+.orbit-wrap>.orbit-card:hover{transform:none!important}
+@keyframes kitaplikOrbit{to{transform:rotate(360deg)}}
 </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebSite","name":"Marketim3000","url":"https://www.marketim3000.online/","inLanguage":"tr-TR","description":"Dijital kitapları keşfetme, çevrim içi okuma ve sesli dinleme platformu."}
@@ -3189,4 +3206,36 @@ window.checkoutCart = async () => {
   }, 12000);
 })();
 </script>
+
+(function(){
+  function orbit3(){
+    var sec=document.getElementById('kitaplarBolumu');
+    if(!sec) return;
+    if(sec.querySelectorAll('.orbit-wrap').length>=3) return;
+    var cards=[];
+    var arts=sec.querySelectorAll('article');
+    for(var i=0;i<arts.length&&cards.length<3;i++){
+      if(arts[i].classList&&arts[i].classList.contains('orbit-card')) continue;
+      cards.push(arts[i]);
+    }
+    if(cards.length<3) return;
+    var R=180;
+    for(var j=0;j<cards.length;j++){
+      var card=cards[j];
+      var deg=j*120;
+      var x=Math.round(R*Math.cos(deg*Math.PI/180));
+      var y=Math.round(R*Math.sin(deg*Math.PI/180));
+      var wrap=document.createElement('div');
+      wrap.className='orbit-wrap';
+      card.classList.add('orbit-card');
+      card.style.left='0';
+      card.style.top='0';
+      card.style.margin='0';
+      card.style.transform='translate('+x+'px,'+y+'px)';
+      wrap.appendChild(card);
+      sec.insertBefore(wrap, sec.firstChild);
+    }
+  }
+  setInterval(orbit3, 2000);
+})();
 </body></html>
