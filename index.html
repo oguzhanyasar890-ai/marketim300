@@ -358,34 +358,9 @@
 
 main#kitaplarBolumu{border:14px solid #7a5a3a;border-image:url('cerceve_ahap.png') 30;border-image-repeat:stretch;border-radius:22px!important;box-shadow:0 16px 55px rgba(74,51,40,.45)!important;background:rgba(245,238,225,.92)!important}
 
-main#kitaplarBolumu{position:relative!important;overflow:visible!important}
-#kitapDondurme{
-  position:absolute!important;
-  left:50%!important;top:230px!important;
-  width:0!important;height:0!important;
-  animation:kitapDondur 40s linear infinite!important;
-  z-index:55!important;
-  pointer-events:none!important;
-}
-#kitapDondurme .kart{
-  position:absolute!important;
-  left:-55px!important;top:-80px!important;
-  width:110px!important;height:160px!important;
-  box-sizing:border-box!important;
-  border-radius:14px!important;
-  overflow:hidden!important;
-  background:#0a1f3a!important;
-  border:2px solid rgba(34,197,94,.65)!important;
-  box-shadow:0 12px 30px rgba(0,0,0,.45)!important;
-  pointer-events:auto!important;
-  cursor:pointer!important;
-}
-#kitapDondurme .kart img{width:100%!important;height:120px!important;object-fit:cover!important;display:block!important}
-#kitapDondurme .kart span{display:block!important;padding:6px!important;font-size:11px!important;color:#fff!important;text-align:center!important;line-height:1.2!important}
-#kitapDondurme .kart-1{transform:rotate(0deg) translateY(-150px)!important}
-#kitapDondurme .kart-2{transform:rotate(120deg) translateY(-150px)!important}
-#kitapDondurme .kart-3{transform:rotate(240deg) translateY(-150px)!important}
-@keyframes kitapDondur{to{transform:rotate(360deg)}}
+.m3000-donus{position:absolute!important;inset:0!important;animation:m3000Donus 40s linear infinite!important}
+@keyframes m3000Donus{to{transform:rotate(360deg)}}
+html.m3000-app .m3000-donus{animation:none!important;position:static!important;display:contents!important}
 </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebSite","name":"Marketim3000","url":"https://www.marketim3000.online/","inLanguage":"tr-TR","description":"Dijital kitapları keşfetme, çevrim içi okuma ve sesli dinleme platformu."}
@@ -3209,30 +3184,19 @@ window.checkoutCart = async () => {
   </div>
 <script>
 (function(){
-  function buildRotate(){
-    if(document.getElementById('kitapDondurme')) return;
-    var sec=document.getElementById('kitaplarBolumu');
-    if(!sec) return;
-    var books=window.__m3000Books||[];
-    if(!books.length) return;
-    var wrap=document.createElement('div');
-    wrap.id='kitapDondurme';
-    for(var i=0;i<3;i++){
-      var b=books[i%books.length];
-      var cover=(window.__m3000KapakUrl&&window.__m3000KapakUrl(b))||b.kapakUrl||'';
-      var kart=document.createElement('div');
-      kart.className='kart kart-'+(i+1);
-      var img=document.createElement('img');
-      img.src=cover; img.alt=String(b.baslik||'Kitap');
-      var lbl=document.createElement('span');
-      lbl.textContent=String(b.baslik||'Kitap');
-      kart.appendChild(img); kart.appendChild(lbl);
-      kart.onclick=(function(bb){return function(){if(typeof openBookModal==='function')openBookModal(bb.id);};})(b);
-      wrap.appendChild(kart);
-    }
-    sec.insertBefore(wrap, sec.firstChild);
+  function wrapHero(){
+    var visual=document.querySelector('.m3000-visual');
+    if(!visual || visual.querySelector('.m3000-donus')) return;
+    var orbit=visual.querySelector('.m3000-orbit');
+    var books=visual.querySelectorAll('img.m3000-book');
+    if(!orbit || books.length<3) return;
+    var d=document.createElement('div');
+    d.className='m3000-donus';
+    visual.insertBefore(d, orbit);
+    d.appendChild(orbit);
+    for(var i=0;i<books.length;i++) d.appendChild(books[i]);
   }
-  setInterval(buildRotate, 1500);
+  setInterval(wrapHero, 1000);
 })();
 </script>
 </body></html>
