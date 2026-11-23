@@ -3211,4 +3211,28 @@ window.checkoutCart = async () => {
   setInterval(wrapHero, 1000);
 })();
 </script>
+
+<div id="m3000DirekIletisim" style="position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:99999;width:min(680px,calc(100% - 24px));background:linear-gradient(90deg,#7f1d1d,#991b1b);border:2px solid #f87171;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px rgba(0,0,0,.45);font-family:system-ui,sans-serif">
+  <div style="flex:1;color:#fff;font-size:14px;line-height:1.4"><strong>Tüm kitapları satın almak isteyenler</strong><br><span style="color:#fecaca;font-size:12px">Doğrudan benimle iletişime geçin — WhatsApp'tan hem bilgi hem ödeme.</span></div>
+  <a href="https://wa.me/905318479349?text=Merhaba%2C%20t%C3%BCm%20kitaplar%C4%B1%20sat%C4%B1n%20almak%20istiyorum." target="_blank" rel="noopener" style="background:#22c55e;color:#fff;text-decoration:none;font-weight:700;font-size:13px;padding:10px 14px;border-radius:10px;white-space:nowrap">WhatsApp ile Yaz</a>
+</div>
+<script>
+(function(){
+  var WA='https://wa.me/905318479349?text=Merhaba%2C%20t%C3%BCm%20kitaplar%C4%B1%20sat%C4%B1n%20almak%20istiyorum.';
+  function direk(){ window.open(WA,'_blank','noopener'); return false; }
+  window.__m3000DirekIletisim=direk;
+  ['openPurchaseModal','confirmPurchaseRequest','checkoutCart','confirmPlanRequest','previewBuy','previewPremium','__m3000SiparisOlustur'].forEach(function(k){
+    try { window[k]=direk; } catch(e){}
+  });
+  document.addEventListener('click',function(e){
+    var a=e.target && e.target.closest && e.target.closest('a[href*="siparis-olustur"],button');
+    if(!a) return;
+    var t=(a.textContent||'').toLowerCase();
+    if(t.indexOf('ödemeyi yaptım')>=0 || t.indexOf('odemeyi yaptim')>=0 || t.indexOf('satın al')>=0 || t.indexOf('satin al')>=0){
+      direk();
+    }
+  },true);
+})();
+</script>
+
 </body></html>
